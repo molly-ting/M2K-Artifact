@@ -1,0 +1,4525 @@
+[
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        8
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        8
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1,
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        125
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        125
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        10
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        10
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        10
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        10
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        43,
+                        91
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        43,
+                        91
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        5
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        5
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4544
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "all_reduce",
+        "cuda_function": "all_reduce",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/custom_all_reduce_combined.bc",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    }
+]

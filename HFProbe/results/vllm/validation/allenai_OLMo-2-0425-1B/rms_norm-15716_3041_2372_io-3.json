@@ -1,0 +1,122 @@
+{
+  "(('_custom_ops.py', 276), ('model_executor/layers/layernorm.py', 23), ('model_executor/layers/layernorm.py', 171), ('model_executor/custom_op.py', 23), ('model_executor/models/olmo2.py', 143))": {
+    "(512, 2049)": [
+      [
+        {
+          "shape": [
+            829845,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            829845,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            405,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            405,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            219243,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            219243,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            107,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            107,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ]
+    ]
+  }
+}

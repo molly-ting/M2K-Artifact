@@ -1,0 +1,1 @@
+{"initial": ["reshape_and_cache_flash", "silu_and_mul", "fused_add_rms_norm", "all_reduce", "fwd_kvcache", "rms_norm", "gelu_quick", "varlen_fwd"], "initial_num": 8, "new": ["swap_blocks"], "inre_len": 1}

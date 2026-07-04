@@ -1,0 +1,3051 @@
+[
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    24576
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    24576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    8192
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        175
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        175
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    3072
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    12288
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    12288
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    14336
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    14336
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    13653
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    13653
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    768
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    768
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    3072
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5760
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5760
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    2304
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    5760
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5760
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    9216
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    9216
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    2048
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    16384
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    15360
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    15360
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    21824
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    21824
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    11008
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    11008
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    17920
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    17920
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    5120
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    17920
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    17920
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5632
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5632
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    768
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    3072
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    128
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    3584
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    7168
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    128
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    16384
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    1152
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    6912
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6912
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    1152
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17,
+                    6912
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6912
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2560
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    10240
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    10240
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4864
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4864
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    14336
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        175
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        175
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    3072
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1024
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        322
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        322
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        322
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        322
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    14336
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        85
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        168
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    16384
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        90
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "py_function": "dynamic_per_token_scaled_fp8_quant",
+        "cuda_function": "dynamic_per_token_scaled_fp8_quant",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    }
+]

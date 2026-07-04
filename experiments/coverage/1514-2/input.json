@@ -1,0 +1,71 @@
+[
+    {
+        "py_function": "copy_blocks",
+        "cuda_function": "copy_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/coverage-exp/1514-2/cache_kernels_combined.bc",
+        "args": [
+            {
+                "value": [
+                    {
+                        "shape": [
+                            64000,
+                            32,
+                            16,
+                            16,
+                            8
+                        ],
+                        "dtype": "torch.bfloat16",
+                        "type": "torch.Tensor"
+                    }
+                ],
+                "shape": [1],
+                "dtype": "torch.Tensor",
+                "type": "list"
+            },
+            {
+                "value": [
+                    {
+                        "shape": [
+                            64000,
+                            32,
+                            128,
+                            16
+                        ],
+                        "dtype": "torch.bfloat16",
+                        "type": "torch.Tensor"
+                    }
+                ],
+                "shape": [1],
+                "dtype": "torch.Tensor",
+                "type": "list"
+            },
+            {
+                "value": [
+                    {
+                        "shape": [
+                            2
+                        ],
+                        "dtype": "int64",
+                        "type": "list",
+                        "maxV": 63999,
+                        "minV": 0,
+                        "dupV": false
+                    },
+                    {
+                        "shape": [
+                            2
+                        ],
+                        "dtype": "int64",
+                        "type": "list",
+                        "maxV": 63999,
+                        "minV": 0,
+                        "dupV": false
+                    }
+                ],
+                "shape": [2],
+                "dtype": "list",
+                "type": "map"
+            }
+        ]
+    }
+]

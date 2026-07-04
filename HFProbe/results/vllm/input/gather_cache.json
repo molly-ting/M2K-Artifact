@@ -1,0 +1,67 @@
+[
+    {
+        "py_function": "gather_cache",
+        "cuda_function": "gather_cache",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    30,
+                    64,
+                    576
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16384,
+                    576
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        3
+                    ]
+                },
+                "maxV": 2,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 128,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    }
+]

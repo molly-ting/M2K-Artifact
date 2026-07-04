@@ -1,0 +1,170 @@
+{
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 486), ('model_executor/models/persimmon.py', 148), ('model_executor/models/persimmon.py', 197))": {
+    "(128, 1025)": [
+      [
+        {
+          "shape": [
+            128,
+            4096
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            4096,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            12288
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 1288), ('model_executor/models/persimmon.py', 164), ('model_executor/models/persimmon.py', 197))": {
+    "(128, 1025)": [
+      [
+        {
+          "shape": [
+            128,
+            4096
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            4096,
+            512
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            4096
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            512
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 486), ('model_executor/models/persimmon.py', 69), ('model_executor/models/persimmon.py', 206))": {
+    "(128, 1025)": [
+      [
+        {
+          "shape": [
+            128,
+            4096
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            4096,
+            2048
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            16384
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32,
+            2048
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 1288), ('model_executor/models/persimmon.py', 71), ('model_executor/models/persimmon.py', 206))": {
+    "(128, 1025)": [
+      [
+        {
+          "shape": [
+            128,
+            16384
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            16384,
+            512
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            128,
+            4096
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            128,
+            512
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  }
+}

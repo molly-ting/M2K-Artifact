@@ -1,0 +1,37 @@
+{
+    "initial": [
+        "fwd_kvcache",
+        "rms_norm",
+        "varlen_fwd",
+        "reshape_and_cache_flash",
+        "fused_add_rms_norm",
+        "rotary_embedding",
+        "silu_and_mul",
+        "all_reduce"
+    ],
+    "initial_num": 8,
+    "new": [
+        "advance_step_flashattn",
+        "cutlass_scaled_mm",
+        "machete_prepack_B",
+        "gptq_shuffle",
+        "dynamic_per_token_scaled_fp8_quant",
+        "swap_blocks",
+        "dynamic_scaled_int8_quant",
+        "aqlm_dequant",
+        "dynamic_scaled_fp8_quant",
+        "gptq_gemm",
+        "cutlass_scaled_mm_supports_fp8",
+        "machete_mm",
+        "reshape_and_cache",
+        "cutlass_scaled_sparse_mm",
+        "cutlass_sparse_scaled_mm_supported",
+        "static_scaled_int8_quant",
+        "cutlass_scaled_mm_supports_block_fp8",
+        "static_scaled_fp8_quant",
+        "aqlm_gemm",
+        "cutlass_sparse_compress",
+        "paged_attention_v1"
+    ],
+    "inre_len": 21
+}

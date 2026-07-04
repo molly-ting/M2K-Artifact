@@ -1,0 +1,236 @@
+{
+    "paged_attention_v1": {
+        "input_token": 831,
+        "output_token": 0,
+        "money_cost": 0.00103875,
+        "gpt_time_cost": 154.28595495224,
+        "execute_time": 20.713323831558228
+    },
+    "paged_attention_v2": {
+        "input_token": 1035,
+        "output_token": 0,
+        "money_cost": 0.00129375,
+        "gpt_time_cost": 141.65687084197998
+    },
+    "paged_attention": {
+        "input_token": 518,
+        "output_token": 0,
+        "money_cost": 0.0006475000000000001,
+        "gpt_time_cost": 150.25488758087158,
+        "execute_time": 20.545311212539673
+    },
+    "merge_attn_states": {
+        "input_token": 661,
+        "output_token": 0,
+        "money_cost": 0.00082625,
+        "gpt_time_cost": 103.9260938167572,
+        "execute_time": 47.50451850891113
+    },
+    "convert_vertical_slash_indexes": {
+        "input_token": 984,
+        "output_token": 0,
+        "money_cost": 0.00123,
+        "gpt_time_cost": 116.88649106025696
+    },
+    "convert_vertical_slash_indexes_mergehead": {
+        "input_token": 903,
+        "output_token": 0,
+        "money_cost": 0.00112875,
+        "gpt_time_cost": 129.52882885932922,
+        "execute_time": 27.56939435005188
+    },
+    "batched_rotary_embedding": {
+        "input_token": 534,
+        "output_token": 0,
+        "money_cost": 0.0006675,
+        "gpt_time_cost": 128.63065695762634
+    },
+    "advance_step_flashattn": {
+        "input_token": 356,
+        "output_token": 0,
+        "money_cost": 0.000445,
+        "gpt_time_cost": 79.494793176651
+    },
+    "advance_step_flashinfer": {
+        "input_token": 355,
+        "output_token": 0,
+        "money_cost": 0.00044374999999999997,
+        "gpt_time_cost": 80.79771494865417,
+        "execute_time": 28.08371901512146
+    },
+    "awq_dequantize": {
+        "input_token": 515,
+        "output_token": 0,
+        "money_cost": 0.00064375,
+        "gpt_time_cost": 137.08874130249023,
+        "execute_time": 79.47581577301025
+    },
+    "awq_gemm": {
+        "input_token": 550,
+        "output_token": 0,
+        "money_cost": 0.0006875000000000001,
+        "gpt_time_cost": 114.24888586997986,
+        "execute_time": 78.71120619773865
+    },
+    "gptq_gemm": {
+        "input_token": 432,
+        "output_token": 0,
+        "money_cost": 0.00054,
+        "gpt_time_cost": 149.4309206008911,
+        "execute_time": 62.874141454696655
+    },
+    "marlin_gemm": {
+        "input_token": 473,
+        "output_token": 0,
+        "money_cost": 0.00059125,
+        "gpt_time_cost": 167.55118131637573,
+        "execute_time": 59.928584575653076
+    },
+    "gptq_marlin_24_gemm": {
+        "input_token": 489,
+        "output_token": 0,
+        "money_cost": 0.00061125,
+        "gpt_time_cost": 166.17583632469177,
+        "execute_time": 59.610434770584106
+    },
+    "cutlass_scaled_fp4_mm": {
+        "input_token": 642,
+        "output_token": 0,
+        "money_cost": 0.0008025,
+        "gpt_time_cost": 173.7785849571228,
+        "execute_time": 0.517648458480835
+    },
+    "cutlass_scaled_mm": {
+        "input_token": 423,
+        "output_token": 0,
+        "money_cost": 0.00052875,
+        "gpt_time_cost": 165.87121891975403,
+        "execute_time": 36.079707622528076
+    },
+    "cutlass_scaled_sparse_mm": {
+        "input_token": 663,
+        "output_token": 0,
+        "money_cost": 0.0008287500000000001,
+        "gpt_time_cost": 205.88752913475037,
+        "execute_time": 0.4335134029388428
+    },
+    "aqlm_gemm": {
+        "input_token": 556,
+        "output_token": 0,
+        "money_cost": 0.0006950000000000001,
+        "gpt_time_cost": 149.1178719997406,
+        "execute_time": 56.72144842147827
+    },
+    "aqlm_dequant": {
+        "input_token": 480,
+        "output_token": 0,
+        "money_cost": 0.0006,
+        "gpt_time_cost": 156.45948028564453,
+        "execute_time": 57.58162832260132
+    },
+    "gptq_marlin_gemm": {
+        "input_token": 490,
+        "output_token": 0,
+        "money_cost": 0.0006125,
+        "gpt_time_cost": 122.2716932296753,
+        "execute_time": 60.013599157333374
+    },
+    "machete_mm": {
+        "input_token": 468,
+        "output_token": 0,
+        "money_cost": 0.000585,
+        "gpt_time_cost": 149.78885746002197,
+        "execute_time": 24.002570867538452
+    },
+    "scaled_fp4_quant": {
+        "input_token": 527,
+        "output_token": 0,
+        "money_cost": 0.00065875,
+        "gpt_time_cost": 169.94484686851501,
+        "execute_time": 0.45040225982666016
+    },
+    "dynamic_per_token_scaled_fp8_quant": {
+        "input_token": 778,
+        "output_token": 0,
+        "money_cost": 0.0009725000000000001,
+        "gpt_time_cost": 125.18312382698059
+    },
+    "dynamic_scaled_fp8_quant": {
+        "input_token": 822,
+        "output_token": 0,
+        "money_cost": 0.0010275,
+        "gpt_time_cost": 147.62207770347595,
+        "execute_time": 37.82223057746887
+    },
+    "static_scaled_fp8_quant": {
+        "input_token": 869,
+        "output_token": 0,
+        "money_cost": 0.00108625,
+        "gpt_time_cost": 154.8192367553711,
+        "execute_time": 30.961724758148193
+    },
+    "allspark_w8a16_gemm": {
+        "input_token": 460,
+        "output_token": 0,
+        "money_cost": 0.000575,
+        "gpt_time_cost": 195.80037355422974,
+        "execute_time": 0.6506686210632324
+    },
+    "static_scaled_int8_quant": {
+        "input_token": 619,
+        "output_token": 0,
+        "money_cost": 0.00077375,
+        "gpt_time_cost": 131.42500805854797
+    },
+    "dynamic_scaled_int8_quant": {
+        "input_token": 708,
+        "output_token": 0,
+        "money_cost": 0.0008849999999999999,
+        "gpt_time_cost": 119.05164504051208,
+        "execute_time": 86.88850498199463
+    },
+    "marlin_qqq_gemm": {
+        "input_token": 510,
+        "output_token": 0,
+        "money_cost": 0.0006375,
+        "gpt_time_cost": 231.4069344997406,
+        "execute_time": 0.5720891952514648
+    },
+    "reshape_and_cache": {
+        "input_token": 433,
+        "output_token": 0,
+        "money_cost": 0.00054125,
+        "gpt_time_cost": 131.19138312339783,
+        "execute_time": 24.962621688842773
+    },
+    "concat_and_cache_mla": {
+        "input_token": 712,
+        "output_token": 0,
+        "money_cost": 0.00089,
+        "gpt_time_cost": 92.54071259498596
+    },
+    "copy_blocks_mla": {
+        "input_token": 335,
+        "output_token": 0,
+        "money_cost": 0.00041875,
+        "gpt_time_cost": 103.95284247398376
+    },
+    "swap_blocks": {
+        "input_token": 333,
+        "output_token": 0,
+        "money_cost": 0.00041625,
+        "gpt_time_cost": 145.98506140708923
+    },
+    "gather_cache": {
+        "input_token": 570,
+        "output_token": 0,
+        "money_cost": 0.0007124999999999999,
+        "gpt_time_cost": 84.57046747207642
+    },
+    "total": {
+        "input_token": 20034,
+        "output_token": 0,
+        "money_cost": 0.0250425,
+        "time_cost": 5733.861812829971
+    }
+}

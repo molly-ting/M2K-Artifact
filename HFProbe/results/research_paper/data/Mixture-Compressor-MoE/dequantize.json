@@ -1,0 +1,4160 @@
+[
+    {
+        "batch_size": 1,
+        "seq_len": 2,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 1,
+        "seq_len": 8,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 1,
+        "seq_len": 18,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 3,
+        "seq_len": 2,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 3,
+        "seq_len": 8,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 3,
+        "seq_len": 18,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 5,
+        "seq_len": 2,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 5,
+        "seq_len": 8,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "batch_size": 5,
+        "seq_len": 18,
+        "calls": [
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        242,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        243,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        244,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            131072,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            262144,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        277,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        308,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([11008, 4096])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            },
+            {
+                "name": "custom_cpp::hqq::dequantize_4bit_u8_kernel",
+                "args": [
+                    {
+                        "shape": [
+                            352256,
+                            64
+                        ],
+                        "dtype": "torch.uint8",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "shape": [
+                            704512,
+                            1
+                        ],
+                        "dtype": "torch.float16",
+                        "type": "torch.Tensor"
+                    },
+                    {
+                        "value": "torch.Size([4096, 11008])",
+                        "type": "Size"
+                    },
+                    {
+                        "value": 64,
+                        "type": "int"
+                    },
+                    {
+                        "value": 4,
+                        "type": "int"
+                    },
+                    {
+                        "value": 1,
+                        "type": "int"
+                    },
+                    {
+                        "value": "4bit_u8",
+                        "type": "str"
+                    }
+                ],
+                "stack": [
+                    [
+                        "/models/llama/modeling_llama.py",
+                        162,
+                        "forward"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        324,
+                        "forward"
+                    ],
+                    [
+                        "/modeling_layers.py",
+                        48,
+                        "__call__"
+                    ],
+                    [
+                        "/models/llama/modeling_llama.py",
+                        453,
+                        "forward"
+                    ],
+                    [
+                        "/utils/generic.py",
+                        969,
+                        "wrapper"
+                    ]
+                ]
+            }
+        ]
+    }
+]

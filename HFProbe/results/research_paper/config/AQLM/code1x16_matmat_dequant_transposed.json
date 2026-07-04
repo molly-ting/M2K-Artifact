@@ -1,0 +1,1 @@
+{"base_model": "meta-llama/Llama-2-7b-hf", "dtype": "float16", "quantization": {"num_codebooks": 1, "nbits_per_codebook": 16, "in_group_size": 16, "out_group_size": 1}, "inference": {"backend": "cuda", "use_cuda_graphs": false, "transpose_weight": true, "force_transposed_kernel": true}, "model": {"block_type": "LlamaDecoderLayer", "model_seqlen": 4096}}

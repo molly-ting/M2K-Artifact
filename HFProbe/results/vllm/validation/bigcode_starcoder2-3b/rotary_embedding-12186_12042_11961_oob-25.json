@@ -1,0 +1,50 @@
+{
+  "(('_custom_ops.py', 257), ('model_executor/layers/rotary_embedding.py', 195), ('model_executor/custom_op.py', 23), ('model_executor/models/starcoder2.py', 124), ('model_executor/models/starcoder2.py', 189))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            256
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 128,
+          "type": "int"
+        },
+        {
+          "shape": [
+            16384,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ]
+    ]
+  }
+}

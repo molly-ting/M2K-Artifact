@@ -1,0 +1,142 @@
+{
+    "dynamic_per_token_scaled_fp8_quant": {
+        "input_token": 820,
+        "output_token": 0,
+        "money_cost": 0.0010249999999999999,
+        "gpt_time_cost": 164.2590777873993
+    },
+    "aqlm_gemm": {
+        "input_token": 598,
+        "output_token": 0,
+        "money_cost": 0.0007475,
+        "gpt_time_cost": 89.81108450889587
+    },
+    "allspark_w8a16_gemm": {
+        "input_token": 502,
+        "output_token": 0,
+        "money_cost": 0.0006275,
+        "gpt_time_cost": 151.23311257362366,
+        "execute_time": 0.30474233627319336
+    },
+    "marlin_gemm": {
+        "input_token": 515,
+        "output_token": 0,
+        "money_cost": 0.00064375,
+        "gpt_time_cost": 127.3961021900177,
+        "execute_time": 0.21767449378967285
+    },
+    "cutlass_scaled_mm_supports_fp4": {
+        "input_token": 449,
+        "output_token": 0,
+        "money_cost": 0.00056125,
+        "gpt_time_cost": 174.1279125213623,
+        "execute_time": 0.24143600463867188
+    },
+    "batched_rotary_embedding": {
+        "input_token": 576,
+        "output_token": 0,
+        "money_cost": 0.0007199999999999999,
+        "gpt_time_cost": 128.8192799091339
+    },
+    "static_scaled_fp8_quant": {
+        "input_token": 911,
+        "output_token": 0,
+        "money_cost": 0.00113875,
+        "gpt_time_cost": 132.4001007080078,
+        "execute_time": 0.18624043464660645
+    },
+    "gelu_quick": {
+        "input_token": 413,
+        "output_token": 0,
+        "money_cost": 0.00051625,
+        "gpt_time_cost": 123.05970501899719,
+        "execute_time": 0.21126055717468262
+    },
+    "cutlass_scaled_fp4_mm": {
+        "input_token": 684,
+        "output_token": 0,
+        "money_cost": 0.0008550000000000001,
+        "gpt_time_cost": 149.59608125686646,
+        "execute_time": 2.2172927856445312e-05
+    },
+    "gelu_new": {
+        "input_token": 413,
+        "output_token": 0,
+        "money_cost": 0.00051625,
+        "gpt_time_cost": 108.88989663124084,
+        "execute_time": 1.2459251880645752
+    },
+    "gptq_gemm": {
+        "input_token": 474,
+        "output_token": 0,
+        "money_cost": 0.0005925,
+        "gpt_time_cost": 127.71812844276428,
+        "execute_time": 0.2438967227935791
+    },
+    "dynamic_scaled_int8_quant": {
+        "input_token": 750,
+        "output_token": 0,
+        "money_cost": 0.0009375,
+        "gpt_time_cost": 102.37834525108337
+    },
+    "scaled_fp4_quant": {
+        "input_token": 569,
+        "output_token": 0,
+        "money_cost": 0.00071125,
+        "gpt_time_cost": 157.95306539535522,
+        "execute_time": 0.187577486038208
+    },
+    "gelu_fast": {
+        "input_token": 413,
+        "output_token": 0,
+        "money_cost": 0.00051625,
+        "gpt_time_cost": 152.4978528022766,
+        "execute_time": 0.19215679168701172
+    },
+    "static_scaled_int8_quant": {
+        "input_token": 661,
+        "output_token": 0,
+        "money_cost": 0.00082625,
+        "gpt_time_cost": 153.80260467529297,
+        "execute_time": 0.18857097625732422
+    },
+    "awq_gemm": {
+        "input_token": 592,
+        "output_token": 0,
+        "money_cost": 0.00074,
+        "gpt_time_cost": 125.37149453163147
+    },
+    "marlin_qqq_gemm": {
+        "input_token": 552,
+        "output_token": 0,
+        "money_cost": 0.0006900000000000001,
+        "gpt_time_cost": 127.09719610214233
+    },
+    "paged_attention": {
+        "input_token": 560,
+        "output_token": 0,
+        "money_cost": 0.0007000000000000001,
+        "gpt_time_cost": 141.91411781311035,
+        "execute_time": 0.43898558616638184
+    },
+    "gptq_marlin_24_gemm": {
+        "input_token": 531,
+        "output_token": 0,
+        "money_cost": 0.0006637500000000001,
+        "gpt_time_cost": 188.96077418327332,
+        "execute_time": 0.1923525333404541
+    },
+    "aqlm_dequant": {
+        "input_token": 522,
+        "output_token": 0,
+        "money_cost": 0.0006525000000000001,
+        "gpt_time_cost": 148.75278425216675,
+        "execute_time": 0.1899406909942627
+    },
+    "total": {
+        "input_token": 11505,
+        "output_token": 0,
+        "money_cost": 0.01438125,
+        "time_cost": 3022.162688732147
+    }
+}

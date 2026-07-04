@@ -1,0 +1,8 @@
+/workspace/bugstudy-hc/vllm1514-2.hip.cpp:119:24: warning: overflow in expression; result is -1294967296 with type 'int' [-Winteger-overflow]
+                300000 * 10000);
+                       ^
+1 warning generated when compiling for gfx1030.
+/workspace/bugstudy-hc/vllm1514-2.hip.cpp:119:24: warning: overflow in expression; result is -1294967296 with type 'int' [-Winteger-overflow]
+                300000 * 10000);
+                       ^
+1 warning generated when compiling for host.

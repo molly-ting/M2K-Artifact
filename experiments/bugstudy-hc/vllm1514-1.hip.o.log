@@ -1,0 +1,16 @@
+/workspace/bugstudy-hc/vllm1514-1.hip.cpp:90:67: warning: format specifies type 'long long' but the argument has type 'std::int64_t' (aka 'long') [-Wformat]
+    printf("  num_blocks=%d, kv_block_stride=%lld\n", num_blocks, kv_block_stride);
+                                             ~~~~                 ^~~~~~~~~~~~~~~
+                                             %ld
+/workspace/bugstudy-hc/vllm1514-1.hip.cpp:92:30: warning: format specifies type 'long long' but the argument has type 'std::int64_t' (aka 'long') [-Wformat]
+           h_block_table[2], kv_block_stride);
+                             ^~~~~~~~~~~~~~~
+2 warnings generated when compiling for gfx1030.
+/workspace/bugstudy-hc/vllm1514-1.hip.cpp:90:67: warning: format specifies type 'long long' but the argument has type 'std::int64_t' (aka 'long') [-Wformat]
+    printf("  num_blocks=%d, kv_block_stride=%lld\n", num_blocks, kv_block_stride);
+                                             ~~~~                 ^~~~~~~~~~~~~~~
+                                             %ld
+/workspace/bugstudy-hc/vllm1514-1.hip.cpp:92:30: warning: format specifies type 'long long' but the argument has type 'std::int64_t' (aka 'long') [-Wformat]
+           h_block_table[2], kv_block_stride);
+                             ^~~~~~~~~~~~~~~
+2 warnings generated when compiling for host.

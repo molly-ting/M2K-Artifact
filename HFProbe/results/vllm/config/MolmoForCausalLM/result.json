@@ -1,0 +1,25 @@
+{
+    "initial": [
+        "fused_add_rms_norm",
+        "reshape_and_cache_flash",
+        "fwd_kvcache",
+        "rms_norm",
+        "gelu_quick",
+        "silu_and_mul",
+        "rotary_embedding",
+        "mul_and_silu",
+        "varlen_fwd",
+        "all_reduce"
+    ],
+    "initial_num": 10,
+    "new": [
+        "swap_blocks",
+        "paged_attention_v1",
+        "paged_attention_v2",
+        "gptq_gemm",
+        "dynamic_scaled_fp8_quant",
+        "cutlass_scaled_mm_supports_block_fp8",
+        "cutlass_scaled_mm_supports_fp8"
+    ],
+    "inre_len": 7
+}

@@ -1,0 +1,675 @@
+[
+    {
+        "name": "vllm.gptq_marlin_repack",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 3072,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_repack",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_repack",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_repack",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "name": "vllm.all_reduce",
+        "args": [
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "shape": [
+                    2048,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_gemm",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    6144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    80
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 3072,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "name": "vllm.varlen_fwd",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    21
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 2048,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    21
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 2048,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 103,
+                "type": "int"
+            },
+            {
+                "value": 103,
+                "type": "int"
+            },
+            {
+                "value": 0.0,
+                "type": "float"
+            },
+            {
+                "value": 0.125,
+                "type": "float"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": -1,
+                "type": "int"
+            },
+            {
+                "value": -1,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_gemm",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    80
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_gemm",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    80
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "name": "vllm.gptq_marlin_gemm",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    256,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    80
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    }
+]

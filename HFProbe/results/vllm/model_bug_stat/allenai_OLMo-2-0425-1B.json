@@ -1,0 +1,1965 @@
+{
+    "all_reduce": {
+        "6": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "83": null,
+        "7": null,
+        "0": null
+    },
+    "rms_norm": {
+        "3": {
+            "time": 17.0,
+            "total_path": 8,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 83,
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "145": {
+            "time": 21.0,
+            "total_path": 7,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 90,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "5": {
+            "time": 18.0,
+            "total_path": 7,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 90,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "0": {
+            "time": 18.0,
+            "total_path": 8,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 83,
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rotary_embedding": {
+        "98": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "99": {
+            "time": 20.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "591": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "592": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "593": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "594": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "595": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "596": {
+            "time": 20.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "597": {
+            "time": 20.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "598": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "599": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "600": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "601": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "602": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "603": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "604": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "101": {
+            "time": 26.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "102": {
+            "time": 17.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "103": {
+            "time": 20.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "605": {
+            "time": 18.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "606": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "607": {
+            "time": 17.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "608": {
+            "time": 20.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "609": {
+            "time": 18.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "610": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "611": {
+            "time": 18.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "612": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "613": {
+            "time": 18.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "614": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "615": {
+            "time": 18.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "616": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "617": {
+            "time": 17.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 52,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "100": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "106": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "107": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "618": {
+            "time": 24.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "619": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "620": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "621": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "622": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "623": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "624": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "625": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "626": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "627": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "628": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "629": {
+            "time": 24.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "630": {
+            "time": 21.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "631": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 86,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        }
+    },
+    "reshape_and_cache_flash": {
+        "72": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "73": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "631": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "632": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "633": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "634": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "635": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "636": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "637": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "638": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "639": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "640": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "641": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "642": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "643": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "644": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "80": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "81": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "656": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "657": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "658": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "659": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "660": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "661": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "662": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "663": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "664": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "665": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "666": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "667": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        },
+        "668": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "669": {
+            "time": 4.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 25,
+            "io": [],
+            "oob": [
+                "34968_25569_24388_oob"
+            ],
+            "dr": []
+        }
+    },
+    "varlen_fwd": {},
+    "silu_and_mul": {
+        "49": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "161": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "50": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "0": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "fwd_kvcache": {},
+    "aqlm_gemm": {
+        "111": {
+            "time": 298.0,
+            "total_path": 13,
+            "complete_path": 6,
+            "instructions": 24953,
+            "z3_queries": 935,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "105": {
+            "time": 61.0,
+            "total_path": 7,
+            "complete_path": 3,
+            "instructions": 11488,
+            "z3_queries": 359,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "112": {
+            "time": 175.0,
+            "total_path": 9,
+            "complete_path": 4,
+            "instructions": 17902,
+            "z3_queries": 631,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "113": {
+            "time": 394.0,
+            "total_path": 13,
+            "complete_path": 3,
+            "instructions": 26197,
+            "z3_queries": 1133,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "aqlm_dequant": {
+        "62": {
+            "time": 185.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2708,
+            "z3_queries": 566,
+            "io": [],
+            "oob": [
+                "24213_2307_2784_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "24213_2307_2784_oob"
+            ],
+            "dr": []
+        },
+        "33": {
+            "time": 43.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 1731,
+            "z3_queries": 212,
+            "io": [],
+            "oob": [
+                "24213_2307_2784_oob"
+            ],
+            "dr": []
+        },
+        "34": {
+            "time": 117.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 2504,
+            "z3_queries": 382,
+            "io": [],
+            "oob": [
+                "24213_2307_2784_oob"
+            ],
+            "dr": []
+        },
+        "35": {
+            "time": 328.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 2955,
+            "z3_queries": 738,
+            "io": [],
+            "oob": [
+                "24213_2307_2784_oob"
+            ],
+            "dr": []
+        }
+    },
+    "advance_step_flashattn": {
+        "3": {
+            "time": 4.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "4": {
+            "time": 3.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "5": {
+            "time": 4.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "6": {
+            "time": 3.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "7": {
+            "time": 4.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "8": {
+            "time": 4.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "9": {
+            "time": 3.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        },
+        "10": {
+            "time": 4.0,
+            "total_path": 4,
+            "complete_path": 3,
+            "instructions": 466,
+            "z3_queries": 36,
+            "io": [],
+            "oob": [
+                "6579_1518_979_oob"
+            ],
+            "dr": []
+        }
+    },
+    "dynamic_per_token_scaled_fp8_quant": {
+        "56": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "57": null
+    },
+    "cutlass_scaled_sparse_mm": {
+        "70": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "37": null,
+        "38": null,
+        "39": null
+    },
+    "marlin_gemm": {
+        "91": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "59": null,
+        "60": null,
+        "61": null
+    },
+    "machete_mm": {
+        "112": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "113": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "114": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "115": {
+            "time": 68.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "105": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "6": {
+            "time": 68.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "71": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "72": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "swap_blocks": {
+        "35": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "36": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "37": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "dynamic_scaled_fp8_quant": {
+        "129": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "149": null
+    },
+    "dynamic_scaled_int8_quant": {
+        "35": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "302": null,
+        "26": {
+            "time": 1201.0,
+            "total_path": 704,
+            "complete_path": 2,
+            "instructions": 39853,
+            "z3_queries": 2524,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "303": null
+    },
+    "cutlass_scaled_mm": {
+        "205": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "206": null,
+        "207": null,
+        "208": null,
+        "113": null,
+        "209": null,
+        "210": null,
+        "211": null,
+        "212": null
+    },
+    "reshape_and_cache": {
+        "372": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "373": null,
+        "374": null,
+        "375": null,
+        "376": null,
+        "377": null,
+        "378": null,
+        "379": null,
+        "380": null,
+        "381": null,
+        "382": null,
+        "383": null,
+        "384": null,
+        "385": null,
+        "386": null,
+        "387": null,
+        "215": {
+            "time": 10.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 44,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "216": {
+            "time": 128.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 46,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "217": {
+            "time": 68.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "218": {
+            "time": 67.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "219": {
+            "time": 67.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "220": {
+            "time": 131.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 46,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "221": {
+            "time": 70.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "222": {
+            "time": 124.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "223": {
+            "time": 77.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 748,
+            "z3_queries": 46,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "224": {
+            "time": 125.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "225": {
+            "time": 31.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 44,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "226": {
+            "time": 129.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 46,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "227": {
+            "time": 72.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "228": {
+            "time": 126.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 46,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "229": {
+            "time": 68.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "230": {
+            "time": 68.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "paged_attention_v1": {
+        "135": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "136": null,
+        "137": null,
+        "138": null,
+        "139": null,
+        "140": null,
+        "141": null,
+        "142": null,
+        "143": null,
+        "144": null,
+        "145": null,
+        "146": null,
+        "147": null,
+        "148": null,
+        "149": null
+    },
+    "paged_attention_v2": {
+        "30": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "31": null,
+        "32": null,
+        "33": null,
+        "34": null,
+        "35": null,
+        "36": null,
+        "37": null,
+        "38": null,
+        "39": null,
+        "40": null,
+        "41": null,
+        "42": null,
+        "43": null,
+        "44": null
+    },
+    "static_scaled_fp8_quant": {
+        "108": {
+            "time": 3.0,
+            "total_path": 5,
+            "complete_path": 1,
+            "instructions": 2995,
+            "z3_queries": 24,
+            "io": [
+                "12195_3112_3056_io",
+                "12180_3112_3056_io"
+            ],
+            "oob": [
+                "12549_12196_3112_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "12195_3112_3056_io",
+                "12180_3112_3056_io"
+            ],
+            "oob": [
+                "12549_12196_3112_oob"
+            ],
+            "dr": []
+        },
+        "95": {
+            "time": 4.0,
+            "total_path": 5,
+            "complete_path": 1,
+            "instructions": 2995,
+            "z3_queries": 24,
+            "io": [
+                "12195_3112_3056_io",
+                "12180_3112_3056_io"
+            ],
+            "oob": [
+                "12549_12196_3112_oob"
+            ],
+            "dr": []
+        }
+    },
+    "marlin_qqq_gemm": {
+        "41": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "42": null,
+        "43": null,
+        "44": null
+    },
+    "gptq_gemm": {
+        "106": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "57": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "58": {
+            "time": 484.0,
+            "total_path": 27,
+            "complete_path": 4,
+            "instructions": 489393,
+            "z3_queries": 2233,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "59": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "gptq_marlin_24_gemm": {
+        "91": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "59": null,
+        "60": null,
+        "61": null
+    },
+    "scaled_fp4_quant": {
+        "2": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 2,
+            "instructions": 510,
+            "z3_queries": 5,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "3": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 2,
+            "instructions": 510,
+            "z3_queries": 5,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "cutlass_scaled_fp4_mm": {
+        "41": {
+            "time": 1.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 9,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "5": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 9,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "55": {
+            "time": 1.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 9,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "7": {
+            "time": 1.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 9,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "awq_gemm": {
+        "114": {
+            "time": 168.0,
+            "total_path": 8,
+            "complete_path": 4,
+            "instructions": 70880,
+            "z3_queries": 881,
+            "io": [
+                "16412_15675_15465_io",
+                "17210_15675_15465_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "16412_15675_15465_io",
+                "17210_15675_15465_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "77": {
+            "time": 143.0,
+            "total_path": 5,
+            "complete_path": 4,
+            "instructions": 70880,
+            "z3_queries": 879,
+            "io": [
+                "16412_15675_15465_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "78": {
+            "time": 135.0,
+            "total_path": 7,
+            "complete_path": 4,
+            "instructions": 70880,
+            "z3_queries": 881,
+            "io": [
+                "16412_15675_15465_io",
+                "17210_15675_15465_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "79": {
+            "time": 79.0,
+            "total_path": 6,
+            "complete_path": 4,
+            "instructions": 17204,
+            "z3_queries": 465,
+            "io": [
+                "16412_15675_15465_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "static_scaled_int8_quant": {
+        "24": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 432,
+            "z3_queries": 15,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "164": {
+            "time": 7.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 432,
+            "z3_queries": 21,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    }
+}

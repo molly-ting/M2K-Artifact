@@ -1,0 +1,32 @@
+{
+    "architectures": [
+        "Qwen2ForProcessRewardModel"
+    ],
+    "attention_dropout": 0.0,
+    "auto_map": {
+        "AutoConfig": "configuration_qwen2_rm.Qwen2RMConfig",
+        "AutoModel": "modeling_qwen2_rm.Qwen2ForProcessRewardModel"
+    },
+    "bos_token_id": 151643,
+    "eos_token_id": 151645,
+    "hidden_act": "silu",
+    "hidden_size": 3584,
+    "initializer_range": 0.02,
+    "intermediate_size": 18944,
+    "max_position_embeddings": 4096,
+    "max_window_layers": 28,
+    "model_type": "qwen2",
+    "num_attention_heads": 28,
+    "num_hidden_layers": 28,
+    "num_key_value_heads": 4,
+    "rms_norm_eps": 1e-05,
+    "rope_theta": 10000.0,
+    "sliding_window": 131072,
+    "tie_word_embeddings": false,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.37.0",
+    "use_cache": true,
+    "use_mrope": false,
+    "use_sliding_window": false,
+    "vocab_size": 152064
+}

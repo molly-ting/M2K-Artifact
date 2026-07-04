@@ -1,0 +1,1 @@
+{"note": "To ensure vLLM picks the gptq_marlin kernel, do not pass --quantization gptq; leave it unset or set to gptq_marlin. This config marks the model as GPTQ (4-bit, group_size 128, symmetric), which vLLM v0.9.0 auto-converts to gptq_marlin when compatible."}

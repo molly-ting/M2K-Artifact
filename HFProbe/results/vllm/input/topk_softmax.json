@@ -1,0 +1,1871 @@
+[
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    60
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    60
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    62
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    62
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    40
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    1,
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    1,
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    256
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    16
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "topk_softmax",
+        "cuda_function": "topk_softmax",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_topk_softmax_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    64
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            }
+        ]
+    }
+]

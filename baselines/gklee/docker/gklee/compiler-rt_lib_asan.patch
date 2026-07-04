@@ -1,0 +1,10 @@
+--- asan_linux.cc
++++ asan_linux.cc
+@@ -31,6 +31,7 @@
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <unwind.h>
++#include <signal.h>
+ 
+ #if !ASAN_ANDROID
+ // FIXME: where to get ucontext on Android?

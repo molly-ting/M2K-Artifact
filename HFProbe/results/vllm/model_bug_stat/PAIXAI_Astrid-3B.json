@@ -1,0 +1,65 @@
+{
+    "all_reduce": {
+        "31": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rotary_embedding": {
+        "788": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 87,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        }
+    },
+    "reshape_and_cache": {
+        "261": {
+            "time": 81.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 757,
+            "z3_queries": 45,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "silu_and_mul": {
+        "140": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    }
+}

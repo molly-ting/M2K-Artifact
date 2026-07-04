@@ -1,1 +1,1 @@
-# M2K-Artifact
+# The code and data for SOSP 2026 Artifact Evaluation

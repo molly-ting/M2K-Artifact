@@ -1,0 +1,11 @@
+{
+    "kernels": [
+        {
+            "name": "single_query_cached_kv_attention_kernel",
+            "constraints": [               
+                {"type": "grid_size", "value": [16]},
+                {"type": "block_size", "value": [16]}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,385 @@
+import os, json
+import run
+import ast
+
+
+def eval_expr(expr, symvals):
+    """Evaluate symbolic expression safely."""
+    if isinstance(expr, (int, float)):
+        return expr
+    if isinstance(expr, str):
+        try:
+            return eval(expr, {}, symvals)
+        except NameError:
+            return expr  # unresolved symbol like 'u0'
+    return expr
+
+
+def in_range(symbol, value, sym_ranges):
+    """Check if value falls within symbol range."""
+    if symbol not in sym_ranges:
+        return False
+    low, high = sym_ranges[symbol]
+    return low <= value <= high
+
+
+def compare_shapes(shape1, shape2, symvals, sym_ranges):
+    if len(shape1) != len(shape2):
+        # print(f"Shape length mismatch: {len(shape1)} vs {len(shape2)}")
+        return False
+
+    for d1, d2 in zip(shape1, shape2):
+        v1 = eval_expr(d1, symvals)
+
+        if isinstance(v1, str):
+            # unresolved symbol → use range
+            if not in_range(v1, d2, sym_ranges):
+                # print(f"Dimension {d2} out of range for symbol {v1}: {sym_ranges[v1]}")
+                return False
+        else:
+            if int(v1) != int(d2):
+                # print(f"Dimension mismatch: {v1} vs {d2}")
+                return False
+
+    return True
+
+
+def compare_tensor(t1, t2, symvals):
+    if t1["type"] != t2["type"]:
+        # print(f"Type mismatch: {t1['type']} vs {t2['type']}")
+        return False
+    
+    if "dtype" in t1 and "dtype" in t2 and t1["dtype"] != t2["dtype"]:
+        if not ("float16" in t1["dtype"] and "float16" in t2["dtype"]):
+            # print(f"Dtype mismatch: {t1['dtype']} vs {t2['dtype']}")
+            return False
+
+    sym_ranges = t1.get("symRanges", {})
+
+    # Compare shapes
+    if "shape" in t1 and "shape" in t2:
+        if not compare_shapes(t1["shape"], t2["shape"], symvals, sym_ranges):
+            return False
+    
+    if "value" in t1 and "value" in t2:
+        if t1["value"] in sym_ranges:
+            if not in_range(t1["value"], t2["value"], sym_ranges):
+                # print(f"Value {t2['value']} out of range for symbol {t1['value']}: {sym_ranges[t1['value']]}")
+                return False
+        else:   
+            v1 = eval_expr(t1["value"], symvals)
+            v2 = t2["value"]
+            if isinstance(v1, int):
+                if int(v1) != int(v2):
+                    # print(f"Value mismatch: {v1} vs {v2}")
+                    return False
+            if isinstance(v1, float) and float(v1) != float(v2):
+                # print(f"Value mismatch: {v1} vs {v2}")
+                return False
+            if v1 != v2:
+                # print(f"Value mismatch: {v1} vs {v2}")
+                return False
+
+    # Optional: compare min/max
+    for key in ["maxV", "minV"]:
+        if key in t1 and key in t2:
+            if not isinstance(t1[key], str) and not isinstance(t2[key], str):
+                continue
+            
+            v1 = eval_expr(t1[key], symvals)
+            v2 = t2[key]
+            if isinstance(v1, str):
+                # print(f"Unresolved symbol {v1} in {key}, cannot compare.")
+                return False
+            if int(v1) != int(v2):
+                # print(f"{key} mismatch: {v1} vs {v2}")
+                return False
+
+    return True
+
+def compare_json_arrays(arr1, arr2, symvals):
+    if len(arr1) != len(arr2):
+        return False
+
+    for t1, t2 in zip(arr1, arr2):
+        if not compare_tensor(t1, t2, symvals):
+            return False
+
+    return True
+
+possible_len_keys = [
+    # OPT
+    "max_position_embeddings",
+    # GPT-2
+    "n_positions",
+    # MPT
+    "max_seq_len",
+    # ChatGLM2
+    "seq_length",
+    # Command-R
+    "model_max_length",
+    # Whisper
+    "max_target_positions",
+    # Others
+    "max_sequence_length",
+    "max_seq_length",
+    "seq_len",
+]
+
+def run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, rerun=False):
+    out_path = f"./vllm-exp/validation/{model_id.replace('/', '_')}/{op_name}-{lineno}-{index}.json"
+    # print(out_path)
+    if os.path.exists(out_path) and not rerun:
+        with open(out_path) as f:
+            return json.load(f)
+        
+    env_old = os.environ.copy()
+    config = {}
+    if framework_config:
+        if "envs" in framework_config:
+            for k in framework_config["envs"]:
+                os.environ[k] = framework_config["envs"][k]
+        
+        if "vllmconfig" in framework_config:
+            config = framework_config["vllmconfig"]
+            
+    if model_config:
+        if "architectures" in model_config:
+            model_config.pop("architectures")
+        if "rope_scaling" in model_config and model_config["rope_scaling"] is not None:
+            if "rope_type" not in model_config["rope_scaling"] and "type" in model_config["rope_scaling"]:
+                model_config["rope_scaling"]["rope_type"] = model_config["rope_scaling"]["type"]
+        if "blocksparse_block_size" in model_config and "block_size" not in model_config:
+            model_config["block_size"] = model_config["blocksparse_block_size"]
+
+        for key in possible_len_keys:
+            if key in model_config:
+                model_config.pop(key)
+            
+        config["hf_overrides"] = model_config
+        if "quantization_config" in model_config:
+            if "quant_method" in model_config["quantization_config"]:
+                if "quantization" not in config:
+                    config["quantization"] = model_config["quantization_config"]["quant_method"]
+            else:
+                print(f"{op_name} config invalid.")
+                return -4
+    
+    config["dtype"] = "float16"
+    max_num_batched_tokens=batch_size*seq_len
+    if max_model_len and max_num_batched_tokens > max_model_len:
+        config["max_num_batched_tokens"] = max_num_batched_tokens
+    if batch_size > 128:
+        config["max_num_seqs"] = batch_size
+    
+    if op_name == "advance_step_flashinfer":
+        config["block_size"] = 2048
+    
+    os.makedirs("./vllm-exp/validation/", exist_ok=True)
+    os.makedirs("./vllm-exp/validation/"+model_id.replace("/", "_"), exist_ok=True)
+
+    res = None
+    try:
+        res = run.testRepro(model_id, batch_size, seq_len, config, op_name, out_path)
+    except:
+        run.traceback.print_exc()
+        pass
+        
+    if framework_config:
+        os.environ = env_old
+    
+    return res
+
+def vllm_input_check(input_file, output_file):
+    with open(input_file) as rf:
+        input_check = json.load(rf)
+    
+    with open("./framework_config.json", "r") as ff:
+        framework_configs = json.load(ff) 
+    
+    with open("./vllm_model_max_len.json", "r") as f:
+        model_max_len = json.load(f)
+        
+    with open("./vllm-exp/token_limit_by_gpu.json", "r") as f:
+        vllm_token_limit = json.load(f)
+    
+    generated_configs_path = "./vllm-exp/config/diff.json"
+    with open(generated_configs_path) as f:
+        generated_configs = json.load(f)
+    
+    with open("/data/szx5097/hfplayground/vllm_text_model_structures_map.json") as mf:
+        structure_model_map = json.load(mf)
+    
+    with open("/data/szx5097/hfplayground/vllm_other_model_structures_map.json") as mf:
+        other_structure_model_map = json.load(mf)
+        structure_model_map.update(other_structure_model_map)
+    
+    res = {}
+    if os.path.exists(output_file):
+        with open(output_file) as rf:
+            res = json.load(rf)
+        
+    for cuda_func in input_check:
+        # if cuda_func not in ["advance_step_flashinfer"]:
+        #     continue
+        if cuda_func in ["rotary_embedding", "moe_wna16_marlin_gemm"]:
+            continue
+        # if cuda_func not in ["rms_norm", "dynamic_scaled_fp8_quant", "static_scaled_fp8_quant"]:
+        #     continue
+        for lineno in input_check[cuda_func]:
+            for model_str in input_check[cuda_func][lineno]:
+                for index in input_check[cuda_func][lineno][model_str]:
+                    if cuda_func not in res:
+                        res[cuda_func] = {}
+                    if lineno not in res[cuda_func]:
+                        res[cuda_func][lineno] = {}
+                    if model_str not in res[cuda_func][lineno]:
+                        res[cuda_func][lineno][model_str] = {}
+                    if index in res[cuda_func][lineno][model_str]:
+                        continue
+                        
+                    need_rerun = False
+                    # if index in res[cuda_func][lineno][model_str]:
+                    #     if "not triggered" in res[cuda_func][lineno][model_str][index]:
+                    #         need_rerun = True
+                    
+                    # if not need_rerun:
+                    #     continue
+                    
+                    item = input_check[cuda_func][lineno][model_str][index]
+                    batch_size = item["batch_size"]
+                    seq_len = item["seq_len"]
+                    
+                    op_name = cuda_func
+                    framework_config = None
+                    if op_name in framework_configs:
+                        framework_config = framework_configs[op_name]
+                    
+                    if op_name == "aqlm_dequant" and seq_len == 1:
+                        seq_len = 8
+                    
+                    if op_name == "gather_cache" and batch_size == 1 and seq_len == 1:
+                        seq_len = framework_config["seq_len"][1]
+                    
+                    if op_name == "rms_norm":
+                        batch_size = batch_size * 2
+                    
+                    model_id = model_str.replace("_", "/", 1)
+                    model_config = None
+                    if "config" in item:
+                        config_path = item["config"]
+                        if "LM" not in item["config"] and "Generation" not in item["config"] and "Ovis" not in item["config"]:
+                            config_path = "./vllm-exp/config/" + structure_model_map[model_id] + item["config"].split("/")[-1]
+                        if os.path.exists(config_path):
+                            with open(config_path) as cf:
+                                model_config = json.load(cf)
+                    
+                    error_msg = None        
+                    if model_id in vllm_token_limit and batch_size * seq_len > vllm_token_limit[model_id]["288"]:
+                        res[cuda_func][lineno][model_str][index] = "May OOM due to large num_tokens"
+                        continue
+                    
+                    if model_id in ["pfnet/plamo-2-1b"]:
+                        continue
+                    # if model_id in ["meta-llama/Llama-4-Scout-17B-16E-Instruct", "pfnet/plamo-2-1b", "allenai/OLMoE-1B-7B-0924-Instruct", "mistralai/Mixtral-8x7B-Instruct-v0.1"]:
+                    #     continue
+                    
+                    # if model_id == "kebeliu/DeepSeek-R1-tiny" and batch_size == 128 and seq_len == 8132:
+                    #     continue
+                    
+                    # if model_id == "ibm/PowerMoE-3b" and batch_size == 885 and seq_len == 2598:
+                    #     continue
+
+                    print(f"Running model {model_id} with {item['config'] if 'config' in item else 'default config'} batch_size: {batch_size} seq_len: {seq_len} for bug {op_name} {lineno} index {index}.")
+                    params_data = run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, model_max_len[model_id], lineno, index, need_rerun)
+                    
+                    if not params_data and op_name in generated_configs:
+                        model_config = generated_configs[op_name][-1]
+                        params_data = run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, model_max_len[model_id], lineno, index)
+                        
+                    if params_data and params_data == -2:
+                        print(f"Seq len mismatch for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
+                        error_msg = "Seq len mismatch"
+                    elif params_data and params_data == -4:
+                        print(f"Config invalid for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
+                        error_msg = "Config invalid"
+                    elif params_data and isinstance(params_data, int):
+                        print(f"Error running config for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
+                        error_msg = "Error model loading"
+                    elif params_data is None:
+                        print(f"No data returned for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
+                        error_msg = f"{op_name} not triggered"
+                    
+                    if error_msg:
+                        res[cuda_func][lineno][model_str][index] = error_msg
+                        with open(output_file, "w") as wf:
+                            json.dump(res, wf, indent=2)
+                        continue
+                    
+                    i = int(index)
+                    with open(f"./vllm-exp/input/{op_name}.json") as f:
+                        op_param_data = json.load(f)
+                    target_params = op_param_data[i]["args"]
+                    
+                    match_found = False
+                    # print(params_data)
+                    for key in params_data:
+                        for bs in params_data[key]:
+                            if isinstance(bs, tuple):
+                                b, s = bs
+                            else:
+                                b, s = ast.literal_eval(bs)
+                                
+                            if not batch_size == int(b) or seq_len != int(s):
+                                continue
+                            
+                            for t in params_data[key][bs]:
+                                if compare_json_arrays(target_params, t, {"s": seq_len, "b": batch_size}):
+                                    res[cuda_func][lineno][model_str][index] = "Pass"
+                                    match_found = True
+                                    break
+                        if match_found:
+                            break
+                    
+                    if not match_found:
+                        res[cuda_func][lineno][model_str][index] = "Parameter mismatch"
+                        print(f"Parameter mismatch for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
+                        
+                    with open(output_file, "w") as wf:
+                        json.dump(res, wf, indent=2)
+    
+    with open(output_file, "w") as wf:
+        json.dump(res, wf, indent=2)
+
+# vllm_input_check("./vllm-exp/input_check_TP.json", "./vllm-exp/input_check_results.json")
+vllm_input_check("./vllm-exp/input_check_FP.json", "./vllm-exp/input_check_FP_results.json")
+
+# with open(f"./vllm-exp/input/moe_align_block_size.json") as f:
+#     op_param_data = json.load(f)
+# target_params = op_param_data[14]["args"]
+
+# with open("./vllm-exp/validation/allenai_OLMoE-1B-7B-0924-Instruct/moe_align_block_size-37456_4936_3670_oob-14.json") as f:
+#     params_data = json.load(f)
+
+# batch_size = 1
+# seq_len = 1
+
+# match_found = False
+# for key in params_data:
+#     for bs in params_data[key]:
+#         if isinstance(bs, tuple):
+#             b, s = bs
+#         else:
+#             b, s = ast.literal_eval(bs)
+            
+#         if not batch_size == int(b) or seq_len != int(s):
+#             continue
+        
+#         for t in params_data[key][bs]:
+#             if compare_json_arrays(target_params, t, {"s": seq_len, "b": batch_size}):
+#                 match_found = True
+#                 break
+#     if match_found:
+#         break
+
+# print("Match found:", match_found)

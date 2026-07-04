@@ -1,0 +1,1 @@
+{"initial": ["varlen_fwd", "rms_norm", "rotary_embedding", "all_reduce", "fwd_kvcache", "silu_and_mul", "fused_add_rms_norm", "reshape_and_cache_flash"], "initial_num": 8, "new": ["gptq_gemm", "awq_gemm", "awq_dequantize", "machete_mm", "aqlm_gemm", "aqlm_dequant", "advance_step_flashattn", "swap_blocks", "machete_prepack_B"], "inre_len": 9}

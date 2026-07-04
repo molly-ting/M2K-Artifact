@@ -1,0 +1,1 @@
+{"note": "To trigger vLLM's machete_mm path, the model must be saved with compressed-tensors (GPTQ/AWQ) weights providing qweight (uint4, packed as u4b8), group scales (bf16), and g_idx (act-order). This config enables that kernel selection when such weights are present."}

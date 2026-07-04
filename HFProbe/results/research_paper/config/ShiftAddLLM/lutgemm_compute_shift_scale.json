@@ -1,0 +1,1 @@
+{"model": "facebook/opt-125m", "engine": "ShiftAddLLM", "prepare": {"wbits": 3, "groupsize": -1, "lat": true, "bcq_round": 50, "temp_storage": "/abs/path/to/packed_weight_dir"}, "run": {"lat": true, "wbits": 3, "infer_kernel": true, "kernel_name": "lutgemm_compute_shift_scale", "load_temp_storage": "/abs/path/to/packed_weight_dir", "benchmark": 128}}

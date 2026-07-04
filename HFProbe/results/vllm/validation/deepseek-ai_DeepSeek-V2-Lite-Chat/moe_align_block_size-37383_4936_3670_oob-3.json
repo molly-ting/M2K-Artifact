@@ -1,0 +1,54 @@
+{
+  "(('_custom_ops.py', 1433), ('model_executor/layers/fused_moe/moe_align_block_size.py', 237), ('model_executor/layers/fused_moe/fused_marlin_moe.py', 110), ('model_executor/layers/quantization/gptq_marlin.py', 630), ('model_executor/layers/fused_moe/layer.py', 1279))": {
+    "(32, 1)": [
+      [
+        {
+          "shape": [
+            32,
+            6
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 47,
+          "minV": 41,
+          "dupV": true
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        },
+        {
+          "shape": [
+            640
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 192,
+          "minV": 192,
+          "dupV": true
+        },
+        {
+          "shape": [
+            80
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

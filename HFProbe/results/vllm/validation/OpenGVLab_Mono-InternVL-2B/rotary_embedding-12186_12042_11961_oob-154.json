@@ -1,0 +1,50 @@
+{
+  "(('_custom_ops.py', 257), ('model_executor/layers/rotary_embedding.py', 195), ('model_executor/custom_op.py', 23), ('model_executor/models/internlm2.py', 181), ('model_executor/models/internlm2_ve.py', 77))": {
+    "(1, 32768)": [
+      [
+        {
+          "shape": [
+            32768
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 32767,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "shape": [
+            32768,
+            2048
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32768,
+            1024
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 128,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ]
+    ]
+  }
+}

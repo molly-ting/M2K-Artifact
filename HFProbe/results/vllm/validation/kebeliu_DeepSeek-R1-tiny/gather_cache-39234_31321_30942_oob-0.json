@@ -1,0 +1,60 @@
+{
+  "(('_custom_ops.py', 1612), ('attention/backends/mla/common.py', 1192), ('attention/backends/mla/common.py', 1285), ('attention/backends/mla/common.py', 1364), ('attention/layer.py', 386))": {
+    "(1, 91)": [
+      [
+        {
+          "shape": [
+            30,
+            64,
+            576
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            131072,
+            576
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 1,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "shape": [
+            2
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 64,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

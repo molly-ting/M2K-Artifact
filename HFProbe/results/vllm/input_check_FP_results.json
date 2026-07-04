@@ -1,0 +1,527 @@
+{
+  "rotary_embedding": {
+    "12186_12042_11961_oob": {
+      "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct": {
+        "44": "Pass",
+        "45": "Parameter mismatch",
+        "48": "Parameter mismatch",
+        "49": "Parameter mismatch"
+      },
+      "nvidia_Llama-3_3-Nemotron-Super-49B-v1": {
+        "38": "May OOM due to large num_tokens",
+        "40": "May OOM due to large num_tokens",
+        "41": "May OOM due to large num_tokens",
+        "42": "Parameter mismatch",
+        "43": "Parameter mismatch"
+      },
+      "ibm_PowerLM-3b": {
+        "60": "Pass"
+      },
+      "OrionStarAI_Orion-14B-Chat": {
+        "82": "Pass",
+        "83": "Parameter mismatch",
+        "84": "Pass",
+        "85": "Parameter mismatch",
+        "86": "Parameter mismatch"
+      },
+      "mistralai_Mistral-7B-Instruct-v0.1": {
+        "15": "Parameter mismatch"
+      },
+      "google_gemma-1.1-2b-it": {
+        "173": "Parameter mismatch",
+        "175": "Parameter mismatch",
+        "177": "Parameter mismatch",
+        "179": "Parameter mismatch",
+        "180": "Parameter mismatch"
+      },
+      "meta-llama_Llama-3.2-1B-Instruct": {
+        "66": "Parameter mismatch",
+        "64": "Parameter mismatch",
+        "14": "Parameter mismatch",
+        "15": "Parameter mismatch",
+        "67": "Parameter mismatch",
+        "68": "Parameter mismatch",
+        "70": "Parameter mismatch",
+        "71": "Parameter mismatch"
+      },
+      "nvidia_Minitron-8B-Base": {
+        "72": "Pass",
+        "73": "Parameter mismatch",
+        "75": "Parameter mismatch",
+        "77": "Pass",
+        "78": "Parameter mismatch",
+        "79": "Parameter mismatch"
+      },
+      "databricks_dbrx-instruct": {
+        "209": "May OOM due to large num_tokens",
+        "210": "May OOM due to large num_tokens",
+        "212": "May OOM due to large num_tokens",
+        "213": "May OOM due to large num_tokens"
+      },
+      "microsoft_phi-2": {
+        "277": "Pass",
+        "278": "Parameter mismatch",
+        "279": "Pass",
+        "280": "Parameter mismatch",
+        "281": "Pass",
+        "282": "Parameter mismatch",
+        "283": "Parameter mismatch"
+      },
+      "CofeAI_FLM-2-52B-Instruct-2407": {
+        "87": "Pass",
+        "88": "Parameter mismatch",
+        "89": "Pass",
+        "90": "Parameter mismatch",
+        "91": "Pass",
+        "92": "Parameter mismatch",
+        "93": "Parameter mismatch",
+        "96": "Parameter mismatch"
+      },
+      "JackFram_llama-68m": {
+        "444": "rotary_embedding not triggered",
+        "445": "Parameter mismatch"
+      },
+      "Zyphra_Zamba2-7B-instruct": {
+        "222": "Parameter mismatch",
+        "224": "Parameter mismatch",
+        "225": "Parameter mismatch"
+      },
+      "nvidia_NVLM-D-72B": {
+        "487": "Pass"
+      },
+      "allenai_OLMoE-1B-7B-0924-Instruct": {
+        "99": "Parameter mismatch",
+        "98": "Pass",
+        "101": "Pass",
+        "102": "Parameter mismatch",
+        "103": "Parameter mismatch",
+        "106": "Parameter mismatch"
+      },
+      "Qwen_Qwen-7B-Chat": {
+        "108": "Pass",
+        "109": "Pass"
+      },
+      "tiiuae_falcon-7b": {
+        "114": "rotary_embedding not triggered",
+        "113": "rotary_embedding not triggered",
+        "115": "rotary_embedding not triggered",
+        "116": "rotary_embedding not triggered",
+        "112": "Pass",
+        "117": "rotary_embedding not triggered",
+        "118": "rotary_embedding not triggered",
+        "119": "rotary_embedding not triggered",
+        "120": "rotary_embedding not triggered",
+        "121": "rotary_embedding not triggered",
+        "126": "rotary_embedding not triggered",
+        "127": "rotary_embedding not triggered"
+      },
+      "mistralai_Mixtral-8x7B-Instruct-v0.1": {
+        "15": "Parameter mismatch",
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch",
+        "19": "Parameter mismatch",
+        "20": "Parameter mismatch",
+        "24": "Parameter mismatch"
+      },
+      "internlm_internlm-chat-7b": {
+        "576": "Parameter mismatch"
+      },
+      "upstage_solar-pro-preview-instruct": {
+        "129": "Parameter mismatch",
+        "133": "Parameter mismatch"
+      },
+      "microsoft_Phi-3-small-8k-instruct": {
+        "134": "rotary_embedding not triggered",
+        "17": "Parameter mismatch",
+        "135": "rotary_embedding not triggered",
+        "136": "Parameter mismatch",
+        "137": "rotary_embedding not triggered"
+      },
+      "Qwen_Qwen3-30B-A3B": {
+        "141": "Pass",
+        "142": "Parameter mismatch",
+        "143": "Parameter mismatch",
+        "144": "Parameter mismatch",
+        "145": "Parameter mismatch",
+        "147": "Parameter mismatch"
+      },
+      "EleutherAI_pythia-70m": {
+        "149": "Pass",
+        "151": "Parameter mismatch"
+      },
+      "internlm_internlm2-chat-7b": {
+        "30": "Parameter mismatch",
+        "31": "Parameter mismatch"
+      },
+      "OpenGVLab_Mono-InternVL-2B": {
+        "154": "Parameter mismatch",
+        "156": "Parameter mismatch",
+        "157": "Parameter mismatch"
+      },
+      "allenai_Molmo-7B-D-0924": {
+        "160": "Pass",
+        "161": "Parameter mismatch",
+        "162": "Parameter mismatch",
+        "158": "Pass",
+        "159": "Parameter mismatch"
+      },
+      "google_gemma-3-1b-it": {
+        "262": "Parameter mismatch",
+        "144": "Parameter mismatch",
+        "176": "Parameter mismatch",
+        "177": "Parameter mismatch",
+        "265": "Parameter mismatch",
+        "266": "Parameter mismatch",
+        "267": "Parameter mismatch",
+        "268": "Parameter mismatch",
+        "270": "Parameter mismatch"
+      },
+      "JackFram_llama-160m": {
+        "444": "rotary_embedding not triggered",
+        "445": "Parameter mismatch"
+      },
+      "baichuan-inc_Baichuan2-7B-chat": {
+        "0": "Pass",
+        "1": "Parameter mismatch"
+      },
+      "Skywork_Skywork-R1V-38B": {
+        "167": "May OOM due to large num_tokens",
+        "169": "May OOM due to large num_tokens",
+        "170": "May OOM due to large num_tokens"
+      },
+      "Tele-AI_TeleChat2-3B": {
+        "772": "Pass",
+        "773": "Pass"
+      },
+      "parasail-ai_GritLM-7B-vllm": {
+        "15": "Parameter mismatch",
+        "19": "Parameter mismatch",
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch"
+      },
+      "stabilityai_stablelm-3b-4e1t": {
+        "788": "Pass"
+      },
+      "ibm-research_moe-7b-1b-active-shared-experts": {
+        "192": "Pass",
+        "193": "Parameter mismatch"
+      },
+      "stabilityai_stablelm-zephyr-3b": {
+        "788": "Pass"
+      },
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "184": "Pass",
+        "185": "Parameter mismatch",
+        "186": "Pass",
+        "187": "Parameter mismatch",
+        "188": "Parameter mismatch"
+      },
+      "XiaomiMiMo_MiMo-7B-RL": {
+        "900": "Pass",
+        "15": "Parameter mismatch"
+      },
+      "adept_fuyu-8b": {
+        "190": "Error model loading"
+      },
+      "AIDC-AI_Ovis2-1B": {
+        "233": "Pass",
+        "234": "Parameter mismatch",
+        "236": "Pass",
+        "237": "Parameter mismatch",
+        "238": "Parameter mismatch"
+      },
+      "Qwen_Qwen2-0.5B-Instruct": {
+        "233": "Pass",
+        "234": "Parameter mismatch",
+        "285": "Pass",
+        "286": "Parameter mismatch",
+        "27": "Parameter mismatch",
+        "287": "Parameter mismatch",
+        "236": "Pass",
+        "237": "Parameter mismatch",
+        "238": "Parameter mismatch",
+        "288": "Parameter mismatch",
+        "289": "Parameter mismatch"
+      },
+      "ibm-ai-platform_Bamba-9B": {
+        "8": "Parameter mismatch",
+        "10": "Parameter mismatch",
+        "11": "Parameter mismatch",
+        "12": "Parameter mismatch",
+        "13": "Parameter mismatch"
+      },
+      "royokong_e5-v": {
+        "17": "Parameter mismatch"
+      },
+      "ibm_PowerMoE-3b": {
+        "196": "Pass",
+        "192": "Pass",
+        "134": "Parameter mismatch"
+      },
+      "allenai_OLMo-2-0425-1B": {
+        "98": "Pass",
+        "99": "Parameter mismatch",
+        "101": "Pass",
+        "102": "Parameter mismatch",
+        "103": "Parameter mismatch",
+        "106": "Parameter mismatch"
+      },
+      "pfnet_plamo-2-1b": {},
+      "BAAI_AquilaChat2-7B": {
+        "1051": "Pass",
+        "576": "Parameter mismatch"
+      },
+      "Qwen_Qwen3-8B": {
+        "216": "Parameter mismatch",
+        "215": "rotary_embedding not triggered",
+        "134": "Parameter mismatch",
+        "17": "Parameter mismatch",
+        "218": "Pass",
+        "219": "Parameter mismatch",
+        "220": "Parameter mismatch"
+      },
+      "bigcode_starcoder2-3b": {
+        "25": "Pass",
+        "27": "Parameter mismatch"
+      },
+      "mistralai_Mistral-Small-3.1-24B-Instruct-2503": {
+        "1143": "Parameter mismatch"
+      },
+      "BAAI_AquilaChat-7B": {
+        "1051": "Pass"
+      },
+      "PAIXAI_Astrid-3B": {
+        "788": "Pass"
+      },
+      "adept_persimmon-8b-chat": {
+        "190": "Parameter mismatch",
+        "240": "Parameter mismatch",
+        "241": "Parameter mismatch",
+        "242": "Parameter mismatch",
+        "243": "Parameter mismatch",
+        "244": "Parameter mismatch",
+        "245": "rotary_embedding not triggered",
+        "246": "rotary_embedding not triggered"
+      },
+      "google_paligemma-3b-mix-224": {
+        "172": "rotary_embedding not triggered",
+        "173": "Parameter mismatch"
+      },
+      "mgleize_fairseq2-dummy-Llama-3.2-1B": {
+        "64": "Parameter mismatch",
+        "70": "rotary_embedding not triggered",
+        "71": "Parameter mismatch",
+        "67": "Parameter mismatch",
+        "68": "Parameter mismatch"
+      },
+      "google_gemma-2-9b": {
+        "248": "Parameter mismatch",
+        "250": "Parameter mismatch",
+        "252": "Parameter mismatch",
+        "253": "Parameter mismatch"
+      },
+      "baichuan-inc_Baichuan-7B": {
+        "0": "rotary_embedding not triggered"
+      }
+    }
+  },
+  "moe_wna16_marlin_gemm": {
+    "335720_90979_35319_io": {
+      "deepseek-ai_DeepSeek-V2-Lite-Chat": {
+        "0": "Parameter mismatch",
+        "1": "Parameter mismatch",
+        "2": "Parameter mismatch",
+        "3": "Parameter mismatch",
+        "24": "Parameter mismatch",
+        "25": "Parameter mismatch",
+        "26": "Parameter mismatch",
+        "27": "Parameter mismatch"
+      },
+      "Qwen_Qwen3-30B-A3B": {
+        "13": "Parameter mismatch"
+      },
+      "mistralai_Mixtral-8x7B-Instruct-v0.1": {
+        "4": "Parameter mismatch",
+        "5": "Parameter mismatch",
+        "6": "Parameter mismatch",
+        "7": "Parameter mismatch"
+      },
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "14": "Pass",
+        "15": "Parameter mismatch"
+      },
+      "ibm-research_moe-7b-1b-active-shared-experts": {
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch"
+      },
+      "ibm_PowerMoE-3b": {
+        "19": "Parameter mismatch"
+      },
+      "kebeliu_DeepSeek-R1-tiny": {
+        "20": "Parameter mismatch",
+        "21": "Parameter mismatch",
+        "23": "Parameter mismatch"
+      }
+    },
+    "36830_335722_90979_io": {
+      "deepseek-ai_DeepSeek-V2-Lite-Chat": {
+        "0": "Parameter mismatch",
+        "1": "Parameter mismatch",
+        "2": "Parameter mismatch",
+        "3": "Parameter mismatch",
+        "24": "Parameter mismatch",
+        "25": "Parameter mismatch",
+        "26": "Parameter mismatch",
+        "27": "Parameter mismatch"
+      },
+      "Qwen_Qwen3-30B-A3B": {
+        "13": "Parameter mismatch"
+      },
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "14": "Pass",
+        "15": "Parameter mismatch"
+      },
+      "ibm-research_moe-7b-1b-active-shared-experts": {
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch"
+      },
+      "ibm_PowerMoE-3b": {
+        "19": "Parameter mismatch"
+      },
+      "kebeliu_DeepSeek-R1-tiny": {
+        "21": "Parameter mismatch",
+        "23": "Parameter mismatch"
+      }
+    },
+    "336984_335906_90979_oob": {
+      "deepseek-ai_DeepSeek-V2-Lite-Chat": {
+        "0": "Parameter mismatch",
+        "1": "Parameter mismatch",
+        "2": "Parameter mismatch",
+        "3": "Parameter mismatch",
+        "24": "Parameter mismatch",
+        "25": "Parameter mismatch",
+        "26": "Parameter mismatch",
+        "27": "Parameter mismatch"
+      },
+      "Qwen_Qwen3-30B-A3B": {
+        "13": "Parameter mismatch"
+      },
+      "mistralai_Mixtral-8x7B-Instruct-v0.1": {
+        "4": "Parameter mismatch",
+        "5": "Parameter mismatch",
+        "6": "Parameter mismatch",
+        "7": "Parameter mismatch"
+      },
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "14": "Pass",
+        "15": "Parameter mismatch"
+      },
+      "ibm-research_moe-7b-1b-active-shared-experts": {
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch"
+      },
+      "ibm_PowerMoE-3b": {
+        "19": "Parameter mismatch"
+      },
+      "kebeliu_DeepSeek-R1-tiny": {
+        "20": "Parameter mismatch",
+        "21": "Parameter mismatch",
+        "23": "Parameter mismatch"
+      }
+    },
+    "1133899_54348_36251_io": {
+      "Qwen_Qwen3-30B-A3B": {
+        "8": "Pass"
+      }
+    }
+  },
+  "moe_wna16_gemm": {
+    "11130_3501_1776_oob": {
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "0": "Error model loading"
+      },
+      "ibm_PowerMoE-3b": {
+        "2": "Parameter mismatch"
+      }
+    },
+    "11902_3635_1776_oob": {
+      "Qwen_Qwen1.5-MoE-A2.7B-Chat": {
+        "0": "Parameter mismatch"
+      },
+      "ibm_PowerMoE-3b": {
+        "2": "Parameter mismatch"
+      }
+    }
+  },
+  "paged_attention_v2": {
+    "300411_299654_149014_oob": {
+      "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct": {
+        "0": "paged_attention_v2 not triggered",
+        "1": "Parameter mismatch",
+        "2": "Parameter mismatch",
+        "3": "Parameter mismatch",
+        "4": "Parameter mismatch",
+        "5": "Parameter mismatch",
+        "6": "Parameter mismatch",
+        "7": "Parameter mismatch",
+        "8": "Parameter mismatch",
+        "9": "Parameter mismatch",
+        "10": "Parameter mismatch",
+        "11": "paged_attention_v2 not triggered",
+        "12": "Parameter mismatch",
+        "13": "Parameter mismatch",
+        "14": "Parameter mismatch"
+      },
+      "OrionStarAI_Orion-14B-Chat": {
+        "15": "paged_attention_v2 not triggered",
+        "16": "Parameter mismatch",
+        "17": "Parameter mismatch",
+        "18": "Parameter mismatch",
+        "19": "Parameter mismatch",
+        "20": "Parameter mismatch",
+        "21": "Parameter mismatch",
+        "22": "Parameter mismatch",
+        "23": "Parameter mismatch",
+        "24": "Parameter mismatch",
+        "26": "paged_attention_v2 not triggered",
+        "27": "Parameter mismatch",
+        "28": "Parameter mismatch",
+        "29": "Parameter mismatch"
+      },
+      "allenai_OLMoE-1B-7B-0924-Instruct": {
+        "30": "paged_attention_v2 not triggered",
+        "31": "Parameter mismatch",
+        "38": "Parameter mismatch",
+        "39": "Parameter mismatch",
+        "40": "paged_attention_v2 not triggered",
+        "41": "paged_attention_v2 not triggered",
+        "42": "Parameter mismatch",
+        "43": "Parameter mismatch",
+        "44": "paged_attention_v2 not triggered"
+      },
+      "Qwen_Qwen3-30B-A3B": {
+        "60": "paged_attention_v2 not triggered",
+        "61": "paged_attention_v2 not triggered",
+        "62": "paged_attention_v2 not triggered",
+        "63": "paged_attention_v2 not triggered",
+        "64": "paged_attention_v2 not triggered",
+        "65": "Parameter mismatch",
+        "66": "paged_attention_v2 not triggered",
+        "67": "paged_attention_v2 not triggered",
+        "68": "paged_attention_v2 not triggered"
+      },
+      "allenai_OLMo-2-0425-1B": {
+        "30": "paged_attention_v2 not triggered",
+        "31": "paged_attention_v2 not triggered",
+        "38": "Parameter mismatch",
+        "39": "Parameter mismatch",
+        "40": "Parameter mismatch",
+        "41": "Parameter mismatch",
+        "42": "Parameter mismatch",
+        "43": "paged_attention_v2 not triggered",
+        "44": "Parameter mismatch"
+      }
+    }
+  }
+}

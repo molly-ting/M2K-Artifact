@@ -1,0 +1,64 @@
+{
+  "(('_custom_ops.py', 276), ('model_executor/layers/layernorm.py', 23), ('model_executor/layers/layernorm.py', 171), ('model_executor/custom_op.py', 23), ('model_executor/models/granitemoe.py', 230))": {
+    "(512, 2731)": [
+      [
+        {
+          "shape": [
+            1228950,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1228950,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            169322,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            169322,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ]
+    ]
+  }
+}

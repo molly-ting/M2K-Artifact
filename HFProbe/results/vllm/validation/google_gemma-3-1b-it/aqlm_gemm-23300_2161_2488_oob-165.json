@@ -1,0 +1,230 @@
+{
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 486), ('model_executor/models/gemma3.py', 190), ('model_executor/models/gemma3.py', 331))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            1152
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536,
+            144,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1024,
+          "minV": 256,
+          "dupV": true
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 1288), ('model_executor/models/gemma3.py', 206), ('model_executor/models/gemma3.py', 331))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            1024
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            128,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1152,
+          "minV": 1152,
+          "dupV": false
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 486), ('model_executor/models/gemma3.py', 87), ('model_executor/models/gemma3.py', 340))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            1152
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            13824,
+            144,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            13824,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 6912,
+          "minV": 6912,
+          "dupV": true
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 1288), ('model_executor/models/gemma3.py', 89), ('model_executor/models/gemma3.py', 340))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            6912
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            864,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1152,
+          "minV": 1152,
+          "dupV": false
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  }
+}

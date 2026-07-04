@@ -1,0 +1,1 @@
+{"note": "This config adds compressed-tensors W8A8 with static per-tensor activation scales (dynamic=false, strategy=tensor) to trigger torch.ops._C.static_scaled_int8_quant in vLLM when loading a MixtralForCausalLM checkpoint with matching input_scale tensors."}

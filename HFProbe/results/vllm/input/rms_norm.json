@@ -1,0 +1,5498 @@
+[
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1.5625e-07,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1.5625e-07,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        10
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        10
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1.5625e-07,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1.5625e-07,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        8
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        8
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    40,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    40,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    40,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    40,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        43,
+                        91
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        43,
+                        91
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        3,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        5
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        5
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-05,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "py_function": "rms_norm",
+        "cuda_function": "rms_norm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/layernorm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    }
+]

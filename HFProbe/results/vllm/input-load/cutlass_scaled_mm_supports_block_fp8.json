@@ -1,0 +1,24 @@
+[
+    {
+        "py_function": "cutlass_scaled_mm_supports_block_fp8",
+        "cuda_function": "cutlass_scaled_mm_supports_block_fp8",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "value": 89,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_scaled_mm_supports_block_fp8",
+        "cuda_function": "cutlass_scaled_mm_supports_block_fp8",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "value": 90,
+                "type": "int"
+            }
+        ]
+    }
+]

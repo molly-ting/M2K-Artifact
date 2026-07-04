@@ -1,0 +1,754 @@
+{
+    "all_reduce": {
+        "49": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "0": null
+    },
+    "rms_norm": {
+        "53": {
+            "time": 17.0,
+            "total_path": 12,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 80,
+            "io": [
+                "15716_3041_2372_io",
+                "15718_3041_2372_io",
+                "18877_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "15716_3041_2372_io",
+                "15718_3041_2372_io",
+                "18877_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "0": {
+            "time": 18.0,
+            "total_path": 8,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 83,
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rotary_embedding": {
+        "196": {
+            "time": 69.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "192": {
+            "time": 19.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "134": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        }
+    },
+    "reshape_and_cache_flash": {
+        "124": {
+            "time": 4.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "942": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "325": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "912": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "varlen_fwd": {},
+    "topk_softmax": {
+        "18": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "24485_6284_6126_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "6": {
+            "time": 21.0,
+            "total_path": 21,
+            "complete_path": 3,
+            "instructions": 7250,
+            "z3_queries": 418,
+            "io": [
+                "24485_6284_6126_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "moe_align_block_size": {
+        "29": {
+            "time": 27.0,
+            "total_path": 28,
+            "complete_path": 2,
+            "instructions": 984,
+            "z3_queries": 193,
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        },
+        "total": {
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        },
+        "78": {
+            "time": 29.0,
+            "total_path": 28,
+            "complete_path": 2,
+            "instructions": 984,
+            "z3_queries": 193,
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        },
+        "79": {
+            "time": 28.0,
+            "total_path": 28,
+            "complete_path": 2,
+            "instructions": 984,
+            "z3_queries": 193,
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        },
+        "80": {
+            "time": 29.0,
+            "total_path": 28,
+            "complete_path": 2,
+            "instructions": 984,
+            "z3_queries": 193,
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        }
+    },
+    "silu_and_mul": {
+        "78": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "61": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "moe_sum": {
+        "21": {
+            "time": 1.0,
+            "total_path": 1,
+            "complete_path": 1,
+            "instructions": 328,
+            "z3_queries": 3,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "sgl_moe_align_block_size": {
+        "12": {
+            "time": 22.0,
+            "total_path": 24,
+            "complete_path": 4,
+            "instructions": 2298,
+            "z3_queries": 203,
+            "io": [
+                "40644_21356_19336_io"
+            ],
+            "oob": [
+                "39603_40515_21356_oob",
+                "40710_21410_19436_oob",
+                "39603_40702_21410_oob",
+                "40638_21356_19336_oob"
+            ],
+            "dr": [
+                "40710_21410_19436_dr"
+            ]
+        },
+        "total": {
+            "io": [
+                "40644_21356_19336_io"
+            ],
+            "oob": [
+                "39603_40515_21356_oob",
+                "40710_21410_19436_oob",
+                "39603_40702_21410_oob",
+                "40638_21356_19336_oob"
+            ],
+            "dr": [
+                "40710_21410_19436_dr"
+            ]
+        }
+    },
+    "dynamic_per_token_scaled_fp8_quant": {
+        "35": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "dynamic_scaled_fp8_quant": {
+        "79": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "82": null,
+        "81": null,
+        "150": null
+    },
+    "get_cutlass_moe_mm_data": {
+        "7": {
+            "time": 248.0,
+            "total_path": 16,
+            "complete_path": 4,
+            "instructions": 2273,
+            "z3_queries": 269,
+            "io": [],
+            "oob": [],
+            "dr": [
+                "11232355_11231510_11231843_dr",
+                "11232371_11231510_11231843_dr",
+                "11232448_11231579_11231936_dr"
+            ]
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": [
+                "11232355_11231510_11231843_dr",
+                "11232371_11231510_11231843_dr",
+                "11232448_11231579_11231936_dr"
+            ]
+        },
+        "8": {
+            "time": 266.0,
+            "total_path": 16,
+            "complete_path": 4,
+            "instructions": 2273,
+            "z3_queries": 269,
+            "io": [],
+            "oob": [],
+            "dr": [
+                "11232355_11231510_11231843_dr",
+                "11232371_11231510_11231843_dr",
+                "11232448_11231579_11231936_dr"
+            ]
+        }
+    },
+    "cutlass_moe_mm": {
+        "10": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "11": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "machete_mm": {
+        "108": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "109": {
+            "time": 69.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 4910,
+            "z3_queries": 1,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "moe_wna16_marlin_gemm": {
+        "18": {
+            "time": 17.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "335720_90979_35319_io",
+                "36830_335722_90979_io"
+            ],
+            "oob": [
+                "336984_335906_90979_oob"
+            ],
+            "dr": []
+        },
+        "19": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [
+                "335720_90979_35319_io",
+                "36830_335722_90979_io"
+            ],
+            "oob": [
+                "336984_335906_90979_oob"
+            ],
+            "dr": []
+        }
+    },
+    "scaled_fp4_quant": {
+        "0": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 2,
+            "instructions": 510,
+            "z3_queries": 5,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "cutlass_scaled_fp4_mm": {
+        "15": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 10,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "1": {
+            "time": 0.0,
+            "total_path": 2,
+            "complete_path": 0,
+            "instructions": 718,
+            "z3_queries": 10,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "scaled_fp4_experts_quant": {
+        "4": {
+            "time": 1.0,
+            "total_path": 2,
+            "complete_path": 2,
+            "instructions": 776,
+            "z3_queries": 7,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "5": {
+            "time": 1.0,
+            "total_path": 2,
+            "complete_path": 2,
+            "instructions": 776,
+            "z3_queries": 7,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "cutlass_fp4_group_mm": {
+        "4": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "5": null
+    },
+    "dynamic_scaled_int8_quant": {
+        "33": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "34": null
+    },
+    "cutlass_scaled_mm": {
+        "198": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "199": null,
+        "202": null
+    },
+    "reshape_and_cache": {
+        "420": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "static_scaled_fp8_quant": {
+        "54": {
+            "time": 4.0,
+            "total_path": 5,
+            "complete_path": 1,
+            "instructions": 2995,
+            "z3_queries": 24,
+            "io": [
+                "12195_3112_3056_io",
+                "12180_3112_3056_io"
+            ],
+            "oob": [
+                "12549_12196_3112_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "12195_3112_3056_io",
+                "12180_3112_3056_io"
+            ],
+            "oob": [
+                "12549_12196_3112_oob"
+            ],
+            "dr": []
+        },
+        "109": {
+            "time": 5.0,
+            "total_path": 3,
+            "complete_path": 1,
+            "instructions": 3611,
+            "z3_queries": 32,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "gptq_marlin_gemm": {
+        "14": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [
+                "159165_169289_168906_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "159165_169289_168906_oob"
+            ],
+            "dr": []
+        },
+        "15": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [
+                "159165_169289_168906_oob"
+            ],
+            "dr": []
+        }
+    },
+    "moe_wna16_gemm": {
+        "2": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [
+                "11747_3635_1776_oob",
+                "11902_3635_1776_oob",
+                "10975_3501_1776_oob",
+                "11004_3501_1776_oob",
+                "11130_3501_1776_oob",
+                "12007_3635_1776_oob",
+                "11232_3501_1776_oob",
+                "11776_3635_1776_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "11747_3635_1776_oob",
+                "11902_3635_1776_oob",
+                "10975_3501_1776_oob",
+                "11004_3501_1776_oob",
+                "11130_3501_1776_oob",
+                "12007_3635_1776_oob",
+                "11232_3501_1776_oob",
+                "11776_3635_1776_oob",
+                "11566_3501_1776_oob"
+            ],
+            "dr": []
+        },
+        "3": {
+            "time": 217.0,
+            "total_path": 77,
+            "complete_path": 24,
+            "instructions": 23250,
+            "z3_queries": 802,
+            "io": [],
+            "oob": [
+                "11004_3501_1776_oob",
+                "11232_3501_1776_oob",
+                "11566_3501_1776_oob",
+                "10975_3501_1776_oob"
+            ],
+            "dr": []
+        }
+    }
+}

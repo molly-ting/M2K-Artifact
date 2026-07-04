@@ -1,0 +1,188 @@
+{
+  "(('_custom_ops.py', 276), ('model_executor/layers/layernorm.py', 23), ('model_executor/layers/layernorm.py', 171), ('model_executor/custom_op.py', 23), ('model_executor/models/deepseek_v2.py', 569))": {
+    "(256, 2341)": [
+      [
+        {
+          "shape": [
+            599296,
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            599296,
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            256,
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            256,
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            7168
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 276), ('model_executor/layers/layernorm.py', 23), ('model_executor/layers/layernorm.py', 171), ('model_executor/custom_op.py', 23), ('model_executor/models/deepseek_v2.py', 472))": {
+    "(256, 2341)": [
+      [
+        {
+          "shape": [
+            599296,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            599296,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            256,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            256,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 276), ('model_executor/layers/layernorm.py', 23), ('model_executor/layers/layernorm.py', 171), ('model_executor/custom_op.py', 23), ('model_executor/models/deepseek_v2.py', 478))": {
+    "(256, 2341)": [
+      [
+        {
+          "shape": [
+            599296,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            599296,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "shape": [
+            256,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            256,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1e-06,
+          "type": "float"
+        }
+      ]
+    ]
+  }
+}

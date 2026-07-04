@@ -1,0 +1,968 @@
+[
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 14336,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 14336,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    65
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 64,
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    65
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 64,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    61
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "4.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "4.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 60,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    63
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 62,
+                "type": "int"
+            },
+            {
+                "value": 512,
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    63
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 62,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    41
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 40,
+                "type": "int"
+            },
+            {
+                "value": 512,
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    41
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 40,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 16,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    17
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 16,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    17
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 16,
+                "type": "int"
+            },
+            {
+                "value": 6400,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "get_cutlass_moe_mm_data",
+        "cuda_function": "get_cutlass_moe_mm_data",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_w8a8_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    17
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 16,
+                "type": "int"
+            },
+            {
+                "value": 11008,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    }
+]

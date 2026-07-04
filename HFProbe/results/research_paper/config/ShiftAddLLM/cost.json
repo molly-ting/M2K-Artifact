@@ -1,0 +1,80 @@
+{
+    "lutgemm_compute_shift_scale": {
+        "input_token": 134,
+        "output_token": 0,
+        "money_cost": 0.0001675,
+        "gpt_time_cost": 211.00516867637634,
+        "execute_time": 7.5884246826171875
+    },
+    "makeRandomInput": {
+        "input_token": 131,
+        "output_token": 0,
+        "money_cost": 0.00016375000000000002,
+        "gpt_time_cost": 120.52319145202637,
+        "execute_time": 6.663880109786987
+    },
+    "lutgemm_compute_block": {
+        "input_token": 133,
+        "output_token": 0,
+        "money_cost": 0.00016625,
+        "gpt_time_cost": 126.95454978942871,
+        "execute_time": 6.80834174156189
+    },
+    "makeRandomWeight_int3": {
+        "input_token": 133,
+        "output_token": 0,
+        "money_cost": 0.00016625,
+        "gpt_time_cost": 144.01480340957642
+    },
+    "makeRandomAlpha": {
+        "input_token": 131,
+        "output_token": 0,
+        "money_cost": 0.00016375000000000002,
+        "gpt_time_cost": 103.38431859016418
+    },
+    "lutgemm_compute_block_shift": {
+        "input_token": 134,
+        "output_token": 0,
+        "money_cost": 0.0001675,
+        "gpt_time_cost": 114.90422487258911,
+        "execute_time": 7.726055860519409
+    },
+    "makeRandomWeight": {
+        "input_token": 131,
+        "output_token": 0,
+        "money_cost": 0.00016375000000000002,
+        "gpt_time_cost": 108.63335943222046
+    },
+    "makeRandomBias": {
+        "input_token": 131,
+        "output_token": 0,
+        "money_cost": 0.00016375000000000002,
+        "gpt_time_cost": 89.6630859375
+    },
+    "lutgemm_compute": {
+        "input_token": 132,
+        "output_token": 0,
+        "money_cost": 0.000165,
+        "gpt_time_cost": 105.68038439750671,
+        "execute_time": 7.426557302474976
+    },
+    "makeRandomScale": {
+        "input_token": 131,
+        "output_token": 0,
+        "money_cost": 0.00016375000000000002,
+        "gpt_time_cost": 89.41847920417786
+    },
+    "parsing": {
+        "input_token": 129,
+        "output_token": 0,
+        "money_cost": 0.00016125000000000002,
+        "gpt_time_cost": 191.12001395225525,
+        "execute_time": 7.72766637802124
+    },
+    "total": {
+        "input_token": 0,
+        "output_token": 0,
+        "money_cost": 0.0,
+        "time_cost": 1456.205981016159
+    }
+}

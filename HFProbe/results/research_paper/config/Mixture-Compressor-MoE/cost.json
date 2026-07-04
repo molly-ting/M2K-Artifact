@@ -1,0 +1,71 @@
+{
+    "forward_with_quant": {
+        "input_token": 151,
+        "output_token": 0,
+        "money_cost": 0.00018875,
+        "gpt_time_cost": 84.98034501075745
+    },
+    "dequantize_1bit_u8": {
+        "input_token": 156,
+        "output_token": 0,
+        "money_cost": 0.000195,
+        "gpt_time_cost": 108.63336038589478
+    },
+    "unpack_4bit_u8": {
+        "input_token": 154,
+        "output_token": 0,
+        "money_cost": 0.0001925,
+        "gpt_time_cost": 114.48184895515442
+    },
+    "unpack_1bit_u8": {
+        "input_token": 154,
+        "output_token": 0,
+        "money_cost": 0.0001925,
+        "gpt_time_cost": 236.77504658699036
+    },
+    "unpack_3bit_32": {
+        "input_token": 154,
+        "output_token": 0,
+        "money_cost": 0.0001925,
+        "gpt_time_cost": 188.76374411582947,
+        "execute_time": 526.4447071552277
+    },
+    "dequantize_8bit_u8": {
+        "input_token": 156,
+        "output_token": 0,
+        "money_cost": 0.000195,
+        "gpt_time_cost": 133.5981001853943
+    },
+    "dequantize_2bit_u8": {
+        "input_token": 156,
+        "output_token": 0,
+        "money_cost": 0.000195,
+        "gpt_time_cost": 163.66321086883545,
+        "execute_time": 527.0710878372192
+    },
+    "dequantize_3bit_32": {
+        "input_token": 156,
+        "output_token": 0,
+        "money_cost": 0.000195,
+        "gpt_time_cost": 174.7781400680542,
+        "execute_time": 525.9789218902588
+    },
+    "unpack_2bit_u8": {
+        "input_token": 154,
+        "output_token": 0,
+        "money_cost": 0.0001925,
+        "gpt_time_cost": 119.32349920272827
+    },
+    "dequantize_4bit_u8": {
+        "input_token": 156,
+        "output_token": 0,
+        "money_cost": 0.000195,
+        "gpt_time_cost": 110.07113695144653
+    },
+    "total": {
+        "input_token": 0,
+        "output_token": 0,
+        "money_cost": 0.0,
+        "time_cost": 3544.1931138038635
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "_name_or_path": "stabilityai/stablelm-3b-4e1t",
+    "architectures": [
+        "StableLMEpochForCausalLM"
+    ],
+    "attention_probs_dropout_prob": 0.0,
+    "auto_map": {
+        "AutoConfig": "configuration_stablelm_epoch.StableLMEpochConfig",
+        "AutoModelForCausalLM": "modeling_stablelm_epoch.StableLMEpochForCausalLM"
+    },
+    "bos_token_id": 0,
+    "custom_pipelines": {
+        "text-generation": {
+            "impl": "h2oai_pipeline.H2OTextGenerationPipeline",
+            "pt": "AutoModelForCausalLM"
+        }
+    },
+    "eos_token_id": 0,
+    "hidden_act": "silu",
+    "hidden_dropout_prob": 0.0,
+    "hidden_size": 2560,
+    "initializer_range": 0.02,
+    "intermediate_size": 6912,
+    "max_position_embeddings": 4096,
+    "model_type": "stablelm_epoch",
+    "norm_eps": 1e-05,
+    "num_attention_heads": 32,
+    "num_heads": 32,
+    "num_hidden_layers": 32,
+    "num_key_value_heads": 32,
+    "pad_token_id": 0,
+    "rope_pct": 0.25,
+    "rope_theta": 10000,
+    "rotary_scaling_factor": 1.0,
+    "tie_word_embeddings": false,
+    "torch_dtype": "float16",
+    "transformers_version": "4.34.0",
+    "use_cache": true,
+    "vocab_size": 50304
+}

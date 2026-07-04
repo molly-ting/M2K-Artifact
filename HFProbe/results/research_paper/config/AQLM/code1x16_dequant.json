@@ -1,0 +1,1 @@
+{"model_id": "meta-llama/Llama-2-7b-hf", "dtype": "float16", "device": "cuda", "trust_remote_code": true, "framework": "AQLM-pv-tuning", "quantization": {"method": "AQLM", "scheme": "1x16", "num_codebooks": 1, "codes_per_codebook": 16}, "kernels": {"backend": "cuda", "dequant_kernel": "code1x16_dequant"}}

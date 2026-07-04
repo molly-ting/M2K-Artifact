@@ -1,0 +1,251 @@
+{
+    "machete_mm": {
+        "execute_time": 1616.4114096164703
+    },
+    "paged_attention": {
+        "input_token": 606,
+        "output_token": 0,
+        "money_cost": 0.0007575,
+        "gpt_time_cost": 178.78390073776245,
+        "execute_time": 49.71207928657532
+    },
+    "concat_and_cache_mla": {
+        "input_token": 800,
+        "output_token": 0,
+        "money_cost": 0.001,
+        "gpt_time_cost": 149.82561922073364
+    },
+    "gptq_gemm": {
+        "input_token": 520,
+        "output_token": 0,
+        "money_cost": 0.0006500000000000001,
+        "gpt_time_cost": 163.87124800682068,
+        "execute_time": 3.301544666290283
+    },
+    "marlin_qqq_gemm": {
+        "input_token": 598,
+        "output_token": 0,
+        "money_cost": 0.0007475,
+        "gpt_time_cost": 153.4640929698944,
+        "execute_time": 0.26203417778015137
+    },
+    "marlin_gemm": {
+        "input_token": 561,
+        "output_token": 0,
+        "money_cost": 0.00070125,
+        "gpt_time_cost": 146.04453086853027,
+        "execute_time": 2.909451723098755
+    },
+    "sgl_moe_align_block_size": {
+        "input_token": 1340,
+        "output_token": 0,
+        "money_cost": 0.001675,
+        "gpt_time_cost": 89.41275453567505,
+        "execute_time": 44.04282855987549
+    },
+    "dynamic_scaled_int8_quant": {
+        "execute_time": 5.073228359222412
+    },
+    "convert_vertical_slash_indexes_mergehead": {
+        "input_token": 991,
+        "output_token": 0,
+        "money_cost": 0.00123875,
+        "gpt_time_cost": 117.91764402389526
+    },
+    "cutlass_scaled_mm_supports_fp4": {
+        "input_token": 495,
+        "output_token": 0,
+        "money_cost": 0.00061875,
+        "gpt_time_cost": 111.84517240524292
+    },
+    "aqlm_dequant": {
+        "input_token": 568,
+        "output_token": 0,
+        "money_cost": 0.0007099999999999999,
+        "gpt_time_cost": 159.39493131637573,
+        "execute_time": 3.1959078311920166
+    },
+    "cutlass_scaled_sparse_mm": {
+        "input_token": 751,
+        "output_token": 0,
+        "money_cost": 0.00093875,
+        "gpt_time_cost": 136.4918978214264
+    },
+    "cutlass_scaled_mm_supports_block_fp8": {
+        "execute_time": 57.45913743972778
+    },
+    "batched_rotary_embedding": {
+        "input_token": 622,
+        "output_token": 0,
+        "money_cost": 0.0007775,
+        "gpt_time_cost": 132.636647939682
+    },
+    "swap_blocks": {
+        "execute_time": 69.30533933639526
+    },
+    "static_scaled_int8_quant": {
+        "input_token": 707,
+        "output_token": 0,
+        "money_cost": 0.00088375,
+        "gpt_time_cost": 162.99693131446838,
+        "execute_time": 0.2929999828338623
+    },
+    "dynamic_scaled_fp8_quant": {
+        "execute_time": 53.52083373069763
+    },
+    "get_cutlass_moe_mm_data": {
+        "input_token": 1482,
+        "output_token": 0,
+        "money_cost": 0.0018525,
+        "gpt_time_cost": 242.3139500617981,
+        "execute_time": 0.4328725337982178
+    },
+    "paged_attention_v2": {
+        "input_token": 1123,
+        "output_token": 0,
+        "money_cost": 0.00140375,
+        "gpt_time_cost": 117.60247254371643
+    },
+    "reshape_and_cache": {
+        "input_token": 521,
+        "output_token": 0,
+        "money_cost": 0.00065125,
+        "gpt_time_cost": 85.14767456054688
+    },
+    "gptq_marlin_24_gemm": {
+        "input_token": 577,
+        "output_token": 0,
+        "money_cost": 0.00072125,
+        "gpt_time_cost": 196.5497965812683,
+        "execute_time": 0.2730286121368408
+    },
+    "scaled_fp4_quant": {
+        "input_token": 615,
+        "output_token": 0,
+        "money_cost": 0.00076875,
+        "gpt_time_cost": 180.5957477092743,
+        "execute_time": 0.38474154472351074
+    },
+    "merge_attn_states": {
+        "input_token": 749,
+        "output_token": 0,
+        "money_cost": 0.00093625,
+        "gpt_time_cost": 77.8709785938263
+    },
+    "gptq_marlin_gemm": {
+        "input_token": 578,
+        "output_token": 0,
+        "money_cost": 0.0007224999999999999,
+        "gpt_time_cost": 169.476135969162,
+        "execute_time": 27.73076558113098
+    },
+    "awq_gemm": {
+        "input_token": 638,
+        "output_token": 0,
+        "money_cost": 0.0007975,
+        "gpt_time_cost": 140.84425020217896
+    },
+    "paged_attention_v1": {
+        "input_token": 919,
+        "output_token": 0,
+        "money_cost": 0.00114875,
+        "gpt_time_cost": 128.714359998703
+    },
+    "cutlass_scaled_fp4_mm": {
+        "input_token": 730,
+        "output_token": 0,
+        "money_cost": 0.0009125,
+        "gpt_time_cost": 249.45252680778503,
+        "execute_time": 0.37316060066223145
+    },
+    "static_scaled_fp8_quant": {
+        "execute_time": 300.8776533603668
+    },
+    "scaled_fp4_experts_quant": {
+        "input_token": 1599,
+        "output_token": 0,
+        "money_cost": 0.00199875,
+        "gpt_time_cost": 125.07384252548218
+    },
+    "gather_cache": {
+        "input_token": 658,
+        "output_token": 0,
+        "money_cost": 0.0008225000000000001,
+        "gpt_time_cost": 158.868549823761
+    },
+    "dynamic_per_token_scaled_fp8_quant": {
+        "execute_time": 101.59355068206787
+    },
+    "cutlass_scaled_mm_supports_fp8": {
+        "execute_time": 50.90769839286804
+    },
+    "advance_step_flashattn": {
+        "execute_time": 30.939798831939697
+    },
+    "cutlass_moe_mm": {
+        "input_token": 1664,
+        "output_token": 0,
+        "money_cost": 0.00208,
+        "gpt_time_cost": 142.64923667907715
+    },
+    "convert_vertical_slash_indexes": {
+        "input_token": 1072,
+        "output_token": 0,
+        "money_cost": 0.00134,
+        "gpt_time_cost": 144.50730061531067
+    },
+    "cutlass_fp4_group_mm": {
+        "input_token": 780,
+        "output_token": 0,
+        "money_cost": 0.0009750000000000001,
+        "gpt_time_cost": 196.87474942207336,
+        "execute_time": 5.465051651000977
+    },
+    "moe_wna16_gemm": {
+        "input_token": 1243,
+        "output_token": 0,
+        "money_cost": 0.0015537500000000002,
+        "gpt_time_cost": 190.21740245819092
+    },
+    "gelu_and_mul": {
+        "input_token": 1989,
+        "output_token": 0,
+        "money_cost": 0.00248625,
+        "gpt_time_cost": 133.8419632911682,
+        "execute_time": 3.398669481277466
+    },
+    "cutlass_scaled_mm": {
+        "input_token": 511,
+        "output_token": 0,
+        "money_cost": 0.00063875,
+        "gpt_time_cost": 138.4084587097168,
+        "execute_time": 31.02974534034729
+    },
+    "awq_dequantize": {
+        "input_token": 603,
+        "output_token": 0,
+        "money_cost": 0.00075375,
+        "gpt_time_cost": 174.36505103111267,
+        "execute_time": 3.5554311275482178
+    },
+    "aqlm_gemm": {
+        "input_token": 644,
+        "output_token": 0,
+        "money_cost": 0.000805,
+        "gpt_time_cost": 150.03513407707214,
+        "execute_time": 3.0385143756866455
+    },
+    "allspark_w8a16_gemm": {
+        "input_token": 548,
+        "output_token": 0,
+        "money_cost": 0.0006850000000000001,
+        "gpt_time_cost": 195.92989230155945,
+        "execute_time": 0.272676944732666
+    },
+    "total": {
+        "input_token": 27802,
+        "output_token": 0,
+        "money_cost": 0.0347525,
+        "time_cost": 9422.744267225266
+    }
+}

@@ -1,0 +1,142 @@
+{
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/falcon.py', 194))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4672,
+            568,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4544,
+          "minV": 64,
+          "dupV": true
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/falcon.py', 201))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4544,
+            568,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4544,
+          "minV": 4544,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/falcon.py', 233))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            18176,
+            568,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 18176,
+          "minV": 18176,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/falcon.py', 237))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4544,
+            2272,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4544,
+          "minV": 4544,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

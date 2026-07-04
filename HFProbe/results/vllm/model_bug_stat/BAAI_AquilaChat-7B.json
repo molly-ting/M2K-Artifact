@@ -1,0 +1,125 @@
+{
+    "all_reduce": {
+        "0": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rms_norm": {
+        "13": {
+            "time": 17.0,
+            "total_path": 8,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 83,
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rotary_embedding": {
+        "1051": {
+            "time": 22.0,
+            "total_path": 4,
+            "complete_path": 1,
+            "instructions": 2254,
+            "z3_queries": 85,
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [
+                "12186_12042_11961_oob"
+            ],
+            "dr": []
+        }
+    },
+    "reshape_and_cache_flash": {
+        "0": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "varlen_fwd": {},
+    "fused_add_rms_norm": {
+        "8": {
+            "time": 286.0,
+            "total_path": 14,
+            "complete_path": 6,
+            "instructions": 15742,
+            "z3_queries": 596,
+            "io": [
+                "28841_9851_9652_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "28841_9851_9652_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "silu_and_mul": {
+        "0": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "init_custom_ar": {
+        "0": {
+            "time": 1.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 46,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    }
+}

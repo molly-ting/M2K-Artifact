@@ -1,0 +1,1 @@
+{"initial": ["fwd_kvcache", "all_reduce", "silu_and_mul", "fused_add_rms_norm", "varlen_fwd", "rms_norm", "rotary_embedding", "reshape_and_cache_flash"], "initial_num": 8, "new": ["cutlass_scaled_mm_supports_fp4", "cutlass_scaled_mm_supports_block_fp8", "advance_step_flashattn", "swap_blocks", "cutlass_scaled_mm_supports_fp8"], "inre_len": 5}

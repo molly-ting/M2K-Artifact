@@ -1,0 +1,45 @@
+{
+    "meta_size": {},
+    "init_custom_ar": {
+        "0": {
+            "time": 1.0,
+            "total_path": 1,
+            "complete_path": 0,
+            "instructions": 46,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "register_buffer": {},
+    "cutlass_scaled_mm_supports_fp8": {
+        "0": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "cutlass_scaled_mm_supports_block_fp8": {
+        "0": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "all_reduce": {},
+    "rms_norm": {},
+    "rotary_embedding": {},
+    "varlen_fwd": {},
+    "fused_add_rms_norm": {},
+    "silu_and_mul": {},
+    "moe_align_block_size": {},
+    "moe_sum": {}
+}

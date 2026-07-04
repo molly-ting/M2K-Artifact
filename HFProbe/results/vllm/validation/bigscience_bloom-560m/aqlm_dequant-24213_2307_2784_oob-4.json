@@ -1,0 +1,142 @@
+{
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/bloom.py', 131))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            3072,
+            128,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1024,
+          "minV": 1024,
+          "dupV": true
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/bloom.py', 134))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            1024,
+            128,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1024,
+          "minV": 1024,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/bloom.py', 160))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4096,
+            128,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4096,
+          "minV": 4096,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/bloom.py', 162))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            1024,
+            512,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 1024,
+          "minV": 1024,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+    "initial": [
+        "cutlass_scaled_mm",
+        "sgl_moe_align_block_size",
+        "rms_norm",
+        "varlen_fwd",
+        "concat_and_cache_mla",
+        "fused_add_rms_norm",
+        "init_custom_ar",
+        "moe_sum",
+        "silu_and_mul",
+        "all_reduce"
+    ],
+    "initial_num": 10,
+    "new": [
+        "merge_attn_states",
+        "gptq_marlin_repack",
+        "gather_cache",
+        "dynamic_scaled_fp8_quant",
+        "cutlass_scaled_mm_supports_fp8",
+        "moe_wna16_marlin_gemm",
+        "machete_prepack_B",
+        "cutlass_scaled_mm_supports_block_fp8",
+        "static_scaled_fp8_quant",
+        "get_mla_metadata",
+        "machete_mm",
+        "moe_align_block_size",
+        "fwd_kvcache_mla",
+        "gptq_marlin_gemm",
+        "swap_blocks"
+    ],
+    "inre_len": 15
+}

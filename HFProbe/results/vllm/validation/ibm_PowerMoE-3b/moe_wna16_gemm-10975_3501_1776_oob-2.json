@@ -1,0 +1,208 @@
+{
+  "(('_custom_ops.py', 1459), ('model_executor/layers/fused_moe/fused_moe.py', 540), ('model_executor/layers/fused_moe/fused_moe.py', 1342), ('model_executor/layers/fused_moe/fused_moe.py', 1017), ('model_executor/layers/fused_moe/fused_moe.py', 1124))": {
+    "(3, 3)": [
+      [
+        {
+          "shape": [
+            9,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            9,
+            8,
+            1024
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            1024,
+            768
+          ],
+          "dtype": "torch.uint8",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            1024,
+            12
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            512,
+            12
+          ],
+          "dtype": "torch.uint8",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        },
+        {
+          "shape": [
+            392
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 72,
+          "minV": 72,
+          "dupV": true
+        },
+        {
+          "shape": [
+            44
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "value": 8,
+          "type": "int"
+        },
+        {
+          "value": 9,
+          "type": "int"
+        },
+        {
+          "value": 1024,
+          "type": "int"
+        },
+        {
+          "value": 256,
+          "type": "int"
+        },
+        {
+          "value": 4,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 1459), ('model_executor/layers/fused_moe/fused_moe.py', 540), ('model_executor/layers/fused_moe/fused_moe.py', 1379), ('model_executor/layers/fused_moe/fused_moe.py', 1017), ('model_executor/layers/fused_moe/fused_moe.py', 1124))": {
+    "(3, 3)": [
+      [
+        {
+          "shape": [
+            72,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            9,
+            8,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            1536,
+            256
+          ],
+          "dtype": "torch.uint8",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            1536,
+            4
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            40,
+            768,
+            4
+          ],
+          "dtype": "torch.uint8",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            9,
+            8
+          ],
+          "dtype": "torch.float32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            392
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 72,
+          "minV": 72,
+          "dupV": true
+        },
+        {
+          "shape": [
+            44
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 9,
+          "type": "int"
+        },
+        {
+          "value": 256,
+          "type": "int"
+        },
+        {
+          "value": 256,
+          "type": "int"
+        },
+        {
+          "value": 4,
+          "type": "int"
+        }
+      ]
+    ]
+  }
+}

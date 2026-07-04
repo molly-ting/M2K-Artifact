@@ -1,0 +1,1 @@
+{"initial": ["causal_conv1d_fwd", "rms_norm", "topk_softmax", "silu_and_mul", "moe_align_block_size", "moe_sum", "varlen_fwd", "all_reduce", "reshape_and_cache_flash"], "initial_num": 9, "new": ["cutlass_scaled_mm_supports_fp8", "cutlass_scaled_mm_supports_block_fp8"], "inre_len": 2}

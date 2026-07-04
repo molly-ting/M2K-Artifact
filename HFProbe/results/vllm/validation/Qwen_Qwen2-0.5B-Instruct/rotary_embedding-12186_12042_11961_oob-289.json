@@ -1,0 +1,710 @@
+{
+  "(('_custom_ops.py', 257), ('model_executor/layers/rotary_embedding.py', 195), ('model_executor/custom_op.py', 23), ('model_executor/models/qwen2.py', 186), ('model_executor/models/qwen2.py', 257))": {
+    "(1, 512)": [
+      [
+        {
+          "shape": [
+            512
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 511,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "shape": [
+            512,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            512,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 512,
+          "minV": 512,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 513,
+          "minV": 513,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 514,
+          "minV": 514,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 515,
+          "minV": 515,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 516,
+          "minV": 516,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 517,
+          "minV": 517,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 518,
+          "minV": 518,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 519,
+          "minV": 519,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 520,
+          "minV": 520,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 521,
+          "minV": 521,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 522,
+          "minV": 522,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 523,
+          "minV": 523,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 524,
+          "minV": 524,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 525,
+          "minV": 525,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 526,
+          "minV": 526,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 64,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            64
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ]
+    ]
+  }
+}

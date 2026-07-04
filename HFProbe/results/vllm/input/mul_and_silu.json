@@ -1,0 +1,83 @@
+[
+    {
+        "py_function": "mul_and_silu",
+        "cuda_function": "mul_and_silu",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/activation_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    18944
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    37888
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "mul_and_silu",
+        "cuda_function": "mul_and_silu",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/activation_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    18944
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    37888
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "mul_and_silu",
+        "cuda_function": "mul_and_silu",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/activation_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    18944
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    37888
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    }
+]

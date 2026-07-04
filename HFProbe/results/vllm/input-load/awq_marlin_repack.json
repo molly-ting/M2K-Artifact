@@ -1,0 +1,110 @@
+[
+    {
+        "py_function": "awq_marlin_repack",
+        "cuda_function": "awq_marlin_repack",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/gptq_marlin_awq_marlin_repack_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 6144,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_marlin_repack",
+        "cuda_function": "awq_marlin_repack",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/gptq_marlin_awq_marlin_repack_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_marlin_repack",
+        "cuda_function": "awq_marlin_repack",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/gptq_marlin_awq_marlin_repack_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 16384,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_marlin_repack",
+        "cuda_function": "awq_marlin_repack",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/gptq_marlin_awq_marlin_repack_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8192,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            }
+        ]
+    }
+]

@@ -1,0 +1,1 @@
+{"model": "facebook/opt-125m", "device": "cuda", "dtype": "float16", "wbits": 3, "groupsize": -1, "lat": true, "bcq_round": 50, "load_temp_storage": "/path/to/packed_weight_dir", "infer_kernel": true, "benchmark": 128, "kernel_name": "lutgemm_compute_block", "seed": 1}

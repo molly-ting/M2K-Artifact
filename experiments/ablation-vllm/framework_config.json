@@ -1,0 +1,17 @@
+{
+    "paged_attention_v1": {"envs":{"VLLM_ATTENTION_BACKEND": "XFORMERS"}, "vllmconfig": {"block_size": 16, "max_model_len": 512}},
+    "paged_attention_v2": {"envs":{"VLLM_ATTENTION_BACKEND": "XFORMERS"}, "vllmconfig": {"block_size": 16, "max_model_len": 1024, "num_gpu_blocks_override": 150}, "batch_size": [1, 2, 3], "seq_len": [513, 523, 537]},
+    "awq_dequantize": {"seq_len": [51, 89, 257]},
+    "aqlm_gemm": {"batch_size": [1, 2, 3], "seq_len": [1, 2, 3]}, 
+    "advance_step_flashattn":{"envs":{"VLLM_ATTENTION_BACKEND": "FLASH_ATTN"}, "vllmconfig": {"num_scheduler_steps":2}},
+    "advance_step_flashinfer":{"envs":{"VLLM_ATTENTION_BACKEND": "FLASHINFER"}, "vllmconfig": {"num_scheduler_steps":2}},
+    "convert_vertical_slash_indexes": {"envs":{"VLLM_ATTENTION_BACKEND": "DUAL_CHUNK_FLASH_ATTN"}},
+    "convert_vertical_slash_indexes_mergehead": {"envs":{"VLLM_ATTENTION_BACKEND": "DUAL_CHUNK_FLASH_ATTN"}},
+    "merge_attn_states": {"vllmconfig": {"dtype": "bfloat16", "enable_prefix_caching": true, "block_size": 64, "max_num_batched_tokens": 64, "max_num_seqs": 64, "enable_chunked_prefill": true}, "seq_len": [65, 91, 131]},
+    "gather_cache": {"vllmconfig": {"enable_prefix_caching": true, "block_size": 64, "max_num_batched_tokens": 64, "max_num_seqs": 64, "enable_chunked_prefill": true}, "seq_len": [65, 91, 131]},
+    "concat_and_cache_mla": {"vllmconfig": {"block_size": 64}},
+    "copy_blocks_mla": {"vllmconfig": {"block_size": 64}},
+    "reshape_and_cache": {"envs":{"VLLM_ATTENTION_BACKEND": "XFORMERS"}},
+    "swap_blocks":{"vllmconfig": {"enable_prefix_caching": false, "enable_chunked_prefill": false, "block_size": 64, "num_gpu_blocks_override": 2}},
+    "moe_wna16_gemm":{"vllmconfig": {"quantization": "moe_wna16"}}
+}

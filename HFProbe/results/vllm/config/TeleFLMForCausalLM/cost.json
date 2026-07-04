@@ -1,0 +1,84 @@
+{
+    "scaled_fp4_quant": {
+        "input_token": 620,
+        "output_token": 0,
+        "money_cost": 0.000775,
+        "gpt_time_cost": 174.00793766975403,
+        "execute_time": 1.3828277587890625e-05
+    },
+    "awq_gemm": {
+        "input_token": 643,
+        "output_token": 0,
+        "money_cost": 0.00080375,
+        "gpt_time_cost": 141.60017323493958,
+        "execute_time": 4.149593830108643
+    },
+    "gptq_gemm": {
+        "input_token": 525,
+        "output_token": 0,
+        "money_cost": 0.00065625,
+        "gpt_time_cost": 172.8973913192749,
+        "execute_time": 4.006886720657349
+    },
+    "gptq_marlin_24_gemm": {
+        "input_token": 582,
+        "output_token": 0,
+        "money_cost": 0.0007275,
+        "gpt_time_cost": 173.62252759933472,
+        "execute_time": 0.48108482360839844
+    },
+    "convert_vertical_slash_indexes_mergehead": {
+        "input_token": 996,
+        "output_token": 0,
+        "money_cost": 0.001245,
+        "gpt_time_cost": 394.35774755477905,
+        "execute_time": 16.696346521377563
+    },
+    "machete_mm": {
+        "input_token": 561,
+        "output_token": 0,
+        "money_cost": 0.00070125,
+        "gpt_time_cost": 205.41883969306946,
+        "execute_time": 49.53615856170654
+    },
+    "gather_cache": {
+        "input_token": 663,
+        "output_token": 0,
+        "money_cost": 0.0008287500000000001,
+        "gpt_time_cost": 150.18853163719177
+    },
+    "paged_attention_v2": {
+        "input_token": 1128,
+        "output_token": 0,
+        "money_cost": 0.0014099999999999998,
+        "gpt_time_cost": 149.08111882209778
+    },
+    "concat_and_cache_mla": {
+        "input_token": 805,
+        "output_token": 0,
+        "money_cost": 0.00100625,
+        "gpt_time_cost": 210.91269969940186,
+        "execute_time": 46.30338788032532
+    },
+    "reshape_and_cache": {
+        "input_token": 526,
+        "output_token": 0,
+        "money_cost": 0.0006575,
+        "gpt_time_cost": 108.105299949646
+    },
+    "cutlass_scaled_mm_supports_fp4": {
+        "input_token": 500,
+        "output_token": 0,
+        "money_cost": 0.000625,
+        "gpt_time_cost": 176.3035430908203
+    },
+    "allspark_w8a16_gemm": {
+        "input_token": 553,
+        "output_token": 0,
+        "money_cost": 0.00069125,
+        "gpt_time_cost": 160.14524579048157
+    },
+    "total": {
+        "time_cost":10818
+    }
+}

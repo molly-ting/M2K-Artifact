@@ -1,0 +1,436 @@
+[
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8448,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    8448,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8448,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8448
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 13,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    8448,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    8448,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8448,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8448
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 17,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    10240,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    10240,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    10240,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    10240
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 13,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7424,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    7424,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 13,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    7424,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    7424,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 19,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7424,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    7424,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 15,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "causal_conv1d_update",
+        "cuda_function": "causal_conv1d_update",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/causal_conv1d_causal_conv1d_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7424,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    20,
+                    7424,
+                    3
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424,
+                    4
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7424
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    "1.0*b"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 19,
+                "minV": 17,
+                "dupV": false
+            },
+            {
+                "value": -1,
+                "type": "int"
+            }
+        ]
+    }
+]

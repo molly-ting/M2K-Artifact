@@ -1,0 +1,1 @@
+{"note": "This config enables vLLM's FP8 (W8A8) path so Linear ops dispatch to ops.cutlass_scaled_mm when CUTLASS FP8 is supported on the GPU (e.g., Ada/Hopper). Weights must be saved in FP8 with corresponding *weight_scale* (and optionally *input_scale* for static) tensors as produced by compatible quantizers (e.g., llm-compressor/AutoFP8)."}

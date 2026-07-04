@@ -1,0 +1,812 @@
+[
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    15360,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    30720,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    15360
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    7680,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2560,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    10240,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2560,
+                    10240
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    14704,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    21504,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    28672,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    28672,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    28672,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    24576,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    43648,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    21824
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    12288,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    16384,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6912,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    18432,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    9216
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    768,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    768,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    7680,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    35840,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    17920
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    24576,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    12288
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    11520,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    5760
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    22016,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    11008
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    16384,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    12288,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "cutlass_sparse_compress",
+        "cuda_function": "cutlass_sparse_compress",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cutlass_sparse_scaled_mm_entry_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    12288
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    }
+]

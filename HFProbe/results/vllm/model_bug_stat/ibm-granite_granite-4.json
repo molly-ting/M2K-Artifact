@@ -1,0 +1,194 @@
+{
+    "all_reduce": {
+        "49": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "rms_norm": {
+        "51": {
+            "time": 17.0,
+            "total_path": 12,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 80,
+            "io": [
+                "15716_3041_2372_io",
+                "15718_3041_2372_io",
+                "18877_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "15716_3041_2372_io",
+                "15718_3041_2372_io",
+                "18877_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "106": {
+            "time": 17.0,
+            "total_path": 12,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 80,
+            "io": [
+                "15716_3041_2372_io",
+                "15718_3041_2372_io",
+                "18877_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "causal_conv1d_fwd": {
+        "14": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [
+                "33225_6934_6887_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "33225_6934_6887_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "topk_softmax": {
+        "15": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "moe_align_block_size": {
+        "27": {
+            "time": 28.0,
+            "total_path": 28,
+            "complete_path": 2,
+            "instructions": 984,
+            "z3_queries": 193,
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        },
+        "total": {
+            "io": [
+                "37314_4936_3670_io",
+                "37322_4936_3670_io",
+                "37449_4936_3670_io",
+                "37440_4936_3670_io",
+                "37181_4936_3670_io"
+            ],
+            "oob": [
+                "37443_4936_3670_oob",
+                "37456_4936_3670_oob",
+                "37448_4936_3670_oob",
+                "37383_4936_3670_oob",
+                "37184_4936_3670_oob"
+            ],
+            "dr": [
+                "37186_4936_3670_dr"
+            ]
+        }
+    },
+    "silu_and_mul": {
+        "73": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "74": {
+            "time": 2.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 736,
+            "z3_queries": 18,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "moe_sum": {
+        "19": {
+            "time": 1.0,
+            "total_path": 1,
+            "complete_path": 1,
+            "instructions": 328,
+            "z3_queries": 3,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "reshape_and_cache_flash": {
+        "942": {
+            "time": 3.0,
+            "total_path": 2,
+            "complete_path": 1,
+            "instructions": 688,
+            "z3_queries": 27,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "varlen_fwd": {}
+}

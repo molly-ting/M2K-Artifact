@@ -1,0 +1,233 @@
+{
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 486), ('model_executor/models/qwen2.py', 184), ('model_executor/models/qwen2.py', 257))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            112,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 896,
+          "minV": 128,
+          "dupV": true
+        },
+        {
+          "shape": [
+            1152
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 1288), ('model_executor/models/qwen2.py', 188), ('model_executor/models/qwen2.py', 257))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            896,
+            112,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            896,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 896,
+          "minV": 896,
+          "dupV": false
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 486), ('model_executor/models/qwen2.py', 95), ('model_executor/models/qwen2.py', 265))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            9728,
+            112,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            9728,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4864,
+          "minV": 4864,
+          "dupV": true
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 896), ('model_executor/layers/quantization/aqlm.py', 351), ('model_executor/layers/linear.py', 1288), ('model_executor/models/qwen2.py', 97), ('model_executor/models/qwen2.py', 265))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            896,
+            608,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            896,
+            1,
+            1,
+            1
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 896,
+          "minV": 896,
+          "dupV": false
+        },
+        {
+          "value": "None",
+          "type": "NoneType"
+        }
+      ]
+    ]
+  }
+}

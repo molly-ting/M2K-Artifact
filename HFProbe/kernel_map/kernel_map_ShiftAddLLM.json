@@ -1,0 +1,50 @@
+{
+    "parsing": {
+        "func_name": "parsing",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda_kernel.cu"
+    },
+    "lutgemm_compute_shift_scale": {
+        "func_name": "lutgemm_compute_shift_scale",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "lutgemm_compute_block": {
+        "func_name": "lutgemm_compute_block",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "lutgemm_compute_block_shift": {
+        "func_name": "lutgemm_compute_block_shift",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "lutgemm_compute_block_shiftInt8": {
+        "func_name": "lutgemm_compute_block_shiftInt8",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "lutgemm_compute": {
+        "func_name": "lutgemm_compute",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomInput": {
+        "func_name": "makeRandomInput",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomWeight": {
+        "func_name": "makeRandomWeight",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomWeight_int3": {
+        "func_name": "makeRandomWeight_int3",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomAlpha": {
+        "func_name": "makeRandomAlpha",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomScale": {
+        "func_name": "makeRandomScale",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    },
+    "makeRandomBias": {
+        "func_name": "makeRandomBias",
+        "file_path": "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM/lut_gemm/lutgemm_cuda.cpp"
+    }
+}

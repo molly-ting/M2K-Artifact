@@ -1,0 +1,81 @@
+[
+    {
+        "py_function": "single_query_cached_kv_attention",
+        "cuda_function": "single_query_cached_kv_attention",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/coverage-exp/68/attention_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1024,
+                    32,
+                    16,
+                    16,
+                    8
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1024,
+                    32,
+                    128,
+                    16
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0.08838834764831845,
+                "type": "float"
+            },
+            {
+                "shape": [
+                    1,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 1023,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 4096,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "value": 16,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            }
+        ]
+    }
+]

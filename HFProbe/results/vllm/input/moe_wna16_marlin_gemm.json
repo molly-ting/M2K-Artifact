@@ -1,0 +1,4696 @@
+[
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    128,
+                    5632
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    16,
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        844,
+                        5384
+                    ]
+                },
+                "maxV": 2376,
+                "minV": 396,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        95,
+                        114
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 6,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2816,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "6.0*s*b",
+                    1408
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    88,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    11,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        844,
+                        5384
+                    ]
+                },
+                "maxV": 2376,
+                "minV": 396,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        95,
+                        114
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "6.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b",
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    128,
+                    5632
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    16,
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b+448.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 18,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*b+56.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 6,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*b",
+                "type": "int"
+            },
+            {
+                "value": 2816,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "6.0*b",
+                    1408
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    88,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    11,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b+448.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 18,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*b+56.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "6.0*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b",
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    256,
+                    57344
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    32,
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        60,
+                        428
+                    ]
+                },
+                "maxV": 180,
+                "minV": 4,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        8,
+                        15
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        32
+                    ]
+                }
+            },
+            {
+                "value": 2,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 28672,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "2.0*s*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    896,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    112,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        60,
+                        428
+                    ]
+                },
+                "maxV": 180,
+                "minV": 4,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        8,
+                        15
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        32
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "2.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 14336,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    256,
+                    57344
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    32,
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b+56.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 10,
+                "minV": 2,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        8,
+                        9
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 2,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*b",
+                "type": "int"
+            },
+            {
+                "value": 28672,
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "2.0*b",
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    896,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    112,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "2.0*b+56.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 10,
+                "minV": 2,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        8,
+                        9
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "2.0*b",
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 14336,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    128,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    16,
+                    1536
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*s*b",
+                    768
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    48,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    6,
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "8.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 768,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    128,
+                    6144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    1,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899923621888,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    48,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899923621888,
+                "type": "int"
+            },
+            {
+                "value": "8.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 768,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    128,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    16,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 2047,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*s*b",
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    48,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    128,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 767,
+                "minV": 0,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        904,
+                        3208
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        113,
+                        201
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "8.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 768,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "4.0*s*b",
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    128,
+                    5632
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    16,
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    60,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        424,
+                        1544
+                    ]
+                },
+                "maxV": 644,
+                "minV": 4,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        53,
+                        97
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 4,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2816,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "4.0*s*b",
+                    1408
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "4.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    88,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    11,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    60,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    60,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        424,
+                        1544
+                    ]
+                },
+                "maxV": 644,
+                "minV": 4,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        53,
+                        97
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "4.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    96,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    12,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    62,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        440,
+                        2888
+                    ]
+                },
+                "maxV": 966,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        55,
+                        106
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        32
+                    ]
+                }
+            },
+            {
+                "value": 6,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "6.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    32,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    4,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    62,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    62,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        440,
+                        2888
+                    ]
+                },
+                "maxV": 966,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        55,
+                        106
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        32
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "6.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": 512,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    96,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    12,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    40,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        288,
+                        3168
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        36,
+                        72
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1024,
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*s*b",
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    32,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    4,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    40,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        288,
+                        3168
+                    ]
+                },
+                "maxV": 1288,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        36,
+                        72
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        48
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "8.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 1536,
+                "type": "int"
+            },
+            {
+                "value": 512,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    448,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    56,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b+1792.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 720,
+                "minV": 16,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*s*b+224.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 7168,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    128,
+                    14336
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    16,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*s*b+1792.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 720,
+                "minV": 16,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*s*b+224.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "8.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 7168,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    448,
+                    8192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    56,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*b+1792.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 40,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*b+224.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*b",
+                "type": "int"
+            },
+            {
+                "value": 4096,
+                "type": "int"
+            },
+            {
+                "value": 7168,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "8.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    128,
+                    14336
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    16,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "8.0*b+1792.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 40,
+                "minV": 8,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "1.0*b+224.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    8
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "8.0*b",
+                "type": "int"
+            },
+            {
+                "value": 7168,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    128,
+                    5632
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    16,
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        460,
+                        1500
+                    ]
+                },
+                "maxV": 540,
+                "minV": 12,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        58,
+                        97
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 6,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2816,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "6.0*s*b",
+                    1408
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    88,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    11,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        460,
+                        1500
+                    ]
+                },
+                "maxV": 540,
+                "minV": 12,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u1"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u1": [
+                        58,
+                        97
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "u2",
+                "type": "int",
+                "symRanges": {
+                    "u2": [
+                        8,
+                        16
+                    ]
+                }
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "6.0*s*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b",
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    128,
+                    5632
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    16,
+                    2816
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b+448.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 30,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        57,
+                        60
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 6,
+                "type": "int"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "1.0*b",
+                "type": "int"
+            },
+            {
+                "value": 2816,
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_wna16_marlin_gemm",
+        "cuda_function": "moe_wna16_marlin_gemm",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/marlin_moe_wna16_ops_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "6.0*b",
+                    1408
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    88,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    11,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "value": "None",
+                "type": "NoneType"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    0
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "6.0*b+448.0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 30,
+                "minV": 6,
+                "dupV": true
+            },
+            {
+                "shape": [
+                    "u0"
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        57,
+                        60
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor",
+                "maxV": 0,
+                "minV": 0,
+                "dupV": false
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 8,
+                "type": "int"
+            },
+            {
+                "value": 1,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            },
+            {
+                "value": 1125899907892224,
+                "type": "int"
+            },
+            {
+                "value": "6.0*b",
+                "type": "int"
+            },
+            {
+                "value": 2048,
+                "type": "int"
+            },
+            {
+                "value": 1408,
+                "type": "int"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "value": false,
+                "type": "bool"
+            }
+        ]
+    }
+]

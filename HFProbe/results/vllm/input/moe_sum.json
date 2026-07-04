@@ -1,0 +1,1286 @@
+[
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        42,
+                        90
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    2,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        36
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    2,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    2,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        34
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        46
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    6,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        41,
+                        89
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1,
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s",
+                    2,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s",
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    4,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        48
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    8,
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    7168
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        2,
+                        64
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    6,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "u0",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        1,
+                        4
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    1,
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "moe_sum",
+        "cuda_function": "moe_sum",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/moe_moe_align_sum_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*b",
+                    1,
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*b",
+                    5120
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            }
+        ]
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "rotary_embedding": {
+        "oob": 1
+    },
+    "paged_attention_v2": {
+        "oob": 1
+    },
+    "moe_wna16_gemm": {
+        "oob": 1
+    },
+    "moe_wna16_marlin_gemm": {
+        "io": 2,
+        "oob": 2
+    },
+    "aqlm_gemm": {
+        "oob": 1
+    },
+    "aqlm_dequant": {
+        "oob": 1
+    }
+}

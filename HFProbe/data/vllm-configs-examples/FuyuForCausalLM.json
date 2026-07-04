@@ -1,0 +1,33 @@
+{
+    "architectures": [
+        "FuyuForCausalLM"
+    ],
+    "attention_dropout": 0.0,
+    "bos_token_id": 1,
+    "eos_token_id": 71013,
+    "hidden_act": "relu2",
+    "hidden_dropout": 0.0,
+    "hidden_size": 4096,
+    "image_size": 300,
+    "initializer_range": 0.02,
+    "intermediate_size": 16384,
+    "layer_norm_eps": 1e-05,
+    "max_position_embeddings": 16384,
+    "model_type": "fuyu",
+    "num_attention_heads": 64,
+    "num_channels": 3,
+    "num_hidden_layers": 36,
+    "partial_rotary_factor": 0.5,
+    "patch_size": 30,
+    "qk_layernorm": true,
+    "rope_scaling": null,
+    "rope_theta": 25000.0,
+    "text_config": {
+        "model_type": "persimmon"
+    },
+    "tie_word_embeddings": false,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.35.0.dev0",
+    "use_cache": true,
+    "vocab_size": 262144
+}

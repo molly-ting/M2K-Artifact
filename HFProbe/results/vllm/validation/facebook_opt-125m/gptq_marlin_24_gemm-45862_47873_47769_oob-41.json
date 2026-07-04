@@ -1,0 +1,246 @@
+{
+  "(('_custom_ops.py', 397), ('model_executor/layers/quantization/gptq_marlin_24.py', 286), ('model_executor/layers/linear.py', 486), ('model_executor/models/opt.py', 111), ('model_executor/models/opt.py', 171))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            4608
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            4608
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            2304
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1152
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1125899907892224,
+          "type": "int"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 2304,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 397), ('model_executor/layers/quantization/gptq_marlin_24.py', 286), ('model_executor/layers/linear.py', 1288), ('model_executor/models/opt.py', 114), ('model_executor/models/opt.py', 171))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            1536
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            384
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1125899907892224,
+          "type": "int"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 397), ('model_executor/layers/quantization/gptq_marlin_24.py', 286), ('model_executor/layers/linear.py', 486), ('model_executor/models/opt.py', 182), ('model_executor/models/opt.py', 272))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            6144
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            6144
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1125899907892224,
+          "type": "int"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 397), ('model_executor/layers/quantization/gptq_marlin_24.py', 286), ('model_executor/layers/linear.py', 1288), ('model_executor/models/opt.py', 184), ('model_executor/models/opt.py', 272))": {
+    "(1, 1)": [
+      [
+        {
+          "shape": [
+            1,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            96,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            96,
+            1536
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            384
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1125899907892224,
+          "type": "int"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        }
+      ]
+    ]
+  }
+}

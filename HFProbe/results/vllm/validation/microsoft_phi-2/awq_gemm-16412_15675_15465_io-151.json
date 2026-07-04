@@ -1,0 +1,170 @@
+{
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 486), ('model_executor/models/phi.py', 130), ('model_executor/models/phi.py', 190))": {
+    "(107, 1960)": [
+      [
+        {
+          "shape": [
+            107,
+            2560
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2560,
+            960
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            7680
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            960
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 1288), ('model_executor/models/phi.py', 134), ('model_executor/models/phi.py', 190))": {
+    "(107, 1960)": [
+      [
+        {
+          "shape": [
+            107,
+            2560
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2560,
+            320
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            2560
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            320
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 486), ('model_executor/models/phi.py', 161), ('model_executor/models/phi.py', 194))": {
+    "(107, 1960)": [
+      [
+        {
+          "shape": [
+            107,
+            2560
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            2560,
+            1280
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            10240
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            20,
+            1280
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 355), ('model_executor/layers/quantization/awq.py', 181), ('model_executor/layers/linear.py', 1288), ('model_executor/models/phi.py', 163), ('model_executor/models/phi.py', 194))": {
+    "(107, 1960)": [
+      [
+        {
+          "shape": [
+            107,
+            10240
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            10240,
+            320
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            80,
+            2560
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            80,
+            320
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "initial": [
+        "all_reduce",
+        "varlen_fwd",
+        "rms_norm",
+        "fused_add_rms_norm",
+        "silu_and_mul",
+        "fwd_kvcache",
+        "reshape_and_cache_flash",
+        "rotary_embedding"
+    ],
+    "initial_num": 8,
+    "new": [],
+    "inre_len": 0
+}

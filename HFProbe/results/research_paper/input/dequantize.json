@@ -1,0 +1,155 @@
+[
+    {
+        "py_function": "dequantize",
+        "cuda_function": "dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/papers/Mixture-Compressor-MoE/hqq_aten_cuda_kernel_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    131072,
+                    64
+                ],
+                "dtype": "torch.uint8",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    262144,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    262144,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "torch.Size([4096, 4096])",
+                "type": "Size"
+            },
+            {
+                "value": 64,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": "4bit_u8",
+                "type": "str"
+            }
+        ]
+    },
+    {
+        "py_function": "dequantize",
+        "cuda_function": "dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/papers/Mixture-Compressor-MoE/hqq_aten_cuda_kernel_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    352256,
+                    64
+                ],
+                "dtype": "torch.uint8",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    704512,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    704512,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "torch.Size([11008, 4096])",
+                "type": "Size"
+            },
+            {
+                "value": 64,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": "4bit_u8",
+                "type": "str"
+            }
+        ]
+    },
+    {
+        "py_function": "dequantize",
+        "cuda_function": "dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/papers/Mixture-Compressor-MoE/hqq_aten_cuda_kernel_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    352256,
+                    64
+                ],
+                "dtype": "torch.uint8",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    704512,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    704512,
+                    1
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": "torch.Size([4096, 11008])",
+                "type": "Size"
+            },
+            {
+                "value": 64,
+                "type": "int"
+            },
+            {
+                "value": 4,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": "4bit_u8",
+                "type": "str"
+            }
+        ]
+    }
+]

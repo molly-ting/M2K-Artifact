@@ -1,0 +1,111 @@
+{
+    "all_reduce": {
+        "0": null,
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "1": null
+    },
+    "rms_norm": {
+        "13": {
+            "time": 17.0,
+            "total_path": 8,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 83,
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "15716_3041_2372_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "15": {
+            "time": 18.0,
+            "total_path": 7,
+            "complete_path": 3,
+            "instructions": 3771,
+            "z3_queries": 90,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "causal_conv1d_fwd": {
+        "2": {
+            "time": 0,
+            "total_path": 0,
+            "complete_path": 0,
+            "instructions": 0,
+            "z3_queries": 0,
+            "io": [
+                "33225_6934_6887_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "33225_6934_6887_io"
+            ],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "fused_add_rms_norm": {
+        "8": {
+            "time": 286.0,
+            "total_path": 14,
+            "complete_path": 6,
+            "instructions": 15742,
+            "z3_queries": 596,
+            "io": [
+                "28841_9851_9652_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [
+                "28841_9851_9652_io"
+            ],
+            "oob": [],
+            "dr": []
+        },
+        "9": {
+            "time": 267.0,
+            "total_path": 13,
+            "complete_path": 6,
+            "instructions": 15742,
+            "z3_queries": 612,
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    },
+    "causal_conv1d_update": {
+        "2": {
+            "time": 12.0,
+            "total_path": 1,
+            "complete_path": 1,
+            "instructions": 5772,
+            "z3_queries": 63,
+            "io": [],
+            "oob": [],
+            "dr": []
+        },
+        "total": {
+            "io": [],
+            "oob": [],
+            "dr": []
+        }
+    }
+}

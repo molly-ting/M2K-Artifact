@@ -1,0 +1,72 @@
+{
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/layers/mamba/mamba_mixer2.py', 443))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            18560,
+            512,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 18560,
+          "minV": 18560,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/layers/mamba/mamba_mixer2.py', 614))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4096,
+            1024,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4096,
+          "minV": 4096,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

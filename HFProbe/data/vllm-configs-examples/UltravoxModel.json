@@ -1,0 +1,79 @@
+{
+    "_name_or_path": "/Users/zhuang/repos/ultravox-omni/artifacts/model-zhuang.2025-01-08-v0_5.llama3_2-1b-4a.246352f:v8",
+    "architectures": [
+        "UltravoxModel"
+    ],
+    "audio_config": {
+        "_name_or_path": "openai/whisper-large-v3-turbo",
+        "activation_dropout": 0.0,
+        "activation_function": "gelu",
+        "apply_spec_augment": false,
+        "architectures": [
+            "WhisperForConditionalGeneration"
+        ],
+        "attention_dropout": 0.0,
+        "begin_suppress_tokens": [
+            220,
+            50256
+        ],
+        "bos_token_id": 50257,
+        "d_model": 1280,
+        "decoder_attention_heads": 20,
+        "decoder_ffn_dim": 5120,
+        "decoder_layerdrop": 0.0,
+        "decoder_layers": 4,
+        "decoder_start_token_id": 50258,
+        "dropout": 0.0,
+        "encoder_attention_heads": 20,
+        "encoder_ffn_dim": 5120,
+        "encoder_layerdrop": 0.0,
+        "encoder_layers": 32,
+        "eos_token_id": 50257,
+        "init_std": 0.02,
+        "is_encoder_decoder": true,
+        "max_source_positions": 1500,
+        "max_target_positions": 448,
+        "median_filter_width": 7,
+        "model_type": "whisper",
+        "num_hidden_layers": 32,
+        "num_mel_bins": 128,
+        "pad_token_id": 50257,
+        "scale_embedding": false,
+        "torch_dtype": "float16",
+        "use_cache": true,
+        "vocab_size": 51866
+    },
+    "audio_latency_block_size": null,
+    "audio_model_id": null,
+    "auto_map": {
+        "AutoConfig": "ultravox_config.UltravoxConfig",
+        "AutoModel": "ultravox_model.UltravoxModel",
+        "AutoProcessor": "ultravox_processing.UltravoxProcessor"
+    },
+    "custom_pipelines": {
+        "ultravox-pipeline": {
+            "impl": "ultravox_pipeline.UltravoxPipeline",
+            "pt": [
+                "AutoModel"
+            ],
+            "tf": [],
+            "type": "multimodal"
+        }
+    },
+    "hidden_size": 4096,
+    "ignore_index": -100,
+    "initializer_range": 0.02,
+    "model_type": "ultravox",
+    "norm_init": 0.4,
+    "pad_token_id": 128009,
+    "projector_act": "swiglu",
+    "projector_ln_mid": true,
+    "stack_factor": 8,
+    "text_model_id": "meta-llama/Llama-3.2-1B-Instruct",
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.48.1",
+    "num_attention_heads": 32,
+    "num_hidden_layers": 16,
+    "vocab_size": 128256,
+    "audio_token_index": 128256
+}

@@ -1,0 +1,1 @@
+{"notes": "To trigger ops.allspark_w8a16_gemm in vllm releases/v0.9.x: (1) set quantization_config.weight_type=uint8b128, group_size=128, zero_points=false, has_g_idx=false; (2) ensure dtype is float16/bfloat16; (3) run on NVIDIA SM >= 80; (4) make sure in/out features are multiples of 16."}

@@ -1,0 +1,1 @@
+{"initial": ["varlen_fwd", "reshape_and_cache_flash", "all_reduce"], "initial_num": 3, "new": ["static_scaled_int8_quant", "static_scaled_fp8_quant", "cutlass_scaled_mm_supports_block_fp8", "dynamic_scaled_int8_quant", "dynamic_per_token_scaled_fp8_quant", "cutlass_scaled_mm", "cutlass_scaled_mm_supports_fp8", "dynamic_scaled_fp8_quant"], "inre_len": 8}

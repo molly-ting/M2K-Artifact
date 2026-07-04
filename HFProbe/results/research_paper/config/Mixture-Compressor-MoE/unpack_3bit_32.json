@@ -1,0 +1,1 @@
+{"model_id": "meta-llama/Llama-2-7b-hf", "dtype": "float16", "device_map": "auto", "runtime": {"engine": "hqq", "backend": "aten", "axis": 1}, "quantization": {"wbits": "3bit", "group_size": 32, "pack": true, "zero_point": true, "per_group": true}, "mcmoe": {"mixed_type": "dense", "experts_precision_file": null}}

@@ -1,0 +1,51 @@
+{
+  "(('_custom_ops.py', 1433), ('model_executor/layers/fused_moe/moe_align_block_size.py', 237), ('model_executor/layers/fused_moe/fused_moe.py', 1339), ('model_executor/layers/fused_moe/fused_moe.py', 1017), ('model_executor/layers/fused_moe/fused_moe.py', 1124))": {
+    "(2, 1)": [
+      [
+        {
+          "shape": [
+            2,
+            2
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 8,
+          "type": "int"
+        },
+        {
+          "value": 16,
+          "type": "int"
+        },
+        {
+          "shape": [
+            124
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 4,
+          "minV": 4,
+          "dupV": true
+        },
+        {
+          "shape": [
+            8
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor",
+          "maxV": 0,
+          "minV": 0,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

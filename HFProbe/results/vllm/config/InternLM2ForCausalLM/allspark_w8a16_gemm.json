@@ -1,0 +1,1 @@
+{"note": "This config enables compressed-tensors W8A16 (uint8b128) weight-only quantization so vLLM selects the AllSpark W8A16 kernel when shapes/dtypes are supported (Ampere+, hidden dims %16, symmetric weights, no zero-points/g_idx)."}

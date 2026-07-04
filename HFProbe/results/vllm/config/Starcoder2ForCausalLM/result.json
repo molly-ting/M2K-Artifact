@@ -1,0 +1,36 @@
+{
+    "initial": [
+        "varlen_fwd",
+        "reshape_and_cache_flash",
+        "all_reduce",
+        "rotary_embedding"
+    ],
+    "initial_num": 4,
+    "new": [
+        "scaled_fp4_quant",
+        "gelu_fast",
+        "machete_mm",
+        "machete_prepack_B",
+        "awq_gemm",
+        "gptq_gemm",
+        "marlin_gemm",
+        "marlin_qqq_gemm",
+        "dynamic_scaled_int8_quant",
+        "cutlass_scaled_fp4_mm",
+        "dynamic_per_token_scaled_fp8_quant",
+        "static_scaled_fp8_quant",
+        "cutlass_scaled_mm_supports_fp4",
+        "aqlm_dequant",
+        "cutlass_scaled_mm_supports_fp8",
+        "cutlass_scaled_sparse_mm",
+        "gelu_new",
+        "cutlass_scaled_mm_supports_block_fp8",
+        "static_scaled_int8_quant",
+        "dynamic_scaled_fp8_quant",
+        "cutlass_scaled_mm",
+        "awq_dequantize",
+        "aqlm_gemm",
+        "gptq_marlin_24_gemm"
+    ],
+    "inre_len": 24
+}

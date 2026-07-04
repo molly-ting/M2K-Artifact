@@ -1,0 +1,13 @@
+{
+    "initial": [
+        "reshape_and_cache_flash",
+        "fwd_kvcache",
+        "all_reduce",
+        "varlen_fwd"
+    ],
+    "initial_num": 4,
+    "new": [
+        "swap_blocks"
+    ],
+    "inre_len": 1
+}

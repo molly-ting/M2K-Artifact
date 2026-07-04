@@ -1,0 +1,1 @@
+{"note": "This config selects compressed-tensors wNa16 (weights-only 4-bit, group=128, symmetric, no zero-points) so vLLM chooses the Machete mixed-precision kernel (ops.machete_mm) on CUDA Hopper (SM90+) with shapes multiple of [in:64, out:128]."}

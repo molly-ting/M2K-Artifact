@@ -1,0 +1,142 @@
+{
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/nemotron.py', 209))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            8192,
+            512,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            3
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 6144,
+          "minV": 1024,
+          "dupV": true
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/nemotron.py', 213))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4096,
+            768,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4096,
+          "minV": 4096,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 486), ('model_executor/models/nemotron.py', 122))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            16384,
+            512,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 16384,
+          "minV": 16384,
+          "dupV": false
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 902), ('model_executor/layers/quantization/aqlm.py', 142), ('model_executor/layers/quantization/aqlm.py', 358), ('model_executor/layers/linear.py', 1288), ('model_executor/models/nemotron.py', 124))": {
+    "(1, 8)": [
+      [
+        {
+          "shape": [
+            4096,
+            2048,
+            1
+          ],
+          "dtype": "torch.int16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            65536,
+            1,
+            8
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "int",
+          "type": "list",
+          "maxV": 4096,
+          "minV": 4096,
+          "dupV": false
+        }
+      ]
+    ]
+  }
+}

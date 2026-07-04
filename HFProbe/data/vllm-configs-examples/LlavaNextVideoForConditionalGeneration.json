@@ -1,0 +1,69 @@
+{
+    "architectures": [
+        "LlavaNextVideoForConditionalGeneration"
+    ],
+    "ignore_index": -100,
+    "image_grid_pinpoints": [
+        [
+            336,
+            672
+        ],
+        [
+            672,
+            336
+        ],
+        [
+            672,
+            672
+        ],
+        [
+            1008,
+            336
+        ],
+        [
+            336,
+            1008
+        ]
+    ],
+    "image_token_index": 32001,
+    "model_type": "llava_next_video",
+    "projector_hidden_act": "gelu",
+    "spatial_pool_mode": "average",
+    "spatial_pool_out_channels": 1024,
+    "spatial_pool_stride": 2,
+    "text_config": {
+        "_name_or_path": "lmsys/vicuna-7b-v1.5",
+        "architectures": [
+            "LlamaForCausalLM"
+        ],
+        "rope_scaling": {
+            "factor": 2.5,
+            "type": "linear"
+        },
+        "max_position_embeddings": 4096,
+        "model_type": "llama",
+        "pad_token_id": 0,
+        "rms_norm_eps": 1e-05,
+        "torch_dtype": "float16",
+        "type": "linear",
+        "vocab_size": 32064
+    },
+    "tie_word_embeddings": false,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.42.0.dev0",
+    "use_image_newline_parameter": true,
+    "video_token_index": 32000,
+    "vision_config": {
+        "hidden_size": 1024,
+        "image_size": 336,
+        "intermediate_size": 4096,
+        "model_type": "clip_vision_model",
+        "num_attention_heads": 16,
+        "num_hidden_layers": 24,
+        "patch_size": 14,
+        "projection_dim": 768,
+        "vocab_size": 32000
+    },
+    "vision_feature_layer": -2,
+    "vision_feature_select_strategy": "default"
+}

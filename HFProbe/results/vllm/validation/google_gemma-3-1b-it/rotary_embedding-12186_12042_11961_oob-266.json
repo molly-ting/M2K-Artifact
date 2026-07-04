@@ -1,0 +1,94 @@
+{
+  "(('_custom_ops.py', 257), ('model_executor/layers/rotary_embedding.py', 195), ('model_executor/custom_op.py', 23), ('model_executor/models/gemma3.py', 200), ('model_executor/models/gemma3.py', 331))": {
+    "(1, 32767)": [
+      [
+        {
+          "shape": [
+            32767
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 32766,
+          "minV": 0,
+          "dupV": false
+        },
+        {
+          "shape": [
+            32767,
+            1024
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            32767,
+            256
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 256,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            256
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.int64",
+          "type": "torch.Tensor",
+          "maxV": 32767,
+          "minV": 32767,
+          "dupV": false
+        },
+        {
+          "shape": [
+            1,
+            1024
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1,
+            256
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 256,
+          "type": "int"
+        },
+        {
+          "shape": [
+            32768,
+            256
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": true,
+          "type": "bool"
+        }
+      ]
+    ]
+  }
+}

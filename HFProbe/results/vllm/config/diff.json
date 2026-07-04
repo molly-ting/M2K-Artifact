@@ -1,0 +1,1637 @@
+{
+    "gptq_marlin_gemm": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false,
+                "lm_head": false
+            }
+        }
+    ],
+    "moe_wna16_marlin_gemm": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false,
+                "lm_head": false
+            }
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "sym": true,
+            "desc_act": false,
+            "lm_head": false
+        },
+        {
+            "note": "To ensure vLLM picks the gptq_marlin kernel, do not pass --quantization gptq; leave it unset or set to gptq_marlin. This config marks the model as GPTQ (4-bit, group_size 128, symmetric), which vLLM v0.9.0 auto-converts to gptq_marlin when compatible."
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "is_sym": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "zero_point": true,
+                "modules_to_not_convert": []
+            }
+        }
+    ],
+    "awq_dequantize": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "awq",
+                "bits": 4,
+                "group_size": 128,
+                "zero_point": true,
+                "version": "gemm",
+                "modules_to_not_convert": null
+            }
+        }
+    ],
+    "aqlm_dequant": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "aqlm",
+                "nbits_per_codebook": 16,
+                "num_codebooks": 1,
+                "out_group_size": 1,
+                "in_group_size": 8
+            }
+        }
+    ],
+    "gptq_gemm": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic"
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 3,
+                "group_size": 128,
+                "desc_act": false,
+                "lm_head": false,
+                "modules_in_block_to_quantize": null
+            }
+        },
+        {
+            "quantization_config": {
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "quant_method": "gptq",
+                "version": "gemm",
+                "lm_head_quantized": false,
+                "checkpoint_format": "gptq_v1",
+                "modules_in_block_to_quantize": []
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "sym": true,
+                "desc_act": false,
+                "act_order": false,
+                "true_sequential": false,
+                "static_groups": false,
+                "zero_points": null,
+                "zero_point": false,
+                "weight_dtype": "int8",
+                "activation_dtype": "float16",
+                "pack_dtype": "int32",
+                "pack_factor": 4
+            },
+            "weight_only_quantization": "w8a16",
+            "vllm_backend": "allspark"
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "weight_block_size": null,
+                "ignored_layers": []
+            }
+        }
+    ],
+    "marlin_gemm": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false,
+                "checkpoint_format": "marlin"
+            }
+        }
+    ],
+    "aqlm_gemm": [
+        {
+            "transformers_version": "4.40.1",
+            "quantization_config": {
+                "quant_method": "aqlm",
+                "in_group_size": 8,
+                "out_group_size": 1,
+                "num_codebooks": 1,
+                "nbits_per_codebook": 16,
+                "linear_weights_not_to_quantize": [
+                    "lm_head.weight"
+                ]
+            }
+        }
+    ],
+    "dynamic_scaled_fp8_quant": [
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "scheme": "W8A8",
+                "activation_scheme": "dynamic",
+                "fp8_dtype": "e4m3",
+                "weight_scaling_strategy": "block",
+                "block_size": [
+                    128,
+                    128
+                ]
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "fmt": "e4m3",
+                "ignored_layers": [
+                    "lm_head"
+                ]
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "weight_block_size": null,
+                "ignored_layers": []
+            }
+        }
+    ],
+    "paged_attention_v1": [
+        {
+            "max_position_embeddings": 512
+        }
+    ],
+    "static_scaled_fp8_quant": [
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "static",
+                "weight_dtype": "fp8_e4m3",
+                "activation_dtype": "fp8_e4m3"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "static"
+            }
+        },
+        {
+            "torch_dtype": "bfloat16",
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "static"
+            }
+        }
+    ],
+    "gptq_marlin_24_gemm": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin_24",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "zero_point": true,
+                "sym": false,
+                "true_sequential": false,
+                "act_order": true
+            }
+        }
+    ],
+    "awq_gemm": [
+        {
+            "quantization_config": {
+                "quant_method": "awq",
+                "bits": 4,
+                "group_size": 128,
+                "zero_point": true,
+                "version": "gemm"
+            }
+        }
+    ],
+    "machete_prepack_B": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false,
+                "lm_head": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "quant_method": "gptq_marlin",
+            "bits": 4,
+            "group_size": 128,
+            "desc_act": false,
+            "sym": true,
+            "lm_head": false
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "checkpoint_format": "gptq",
+                "pack_dtype": "int32",
+                "lm_head": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head_quantized": false,
+                "dynamic": {}
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "checkpoint_format": "gptq"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "is_marlin_format": false,
+                "pack_dtype": "int32"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "use_exllama": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "static_groups": true,
+                "true_sequential": false
+            }
+        },
+        {
+            "quantization": "gptq_marlin",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "pack_mode": "marlin"
+            }
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "desc_act": true,
+            "sym": true,
+            "lm_head": false
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "sym": true,
+            "desc_act": false,
+            "lm_head": false
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head_quantized": false,
+                "true_sequential": true,
+                "dynamic": {}
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "is_sym": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "bits": 4,
+            "group_size": 128,
+            "desc_act": false,
+            "sym": true,
+            "lm_head": false,
+            "dynamic": {}
+        },
+        {
+            "quantization": "compressed-tensors",
+            "quantization_config": {
+                "format": "pack-quantized",
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed",
+                "version": "0.9.0",
+                "ignore": [
+                    "lm_head"
+                ],
+                "kv_cache_scheme": null,
+                "global_compression_ratio": null,
+                "sparsity_config": {},
+                "transform_config": {},
+                "config_groups": {
+                    "group_0": {
+                        "format": "pack-quantized",
+                        "targets": [
+                            "Linear"
+                        ],
+                        "input_activations": null,
+                        "output_activations": null,
+                        "weights": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "group_size": 128,
+                            "strategy": "group",
+                            "symmetric": true,
+                            "dynamic": false,
+                            "observer": "minmax",
+                            "observer_kwargs": {}
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "note": "To ensure vLLM picks the gptq_marlin kernel, do not pass --quantization gptq; leave it unset or set to gptq_marlin. This config marks the model as GPTQ (4-bit, group_size 128, symmetric), which vLLM v0.9.0 auto-converts to gptq_marlin when compatible."
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "sym": true,
+            "desc_act": false,
+            "lm_head": false,
+            "dynamic": {}
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "is_sym": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "zero_point": true,
+                "modules_to_not_convert": []
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "true_sequential": true
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "version": "marlin"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "checkpoint_format": "gptq",
+                "pack_dtype": "int32",
+                "lm_head": false
+            }
+        }
+    ],
+    "machete_mm": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false,
+                "lm_head": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "sym": true,
+                "desc_act": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "quantization": "gptq_marlin",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "pack_mode": "marlin"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head_quantized": false,
+                "true_sequential": true,
+                "dynamic": {}
+            }
+        },
+        {
+            "quantization": "compressed-tensors",
+            "quantization_config": {
+                "format": "pack-quantized",
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed",
+                "version": "0.9.0",
+                "ignore": [
+                    "lm_head"
+                ],
+                "kv_cache_scheme": null,
+                "global_compression_ratio": null,
+                "sparsity_config": {},
+                "transform_config": {},
+                "config_groups": {
+                    "group_0": {
+                        "format": "pack-quantized",
+                        "targets": [
+                            "Linear"
+                        ],
+                        "input_activations": null,
+                        "output_activations": null,
+                        "weights": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "group_size": 128,
+                            "strategy": "group",
+                            "symmetric": true,
+                            "dynamic": false,
+                            "observer": "minmax",
+                            "observer_kwargs": {}
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "note": "To ensure vLLM picks the gptq_marlin kernel, do not pass --quantization gptq; leave it unset or set to gptq_marlin. This config marks the model as GPTQ (4-bit, group_size 128, symmetric), which vLLM v0.9.0 auto-converts to gptq_marlin when compatible."
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "sym": true,
+            "desc_act": false,
+            "lm_head": false,
+            "dynamic": {}
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "is_sym": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "zero_point": true,
+                "modules_to_not_convert": []
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "true_sequential": true
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "version": "marlin"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "checkpoint_format": "gptq",
+                "pack_dtype": "int32",
+                "lm_head": false
+            }
+        }
+    ],
+    "gptq_marlin_repack": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "lm_head": false
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "checkpoint_format": "gptq"
+            }
+        },
+        {
+            "quant_method": "gptq",
+            "bits": 4,
+            "group_size": 128,
+            "sym": true,
+            "desc_act": false,
+            "lm_head": false
+        },
+        {
+            "note": "To ensure vLLM picks the gptq_marlin kernel, do not pass --quantization gptq; leave it unset or set to gptq_marlin. This config marks the model as GPTQ (4-bit, group_size 128, symmetric), which vLLM v0.9.0 auto-converts to gptq_marlin when compatible."
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "weight_bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "is_sym": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "zero_point": true,
+                "modules_to_not_convert": []
+            }
+        }
+    ],
+    "cutlass_scaled_mm_supports_fp4": [
+        {
+            "_name_or_path": "decilm_nvfp4_test",
+            "hidden_size": 4096,
+            "intermediate_size": 11008,
+            "num_hidden_layers": 2,
+            "num_attention_heads": 32,
+            "max_position_embeddings": 8192,
+            "eos_token_id": 128001,
+            "quantization_config": {
+                "producer": {
+                    "name": "modelopt",
+                    "version": "0.31.0"
+                },
+                "quantization": {
+                    "quant_algo": "NVFP4",
+                    "group_size": 16,
+                    "kv_cache_quant_algo": "FP8",
+                    "exclude_modules": [
+                        "lm_head"
+                    ]
+                },
+                "quant_method": "modelopt_fp4"
+            }
+        }
+    ],
+    "cutlass_scaled_fp4_mm": [
+        {
+            "_name_or_path": "decilm_nvfp4_test",
+            "hidden_size": 4096,
+            "intermediate_size": 11008,
+            "num_hidden_layers": 2,
+            "num_attention_heads": 32,
+            "max_position_embeddings": 8192,
+            "eos_token_id": 128001,
+            "quantization_config": {
+                "producer": {
+                    "name": "modelopt",
+                    "version": "0.31.0"
+                },
+                "quantization": {
+                    "quant_algo": "NVFP4",
+                    "group_size": 16,
+                    "kv_cache_quant_algo": "FP8",
+                    "exclude_modules": [
+                        "lm_head"
+                    ]
+                },
+                "quant_method": "modelopt_fp4"
+            }
+        }
+    ],
+    "scaled_fp4_quant": [
+        {
+            "_name_or_path": "decilm_nvfp4_test",
+            "hidden_size": 4096,
+            "intermediate_size": 11008,
+            "num_hidden_layers": 2,
+            "num_attention_heads": 32,
+            "max_position_embeddings": 8192,
+            "eos_token_id": 128001,
+            "quantization_config": {
+                "producer": {
+                    "name": "modelopt",
+                    "version": "0.31.0"
+                },
+                "quantization": {
+                    "quant_algo": "NVFP4",
+                    "group_size": 16,
+                    "kv_cache_quant_algo": "FP8",
+                    "exclude_modules": [
+                        "lm_head"
+                    ]
+                },
+                "quant_method": "modelopt_fp4"
+            }
+        }
+    ],
+    "cutlass_scaled_mm_supports_block_fp8": [
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "scheme": "W8A8",
+                "activation_scheme": "dynamic",
+                "fp8_dtype": "e4m3",
+                "weight_scaling_strategy": "block",
+                "block_size": [
+                    128,
+                    128
+                ]
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "fmt": "e4m3",
+                "ignored_layers": [
+                    "lm_head"
+                ]
+            }
+        },
+        {
+            "torch_dtype": "bfloat16",
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "static"
+            }
+        },
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        }
+    ],
+    "cutlass_scaled_mm_supports_fp8": [
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "scheme": "W8A8",
+                "activation_scheme": "dynamic",
+                "fp8_dtype": "e4m3",
+                "weight_scaling_strategy": "block",
+                "block_size": [
+                    128,
+                    128
+                ]
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic"
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "fmt": "e4m3",
+                "ignored_layers": [
+                    "lm_head"
+                ]
+            }
+        },
+        {
+            "torch_dtype": "bfloat16",
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "static"
+            }
+        },
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        }
+    ],
+    "sgl_moe_align_block_size": [
+        {
+            "n_routed_experts": 256,
+            "n_shared_experts": 1,
+            "num_experts_per_tok": 8
+        },
+        {
+            "num_local_experts": 256
+        },
+        {
+            "num_experts": 256
+        }
+    ],
+    "dynamic_scaled_int8_quant": [
+        {
+            "quantization_config": {
+                "format": "int-quantized",
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed",
+                "kv_cache_scheme": null,
+                "ignore": [
+                    "lm_head"
+                ],
+                "config_groups": {
+                    "group_0": {
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "strategy": "channel",
+                            "symmetric": true,
+                            "dynamic": false,
+                            "group_size": null,
+                            "observer": "mse",
+                            "observer_kwargs": {},
+                            "block_structure": null,
+                            "actorder": null
+                        },
+                        "input_activations": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "strategy": "token",
+                            "symmetric": true,
+                            "dynamic": true,
+                            "group_size": null,
+                            "observer": null,
+                            "observer_kwargs": {},
+                            "block_structure": null,
+                            "actorder": null
+                        },
+                        "output_activations": null
+                    }
+                }
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "qqq",
+                "wbits": 4,
+                "group_size": 128
+            }
+        },
+        {
+            "quantization_config": {
+                "config_groups": {
+                    "group_0": {
+                        "input_activations": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": true,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": null,
+                            "observer_kwargs": {},
+                            "strategy": "token",
+                            "symmetric": true,
+                            "type": "int"
+                        },
+                        "output_activations": null,
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": false,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": "minmax",
+                            "observer_kwargs": {},
+                            "strategy": "channel",
+                            "symmetric": true,
+                            "type": "int"
+                        }
+                    }
+                },
+                "format": "int-quantized",
+                "global_compression_ratio": null,
+                "ignore": [
+                    "lm_head"
+                ],
+                "kv_cache_scheme": null,
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed"
+            }
+        }
+    ],
+    "cutlass_scaled_mm": [
+        {
+            "quantization_config": {
+                "format": "int-quantized",
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed",
+                "kv_cache_scheme": null,
+                "ignore": [
+                    "lm_head"
+                ],
+                "config_groups": {
+                    "group_0": {
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "strategy": "channel",
+                            "symmetric": true,
+                            "dynamic": false,
+                            "group_size": null,
+                            "observer": "mse",
+                            "observer_kwargs": {},
+                            "block_structure": null,
+                            "actorder": null
+                        },
+                        "input_activations": {
+                            "type": "int",
+                            "num_bits": 8,
+                            "strategy": "token",
+                            "symmetric": true,
+                            "dynamic": true,
+                            "group_size": null,
+                            "observer": null,
+                            "observer_kwargs": {},
+                            "block_structure": null,
+                            "actorder": null
+                        },
+                        "output_activations": null
+                    }
+                }
+            }
+        },
+        {
+            "note": "This config enables vLLM's FP8 (W8A8) path so Linear ops dispatch to ops.cutlass_scaled_mm when CUTLASS FP8 is supported on the GPU (e.g., Ada/Hopper). Weights must be saved in FP8 with corresponding *weight_scale* (and optionally *input_scale* for static) tensors as produced by compatible quantizers (e.g., llm-compressor/AutoFP8)."
+        },
+        {
+            "quantization_config": {
+                "config_groups": {
+                    "group_0": {
+                        "input_activations": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": true,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": null,
+                            "observer_kwargs": {},
+                            "strategy": "token",
+                            "symmetric": true,
+                            "type": "int"
+                        },
+                        "output_activations": null,
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": false,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": "minmax",
+                            "observer_kwargs": {},
+                            "strategy": "channel",
+                            "symmetric": true,
+                            "type": "int"
+                        }
+                    }
+                },
+                "format": "int-quantized",
+                "global_compression_ratio": null,
+                "ignore": [
+                    "lm_head"
+                ],
+                "kv_cache_scheme": null,
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed"
+            }
+        }
+    ],
+    "static_scaled_int8_quant": [
+        {
+            "quantization_config": {
+                "config_groups": {
+                    "group_0": {
+                        "input_activations": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": false,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": "minmax",
+                            "observer_kwargs": {},
+                            "strategy": "tensor",
+                            "symmetric": true,
+                            "type": "int"
+                        },
+                        "output_activations": null,
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "actorder": null,
+                            "block_structure": null,
+                            "dynamic": false,
+                            "group_size": null,
+                            "num_bits": 8,
+                            "observer": "minmax",
+                            "observer_kwargs": {},
+                            "strategy": "channel",
+                            "symmetric": true,
+                            "type": "int"
+                        }
+                    }
+                },
+                "format": "int-quantized",
+                "global_compression_ratio": 1.0,
+                "ignore": [
+                    "lm_head"
+                ],
+                "kv_cache_scheme": null,
+                "quant_method": "compressed-tensors",
+                "quantization_status": "compressed"
+            }
+        }
+    ],
+    "gptq_shuffle": [
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "act_order": false,
+                "checkpoint_format": "gptq"
+            }
+        },
+        {
+            "torch_dtype": "float16",
+            "quantization": "gptq",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": 128,
+                "desc_act": false,
+                "lm_head": false
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true,
+                "true_sequential": true,
+                "lm_head_quantized": false
+            }
+        },
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic"
+            }
+        },
+        {
+            "quantization_config": {
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": false,
+                "sym": true,
+                "quant_method": "gptq",
+                "version": "gemm",
+                "lm_head_quantized": false,
+                "checkpoint_format": "gptq_v1",
+                "modules_in_block_to_quantize": []
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "sym": true,
+                "desc_act": false,
+                "act_order": false,
+                "true_sequential": false,
+                "static_groups": false,
+                "zero_points": null,
+                "zero_point": false,
+                "weight_dtype": "int8",
+                "activation_dtype": "float16",
+                "pack_dtype": "int32",
+                "pack_factor": 4
+            },
+            "weight_only_quantization": "w8a16",
+            "vllm_backend": "allspark"
+        },
+        {
+            "quantization_config": {
+                "quant_method": "fp8",
+                "activation_scheme": "dynamic",
+                "weight_block_size": null,
+                "ignored_layers": []
+            }
+        }
+    ],
+    "dynamic_per_token_scaled_fp8_quant": [
+        {
+            "quantization_config": {
+                "quant_method": "compressed-tensors",
+                "format": "float-quantized",
+                "ignore": [
+                    "lm_head"
+                ],
+                "config_groups": {
+                    "group_0": {
+                        "targets": [
+                            "Linear"
+                        ],
+                        "weights": {
+                            "type": "float",
+                            "num_bits": 8,
+                            "strategy": "channel",
+                            "dynamic": false,
+                            "symmetric": true
+                        },
+                        "input_activations": {
+                            "type": "float",
+                            "num_bits": 8,
+                            "strategy": "token",
+                            "dynamic": true,
+                            "symmetric": true
+                        }
+                    }
+                },
+                "sparsity_config": {
+                    "format": "sparse_24_bitmask",
+                    "sparsity_structure": "2:4",
+                    "targets": [
+                        "Linear"
+                    ],
+                    "ignore": [
+                        "lm_head"
+                    ]
+                }
+            }
+        }
+    ],
+    "gelu_fast": [
+        {
+            "activation_function": "gelu_fast"
+        },
+        {
+            "hidden_act": "gelu_fast"
+        }
+    ],
+    "gelu_new": [
+        {
+            "activation_function": "gelu_new"
+        },
+        {
+            "hidden_act": "gelu_new"
+        }
+    ],
+    "cutlass_scaled_sparse_mm": [
+        {
+            "quantization_config": {
+                "format": "dense",
+                "ignore": [
+                    "lm_head"
+                ],
+                "quant_method": "compressed-tensors",
+                "quantization_status": "frozen",
+                "sparsity_config": {
+                    "format": "dense",
+                    "sparsity_structure": "2:4",
+                    "targets": [
+                        "Linear"
+                    ],
+                    "ignore": [
+                        "lm_head"
+                    ]
+                },
+                "config_groups": {}
+            }
+        }
+    ],
+    "cutlass_sparse_compress": [
+        {
+            "quantization_config": {
+                "format": "dense",
+                "ignore": [
+                    "lm_head"
+                ],
+                "quant_method": "compressed-tensors",
+                "quantization_status": "frozen",
+                "sparsity_config": {
+                    "format": "dense",
+                    "sparsity_structure": "2:4",
+                    "targets": [
+                        "Linear"
+                    ],
+                    "ignore": [
+                        "lm_head"
+                    ]
+                },
+                "config_groups": {}
+            }
+        }
+    ],
+    "cutlass_sparse_scaled_mm_supported": [
+        {
+            "quantization_config": {
+                "format": "dense",
+                "ignore": [
+                    "lm_head"
+                ],
+                "quant_method": "compressed-tensors",
+                "quantization_status": "frozen",
+                "sparsity_config": {
+                    "format": "dense",
+                    "sparsity_structure": "2:4",
+                    "targets": [
+                        "Linear"
+                    ],
+                    "ignore": [
+                        "lm_head"
+                    ]
+                },
+                "config_groups": {}
+            }
+        }
+    ],
+    "gelu_quick": [
+        {
+            "activation_function": "quick_gelu"
+        },
+        {
+            "hidden_act": "quick_gelu"
+        }
+    ],
+    "marlin_qqq_gemm": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "qqq",
+                "wbits": 4,
+                "group_size": 128
+            }
+        }
+    ],
+    "fatrelu_and_mul": [
+        {
+            "hidden_act": "fatrelu",
+            "hidden_act_param": 0.03
+        }
+    ],
+    "topk_softmax": [
+        {
+            "num_experts": 8,
+            "num_experts_per_tok": 2
+        }
+    ],
+    "moe_align_block_size": [
+        {
+            "num_experts": 8,
+            "num_experts_per_tok": 2
+        }
+    ],
+    "moe_sum": [
+        {
+            "num_experts": 8,
+            "num_experts_per_tok": 2
+        }
+    ],
+    "reshape_and_cache": [
+        {
+            "max_position_embeddings": 512,
+            "torch_dtype": "float16"
+        }
+    ],
+    "permute_cols": [
+        {
+            "torch_dtype": "float16",
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "lm_head": false,
+                "dynamic": {}
+            }
+        },
+        {
+            "quantization_config": {
+                "quant_method": "gptq_marlin",
+                "bits": 4,
+                "group_size": 128,
+                "desc_act": true,
+                "sym": true,
+                "lm_head": false
+            }
+        }
+    ],
+    "init_custom_ar": [
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        }
+    ],
+    "meta_size": [
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        }
+    ],
+    "register_buffer": [
+        {
+            "_name_or_path": "microsoft/phi-2-w8a16",
+            "quantization_config": {
+                "quant_method": "gptq",
+                "bits": 8,
+                "group_size": -1,
+                "desc_act": false,
+                "sym": true
+            }
+        }
+    ],
+    "reshape_and_cache_flash": [
+        {
+            "_name_or_path": "phi-test-hs128-gqa4",
+            "hidden_size": 2048,
+            "intermediate_size": 8192,
+            "num_attention_heads": 16,
+            "num_hidden_layers": 24,
+            "num_key_value_heads": 4,
+            "partial_rotary_factor": 0.5,
+            "resid_pdrop": 0.0
+        }
+    ],
+    "fwd_kvcache": [
+        {
+            "_name_or_path": "phi-test-hs128-gqa4",
+            "hidden_size": 2048,
+            "intermediate_size": 8192,
+            "num_attention_heads": 16,
+            "num_hidden_layers": 24,
+            "num_key_value_heads": 4,
+            "partial_rotary_factor": 0.5,
+            "resid_pdrop": 0.0
+        }
+    ],
+    "varlen_fwd": [
+        {
+            "_name_or_path": "phi-test-hs128-gqa4",
+            "hidden_size": 2048,
+            "intermediate_size": 8192,
+            "num_attention_heads": 16,
+            "num_hidden_layers": 24,
+            "num_key_value_heads": 4,
+            "partial_rotary_factor": 0.5,
+            "resid_pdrop": 0.0
+        }
+    ],
+    "moe_wna16_gemm":[
+        {
+            "torch_dtype": "bfloat16",
+            "quantization_config": {
+                "quant_method": "awq",
+                "bits": 4,
+                "group_size": 128,
+                "zero_point": true,
+                "lm_head": false
+                }
+        }
+    ]
+}

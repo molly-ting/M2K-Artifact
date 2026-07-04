@@ -1,0 +1,60 @@
+{
+  "(('_custom_ops.py', 1187), ('model_executor/layers/fused_moe/utils.py', 36), ('model_executor/layers/fused_moe/utils.py', 82), ('model_executor/layers/fused_moe/prepare_finalize.py', 44), ('model_executor/layers/fused_moe/modular_kernel.py', 338))": {
+    "(128, 4096)": [
+      [
+        {
+          "shape": [
+            524288,
+            1536
+          ],
+          "dtype": "torch.float8_e4m3fn",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            524288,
+            1536
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.float32",
+          "type": "torch.Tensor"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 1187), ('model_executor/layers/fused_moe/cutlass_moe.py', 162), ('model_executor/layers/fused_moe/modular_kernel.py', 342), ('model_executor/layers/fused_moe/cutlass_moe.py', 256), ('model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe.py', 596))": {
+    "(128, 4096)": [
+      [
+        {
+          "shape": [
+            4194304,
+            512
+          ],
+          "dtype": "torch.float8_e4m3fn",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            4194304,
+            512
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "torch.float32",
+          "type": "torch.Tensor"
+        }
+      ]
+    ]
+  }
+}

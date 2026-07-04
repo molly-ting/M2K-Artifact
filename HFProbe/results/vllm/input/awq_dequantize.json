@@ -1,0 +1,3227 @@
+[
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    1536
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    12288
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    1536
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    2752
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    22016
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    2752
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    11008,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    86,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    86,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    800
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    6400
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    800
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    24576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    24576,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    192,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    192,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    2320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    18560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    2320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    1792
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    14336
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    1792
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    14336,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    112,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    112,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1024,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1024,
+                    128
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    128
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1024,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    128
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    1024
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    128
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    1536
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    12288
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    1536
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    12288,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    96,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    96,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    768,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    768,
+                    96
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    96
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    768,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    6,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3072,
+                    96
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    24,
+                    96
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    864
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    6912
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    864
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    1440
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    11520
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    1440
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5760,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    45,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    45,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2304,
+                    2304
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    18432
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    18,
+                    2304
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    9216,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    72,
+                    2304
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    72,
+                    288
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    3072
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    384
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    64,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6144,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    48,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    16384
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    2048
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    16384,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    960
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    7680
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    960
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    640
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    640
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5120,
+                    4480
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    35840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    40,
+                    4480
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    17920,
+                    640
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    140,
+                    5120
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    140,
+                    640
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    64
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    64
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    512
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    64
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    2560
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    320
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    4096
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    16384,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    256
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    24576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    3072
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    12288,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    96,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    96,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    1838
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    14704
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    1838
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    7168,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    56,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    56,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    7168,
+                    2688
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    56,
+                    21504
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    56,
+                    2688
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    16
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    16
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    28672
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    3584
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    14336,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    112,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    112,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    896,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    896,
+                    112
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    112
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    896,
+                    1216
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    9728
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    7,
+                    1216
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4864,
+                    112
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    38,
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    38,
+                    112
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3584,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    8192
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    28,
+                    1024
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    3584
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    448
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    576
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    4608
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    576
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    3424
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    27392
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    3424
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    13696,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    107,
+                    4096
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    107,
+                    512
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1152,
+                    192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9,
+                    1536
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9,
+                    192
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1024,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1152,
+                    1728
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9,
+                    13824
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9,
+                    1728
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    6912,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    54,
+                    1152
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    54,
+                    144
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "py_function": "awq_dequantize",
+        "cuda_function": "awq_dequantize",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/awq_gemm_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    6144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16,
+                    768
+                ],
+                "dtype": "torch.int32",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            },
+            {
+                "value": 0,
+                "type": "int"
+            }
+        ]
+    }
+]

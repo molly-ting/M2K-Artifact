@@ -1,0 +1,378 @@
+{
+  "(('_custom_ops.py', 388), ('model_executor/layers/quantization/marlin.py', 252), ('model_executor/layers/linear.py', 486), ('model_executor/models/opt.py', 111), ('model_executor/models/opt.py', 171))": {
+    "(1, 2)": [
+      [
+        {
+          "shape": [
+            2,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            4608
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            2304
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            576
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 2,
+          "type": "int"
+        },
+        {
+          "value": 2304,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            4608
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            2304
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            576
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 2304,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 388), ('model_executor/layers/quantization/marlin.py', 252), ('model_executor/layers/linear.py', 1288), ('model_executor/models/opt.py', 114), ('model_executor/models/opt.py', 171))": {
+    "(1, 2)": [
+      [
+        {
+          "shape": [
+            2,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 2,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 388), ('model_executor/layers/quantization/marlin.py', 252), ('model_executor/layers/linear.py', 486), ('model_executor/models/opt.py', 182), ('model_executor/models/opt.py', 272))": {
+    "(1, 2)": [
+      [
+        {
+          "shape": [
+            2,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            6144
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            768
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 2,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            48,
+            6144
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            6,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            768
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        }
+      ]
+    ]
+  },
+  "(('_custom_ops.py', 388), ('model_executor/layers/quantization/marlin.py', 252), ('model_executor/layers/linear.py', 1288), ('model_executor/models/opt.py', 184), ('model_executor/models/opt.py', 272))": {
+    "(1, 2)": [
+      [
+        {
+          "shape": [
+            2,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 2,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        }
+      ],
+      [
+        {
+          "shape": [
+            1,
+            3072
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192,
+            1536
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            24,
+            768
+          ],
+          "dtype": "torch.float16",
+          "type": "torch.Tensor"
+        },
+        {
+          "shape": [
+            192
+          ],
+          "dtype": "torch.int32",
+          "type": "torch.Tensor"
+        },
+        {
+          "value": 1,
+          "type": "int"
+        },
+        {
+          "value": 768,
+          "type": "int"
+        },
+        {
+          "value": 3072,
+          "type": "int"
+        }
+      ]
+    ]
+  }
+}

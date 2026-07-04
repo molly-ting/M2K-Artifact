@@ -1,0 +1,3784 @@
+[
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    682,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    682,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    682,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2157,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2157,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5461,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5461,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    10,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    170,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 8,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    170,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    10,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 8,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1820,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1820,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1820,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    334,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    334,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    334,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    182,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    182,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    182,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    36,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2048,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2048,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    81,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    81,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    81,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    40,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    32,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    32,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    32,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    204,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    204,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    204,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    163840
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    512,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    128,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    128,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    8192,
+                    64,
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    8192,
+                    64,
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    10,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    204,
+                    64,
+                    10,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    204,
+                    64,
+                    10,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    10,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1365,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 2,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1365,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 2,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1365,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3,
+                    32,
+                    4,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    682,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    682,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    682,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1170,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1170,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1170,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    32768
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    256,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    256,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    256,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    512,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    3640,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    3640,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    341,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    341,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    341,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    10,
+                    262144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    113,
+                    262144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.017857142857142856*s+0.39285714285714324",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 9,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    113,
+                    262144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    10,
+                    262144
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.017857142857142856*s+0.39285714285714324",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 9,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    16384,
+                    64,
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    16384,
+                    64,
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    409,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    409,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1820,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1820,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    12,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.14583333333333348",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    4096,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    4096,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    455,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    455,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    455,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    180,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    180,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    180,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    224
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1638,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1638,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    1638,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    5461,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5461,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    5461,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    113,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    113,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    113,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    64,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    195,
+                    64,
+                    8,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    195,
+                    64,
+                    8,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    8,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    96
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    170,
+                    64,
+                    32,
+                    96
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    170,
+                    64,
+                    32,
+                    96
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    32,
+                    96
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2340,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.10416666666666674",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2340,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    2,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.10416666666666674",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    292,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    292,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    16,
+                    128
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2520,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2520,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    1,
+                    256
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "0.020833333333333332*s+0.125",
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": true
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    2,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    9709,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    9709,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 1,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    9709,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    2,
+                    64,
+                    576
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor"
+            }
+        ]
+    },
+    {
+        "py_function": "swap_blocks",
+        "cuda_function": "swap_blocks",
+        "input_file_path": "/home/mvh6224/CUDA-BOSolver/scripts/vllm_compile/cache_kernels_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    170,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    10,
+                    512,
+                    16,
+                    64
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1,
+                    2
+                ],
+                "dtype": "torch.int64",
+                "type": "torch.Tensor",
+                "maxV": 7,
+                "minV": 0,
+                "dupV": false
+            }
+        ]
+    }
+]

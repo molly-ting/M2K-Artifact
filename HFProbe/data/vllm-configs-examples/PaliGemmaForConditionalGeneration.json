@@ -1,0 +1,40 @@
+{
+    "_name_or_path": "final-hf/paligemma-3b-mix-224-main",
+    "architectures": [
+        "PaliGemmaForConditionalGeneration"
+    ],
+    "bos_token_id": 2,
+    "eos_token_id": 1,
+    "hidden_size": 2048,
+    "ignore_index": -100,
+    "image_token_index": 257152,
+    "model_type": "paligemma",
+    "pad_token_id": 0,
+    "projection_dim": 2048,
+    "text_config": {
+        "hidden_size": 2048,
+        "intermediate_size": 16384,
+        "model_type": "gemma",
+        "num_attention_heads": 8,
+        "num_hidden_layers": 18,
+        "num_image_tokens": 256,
+        "num_key_value_heads": 1,
+        "torch_dtype": "float32",
+        "vocab_size": 257216
+    },
+    "torch_dtype": "float32",
+    "transformers_version": "4.41.0.dev0",
+    "vision_config": {
+        "hidden_size": 1152,
+        "intermediate_size": 4304,
+        "model_type": "siglip_vision_model",
+        "num_attention_heads": 16,
+        "num_hidden_layers": 27,
+        "num_image_tokens": 256,
+        "patch_size": 14,
+        "projection_dim": 2048,
+        "projector_hidden_act": "gelu_fast",
+        "vision_use_head": false
+    },
+    "vocab_size": 257216
+}
