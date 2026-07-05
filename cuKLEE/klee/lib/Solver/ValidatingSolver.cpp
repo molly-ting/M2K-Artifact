@@ -1,4 +1,4 @@
-//===-- ValidatingSolver.cpp ----------------------------------------------===//
+﻿//===-- ValidatingSolver.cpp ----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -97,7 +97,6 @@ bool ValidatingSolver::computeInitialValues(
     return false;
 
   if (hasSolution) {
-    // Assert the bindings as constraints, and verify that the
     // conjunction of the actual constraints is satisfiable.
     ConstraintSet bindings;
     for (unsigned i = 0; i != values.size(); ++i) {

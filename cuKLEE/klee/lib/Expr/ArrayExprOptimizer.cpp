@@ -1,4 +1,4 @@
-//===-- ArrayExprOptimizer.cpp --------------------------------------------===//
+﻿//===-- ArrayExprOptimizer.cpp --------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -101,11 +101,9 @@ ref<Expr> extendRead(const UpdateList &ul, const ref<Expr> index,
 }
 
 ref<Expr> ExprOptimizer::optimizeExpr(const ref<Expr> &e, bool valueOnly) {
-  // Nothing to optimise for constant expressions
   if (isa<ConstantExpr>(e))
     return e;
 
-  // If no is optimization enabled, return early avoid cache lookup
   if (OptimizeArray == NONE)
     return e;
 
@@ -127,7 +125,6 @@ ref<Expr> ExprOptimizer::optimizeExpr(const ref<Expr> &e, bool valueOnly) {
     if (arrays.empty() || aev.isIncompatible()) {
       // We do not optimize expressions other than those with concrete
       // arrays with a symbolic index
-      // If we cannot optimize the expression, we return a failure only
       // when we are not combining the optimizations
       if (OptimizeArray == INDEX) {
         cacheExprUnapplicable.insert(e);
@@ -136,16 +133,13 @@ ref<Expr> ExprOptimizer::optimizeExpr(const ref<Expr> &e, bool valueOnly) {
     } else {
       mapIndexOptimizedExpr_ty idx_valIdx;
 
-      // Compute those indexes s.t. orig_expr =equisat= (k==i|k==j|..)
       if (computeIndexes(arrays, e, idx_valIdx)) {
         if (!idx_valIdx.empty()) {
-          // Create new expression on indexes
           result = ExprRewriter::createOptExpr(e, arrays, idx_valIdx);
         } else {
           klee_warning("OPT_I: infeasible branch!");
           result = ConstantExpr::create(0, Expr::Bool);
         }
-        // Add new expression to cache
         if (result) {
           klee_warning("OPT_I: successful");
           cacheExprOptimized[e] = result;
@@ -191,7 +185,6 @@ ref<Expr> ExprOptimizer::optimizeExpr(const ref<Expr> &e, bool valueOnly) {
 bool ExprOptimizer::computeIndexes(array2idx_ty &arrays, const ref<Expr> &e,
                                    mapIndexOptimizedExpr_ty &idx_valIdx) const {
   bool success = false;
-  // For each constant array found
   for (auto &element : arrays) {
     const Array *arr = element.first;
 
@@ -204,7 +197,6 @@ bool ExprOptimizer::computeIndexes(array2idx_ty &arrays, const ref<Expr> &e,
     Expr::Width width = idxt_v.getWidth() / arr->range;
 
     if (auto e = idxt_v.getMul()) {
-      // If we have a MulExpr in the index, we can optimize our search by
       // skipping all those indexes that are not multiple of such value.
       // In fact, they will be rejected by the MulExpr interpreter since it
       // will not find any integer solution
@@ -212,27 +204,22 @@ bool ExprOptimizer::computeIndexes(array2idx_ty &arrays, const ref<Expr> &e,
       assert(ce && "Not a constant expression");
       uint64_t mulVal = (*ce->getAPValue().getRawData());
       // So far we try to limit this optimization, but we may try some more
-      // aggressive conditions (i.e. mulVal > width)
       if (width == 1 && mulVal > 1)
         width = mulVal;
     }
 
-    // For each concrete value 'i' stored in the array
     for (size_t aIdx = 0; aIdx < arr->constantValues.size(); aIdx += width) {
       auto *a = new Assignment();
       std::vector<const Array *> objects;
       std::vector<std::vector<unsigned char>> values;
 
-      // For each symbolic index Expr(k) found
       for (auto &index_it : element.second) {
         ref<Expr> idx = index_it;
         ref<Expr> val = ConstantExpr::alloc(aIdx, arr->getDomain());
-        // We create a partial assignment on 'k' s.t. Expr(k)==i
         bool assignmentSuccess =
             AssignmentGenerator::generatePartialAssignment(idx, val, a);
         success |= assignmentSuccess;
 
-        // If the assignment satisfies both the expression 'e' and the PC
         ref<Expr> evaluation = a->evaluate(e);
         if (assignmentSuccess && evaluation->isTrue()) {
           if (idx_valIdx.find(idx) == idx_valIdx.end()) {
@@ -412,7 +399,6 @@ ref<Expr> ExprOptimizer::getSelectOptExpr(
 
       if (((double)symByteNum / (double)elementsInArray) <=
           ArrayValueSymbRatio) {
-        // If the optimization can be applied we apply it
         // Build the dynamic select expression
         ref<Expr> opt =
             buildMixedSelectExpr(read, arrayValues, width, elementsInArray);
@@ -488,7 +474,6 @@ ref<Expr> ExprOptimizer::buildConstantSelectExpr(
   }
 
   int ct = 0;
-  // For each range appropriately build the Select expression.
   for (auto range : exprMap) {
     ref<Expr> temp;
     if (ct == 0) {
@@ -586,7 +571,6 @@ ref<Expr> ExprOptimizer::buildMixedSelectExpr(
   bool emptyRange = true;
   // Calculate Range values
   for (size_t i = 0; i < arrayValues.size(); i++) {
-    // If the value is concrete
     if (arrayValues[i].second) {
       // The range contains a concrete value
       emptyRange = false;
@@ -607,7 +591,6 @@ ref<Expr> ExprOptimizer::buildMixedSelectExpr(
       }
     } else {
       holes.push_back(i);
-      // If this is not an empty range
       if (!emptyRange) {
         ranges.emplace_back(curr_idx, i);
         values.push_back(curr_val);

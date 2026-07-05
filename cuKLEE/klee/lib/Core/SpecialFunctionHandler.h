@@ -1,4 +1,4 @@
-//===-- SpecialFunctionHandler.h --------------------------------*- C++ -*-===//
+﻿//===-- SpecialFunctionHandler.h --------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

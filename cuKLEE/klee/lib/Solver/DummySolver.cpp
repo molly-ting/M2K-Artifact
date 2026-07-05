@@ -1,4 +1,4 @@
-//===-- DummySolver.cpp ---------------------------------------------------===//
+﻿//===-- DummySolver.cpp ---------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -33,13 +33,11 @@ DummySolverImpl::DummySolverImpl() {}
 
 bool DummySolverImpl::computeValidity(const Query &, Solver::Validity &result) {
   ++stats::solverQueries;
-  // FIXME: We should have stats::queriesFail;
   return false;
 }
 
 bool DummySolverImpl::computeTruth(const Query &, bool &isValid) {
   ++stats::solverQueries;
-  // FIXME: We should have stats::queriesFail;
   return false;
 }
 

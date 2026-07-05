@@ -1,4 +1,4 @@
-//===-- ExprPPrinter.cpp -   ----------------------------------------------===//
+﻿//===-- ExprPPrinter.cpp -   ----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -144,7 +144,6 @@ private:
 
     // Special case empty list.
     if (!head) {
-      // FIXME: We need to do something (assert, mangle, etc.) so that printing
       // distinct arrays with the same name doesn't fail.
       PC << updates.root->name;
       return;
@@ -155,7 +154,6 @@ private:
     unsigned outerIndent = PC.pos;
     unsigned middleIndent = 0;
     for (auto un = head; un; un = un->next) {
-      // We are done if we hit the cache.
       std::map<const UpdateNode *, unsigned>::iterator it =
           updateBindings.find(un.get());
       if (it!=updateBindings.end()) {
@@ -181,13 +179,9 @@ private:
         PC << ',';
         printSeparator(PC, !nextShouldBreak, middleIndent);
       }
-      //PC << "(=";
-      //unsigned innerIndent = PC.pos;
       print(un->index, PC);
-      //printSeparator(PC, isSimple(un->index), innerIndent);
       PC << "=";
       print(un->value, PC);
-      //PC << ')';
       
       nextShouldBreak = !(isa<ConstantExpr>(un->index) && 
                           isa<ConstantExpr>(un->value));
@@ -221,7 +215,6 @@ private:
     if (!re || (re->getWidth() != Expr::Int8))
       return false;
       
-    // Check if the index follows the stride. 
     // FIXME: How aggressive should this be simplified. The
     // canonicalizing builder is probably the right choice, but this
     // is yet another area where we would really prefer it to be
@@ -393,9 +386,6 @@ public:
         // Detect multibyte reads.
         // FIXME: Hrm. One problem with doing this is that we are
         // masking the sharing of the indices which aren't
-        // visible. Need to think if this matters... probably not
-        // because if they are offset reads then its either constant,
-        // or they are (base + offset) and base will get printed with
         // a declaration.
         if (PCMultibyteReads && e->getKind() == Expr::Concat) {
 	  const ReadExpr *base = hasOrderedReads(e, -1);
@@ -417,7 +407,6 @@ public:
         PC << ' ';
 
         // Indent at first argument and dispatch to appropriate print
-        // routine for exprs which require special handling.
         unsigned indent = PC.pos;
         if (const ReadExpr *re = dyn_cast<ReadExpr>(e)) {
           printRead(re, PC, indent);
@@ -454,7 +443,6 @@ void ExprPPrinter::printOne(llvm::raw_ostream &os,
   p.scan(e);
 
   // FIXME: Need to figure out what to do here. Probably print as a
-  // "forward declaration" with whatever syntax we pick for that.
   PrintContext PC(os);
   PC << message << ": ";
   p.print(e, PC);
@@ -466,7 +454,6 @@ void ExprPPrinter::printSingleExpr(llvm::raw_ostream &os, const ref<Expr> &e) {
   p.scan(e);
 
   // FIXME: Need to figure out what to do here. Probably print as a
-  // "forward declaration" with whatever syntax we pick for that.
   PrintContext PC(os);
   p.print(e, PC);
 }
@@ -534,7 +521,6 @@ void ExprPPrinter::printQuery(llvm::raw_ostream &os,
 
   PC << "(query [";
   
-  // Ident at constraint list;
   unsigned indent = PC.pos;
   for (auto it = constraints.begin(), ie = constraints.end(); it != ie;) {
     p.print(*it, PC);
@@ -547,7 +533,6 @@ void ExprPPrinter::printQuery(llvm::raw_ostream &os,
   p.printSeparator(PC, constraints.empty(), indent-1);
   p.print(q, PC);
 
-  // Print expressions to obtain values for, if any.
   if (evalExprsBegin != evalExprsEnd) {
     p.printSeparator(PC, q->isFalse(), indent-1);
     PC << '[';
@@ -559,7 +544,6 @@ void ExprPPrinter::printQuery(llvm::raw_ostream &os,
     PC << ']';
   }
 
-  // Print arrays to obtain values for, if any.
   if (evalArraysBegin != evalArraysEnd) {
     if (evalExprsBegin == evalExprsEnd)
       PC << " []";

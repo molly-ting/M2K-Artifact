@@ -1,4 +1,4 @@
-//===-- STPBuilder.cpp ----------------------------------------------------===//
+﻿//===-- STPBuilder.cpp ----------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -24,7 +24,6 @@
 #include <cstdio>
 
 #define vc_bvBoolExtract IAMTHESPAWNOFSATAN
-// unclear return
 #define vc_bvLeftShiftExpr IAMTHESPAWNOFSATAN
 #define vc_bvRightShiftExpr IAMTHESPAWNOFSATAN
 // bad refcnt'ng
@@ -92,7 +91,6 @@ STPBuilder::~STPBuilder() {
    you call vc_DeleteExpr on them. */
 
 ::VCExpr STPBuilder::buildVar(const char *name, unsigned width) {
-  // XXX don't rebuild if this stuff cons's
   ::Type t = (width==1) ? vc_boolType(vc) : vc_bvType(vc, width);
   ::VCExpr res = vc_varExpr(vc, const_cast<char*>(name), t);
   vc_DeleteExpr(t);
@@ -100,7 +98,6 @@ STPBuilder::~STPBuilder() {
 }
 
 ::VCExpr STPBuilder::buildArray(const char *name, unsigned indexWidth, unsigned valueWidth) {
-  // XXX don't rebuild if this stuff cons's
   ::Type t1 = vc_bvType(vc, indexWidth);
   ::Type t2 = vc_bvType(vc, valueWidth);
   ::Type t = vc_arrayType(vc, t1, t2);
@@ -197,8 +194,6 @@ ExprHandle STPBuilder::extractPartialShiftValue(ExprHandle shift,
   llvm::APInt sw(32, width);
   shiftBits = sw.getActiveBits();
 
-  // get the shift amount (looking only at the bits appropriate for the given
-  // width)
   return vc_bvExtract(vc, shift, shiftBits - 1, 0);
 }
 
@@ -210,14 +205,12 @@ ExprHandle STPBuilder::bvVarLeftShift(ExprHandle expr, ExprHandle shift) {
   unsigned shiftBits = 0;
   ExprHandle shift_ext = extractPartialShiftValue(shift, width, shiftBits);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   for (int i = width - 1; i >= 0; i--) {
     res = vc_iteExpr(vc, eqExpr(shift_ext, bvConst32(shiftBits, i)),
                      bvLeftShift(expr, i), res);
   }
 
-  // If overshifting, shift to zero
   ExprHandle ex =
       vc_bvLtExpr(vc, shift, bvConst32(vc_getBVLength(vc, shift), width));
 
@@ -234,15 +227,12 @@ ExprHandle STPBuilder::bvVarRightShift(ExprHandle expr, ExprHandle shift) {
   unsigned shiftBits = 0;
   ExprHandle shift_ext = extractPartialShiftValue(shift, width, shiftBits);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   for (int i = width - 1; i >= 0; i--) {
     res = vc_iteExpr(vc, eqExpr(shift_ext, bvConst32(shiftBits, i)),
                      bvRightShift(expr, i), res);
   }
 
-  // If overshifting, shift to zero
-  // If overshifting, shift to zero
   ExprHandle ex =
       vc_bvLtExpr(vc, shift, bvConst32(vc_getBVLength(vc, shift), width));
   res = vc_iteExpr(vc, ex, res, bvZero(width));
@@ -261,10 +251,8 @@ ExprHandle STPBuilder::bvVarArithRightShift(ExprHandle expr, ExprHandle shift) {
   // get the sign bit to fill with
   ExprHandle signedBool = bvBoolExtract(expr, width - 1);
 
-  // start with the result if shifting by width-1
   ExprHandle res = constructAShrByConstant(expr, width - 1, signedBool);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   // XXX more efficient to move the ite on the sign outside all exprs?
   // XXX more efficient to sign extend, right shift, then extract lower bits?
@@ -273,7 +261,6 @@ ExprHandle STPBuilder::bvVarArithRightShift(ExprHandle expr, ExprHandle shift) {
                      constructAShrByConstant(expr, i, signedBool), res);
   }
 
-  // If overshifting, shift to zero
   ExprHandle ex =
       vc_bvLtExpr(vc, shift, bvConst32(vc_getBVLength(vc, shift), width));
   res = vc_iteExpr(vc, ex, res, bvZero(width));
@@ -303,7 +290,6 @@ ExprHandle STPBuilder::constructMulByConstant(ExprHandle expr, unsigned width, u
   uint64_t add, sub;
   ExprHandle res = 0;
 
-  // expr*x == expr*(add-sub) == expr*add - expr*sub
   ComputeMultConstants64(x, add, sub);
 
   // legal, these would overflow completely
@@ -355,19 +341,16 @@ ExprHandle STPBuilder::constructMulByConstant(ExprHandle expr, unsigned width, u
 ExprHandle STPBuilder::constructUDivByConstant(ExprHandle expr_n, unsigned width, uint64_t d) {
   assert(width==32 && "can only compute udiv constants for 32-bit division");
 
-  // Compute the constants needed to compute n/d for constant d w/o
   // division by d.
   uint32_t mprime, sh1, sh2;
   ComputeUDivConstants32(d, mprime, sh1, sh2);
   ExprHandle expr_sh1    = bvConst32( 32, sh1);
   ExprHandle expr_sh2    = bvConst32( 32, sh2);
 
-  // t1  = MULUH(mprime, n) = ( (uint64_t)mprime * (uint64_t)n ) >> 32
   ExprHandle expr_n_64   = vc_bvConcatExpr( vc, bvZero(32), expr_n ); //extend to 64 bits
   ExprHandle t1_64bits   = constructMulByConstant( expr_n_64, 64, (uint64_t)mprime );
   ExprHandle t1          = vc_bvExtract( vc, t1_64bits, 63, 32 ); //upper 32 bits
 
-  // n/d = (((n - t1) >> sh1) + t1) >> sh2;
   ExprHandle n_minus_t1  = vc_bvMinusExpr( vc, width, expr_n, t1 );
   ExprHandle shift_sh1   = bvVarRightShift( n_minus_t1, expr_sh1);
   ExprHandle plus_t1     = vc_bvPlusExpr( vc, width, shift_sh1, t1 );
@@ -390,16 +373,13 @@ ExprHandle STPBuilder::constructUDivByConstant(ExprHandle expr_n, unsigned width
  * @return n/d without doing explicit division
  */
 ExprHandle STPBuilder::constructSDivByConstant(ExprHandle expr_n, unsigned width, uint64_t d) {
-  // Refactor using APInt::ms APInt::magic();
   assert(width==32 && "can only compute udiv constants for 32-bit division");
 
-  // Compute the constants needed to compute n/d for constant d w/o division by d.
   int32_t mprime, dsign, shpost;
   ComputeSDivConstants32(d, mprime, dsign, shpost);
   ExprHandle expr_dsign   = bvConst32( 32, dsign);
   ExprHandle expr_shpost  = bvConst32( 32, shpost);
 
-  // q0 = n + MULSH( mprime, n ) = n + (( (int64_t)mprime * (int64_t)n ) >> 32)
   int64_t mprime_64     = (int64_t)mprime;
 
   ExprHandle expr_n_64    = vc_bvSignExtend( vc, expr_n, 64 );
@@ -413,15 +393,12 @@ ExprHandle STPBuilder::constructSDivByConstant(ExprHandle expr_n, unsigned width
   ExprHandle shift_npm    = bvVarRightShift( extend_npm, expr_shpost);
   ExprHandle shift_shpost = vc_bvExtract( vc, shift_npm, 31, 0 ); //lower 32-bits
 
-  // XSIGN(n) is -1 if n is negative, positive one otherwise
   ExprHandle is_signed    = bvBoolExtract( expr_n, 31 );
   ExprHandle neg_one      = bvMinusOne(32);
   ExprHandle xsign_of_n   = vc_iteExpr( vc, is_signed, neg_one, bvZero(32) );
 
-  // q0 = (n_plus_mulsh >> shpost) - XSIGN(n)
   ExprHandle q0           = vc_bvMinusExpr( vc, width, shift_shpost, xsign_of_n );
   
-  // n/d = (q0 ^ dsign) - dsign
   ExprHandle q0_xor_dsign = vc_bvXorExpr( vc, q0, expr_dsign );
   ExprHandle res          = vc_bvMinusExpr( vc, width, q0_xor_dsign, expr_dsign );
 
@@ -438,7 +415,6 @@ ExprHandle STPBuilder::constructSDivByConstant(ExprHandle expr_n, unsigned width
     // STP uniques arrays by name, so we make sure the name is unique by
     // using the size of the array hash as a counter.
     std::string unique_id = llvm::utostr(_arr_hash._array_hash.size());
-    // Prefix unique ID with '_' to avoid name collision if name ends with
     // number
     std::string unique_name = root->name + "_" + unique_id;
 
@@ -481,7 +457,6 @@ ExprHandle STPBuilder::getInitialRead(const Array *root, unsigned index) {
   if (!un) {
     un_expr = getInitialArray(root);
   }
-  // `un_expr` now holds an expression for the array - either from cache or by
   // virtue of being the initial array expression
 
   // Create and cache solver expressions based on the update nodes starting from
@@ -533,7 +508,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
     ConstantExpr *CE = cast<ConstantExpr>(e);
     *width_out = CE->getWidth();
 
-    // Coerce to bool if necessary.
     if (*width_out == 1)
       return CE->isTrue() ? getTrue() : getFalse();
 
@@ -696,7 +670,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
                return constructSDivByConstant( left, *width_out,
                                           CE->getZExtValue(32));
       }
-    // XXX need to test for proper handling of sign, not sure I
     // trust STP
     ExprHandle right = construct(de->right, width_out);
     return vc_sbvDivExpr(vc, *width_out, left, right);
@@ -714,7 +687,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
         if (bits64::isPowerOfTwo(divisor)) {
           unsigned bits = bits64::indexOfSingleBit(divisor);
 
-          // special case for modding by 1 or else we bvExtract -1:0
           if (bits == 0) {
             return bvZero(*width_out);
           } else {
@@ -724,7 +696,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
           }
         }
 
-        // Use fast division to compute modulo without explicit division for
         // constant divisor.
 
         if (optimizeDivides) {
@@ -753,7 +724,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
       if (ConstantExpr *cre = de->right->asConstant()) {
 	uint64_t divisor = cre->asUInt64;
 
-	//use fast division to compute modulo without explicit division for constant divisor
       	if( *width_out == 32 ) { //only works for 32-bit division
 	  ExprHandle quotient = constructSDivByConstant( left, *width_out, divisor );
 	  ExprHandle quot_times_divisor = constructMulByConstant( quotient, *width_out, divisor );
@@ -764,7 +734,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
     }
 #endif
 
-    // XXX implement my fast path and test for proper handling of sign
     return vc_sbvRemExpr(vc, *width_out, left, right);
   }
 
@@ -808,7 +777,6 @@ ExprHandle STPBuilder::constructActual(ref<Expr> e, int *width_out) {
     ExprHandle right = construct(xe->right, width_out);
     
     if (*width_out==1) {
-      // XXX check for most efficient?
       return vc_iteExpr(vc, left, 
                         ExprHandle(vc_notExpr(vc, right)), right);
     } else {

@@ -1,11 +1,10 @@
-#ifndef KLEE_KLOOPINFO_H
+﻿#ifndef KLEE_KLOOPINFO_H
 #define KLEE_KLOOPINFO_H
 
 
 #include "klee/Expr/Expr.h"
 
 #include <string>
-// #include <vector>
 
 namespace llvm {
   class BasicBlock;
@@ -37,7 +36,6 @@ namespace klee {
             IncreType increType;
             ref<Expr> cond;
             bool twoBlocks;
-            // unsigned tripCount; 
             std::set<llvm::BasicBlock*> bodyBlocks;
 
             KLoopInfo(llvm::BasicBlock * _backedge, bool _symbolizeIndex, bool _twoBlocks,
@@ -48,7 +46,6 @@ namespace klee {
                 indexName("loop_index_"+std::to_string(counter++)),
                 symbolizeIndex(_symbolizeIndex),
                 twoBlocks(_twoBlocks), 
-                // tripCount(tc),
                 bodyBlocks(std::move(body)) {
             }
 
@@ -68,7 +65,6 @@ namespace klee {
                 increType(loopInfo.increType),
                 cond(loopInfo.cond),
                 twoBlocks(loopInfo.twoBlocks), 
-                // tripCount(loopInfo.tripCount),
                 bodyBlocks(loopInfo.bodyBlocks) {
             }
 

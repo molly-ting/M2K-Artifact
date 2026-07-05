@@ -1,4 +1,4 @@
-//===-- CachingSolver.cpp - Caching expression solver ---------------------===//
+﻿//===-- CachingSolver.cpp - Caching expression solver ---------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

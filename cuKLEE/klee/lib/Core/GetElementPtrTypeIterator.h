@@ -1,4 +1,4 @@
-//===-- GetElementPtrTypeIterator.h -----------------------------*- C++ -*-===//
+﻿//===-- GetElementPtrTypeIterator.h -----------------------------*- C++ -*-===//
 //
 //                     The LLVM Compiler Infrastructure
 //
@@ -10,7 +10,6 @@
 // This file implements an iterator for walking through the types indexed by
 // getelementptr, insertvalue and extractvalue instructions.
 //
-// It is an enhanced version of llvm::gep_type_iterator which only handles
 // getelementptr.
 //
 //===----------------------------------------------------------------------===//
@@ -74,7 +73,6 @@ public:
       return llvm::GetElementPtrInst::getTypeAtIndex(CurTy, getOperand());
   }
 
-    // This is a non-standard operator->.  It allows you to call methods on the
     // current type directly.
     llvm::Type *operator->() const { return operator*(); }
 

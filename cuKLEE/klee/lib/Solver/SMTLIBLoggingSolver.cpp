@@ -1,4 +1,4 @@
-//===-- SMTLIBLoggingSolver.cpp -------------------------------------------===//
+﻿//===-- SMTLIBLoggingSolver.cpp -------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

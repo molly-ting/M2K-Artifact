@@ -1,4 +1,4 @@
-//===-- CallPathManager.h ---------------------------------------*- C++ -*-===//
+﻿//===-- CallPathManager.h ---------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -45,7 +45,6 @@ namespace klee {
         CallPathNode *>
         children_ty;
 
-    // form list of (callSite,function) path
     CallPathNode *parent;
     const llvm::Instruction *callSite;
     const llvm::Function *function;

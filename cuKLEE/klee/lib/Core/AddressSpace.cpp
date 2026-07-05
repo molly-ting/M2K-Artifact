@@ -1,4 +1,4 @@
-//===-- AddressSpace.cpp --------------------------------------------------===//
+﻿//===-- AddressSpace.cpp --------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -62,7 +62,6 @@ bool AddressSpace::resolveOne(const ref<ConstantExpr> &addr,
   if (const auto res = objects.lookup_previous(&hack)) {
     const auto &mo = res->first;
     // Check if the provided address is between start and end of the object
-    // [mo->address, mo->address + mo->size) or the object is a 0-sized object.
     if ((mo->size==0 && address==mo->address) ||
         (address - mo->address < mo->size) || 
       (mo->size==39973 && address >= mo->address)) {
@@ -217,7 +216,6 @@ bool AddressSpace::resolve(ExecutionState &state, TimingSolver *solver,
     TimerStatIncrementer timer(stats::resolveTime);
 
     // XXX in general this isn't exactly what we want... for
-    // a multiple resolution case (or for example, a \in {b,c,0})
     // we want to find the first object, find a cex assuming
     // not the first, find a cex assuming not the second...
     // etc.
@@ -226,9 +224,7 @@ bool AddressSpace::resolve(ExecutionState &state, TimingSolver *solver,
     // see if we need to keep searching up/down, in bad cases?
     // maybe we don't care?
 
-    // XXX we really just need a smart place to start (although
     // if its a known solution then the code below is guaranteed
-    // to hit the fast path with exactly 2 queries). we could also
     // just get this by inspection of the expr.
 
     ref<ConstantExpr> cex;
@@ -295,8 +291,6 @@ bool AddressSpace::resolve(ExecutionState &state, TimingSolver *solver,
 // These two are pretty big hack so we can sort of pass memory back
 // and forth to externals. They work by abusing the concrete cache
 // store inside of the object states, which allows them to
-// transparently avoid screwing up symbolics (if the byte is symbolic
-// then its concrete cache byte isn't being used) but is just a hack.
 
 std::size_t AddressSpace::copyOutConcretes() {
   std::size_t numPages{};
@@ -379,4 +373,3 @@ bool AddressSpace::copyInConcrete(const MemoryObject *mo, const ObjectState *os,
 bool MemoryObjectLT::operator()(const MemoryObject *a, const MemoryObject *b) const {
   return a->address < b->address;
 }
-

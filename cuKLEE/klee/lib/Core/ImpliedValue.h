@@ -1,4 +1,4 @@
-//===-- ImpliedValue.h ------------------------------------------*- C++ -*-===//
+﻿//===-- ImpliedValue.h ------------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -17,7 +17,6 @@
 // The idea of implied values is that often we know the result of some
 // expression e is a concrete value C. In many cases this directly
 // implies that some variable x embedded in e is also a concrete value
-// (derived from C). This module is used for finding such variables
 // and their computed values.
 
 namespace klee {

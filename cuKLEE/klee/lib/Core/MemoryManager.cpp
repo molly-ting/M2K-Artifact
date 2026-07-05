@@ -1,4 +1,4 @@
-//===-- MemoryManager.cpp -------------------------------------------------===//
+﻿//===-- MemoryManager.cpp -------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -153,7 +153,6 @@ MemoryManager::MemoryManager(ArrayCache *_arrayCache)
 
     std::vector<std::tuple<std::string,
                            std::uintptr_t, // start address (0 if none
-                                           // requested)
                            std::size_t,    // size of segment
                            std::reference_wrapper<kdalloc::AllocatorFactory>,
                            kdalloc::Allocator *>>
@@ -244,9 +243,6 @@ MemoryManager::MemoryManager(ArrayCache *_arrayCache)
       auto &factory = std::get<3>(requestedSegment);
       auto &allocator = std::get<4>(requestedSegment);
       int quarantineSize = DeterministicAllocationQuarantineSize;
-      // if (segment == "shared") {
-      //   quarantineSize = -1;
-      // }
       factory.get() = kdalloc::AllocatorFactory(
           start, size, quarantineSize);
 
@@ -362,19 +358,6 @@ MemoryObject* MemoryManager::allocateShared(
     ExecutionState *state,
     const llvm::Value *allocSite) 
 {
-    // MemoryObject *mo = this->allocate(size, isLocal, isGlobal, state, allocSite, alignment);
-    // if (!mo) {
-    //     klee_warning("Shared memory allocation failed");
-    //     return nullptr;
-    // }
-
-    // // Force base address to 32-bit range (like CUDA shared memory)
-    // // Shared memory is < 64 KB per SM, so mask to lower 32 bits
-    // uint64_t addr32 = mo->address & 0xFFFFFFFFULL;
-    // mo->address = addr32;
-
-    // return mo;
-
     if (size > 256 * 1024)
       klee_warning_once(0, "Large alloc: %" PRIu64
                           " bytes.  KLEE may run out of memory.",
@@ -392,7 +375,6 @@ MemoryObject* MemoryManager::allocateShared(
       address = reinterpret_cast<std::uint64_t>(allocAddress);
     } else {
       // Use malloc for the standard case
-      // address = (uint64_t)malloc(size);
       void *addr = mmap((void*)0x10000, size, PROT_READ | PROT_WRITE,
                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
       address = reinterpret_cast<std::uint64_t>(addr);

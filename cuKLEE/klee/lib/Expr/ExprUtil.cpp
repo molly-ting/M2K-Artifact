@@ -1,4 +1,4 @@
-//===-- ExprUtil.cpp ------------------------------------------------------===//
+﻿//===-- ExprUtil.cpp ------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -19,7 +19,6 @@ using namespace klee;
 void klee::findReads(ref<Expr> e, 
                      bool visitUpdates,
                      std::vector< ref<ReadExpr> > &results) {
-  // Invariant: \forall_{i \in stack} !i.isConstant() && i \in visited 
   std::vector< ref<Expr> > stack;
   ExprHashSet visited;
   std::set<const UpdateNode *> updates;
@@ -47,7 +46,6 @@ void klee::findReads(ref<Expr> e,
         // explosion traversing update lists which can be quite
         // long. However, it seems silly to hash all of the update nodes
         // especially since we memoize all the expr results anyway. So
-        // we take a simple approach of memoizing the results for the
         // head, which often will be shared among multiple nodes.
         if (updates.insert(re->updates.head.get()).second) {
           for (const auto *un = re->updates.head.get(); un;
@@ -82,7 +80,6 @@ protected:
   Action visitRead(const ReadExpr &re) {
     const UpdateList &ul = re.updates;
 
-    // XXX should we memo better than what ExprVisitor is doing for us?
     for (const auto *un = ul.head.get(); un; un = un->next.get()) {
       visit(un->index);
       visit(un->value);
@@ -106,7 +103,6 @@ public:
 ExprVisitor::Action ConstantArrayFinder::visitRead(const ReadExpr &re) {
   const UpdateList &ul = re.updates;
 
-  // FIXME should we memo better than what ExprVisitor is doing for us?
   for (const auto *un = ul.head.get(); un; un = un->next.get()) {
     visit(un->index);
     visit(un->value);

@@ -1,4 +1,4 @@
-//===-- ArrayExprVisitor.cpp ----------------------------------------------===//
+﻿//===-- ArrayExprVisitor.cpp ----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -62,7 +62,6 @@ ConstantArrayExprVisitor::visitConcat(const ConcatExpr &ce) {
 }
 
 ExprVisitor::Action ConstantArrayExprVisitor::visitRead(const ReadExpr &re) {
-  // It is an interesting ReadExpr if it contains a concrete array
   // that is read at a symbolic index
   if (re.updates.root->isConstantArray() && !isa<ConstantExpr>(re.index)) {
     for (const auto *un = re.updates.head.get(); un; un = un->next.get()) {
@@ -161,7 +160,6 @@ ExprVisitor::Action ArrayReadExprVisitor::visitRead(const ReadExpr &re) {
 ExprVisitor::Action ArrayReadExprVisitor::inspectRead(ref<Expr> hash,
                                                       Expr::Width width,
                                                       const ReadExpr &re) {
-  // pre(*): index is symbolic
   if (!isa<ConstantExpr>(re.index)) {
     if (readInfo.find(&re) == readInfo.end()) {
       if (re.updates.root->isSymbolicArray() && !re.updates.head) {
@@ -171,7 +169,6 @@ ExprVisitor::Action ArrayReadExprVisitor::inspectRead(ref<Expr> hash,
         // Check preconditions on UpdateList nodes
         bool hasConcreteValues = false;
         for (const auto *un = re.updates.head.get(); un; un = un->next.get()) {
-          // Symbolic case - \inv(update): index is concrete
           if (!isa<ConstantExpr>(un->index)) {
             incompatible = true;
             break;
@@ -181,12 +178,10 @@ ExprVisitor::Action ArrayReadExprVisitor::inspectRead(ref<Expr> hash,
             symbolic = true;
           } else if (re.updates.root->isSymbolicArray() &&
                      isa<ConstantExpr>(un->value)) {
-            // We can optimize symbolic array, but only if they have
             // at least one concrete value
             hasConcreteValues = true;
           }
         }
-        // Symbolic case - if array is symbolic, then we need at least one
         // concrete value
         if (re.updates.root->isSymbolicArray()) {
           if (hasConcreteValues)

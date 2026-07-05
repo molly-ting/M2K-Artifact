@@ -1,4 +1,4 @@
-//===-- IncompleteSolver.cpp ----------------------------------------------===//
+﻿//===-- IncompleteSolver.cpp ----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

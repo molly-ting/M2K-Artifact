@@ -1,5 +1,4 @@
-//===-- Z3Solver.h
-//---------------------------------------------------===//
+﻿//===-- Z3Solver.h
 //
 //                     The KLEE Symbolic Virtual Machine
 //

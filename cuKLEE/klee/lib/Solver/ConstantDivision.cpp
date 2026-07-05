@@ -1,4 +1,4 @@
-//===-- ConstantDivision.cpp ----------------------------------------------===//
+﻿//===-- ConstantDivision.cpp ----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -71,14 +71,9 @@ static uint32_t exp_base_2(int32_t n) {
 // A simple algorithm: Iterate over all contiguous regions of 1 bits
 // in x starting with the lowest bits.
 //
-// For a particular range where x is 1 for bits [low,high) then:
-//   1) if the range is just one bit, simple add it
-//   2) if the range is more than one bit, replace with an add
 //      of the high bit and a subtract of the low bit. we apply
-//      one useful optimization: if we were going to add the bit
 //      below the one we wish to subtract, we simply change that
 //      add to a subtract instead of subtracting the low bit itself.
-// Obviously we must take care when high==64.
 void ComputeMultConstants64(uint64_t multiplicand, 
                             uint64_t &add, uint64_t &sub) {
   uint64_t x = multiplicand;
@@ -95,9 +90,7 @@ void ComputeMultConstants64(uint64_t multiplicand,
     if (high==low+1) { // Just one bit...
       add |= lowbit;
     } else {
-      // Rewrite as +(1<<high) - (1<<low).
 
-      // Optimize +(1<<x) - (1<<(x+1)) to -(1<<x).
       if (low && (add & (lowbit>>1))) {
         add ^= lowbit>>1;
         sub ^= lowbit>>1;

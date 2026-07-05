@@ -1,4 +1,4 @@
-//===-- STPBuilder.h --------------------------------------------*- C++ -*-===//
+﻿//===-- STPBuilder.h --------------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -87,7 +87,6 @@ private:
   ExprHandle bvExtract(ExprHandle expr, unsigned top, unsigned bottom);
   ExprHandle eqExpr(ExprHandle a, ExprHandle b);
 
-  //logical left and right shift (not arithmetic)
   ExprHandle bvLeftShift(ExprHandle expr, unsigned shift);
   ExprHandle bvRightShift(ExprHandle expr, unsigned shift);
   ExprHandle bvVarLeftShift(ExprHandle expr, ExprHandle shift);

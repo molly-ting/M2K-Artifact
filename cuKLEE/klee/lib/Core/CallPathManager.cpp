@@ -1,4 +1,4 @@
-//===-- CallPathManager.cpp -----------------------------------------------===//
+﻿//===-- CallPathManager.cpp -----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -91,4 +91,3 @@ CallPathNode *CallPathManager::getCallPath(CallPathNode *parent,
     return it->second;
   }
 }
-

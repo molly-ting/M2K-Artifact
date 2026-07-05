@@ -1,4 +1,4 @@
-//===-- AssignmentGenerator.cpp -------------------------------------------===//
+﻿//===-- AssignmentGenerator.cpp -------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -43,7 +43,6 @@ bool AssignmentGenerator::helperGenerateAssignment(const ref<Expr> &e,
 
   // ARITHMETIC
   case Expr::Add: {
-    // val = val - kid
     ref<Expr> kid_val;
     ref<Expr> kid_expr;
     if (isa<ConstantExpr>(ep.getKid(0))) {
@@ -66,7 +65,6 @@ bool AssignmentGenerator::helperGenerateAssignment(const ref<Expr> &e,
     return helperGenerateAssignment(kid_expr, val, a, width, sign);
   }
   case Expr::Sub: {
-    // val = val + kid
     ref<Expr> kid_val;
     ref<Expr> kid_expr;
     if (isa<ConstantExpr>(ep.getKid(0))) {
@@ -82,7 +80,6 @@ bool AssignmentGenerator::helperGenerateAssignment(const ref<Expr> &e,
     return helperGenerateAssignment(kid_expr, val, a, width, sign);
   }
   case Expr::Mul: {
-    // val = val / kid (check for sign)
     ref<Expr> kid_val;
     ref<Expr> kid_expr;
     if (isa<ConstantExpr>(ep.getKid(0))) {
@@ -104,10 +101,7 @@ bool AssignmentGenerator::helperGenerateAssignment(const ref<Expr> &e,
     return helperGenerateAssignment(kid_expr, val, a, width, sign);
   }
   case Expr::UDiv:
-  // val = val * kid
-  // no break, falling down to case SDiv
   case Expr::SDiv: {
-    // val = val * kid
     ref<Expr> kid_val;
     ref<Expr> kid_expr;
     if (isa<ConstantExpr>(ep.getKid(0))) {
@@ -144,7 +138,6 @@ bool AssignmentGenerator::helperGenerateAssignment(const ref<Expr> &e,
     return helperGenerateAssignment(ep.getKid(0), val, a, width, sign);
   }
   case Expr::And: {
-    // val = val & kid
     ref<Expr> kid_val;
     ref<Expr> kid_expr;
     if (isa<ConstantExpr>(ep.getKid(0))) {

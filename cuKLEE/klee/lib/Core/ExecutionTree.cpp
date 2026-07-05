@@ -1,4 +1,4 @@
-//===-- ExecutionTree.cpp -------------------------------------------------===//
+﻿//===-- ExecutionTree.cpp -------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -113,9 +113,7 @@ void InMemoryExecutionTree::remove(ExecutionTreeNode *n) noexcept {
   } while (n && !n->left.getPointer() && !n->right.getPointer());
 
   if (n && CompressExecutionTree) {
-    // We are now at a node that has exactly one child; we've just deleted the
     // other one. Eliminate the node and connect its child to the parent
-    // directly (if it's not the root).
     ExecutionTreeNodePtr child = n->left.getPointer() ? n->left : n->right;
     ExecutionTreeNode *parent = n->parent;
 

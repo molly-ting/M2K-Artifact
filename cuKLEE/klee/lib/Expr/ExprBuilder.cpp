@@ -1,4 +1,4 @@
-//===-- ExprBuilder.cpp ---------------------------------------------------===//
+﻿//===-- ExprBuilder.cpp ---------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -471,7 +471,6 @@ namespace {
     }
 
     virtual ref<Expr> Not(const ref<Expr> &LHS) {
-      // !!X ==> X
       if (NotExpr *DblNot = dyn_cast<NotExpr>(LHS))
         return DblNot->getKid(0);
 
@@ -698,7 +697,6 @@ namespace {
 
     ref<Expr> Add(const ref<ConstantExpr> &LHS,
                   const ref<NonConstantExpr> &RHS) {
-      // 0 + X ==> X
       if (LHS->isZero())
         return RHS;
 
@@ -707,10 +705,8 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // C_0 + (C_1 + X) ==> (C_0 + C1) + X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(LHS->Add(CE), BE->right);
-        // C_0 + (X + C_1) ==> (C_0 + C1) + X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(LHS->Add(CE), BE->left);
         break;
@@ -718,10 +714,8 @@ namespace {
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // C_0 + (C_1 - X) ==> (C_0 + C1) - X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Sub(LHS->Add(CE), BE->right);
-        // C_0 + (X - C_1) ==> (C_0 - C1) + X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(LHS->Sub(CE), BE->left);
         break;
@@ -743,14 +737,12 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(LHS);
-        // (X + Y) + Z ==> X + (Y + Z)
         return Builder->Add(BE->left,
                             Builder->Add(BE->right, RHS));
       }
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(LHS);
-        // (X - Y) + Z ==> X + (Z - Y)
         return Builder->Add(BE->left,
                             Builder->Sub(RHS, BE->right));
       }
@@ -761,10 +753,8 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // X + (C_0 + Y) ==> C_0 + (X + Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(CE, Builder->Add(LHS, BE->right));
-        // X + (Y + C_0) ==> C_0 + (X + Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(CE, Builder->Add(LHS, BE->left));
         break;
@@ -772,10 +762,8 @@ namespace {
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // X + (C_0 - Y) ==> C_0 + (X - Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(CE, Builder->Sub(LHS, BE->right));
-        // X + (Y - C_0) ==> -C_0 + (X + Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(CE->Neg(), Builder->Add(LHS, BE->left));
         break;
@@ -792,10 +780,8 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // C_0 - (C_1 + X) ==> (C_0 - C1) - X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Sub(LHS->Sub(CE), BE->right);
-        // C_0 - (X + C_1) ==> (C_0 + C1) + X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Sub(LHS->Sub(CE), BE->left);
         break;
@@ -803,10 +789,8 @@ namespace {
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // C_0 - (C_1 - X) ==> (C_0 - C1) + X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(LHS->Sub(CE), BE->right);
-        // C_0 - (X - C_1) ==> (C_0 + C1) - X
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Sub(LHS->Add(CE), BE->left);
         break;
@@ -818,7 +802,6 @@ namespace {
 
     ref<Expr> Sub(const ref<NonConstantExpr> &LHS,
                   const ref<ConstantExpr> &RHS) {
-        // X - C_0 ==> -C_0 + X
       return Add(RHS->Neg(), LHS);
     }
 
@@ -829,13 +812,11 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(LHS);
-        // (X + Y) - Z ==> X + (Y - Z)
         return Builder->Add(BE->left, Builder->Sub(BE->right, RHS));
       }
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(LHS);
-        // (X - Y) - Z ==> X - (Y + Z)
         return Builder->Sub(BE->left, Builder->Add(BE->right, RHS));
       }
       }
@@ -845,10 +826,8 @@ namespace {
 
       case Expr::Add: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // X - (C + Y) ==> -C + (X - Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(CE->Neg(), Builder->Sub(LHS, BE->right));
-        // X - (Y + C) ==> -C + (X + Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(CE->Neg(), Builder->Sub(LHS, BE->left));
         break;
@@ -856,10 +835,8 @@ namespace {
 
       case Expr::Sub: {
         BinaryExpr *BE = cast<BinaryExpr>(RHS);
-        // X - (C - Y) ==> -C + (X + Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->left))
           return Builder->Add(CE->Neg(), Builder->Add(LHS, BE->right));
-        // X - (Y - C) ==> C + (X - Y)
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(BE->right))
           return Builder->Add(CE, Builder->Sub(LHS, BE->left));
         break;
@@ -876,7 +853,6 @@ namespace {
       if (LHS->isOne())
         return RHS;
       // FIXME: Unbalance nested muls, fold constants through
-      // {sub,add}-with-constant, etc.
       return Base->Mul(LHS, RHS);
     }
 
@@ -897,7 +873,6 @@ namespace {
       if (LHS->isAllOnes())
         return RHS;
       // FIXME: Unbalance nested ands, fold constants through
-      // {and,or}-with-constant, etc.
       return Base->And(LHS, RHS);
     }
 
@@ -918,7 +893,6 @@ namespace {
       if (LHS->isAllOnes())
         return LHS;
       // FIXME: Unbalance nested ors, fold constants through
-      // {and,or}-with-constant, etc.
       return Base->Or(LHS, RHS);
     }
 
@@ -937,7 +911,6 @@ namespace {
       if (LHS->isZero())
         return RHS;
       // FIXME: Unbalance nested ors, fold constants through
-      // {and,or}-with-constant, etc.
       return Base->Xor(LHS, RHS);
     }
 
@@ -956,11 +929,9 @@ namespace {
       Expr::Width Width = LHS->getWidth();
       
       if (Width == Expr::Bool) {
-        // true == X ==> X
         if (LHS->isTrue())
           return RHS;
 
-        // false == ... (not)
 	return Base->Not(RHS);
       }
 
@@ -991,11 +962,9 @@ namespace {
       Expr::Width Width = LHS->getWidth();
       
       if (Width == Expr::Bool) {
-        // true == X ==> X
         if (LHS->isTrue())
           return RHS;
 
-        // false == X (not)
 	return Base->Not(RHS);
       }
 
@@ -1009,7 +978,6 @@ namespace {
 
     ref<Expr> Eq(const ref<NonConstantExpr> &LHS, 
                  const ref<NonConstantExpr> &RHS) {
-      // X == X ==> true
       if (LHS == RHS)
           return Builder->True();
 
@@ -1017,7 +985,6 @@ namespace {
     }
 
     ref<Expr> Not(const ref<NonConstantExpr> &LHS) {
-      // Transform !(a or b) ==> !a and !b.
       if (const OrExpr *OE = dyn_cast<OrExpr>(LHS))
 	return Builder->And(Builder->Not(OE->left),
 			    Builder->Not(OE->right));
@@ -1025,27 +992,22 @@ namespace {
     }
 
     ref<Expr> Ne(const ref<Expr> &LHS, const ref<Expr> &RHS) {
-      // X != Y ==> !(X == Y)
       return Builder->Not(Builder->Eq(LHS, RHS));
     }
 
     ref<Expr> Ugt(const ref<Expr> &LHS, const ref<Expr> &RHS) {
-      // X u> Y ==> Y u< X
       return Builder->Ult(RHS, LHS);
     }
 
     ref<Expr> Uge(const ref<Expr> &LHS, const ref<Expr> &RHS) {
-      // X u>= Y ==> Y u<= X
       return Builder->Ule(RHS, LHS);
     }
 
     ref<Expr> Sgt(const ref<Expr> &LHS, const ref<Expr> &RHS) {
-      // X s> Y ==> Y s< X
       return Builder->Slt(RHS, LHS);
     }
 
     ref<Expr> Sge(const ref<Expr> &LHS, const ref<Expr> &RHS) {
-      // X s>= Y ==> Y s<= X
       return Builder->Sle(RHS, LHS);
     }
   };

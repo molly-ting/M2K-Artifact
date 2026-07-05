@@ -1,4 +1,4 @@
-//===-- KQueryLoggingSolver.cpp -----------------------------------------------===//
+﻿//===-- KQueryLoggingSolver.cpp -----------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

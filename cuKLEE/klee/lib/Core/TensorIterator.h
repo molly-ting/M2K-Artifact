@@ -1,4 +1,4 @@
-#ifndef KLEE_TENSORITERATOR_H
+﻿#ifndef KLEE_TENSORITERATOR_H
 #define KLEE_TENSORITERATOR_H
 
 
@@ -12,7 +12,6 @@ namespace klee {
         friend class ExecutionState;
 
         public:
-            // unsigned id;
             uint64_t address;
             const Array * name;
             const Array * sizeName;

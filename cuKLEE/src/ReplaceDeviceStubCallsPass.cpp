@@ -29,7 +29,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
 
                     if (it != M.end()) {
                         stubToRealFuncMap[&F] = &(*it);
-                        // errs() << "stub function name: " << F.getName() << " real function name: " << it->getName() << "\n";
                     } else {
                         errs() << "Warning: Real function containing " << realFunctionName << " not found for stub " << F.getName() << "\n";
                     }
@@ -46,20 +45,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
                             if (stubToRealFuncMap.count(calledFunction)) {
                                 Function *realFunction = stubToRealFuncMap[calledFunction];
                                 callInst->setCalledFunction(realFunction);
-                                // IRBuilder<> builder(callInst);
-                                // std::vector<Value*> args;
-                                // for (auto &arg : callInst->args()) {
-                                //     args.push_back(arg.get());
-                                // }
-                                // errs() << "replace call " << calledFunction->getName() << " with " << realFunction->getName() << " in " << F.getName() << "\n";
-
-                                // // Create a new call to the real function
-                                // CallBase *newCall = builder.CreateCall(realFunction->getFunctionType(), realFunction, args);
-                                // newCall->setCallingConv(callInst->getCallingConv());
-
-                                // // Replace the old call with the new call
-                                // callInst->replaceAllUsesWith(newCall);
-                                // callInst->eraseFromParent();
                                 modified = true;
                             }
                         } else if (auto *invokeIinst = dyn_cast<InvokeInst>(&I)) {
@@ -68,7 +53,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
                                 Function *realFunction = stubToRealFuncMap[calledFunction];
                                 invokeIinst->setCalledFunction(realFunction);
                                 modified = true;
-                                // errs() << "replace invoke " << calledFunction->getName() << " with " << realFunction->getName() << " in " << F.getName() << "\n";
                             }
                         } else if (auto *storeInst = dyn_cast<StoreInst>(&I)) {
                             Value *storedValue = storeInst->getValueOperand();
@@ -77,7 +61,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
                                     Function *realFunction = stubToRealFuncMap[func];
                                     storeInst->setOperand(0, realFunction);
                                     modified = true;
-                                    // errs() << "replace store " << func->getName() << " with " << realFunction->getName() << " in " << F.getName() << "\n";
                                 }
                             }
                         } else if (auto *selectInst = dyn_cast<SelectInst>(&I)) {
@@ -89,7 +72,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
                                     Function *realFunctionTrue = stubToRealFuncMap[funcTrue];
                                     selectInst->setOperand(1, realFunctionTrue);
                                     modified = true;
-                                    // errs() << "replace select true " << funcTrue->getName() << " with " << realFunctionTrue->getName() << " in " << F.getName() << "\n";
                                 }
                             }
 
@@ -98,7 +80,6 @@ class ReplaceDeviceStubCallsPass : public PassInfoMixin<ReplaceDeviceStubCallsPa
                                     Function *realFunctionFalse = stubToRealFuncMap[funcFalse];
                                     selectInst->setOperand(2, realFunctionFalse);
                                     modified = true;
-                                    // errs() << "replace select false " << funcFalse->getName() << " with " << realFunctionFalse->getName() << " in " << F.getName() << "\n";
                                 }
                             }
                         }

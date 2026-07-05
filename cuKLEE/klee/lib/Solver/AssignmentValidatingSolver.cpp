@@ -1,4 +1,4 @@
-//===-- AssignmentValidatingSolver.cpp ------------------------------------===//
+﻿//===-- AssignmentValidatingSolver.cpp ------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -39,7 +39,6 @@ public:
   void setCoreSolverTimeout(time::Span timeout);
 };
 
-// TODO: use computeInitialValues for all queries for more stress testing
 bool AssignmentValidatingSolver::computeValidity(const Query &query,
                                                  Solver::Validity &result) {
   return solver->impl->computeValidity(query, result);
@@ -61,7 +60,6 @@ bool AssignmentValidatingSolver::computeInitialValues(
   if (!hasSolution)
     return success;
 
-  // Use `_allowFreeValues` so that if we are missing an assignment
   // we can't compute a constant and flag this as a problem.
   Assignment assignment(objects, values, /*_allowFreeValues=*/true);
   // Check computed assignment satisfies query
@@ -99,12 +97,8 @@ bool AssignmentValidatingSolver::computeInitialValues(
     abort();
   }
   // KLEE queries are validity queries. A counter example to
-  // ∀ x constraints(x) → query(x)
   // exists therefore
-  // ¬∀ x constraints(x) → query(x)
   // Which is equivalent to
-  // ∃ x constraints(x) ∧ ¬ query(x)
-  // This means for the assignment we get back query expression should evaluate
   // to false.
   if (CE->isTrue()) {
     llvm::errs()
@@ -131,7 +125,6 @@ void AssignmentValidatingSolver::dumpAssignmentQuery(
 
   Query augmentedQuery(constraints, query.expr);
 
-  // Ask the solver for the log for this query.
   llvm::errs() << "Query with assignment as constraints:\n"
                << solver->getConstraintLog(augmentedQuery) << "\n";
 }

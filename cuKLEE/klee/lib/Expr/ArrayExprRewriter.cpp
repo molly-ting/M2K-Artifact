@@ -1,4 +1,4 @@
-//===-- ArrayExprRewriter.cpp ---------------------------------------------===//
+﻿//===-- ArrayExprRewriter.cpp ---------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -45,7 +45,6 @@ ref<Expr> ExprRewriter::rewrite(const ref<Expr> &e, const array2idx_ty &arrays,
 
     Expr::Width width = idxt_v.getWidth() / element.first->range;
     if (auto e = idxt_v.getMul()) {
-      // If we have a MulExpr in the index, we can optimize our search by
       // skipping all those indexes that are not multiple of such value.
       // In fact, they will be rejected by the MulExpr interpreter since it
       // will not find any integer solution
@@ -55,7 +54,6 @@ ref<Expr> ExprRewriter::rewrite(const ref<Expr> &e, const array2idx_ty &arrays,
       llvm::APInt val = ce->getAPValue();
       uint64_t mulVal = val.getZExtValue();
       // So far we try to limit this optimization, but we may try some more
-      // aggressive conditions (i.e. mulVal > width)
       if (width == 1 && mulVal > 1)
         width = mulVal;
     }
@@ -67,11 +65,8 @@ ref<Expr> ExprRewriter::rewrite(const ref<Expr> &e, const array2idx_ty &arrays,
       }
       auto opt_indexes = idx_valIdx.at((*index_it));
       if (opt_indexes.empty()) {
-        // We continue with other solutions
         continue;
       } else if (opt_indexes.size() == 1) {
-        // We treat this case as a special one, and we create an EqExpr (e.g.
-        // k==i)
         eqExprs.push_back(createEqExpr((*index_it), opt_indexes[0]));
       } else {
         Expr::Width idxWidth = (*index_it).get()->getWidth();
@@ -132,10 +127,7 @@ ref<Expr> ExprRewriter::rewrite(const ref<Expr> &e, const array2idx_ty &arrays,
     }
     return invert ? NotExpr::alloc(eqExprs[0]) : eqExprs[0];
   } else {
-    // We have found at least 2 indexes, we combine them using an OrExpr (e.g.
-    // k==i|k==j)
     ref<Expr> orExpr = concatenateOrExpr(eqExprs.begin(), eqExprs.end());
-    // Create Eq expression for true branch
     return EqExpr::alloc(
         ConstantExpr::alloc(invert ? 0 : 1, (orExpr)->getWidth()), orExpr);
   }

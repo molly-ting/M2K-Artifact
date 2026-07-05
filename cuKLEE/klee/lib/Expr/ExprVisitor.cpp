@@ -1,4 +1,4 @@
-//===-- ExprVisitor.cpp ---------------------------------------------------===//
+﻿//===-- ExprVisitor.cpp ---------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -33,7 +33,6 @@ ref<Expr> ExprVisitor::visit(const ref<Expr> &e) {
       return it->second;
     } else {
       ref<Expr> res = visitActual(e);
-      // llvm::outs() << e << " res " << res << "\n";
       visited.insert(std::make_pair(e, res));
       return res;
     }
@@ -49,7 +48,6 @@ ref<Expr> ExprVisitor::visitActual(const ref<Expr> &e) {
     Action res = visitExpr(ep);
     switch(res.kind) {
     case Action::DoChildren:
-      // continue with normal action
       break;
     case Action::SkipChildren:
       return e;
@@ -70,7 +68,6 @@ ref<Expr> ExprVisitor::visitActual(const ref<Expr> &e) {
     case Expr::Mul: res = visitMul(static_cast<MulExpr&>(ep)); break;
     case Expr::UDiv: res = visitUDiv(static_cast<UDivExpr&>(ep)); break;
     case Expr::SDiv: res = visitSDiv(static_cast<SDivExpr&>(ep)); break;
-    // case Expr::FDiv: res = visitFDiv(static_cast<FDivExpr&>(ep)); break;
     case Expr::URem: res = visitURem(static_cast<URemExpr&>(ep)); break;
     case Expr::SRem: res = visitSRem(static_cast<SRemExpr&>(ep)); break;
     case Expr::Not: res = visitNot(static_cast<NotExpr&>(ep)); break;
@@ -105,7 +102,6 @@ ref<Expr> ExprVisitor::visitActual(const ref<Expr> &e) {
       for (unsigned i=0; i<count; i++) {
         ref<Expr> kid = ep.getKid(i);
         kids[i] = visit(kid);
-        // llvm::outs() << e << " i " << i << " kid " << kid << " kids[i] " << kids[i] << "\n";
         if (kids[i] != kid)
           rebuild = true;
       }
@@ -114,13 +110,11 @@ ref<Expr> ExprVisitor::visitActual(const ref<Expr> &e) {
         if (recursive)
           e = visit(e);
       }
-      // llvm::outs() << "after rebuild " << e << "\n";
       if (!isa<ConstantExpr>(e)) {
         res = visitExprPost(*e.get());
         if (res.kind==Action::ChangeTo)
           e = res.argument;
       }
-      // llvm::outs() <<"return " << e << "\n";
       return e;
     }
     case Action::SkipChildren:
@@ -187,9 +181,6 @@ ExprVisitor::Action ExprVisitor::visitSDiv(const SDivExpr&) {
   return Action::doChildren(); 
 }
 
-// ExprVisitor::Action ExprVisitor::visitFDiv(const FDivExpr&) {
-//   return Action::doChildren(); 
-// }
 
 ExprVisitor::Action ExprVisitor::visitURem(const URemExpr&) {
   return Action::doChildren(); 

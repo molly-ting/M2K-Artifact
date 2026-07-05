@@ -1,4 +1,4 @@
-//===-- QueryLoggingSolver.cpp --------------------------------------------===//
+﻿//===-- QueryLoggingSolver.cpp --------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -62,7 +62,6 @@ void QueryLoggingSolver::flushBufferConditionally(bool writeToFile) {
     *os << logBuffer.str();
     os->flush();
   }
-  // prepare the buffer for reuse
   BufferString = "";
 }
 

@@ -1,4 +1,4 @@
-//===-- ExprEvaluator.cpp -------------------------------------------------===//
+﻿//===-- ExprEvaluator.cpp -------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -22,7 +22,6 @@ ExprVisitor::Action ExprEvaluator::evalRead(const UpdateList &ul,
     } else {
       // update index is unknown, so may or may not be index, we
       // cannot guarantee value. we can rewrite to read at this
-      // version though (mostly for debugging).
       
       return Action::changeTo(ReadExpr::create(UpdateList(ul.root, un), 
                                                ConstantExpr::alloc(index, 
@@ -38,7 +37,6 @@ ExprVisitor::Action ExprEvaluator::evalRead(const UpdateList &ul,
 
 ExprVisitor::Action ExprEvaluator::visitExpr(const Expr &e) {
   // Evaluate all constant expressions here, in case they weren't folded in
-  // construction. Don't do this for reads though, because we want them to go to
   // the normal rewrite path.
   unsigned N = e.getNumKids();
   if (!N || isa<ReadExpr>(e))
@@ -67,8 +65,6 @@ ExprVisitor::Action ExprEvaluator::visitRead(const ReadExpr &re) {
   }
 }
 
-// we need to check for div by zero during partial evaluation,
-// if this occurs then simply ignore the 0 divisor and use the
 // original expression.
 ExprVisitor::Action ExprEvaluator::protectedDivOperation(const BinaryExpr &e) {
   ref<Expr> kids[2] = { visit(e.left),

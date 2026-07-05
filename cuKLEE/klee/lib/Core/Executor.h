@@ -1,4 +1,4 @@
-//===-- Executor.h ----------------------------------------------*- C++ -*-===//
+﻿//===-- Executor.h ----------------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -58,7 +58,6 @@ namespace llvm {
   class Twine;
   class Value;
   class Loop;
-  // class ScalarEvolution;
 }
 
 namespace klee {
@@ -216,7 +215,6 @@ private:
   std::vector<std::string> kernelNames;
   std::string outputDir;
 
-  // std::map<llvm::BasicBlock *, KLoopInfo *> loopInfoMap;
 
   std::map<ref<Expr>, std::pair<std::string, bool>> sharedAddresses; // address->(name, isDynamic)
 
@@ -233,7 +231,6 @@ private:
 
   void saveLoopInfo(const llvm::Loop *L, ExecutionState &state);
 
-  // bool containsSizeConstant(ExecutionState &state, ref<Expr> expr);
 
   /// Return the typeid corresponding to a certain `type_info`
   ref<ConstantExpr> getEhTypeidFor(ref<Expr> type_info);
@@ -311,7 +308,6 @@ private:
 
   SymArrayMemoryObject* createSymArray(ExecutionState &state, ref<Expr> address, const MemoryObject *destMO, const std::string& funcName, const std::string& tensorNamePrefix);
 
-  // bool isReadArray(ExecutionState &state, ref<Expr> expr);
 
   bool isReadSymArrayWithSymIndex(ExecutionState &state, ref<Expr> expr);
 

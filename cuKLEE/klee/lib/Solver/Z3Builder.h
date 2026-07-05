@@ -1,4 +1,4 @@
-//===-- Z3Builder.h --------------------------------------------*- C++ -*-====//
+﻿//===-- Z3Builder.h --------------------------------------------*- C++ -*-====//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -22,7 +22,6 @@ namespace klee {
 template <typename T> class Z3NodeHandle {
   // Internally these Z3 types are pointers
   // so storing these should be cheap.
-  // It would be nice if we could infer the Z3_context from the node
   // but I can't see a way to do this from Z3's API.
 protected:
   T node;
@@ -52,13 +51,11 @@ public:
   }
   Z3NodeHandle &operator=(const Z3NodeHandle &b) {
     if (node == NULL && context == NULL) {
-      // Special case for when this object was constructed
       // using the default constructor. Try to inherit a non null
       // context.
       context = b.context;
     }
     assert(context == b.context && "Mismatched Z3 contexts!");
-    // node != nullptr ==> context != NULL
     assert((node == NULL || context) &&
            "Can't have non nullptr node with nullptr context");
 
@@ -77,7 +74,6 @@ public:
   operator T() const { return node; }
 };
 
-// Specialise for Z3_sort
 template <> inline ::Z3_ast Z3NodeHandle<Z3_sort>::as_ast() {
   // In Z3 internally this call is just a cast. We could just do that
   // instead to simplify our implementation but this seems cleaner.
@@ -86,7 +82,6 @@ template <> inline ::Z3_ast Z3NodeHandle<Z3_sort>::as_ast() {
 typedef Z3NodeHandle<Z3_sort> Z3SortHandle;
 template <> void Z3NodeHandle<Z3_sort>::dump() __attribute__((used));
 
-// Specialise for Z3_ast
 template <> inline ::Z3_ast Z3NodeHandle<Z3_ast>::as_ast() { return node; }
 typedef Z3NodeHandle<Z3_ast> Z3ASTHandle;
 template <> void Z3NodeHandle<Z3_ast>::dump() __attribute__((used));
@@ -126,7 +121,6 @@ private:
   Z3ASTHandle bvExtract(Z3ASTHandle expr, unsigned top, unsigned bottom);
   Z3ASTHandle eqExpr(Z3ASTHandle a, Z3ASTHandle b);
 
-  // logical left and right shift (not arithmetic)
   Z3ASTHandle bvLeftShift(Z3ASTHandle expr, unsigned shift);
   Z3ASTHandle bvRightShift(Z3ASTHandle expr, unsigned shift);
   Z3ASTHandle bvVarLeftShift(Z3ASTHandle expr, Z3ASTHandle shift);
@@ -170,7 +164,6 @@ private:
   Z3ASTHandle getInitialArray(const Array *os);
   Z3ASTHandle getInitialIntArray(const Array *root, int elementWidth);
   Z3ASTHandle getArrayForUpdate(const Array *root, const UpdateNode *un, bool forInt=false);
-  // Z3ASTHandle getIntArrayForUpdate(const Array *root, const UpdateNode *un, int elementWidth);
 
   Z3ASTHandle readIntExpr(const Array *array);
   Z3ASTHandle constructActualForInt(ref<Expr> e, int *width_out, bool isBitVec=false);

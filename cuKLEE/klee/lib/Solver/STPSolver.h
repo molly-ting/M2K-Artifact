@@ -1,5 +1,4 @@
-//===-- STPSolver.h
-//---------------------------------------------------===//
+﻿//===-- STPSolver.h
 //
 //                     The KLEE Symbolic Virtual Machine
 //

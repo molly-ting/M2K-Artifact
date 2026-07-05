@@ -1,4 +1,4 @@
-//===-- MetaSMTSolver.cpp -------------------------------------------------===//
+﻿//===-- MetaSMTSolver.cpp -------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -64,7 +64,6 @@ static unsigned char *shared_memory_ptr;
 static int shared_memory_id = 0;
 // Darwin by default has a very small limit on the maximum amount of shared
 // memory, which will quickly be exhausted by KLEE running its tests in
-// parallel. For now, we work around this by just requesting a smaller size --
 // in practice users hitting this limit on counterexample sizes probably already
 // are hitting more serious scalability issues.
 #ifdef __APPLE__
@@ -166,7 +165,6 @@ bool MetaSMTSolverImpl<SolverContext>::computeValue(const Query &query,
   std::vector<std::vector<unsigned char> > values;
   bool hasSolution;
 
-  // Find the object used in the expression, and compute an assignment for them.
   findSymbolicObjects(query.expr, objects);
   if (computeInitialValues(query.withFalse(), objects, values, hasSolution)) {
     assert(hasSolution && "state has invalid constraint set");
@@ -275,7 +273,6 @@ MetaSMTSolverImpl<SolverContext>::runAndGetCexForked(
        it != ie; ++it) {
     sum += (*it)->size;
   }
-  // sum += sizeof(uint64_t);
   sum += sizeof(stats::queryConstructs);
   assert(sum < shared_memory_size &&
          "not enough shared memory for counterexample");
@@ -295,10 +292,8 @@ MetaSMTSolverImpl<SolverContext>::runAndGetCexForked(
       ::alarm(std::max(1u, static_cast<unsigned>(timeout.toSeconds())));
     }
 
-    // assert constraints as we are in a child process
     for (const auto &constraint : query.constraints) {
       assertion(_meta_solver, _builder->construct(constraint));
-      // assumption(_meta_solver, _builder->construct(*it));
     }
 
     // asssert the negation of the query as we are in a child process
@@ -345,7 +340,6 @@ MetaSMTSolverImpl<SolverContext>::runAndGetCexForked(
     }
 
     // From timed_run.py: It appears that linux at least will on
-    // "occasion" return a status when the process was terminated by a
     // signal, so test signal first.
     if (WIFSIGNALED(status) || !WIFEXITED(status)) {
       klee_warning(

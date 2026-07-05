@@ -1,4 +1,4 @@
-//===-- Executor.cpp ------------------------------------------------------===//
+﻿//===-- Executor.cpp ------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -371,7 +371,6 @@ cl::opt<unsigned> MaxMemory("max-memory",
                             cl::desc("Refuse to fork when above this amount of "
                                      "memory (in MB) (see -max-memory-inhibit) and terminate "
                                      "states when additional 100MB allocated (default=10000)"),
-                            // cl::init(10000),
                             cl::init(0),
                             cl::cat(TerminationCat));
 
@@ -574,13 +573,10 @@ Executor::setModule(std::vector<std::unique_ptr<llvm::Module>> &modules,
     klee_error("Could not load KLEE intrinsic file %s", LibPath.c_str());
   }
 
-  // 1.) Link the modules together
   while (kmodule->link(modules, opts.EntryPoint)) {
-    // 2.) Apply different instrumentation
     kmodule->instrument(opts);
   }
 
-  // 3.) Optimise and prepare for KLEE
 
   // Create a list of functions that should be preserved if used
   std::vector<const char *> preservedFunctions;
@@ -598,7 +594,6 @@ Executor::setModule(std::vector<std::unique_ptr<llvm::Module>> &modules,
   kmodule->optimiseAndPrepare(opts, preservedFunctions);
   kmodule->checkModule();
 
-  // 4.) Manifest the module
   kmodule->manifest(interpreterHandler, StatsTracker::useStatistics());
 
   specialFunctionHandler->bind();
@@ -620,8 +615,6 @@ Executor::setModule(std::vector<std::unique_ptr<llvm::Module>> &modules,
 }
 
 Executor::~Executor() {
-  // memory = nullptr;
-  // mainModule = nullptr;
   delete externalDispatcher;
   delete specialFunctionHandler;
   delete statsTracker;
@@ -636,7 +629,6 @@ void Executor::saveLoopInfo(const llvm::Loop *L, ExecutionState &state) {
   if (header) {
     if (!header->empty()) {
         llvm::Instruction *lastInst = header->getTerminator(); // The last instruction
-        // llvm::errs() << "Last instruction in header: " << *lastInst << "\n";
         if (llvm::BranchInst *headerBranch = llvm::dyn_cast<llvm::BranchInst>(lastInst)) {
           std::set<llvm::BasicBlock*> bodyBlocks(L->block_begin(), L->block_end());
 
@@ -659,12 +651,8 @@ void Executor::saveLoopInfo(const llvm::Loop *L, ExecutionState &state) {
               if (auto *br = llvm::dyn_cast<llvm::BranchInst>(lastLatch->getTerminator())) {
                 if (br->isUnconditional()) {
                   state.loopInfoMap[header]->backedge = header;
-                  // llvm::outs() << "latch only 1 br\n";
                 }
               }
-            }
-            if (!state.loopInfoMap[header]->backedge) {
-              llvm::outs() << "loop backage null\n";
             }
           }
         } else {
@@ -675,15 +663,10 @@ void Executor::saveLoopInfo(const llvm::Loop *L, ExecutionState &state) {
                 std::set<llvm::BasicBlock*> bodyBlocks(L->block_begin(), L->block_end());
                 state.loopInfoMap[succ] =
                     new KLoopInfo(L->getLoopLatch(), true, numBlocks == 2, std::move(bodyBlocks));
-                if (!state.loopInfoMap[succ]->backedge) {
-                  llvm::outs() << "loop backage null\n";
-                }
               }
             }
           }
         }
-    } else {
-        llvm::errs() << "Header block is empty.\n";
     }
   }
 
@@ -699,7 +682,6 @@ bool Executor::isMemFuncName(const std::string &funcName) {
 void Executor::initializeLoopInfo(llvm::Module *M, ExecutionState &state) {
   for (Function &F : *M) {
     if (F.getIntrinsicID()!=Intrinsic::not_intrinsic || isMemFuncName(F.getName().str())) {
-      // llvm::outs() << "Skipping intrinsic function: " << F.getName() << "\n";
       continue;
     }
 
@@ -707,7 +689,6 @@ void Executor::initializeLoopInfo(llvm::Module *M, ExecutionState &state) {
       continue;
     }
 
-    // llvm::outs() << "function " << F.getName() << ":\n";
     if (!F.isDeclaration()) {
       llvm::DominatorTree DT(F);
       llvm::LoopInfo LI(DT);
@@ -724,7 +705,6 @@ void Executor::findTrampolineBranches(llvm::Module *M) {
     if (F.isDeclaration()) continue; // skip external functions
 
     if (F.getIntrinsicID()!=Intrinsic::not_intrinsic || isMemFuncName(F.getName().str())) {
-      // llvm::outs() << "Skipping intrinsic function: " << F.getName() << "\n";
       continue;
     }
 
@@ -756,35 +736,11 @@ void Executor::findTrampolineBranches(llvm::Module *M) {
             if (C->empty()) continue;
             llvm::Instruction *firstInstC = &C->front();
             if (firstInstC->getOpcode() == Instruction::Ret) continue;
-
-            // merge after the first ir, usually there is only one phi
-            // Skip PHI nodes
-            // while (firstInstC->getNextNode() && llvm::isa<llvm::PHINode>(firstInstC->getNextNode())) {
-            //   firstInstC = firstInstC->getNextNode(); // move to next instruction
-            //   if (!firstInstC) break;           // end of block (unlikely)
-            // }
             trampolineBrs[br] = firstInstC;
-
-            // Debug printing
-            // errs() << "Found trampoline in function " << F.getName() << "\n";
-            // errs() << "  Conditional branch: ";
-            // br->print(errs()); errs() << "\n";
-            // if (firstInstC) {
-            //     errs() << "  First inst of block " << C->getName() << ": ";
-            //     firstInstC->print(errs()); errs() << "\n";
-            // } else {
-            //     errs() << "  Block " << C->getName() << " is empty!\n";
-            // }
           } else if (brB->isUnconditional() && brB->getSuccessor(0) == D) {
             if (C->empty()) continue;
             llvm::Instruction *firstInstD = &D->front();
             if (firstInstD->getOpcode() == Instruction::Ret) continue;
-
-            // Skip PHI nodes
-            // while (firstInstD->getNextNode() && llvm::isa<llvm::PHINode>(firstInstD->getNextNode())) {
-            //   firstInstD = firstInstD->getNextNode(); // move to next instruction
-            //   if (!firstInstD) break;           // end of block (unlikely)
-            // }
             trampolineBrs[br] = firstInstD;
           }
         }
@@ -832,7 +788,6 @@ void Executor::initializeGlobalObject(ExecutionState &state, ObjectState *os,
     unsigned StoreBits = targetData->getTypeStoreSizeInBits(c->getType());
     ref<ConstantExpr> C = evalConstant(c);
 
-    // Extend the constant if necessary;
     assert(StoreBits >= C->getWidth() && "Invalid store size!");
     if (StoreBits > C->getWidth())
       C = C->ZExt(StoreBits);
@@ -884,7 +839,6 @@ void Executor::allocateGlobalObjects(ExecutionState &state) {
     ref<ConstantExpr> addr;
 
     // If the symbol has external weak linkage then it is implicitly
-    // not defined in this module; if it isn't resolvable then it
     // should be null.
     if (f.hasExternalWeakLinkage() &&
         !externalDispatcher->resolveSymbol(f.getName().str())) {
@@ -978,14 +932,12 @@ void Executor::allocateGlobalObjects(ExecutionState &state) {
       }
     }
 
-    // llvm::outs() << "allocate global " << v << " size " << size << " globalObjectAlignment " << globalObjectAlignment << " type " << *ty << " " << v.getName() << " isDeclaration " << v.isDeclaration() << "\n";
     MemoryObject *mo;
 
     if (v.getType()->getPointerAddressSpace() == 3) {
       mo = memory->allocateShared(size, /*state=*/nullptr, /*allocSite=*/&v);
       mo->memType= MemoryObject::MemType::SHARED;
       sharedAddresses[mo->getBaseExpr()] = std::make_pair(v.getName().str(), isDynamicShared);
-      // llvm::outs() << v.getName() << " " << mo->getBaseExpr() << " " << size << "\n";
     } else {
       mo = memory->allocate(size, /*isLocal=*/false,
                                         /*isGlobal=*/true, /*state=*/nullptr,
@@ -998,10 +950,6 @@ void Executor::allocateGlobalObjects(ExecutionState &state) {
       klee_error("out of memory");
     globalObjects.emplace(&v, mo);
     globalAddresses.emplace(&v, mo->getBaseExpr());
-    
-    // if (isDynamicShared) {
-    //   dynamicSharedAddresses[mo->getBaseExpr()] = v.getName().str();
-    // }
   }
 }
 
@@ -1031,7 +979,6 @@ void Executor::initializeGlobalAlias(const llvm::Constant *c) {
   }
 
   if (ga) {
-    // aliasee is constant expression (or global alias)
     globalAddresses.emplace(ga, evalConstant(ga->getAliasee()));
   }
 }
@@ -1048,7 +995,6 @@ void Executor::initializeGlobalObjects(ExecutionState &state) {
 
   for (const GlobalVariable &v : m->globals()) {
     MemoryObject *mo = globalObjects.find(&v)->second;
-    // ObjectState *os = bindObjectInState(state, mo, false);
     ObjectState *os;
     if (sharedAddresses.find(mo->getBaseExpr()) != sharedAddresses.end()) {
       bool isDynamic = sharedAddresses[mo->getBaseExpr()].second;
@@ -1078,10 +1024,8 @@ void Executor::initializeGlobalObjects(ExecutionState &state) {
     } else {
       os = bindObjectInState(state, mo, false);
     }
-    // llvm::outs() << "initialize global " << v << " size " << mo->size << " " << v.getName() << " isDeclaration " << v.isDeclaration() << " addrspace " << v.getType()->getPointerAddressSpace() << "\n";
 
     if (v.isDeclaration() && mo->size && !(v.getLinkage() == GlobalValue::ExternalLinkage && v.getType()->getPointerAddressSpace() == 3)) {
-      // Program already running -> object already initialized.
       // Read concrete value and write it to our copy.
       void *addr;
       if (v.getName() == "__dso_handle") {
@@ -1091,8 +1035,6 @@ void Executor::initializeGlobalObjects(ExecutionState &state) {
       }
       if (!addr) {
         os->initializeToZero();
-        // klee_error("Unable to load symbol(%.*s) while initializing globals",
-        //            static_cast<int>(v.getName().size()), v.getName().data());
       } else {
         for (unsigned offset = 0; offset < mo->size; offset++) {
           os->write8(offset, static_cast<unsigned char *>(addr)[offset]);
@@ -1106,7 +1048,6 @@ void Executor::initializeGlobalObjects(ExecutionState &state) {
         state.addressSpace.copyOutConcrete(mo, os);
       }
     } else {
-      // os->initializeToRandom();
       os->initializeToZero();
     }
   }
@@ -1168,8 +1109,6 @@ void Executor::branch(ExecutionState &state,
   }
 
   // If necessary redistribute seeds to match conditions, killing
-  // states if necessary due to OnlyReplaySeeds (inefficient but
-  // simple).
   
   std::map< ExecutionState*, std::vector<SeedInfo> >::iterator it = 
     seedMap.find(&state);
@@ -1177,9 +1116,7 @@ void Executor::branch(ExecutionState &state,
     std::vector<SeedInfo> seeds = it->second;
     seedMap.erase(it);
 
-    // Assume each seed only satisfies one condition (necessarily true
     // when conditions are mutually exclusive and their conjunction is
-    // a tautology).
     for (std::vector<SeedInfo>::iterator siit = seeds.begin(), 
            siie = seeds.end(); siit != siie; ++siit) {
       unsigned i;
@@ -1195,7 +1132,6 @@ void Executor::branch(ExecutionState &state,
       }
       
       // If we didn't find a satisfying condition randomly pick one
-      // (the seed will be patched).
       if (i==N)
         i = theRNG.getInt32() % N;
 
@@ -1302,15 +1238,6 @@ Executor::StatePair Executor::fork(ExecutionState &current, ref<Expr> condition,
 
   if (!isSeeding)
     condition = maxStaticPctChecks(current, condition);
-  
-  // bool replaced = false;
-  // if (!current.io_expr_map.empty()) {
-  //   ref<Expr> replacedCondition = ConstraintManager::replaceReadExpr(condition, current.io_expr_map);
-  //   if (replacedCondition != condition) {
-  //     replaced = true;
-  //     condition = replacedCondition;
-  //   }
-  // }
 
   time::Span timeout = coreSolverTimeout;
   if (isSeeding)
@@ -1502,19 +1429,11 @@ Executor::StatePair Executor::fork(ExecutionState &current, ref<Expr> condition,
 }
 
 void Executor::addConstraint(ExecutionState &state, ref<Expr> condition) {
-  // llvm::outs() << "addConstraint condition: " << condition << "\n";
-
   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(condition)) {
     if (!CE->isTrue())
       llvm::report_fatal_error("attempt to add invalid constraint");
     return;
   }
-
-  // if (auto sle = dyn_cast<SleExpr>(condition)) {
-  //   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(sle->left)) {
-  //     llvm::outs() << condition << " " << CE->isFloatValue() << "\n";
-  //   }
-  // }
 
   // Check to see if this constraint violates seeds.
   std::map< ExecutionState*, std::vector<SeedInfo> >::iterator it = 
@@ -1538,7 +1457,6 @@ void Executor::addConstraint(ExecutionState &state, ref<Expr> condition) {
       klee_warning("seeds patched for violating constraint"); 
   }
 
-  // updateSymRange(state, condition);
   state.addConstraint(condition);
   if (ivcEnabled)
     doImpliedValueConcretization(state, condition, 
@@ -1696,7 +1614,6 @@ void Executor::printDebugInstructions(ExecutionState &state) {
   if (DebugPrintInstructions.getBits() == 0)
     return;
 
-  // set output stream (stderr/file)
   llvm::raw_ostream *stream = nullptr;
   if (DebugPrintInstructions.isSet(STDERR_ALL) ||
       DebugPrintInstructions.isSet(STDERR_SRC) ||
@@ -2041,9 +1958,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         }
         if (elementSize) {
           ref<ConstantExpr> elementSizeExpr = ConstantExpr::create(elementSize, Expr::Int64, false);
-          // if (symmo->elementSize && !isa<ConstantExpr>(symmo->elementSize)) {
-          //   addConstraint(state, EqExpr::create(ZExtExpr::create(symmo->elementSize, Expr::Int64), elementSizeExpr));
-          // }
           symmo->elementSize = elementSizeExpr;
         }
       } 
@@ -2209,16 +2123,10 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
   if (f->getName()=="memcpy") {
     if (auto bytesCE = dyn_cast<ConstantExpr>(arguments[2])) {
       unsigned bytes = bytesCE->getZExtValue();
-      // for (auto con: state.constraints) {
-      //   llvm::outs() << con << "\n";
-      // }
       executeMemoryOperation(state, false, arguments[1], 0, ki, bytes);
+
       ref<Expr> loadedVal = getDestCell(state, ki).value;
       if (!loadedVal.isNull()) {
-        // llvm::outs() << arguments[0] << " " << loadedVal << "\n";
-        // for (auto con: state.constraints) {
-        //   llvm::outs() << con << "\n";
-        // }
         executeMemoryOperation(state, true, arguments[0], loadedVal, ki);
         getDestCell(state, ki).value = arguments[0];
         return;
@@ -2233,16 +2141,10 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
   if (f->getName().find("4cuda3__414__memcpy_async") != std::string::npos) {
     if (auto bytesCE = dyn_cast<ConstantExpr>(arguments[3])) {
       unsigned bytes = bytesCE->getZExtValue();
-      // for (auto con: state.constraints) {
-      //   llvm::outs() << con << "\n";
-      // }
       executeMemoryOperation(state, false, arguments[2], 0, ki, bytes);
+
       ref<Expr> loadedVal = getDestCell(state, ki).value;
       if (!loadedVal.isNull()) {
-        // llvm::outs() << arguments[0] << " " << loadedVal << "\n";
-        // for (auto con: state.constraints) {
-        //   llvm::outs() << con << "\n";
-        // }
         executeMemoryOperation(state, true, arguments[1], loadedVal, ki);
         getDestCell(state, ki).value = ConstantExpr::create(0, Expr::Int32);
         return;
@@ -2306,7 +2208,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         return terminateStateOnExecError(
             state, "Unsupported " + f->getName() + " call");
 
-      // (op1 * op2) + op3
       APFloat Res(*fpWidthToSemantics(op1->getWidth()), op1->getAPValue());
       Res.fusedMultiplyAdd(
           APFloat(*fpWidthToSemantics(op2->getWidth()), op2->getAPValue()),
@@ -2343,7 +2244,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
               state, "llvm.abs called with poison and INT_MIN");
       }
 
-      // conditions to flip the sign: INT_MIN < op < 0
       ref<Expr> negative = SltExpr::create(op, zero);
       ref<Expr> notsmin = NeExpr::create(op, smin);
       ref<Expr> cond = AndExpr::create(negative, notsmin);
@@ -2393,7 +2293,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       assert(w == op2->getWidth() && "type mismatch");
       assert(w == op3->getWidth() && "type mismatch");
       ref<Expr> c = ConcatExpr::create(op1, op2);
-      // op3 = zeroExtend(op3 % w)
       op3 = URemExpr::create(op3, ConstantExpr::create(w, w));
       op3 = ZExtExpr::create(op3, w+w);
       if (f->getIntrinsicID() == Intrinsic::fshl) {
@@ -2410,7 +2309,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
     }
 
     // va_arg is handled by caller and intrinsic lowering, see comment for
-    // ExecutionState::varargs
     case Intrinsic::vastart: {
       StackFrame &sf = state.stack.back();
 
@@ -2461,7 +2359,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       // va_end is a noop for the interpreter.
       //
       // FIXME: We should validate that the target didn't do something bad
-      // with va_end, however (like call it twice).
       break;
 
     case Intrinsic::vacopy:
@@ -2473,95 +2370,51 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
     
     default:
       if (f->getName() == "llvm.nvvm.read.ptx.sreg.ctaid.x") {
-        // if (state.kernelConfig.getBlockIdxTempRead()) {
-        //   ref<Expr> indexExpr = state.kernelConfig.getBlockIdxTempRead().x;
-        //   bindLocal(ki, state, indexExpr);
-        //   // llvm::outs() << "ctaid.x:" << indexExpr << "\n";
-        // } else if (state.kernelConfig.getBlockIdx()) {
-        //   ObjectPair op;
-        //   bool success;
-        //   if (!state.addressSpace.resolveOne(state, solver.get(), state.kernelConfig.getBlockIdx().x, op, success)) {
-        //       terminateStateOnExecError(state, "Could not find blockIdx.x");
-        //       return;
-        //   }
-          
-        //   ref<Expr> indexExpr = op.second->read(0, op.first->size * 8);
-        //   bindLocal(ki, state, indexExpr);
-        // } else {
-        //   terminateStateOnExecError(state, "Could not find blockIdx.x");
-        //   return;
-        // }
         ref<Expr> indexExpr = state.kernelConfig.getBlockIdx().x;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "ctaid.x:" << indexExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.ctaid.y") {
         ref<Expr> indexExpr = state.kernelConfig.getBlockIdx().y;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "ctaid.y:" << indexExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.ctaid.z") {
         ref<Expr> indexExpr = state.kernelConfig.getBlockIdx().z;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "ctaid.z:" << indexExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.tid.x") {
         ref<Expr> indexExpr = state.kernelConfig.getThreadIdx().x;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "tid.x:" << indexExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.tid.y") {
         ref<Expr> indexExpr = state.kernelConfig.getThreadIdx().y;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "tid.y:" << indexExpr << "\n";
-
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.tid.z") {
         ref<Expr> indexExpr = state.kernelConfig.getThreadIdx().z;
         bindLocal(ki, state, indexExpr);
-        // llvm::outs() << "tid.z:" << indexExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.nctaid.x") {
-        // if (state.kernelConfig.getGridDimTempRead()) {
-        //   ref<Expr> dimExpr = state.kernelConfig.getGridDimTempRead().x;
-        //   bindLocal(ki, state, dimExpr);
-        //   llvm::outs() << "gridDim.x:" << dimExpr << "\n";
-        // } else if (state.kernelConfig.getGridDim()) {
-        //   ref<Expr> dimExpr = state.kernelConfig.getGridDim().x;
-        //   bindLocal(ki, state, dimExpr);
-        //   llvm::outs() << "gridDim.x:" << dimExpr << "\n";
-        // } else {
-        //   terminateStateOnExecError(state, "Could not find gridDim.x");
-        //   return;
-        // }
-
         ref<Expr> dimExpr = state.kernelConfig.getGridDim().x;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "gridDim.x:" << dimExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.nctaid.y") {
         ref<Expr> dimExpr = state.kernelConfig.getGridDim().y;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "gridDim.y:" << dimExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.nctaid.z") {
         ref<Expr> dimExpr = state.kernelConfig.getGridDim().z;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "gridDim.z:" << dimExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.ntid.x") {
         ref<Expr> dimExpr = state.kernelConfig.getBlockDim().x;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "blockDim.x:" << dimExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.ntid.y") {
         ref<Expr> dimExpr = state.kernelConfig.getBlockDim().y;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "blockDim.y:" << dimExpr << "\n";
 
       } else if (f->getName() == "llvm.nvvm.read.ptx.sreg.ntid.z") {
         ref<Expr> dimExpr = state.kernelConfig.getBlockDim().z;
         bindLocal(ki, state, dimExpr);
-        // llvm::outs() << "blockDim.z:" << dimExpr << "\n";
         
       } else if (f->getName().find("llvm.nvvm.ldg.global")==0) {
         executeMemoryOperation(state, false, arguments[0], 0, ki);
@@ -2628,7 +2481,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           memcpy(&val, &bits, sizeof(double));
           // Convert double to int64_t rounding to nearest integer
           int64_t intVal = static_cast<int64_t>(std::llround(val));
-          // Extract high 32 bits (most significant bits)
           uint32_t high32 = (uint32_t)((intVal >> 32) & 0xFFFFFFFF);
           bindLocal(ki, state, ConstantExpr::create(high32, Expr::Int32));
         } else {
@@ -2761,11 +2613,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
 
           if (symmo->dimensionSize.find(index) == symmo->dimensionSize.end() || symmo->dimensionSize[index].isNull()) {
             std::string sizeName = symName + ".size[" + std::to_string(index)+"]";
-            // MemoryObject *sizeMo =
-            //   memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
-            //                   &state, /*allocSite=*/state.prevPC->inst,
-            //                   /*alignment=*/8);      
-            // ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);   
             auto sizepair = createSizeSymbol(state, sizeName);
             ref<Expr> sizeExpr = sizepair.second; 
             addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));  
@@ -2796,11 +2643,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         unsigned width = returnType->getIntegerBitWidth();
         if (symmo->shapeSize.isNull()) {
           std::string dimName = symName + ".dim";
-          // MemoryObject *dimMo =
-          //   memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
-          //                   &state, /*allocSite=*/state.prevPC->inst,
-          //                   /*alignment=*/8);  
-          // ref<Expr> dimExpr = symbolizeIndex(state, dimName, dimMo);
           auto dimpair = createSizeSymbol(state, dimName);
           ref<Expr> dimExpr = dimpair.second; 
           symmo->shapeSize = dimExpr;
@@ -2826,11 +2668,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         SymArrayMemoryObject *symmo = state.symbolicArrayMap[symName];
         if (symmo->shapeSize.isNull()) {
           std::string dimName = symName + ".dim";
-          // MemoryObject *dimMo =
-          //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-          //                   &state, /*allocSite=*/state.prevPC->inst,
-          //                   /*alignment=*/8);  
-          // ref<Expr> dimExpr = symbolizeIndex(state, dimName, dimMo);
           auto dimpair = createSizeSymbol(state, dimName);
           ref<Expr> dimExpr = dimpair.second; 
           symmo->shapeSize = dimExpr;
@@ -2876,11 +2713,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         SymArrayMemoryObject *symmo = state.symbolicArrayMap[symName];
         if (symmo->shapeSize.isNull()) {
           std::string dimName = symName + ".dim";
-          // MemoryObject *dimMo =
-          //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-          //                   &state, /*allocSite=*/state.prevPC->inst,
-          //                   /*alignment=*/8);  
-          // ref<Expr> dimExpr = symbolizeIndex(state, dimName, dimMo);
           auto dimpair = createSizeSymbol(state, dimName);
           ref<Expr> dimExpr = dimpair.second; 
           symmo->shapeSize = dimExpr;
@@ -2947,11 +2779,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
                 dimSize = symmo->dimensionSize[i];
               } else {
                 std::string sizeName = symName + ".size[" + std::to_string(i)+"]";
-                // MemoryObject *sizeMo =
-                //   memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
-                //                   &state, /*allocSite=*/state.prevPC->inst,
-                //                   /*alignment=*/8);          
-                // dimSize = symbolizeIndex(state, sizeName, sizeMo);
                 auto sizepair = createSizeSymbol(state, sizeName);
                 dimSize = sizepair.second; 
                 addConstraint(state, UgeExpr::create(dimSize, ConstantExpr::create(1, dimSize->getWidth())));
@@ -2967,11 +2794,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
                 dimSize = symmo->dimensionSize[i];
               } else {
                 std::string sizeName = symName + ".size[" + std::to_string(i)+"]";
-                // MemoryObject *sizeMo =
-                //   memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
-                //                   &state, /*allocSite=*/state.prevPC->inst,
-                //                   /*alignment=*/8);          
-                // dimSize = symbolizeIndex(state, sizeName, sizeMo);
                 auto sizepair = createSizeSymbol(state, sizeName);
                 dimSize = sizepair.second; 
                 addConstraint(state, UgeExpr::create(dimSize, ConstantExpr::create(1, dimSize->getWidth())));  
@@ -2981,11 +2803,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
             }
           } else {
             std::string strideName = symName + ".stride[" + std::to_string(index)+"]";
-            // MemoryObject *strideMo =
-            //   memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
-            //                   &state, /*allocSite=*/state.prevPC->inst,
-            //                   /*alignment=*/8);          
-            // strideRes = symbolizeIndex(state, strideName, strideMo);
             auto stridepair = createSizeSymbol(state, strideName, true);
             strideRes = ZExtExpr::create(stridepair.second, width); 
           }
@@ -3005,7 +2822,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           ref<Expr> strideRes = ZExtExpr::create(stridepair.second, width); 
           bindLocal(ki, state, strideRes);
           klee_warning("TensorBase6stride stride index not constant for tensor %s", symName.c_str());
-          // terminateStateOnProgramError(state, "TensorBase6stride stride index not constant", StateTerminationType::ReportError);
           return;
         }
       } else {
@@ -3028,7 +2844,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         setElementSize(state, symmo);
 
         if (symmo->elementSize && isa<ConstantExpr>(symmo->elementSize)) {
-          // llvm::outs() << symmo->elementSize << "\n";
           bindLocal(ki, state, ZExtExpr::create(symmo->elementSize, width));
         } else if (symmo->scalarType && isa<ConstantExpr>(symmo->scalarType)) {
           unsigned size = getTensorTypeBytes(symmo->scalarType);
@@ -3041,7 +2856,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
                               /*alignment=*/8);          
             ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);
             symmo->elementSize = sizeExpr;
-            // llvm::outs() << symmo->elementSize << "\n";
             addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));
             addConstraint(state, UleExpr::create(sizeExpr, ConstantExpr::create(16, sizeExpr->getWidth())));
             bindLocal(ki, state, ZExtExpr::create(sizeExpr, width));
@@ -3049,10 +2863,8 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
             symmo->elementSize = ConstantExpr::create(size, width);
             bindLocal(ki, state, symmo->elementSize);
           }
-          // llvm::outs() << symmo->scalarType << " " << size << "\n";
         } else if (symmo->elementSize) {
           klee_warning("tensor element size not constant");
-          // llvm::outs() << symmo->elementSize << "\n";
           bindLocal(ki, state, ZExtExpr::create(symmo->elementSize, width));
         } else {
           klee_warning("tensor element size not constant");
@@ -3063,7 +2875,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
                             /*alignment=*/8);          
           ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);
           symmo->elementSize = sizeExpr;
-          // llvm::outs() << symmo->elementSize << "\n";
           addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));
           addConstraint(state, UleExpr::create(sizeExpr, ConstantExpr::create(16, sizeExpr->getWidth())));
           bindLocal(ki, state, ZExtExpr::create(sizeExpr, width));
@@ -3189,7 +3000,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         unsigned width = returnType->getIntegerBitWidth();
         SymArrayMemoryObject *symmo = state.symbolicArrayMap[symName];
         if (!symmo->scalarType) {
-          // symmo->scalarType = ConstantExpr::create(6, returnType->getIntegerBitWidth());
           std::string typeName = symName + ".scalar_type";
           MemoryObject *typeMo =
                 memory->allocate(width/8, /*isLocal=*/false, /*isGlobal=*/false,
@@ -3204,7 +3014,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           addConstraint(state, UleExpr::create(scalarTypeExpr, ConstantExpr::create(255, scalarTypeExpr->getWidth())));
           symmo->scalarType = scalarTypeExpr;
         }
-        // llvm::outs() << "scalarType " << symmo->scalarType << "\n";
         bindLocal(ki, state, ZExtExpr::create(symmo->scalarType, width));
         return;
       } else {
@@ -3393,7 +3202,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         ref<Expr> sizeExpr = nullptr;
         for (uint64_t i = 0; i < shapeSize; ++i) {
             ref<Expr> element = shapeArrayOS->read(i*8, 64);
-            // llvm::outs() << "torch::empty shape " << i << " :" << element << "\n";
             if (i == 0) {
               sizeExpr = element;
             } else {
@@ -3442,7 +3250,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           ref<Expr> scalarType = ExtractExpr::create(arguments[3], 0, 8);
           symmo->scalarType = scalarType;
         }
-        // state.symbolicArrayMap[mo->name] = symmo;
         return;
       } else {
         terminateStateOnProgramError(state, "torch::"+funcName+": the size of the shape array is not a constant", StateTerminationType::ReportError);
@@ -3470,54 +3277,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       if (state.symbolicArrayMap.find(sourceSymName) != state.symbolicArrayMap.end()) {
         SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceSymName];
         SymArrayMemoryObject *destSymmo = createSymArray(state, arguments[0], destMO, "empty tensor", "torch_empty_like_tensor_");
-        // ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
-        // uint64_t destAddress = destAddressCE->getZExtValue();
-        // if (destAddress != destMO->address) {
-        //   if (state.symNames.find(destAddress)!=state.symNames.end()) {
-        //     std::string destMName = state.symNames[destAddress];
-        //     if (state.symbolicArrayMap.find(destMName) == state.symbolicArrayMap.end()) {
-        //       klee_error("tensor copy: do not find target tensor object");
-        //     }
-        //     destSymmo = state.symbolicArrayMap[destMName];
-        //     // addConstraint(state, EqExpr::create(sourceSymmo->size, ZExtExpr::create(destSymmo->size, sourceSymmo->size->getWidth())));
-        //   } else {
-        //     unsigned id = 0;
-        //     std::string uniqueName = "torch_empty_like_tensor_0";
-        //     while (!state.arrayNames.insert(uniqueName).second) {
-        //       uniqueName = "torch_empty_like_tensor_" + llvm::utostr(++id);
-        //     }
-        //     const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-        //     if (sourceSymmo->size) {
-        //       destSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, sourceSymmo->size);
-        //     } else {
-        //       std::string sizeName = uniqueName + ".size";
-        //       auto pair = createSizeSymbol(state, sizeName);
-        //       ref<Expr> sizeExpr = pair.second;
-        //       destSymmo = new SymArrayMemoryObject(destAddress, array, pair.first, sizeExpr);
-        //     }
-        //     state.symbolicArrayMap[uniqueName] = destSymmo;
-        //     state.symNames[destAddress] = uniqueName;
-        //     state.symAddressMap[destMO->address] = destAddress;
-        //   }
-        // } else if (state.symbolicArrayMap.find(destMO->name) == state.symbolicArrayMap.end()) {
-        //   unsigned id = 0;
-        //   std::string uniqueName = "torch_empty_like_tensor_0";
-        //   while (!state.arrayNames.insert(uniqueName).second) {
-        //     uniqueName = "torch_empty_like_tensor_" + llvm::utostr(++id);
-        //   }
-        //   destMO->setName(uniqueName);
-        //   const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-        //   bindObjectInState(state, destMO, false, array);
-        //   state.addSymbolic(destMO, array);
-
-        //   std::string sizeName = destMO->name + ".size";
-        //   auto pair = createSizeSymbol(state, sizeName);
-        //   ref<Expr> sizeExpr = pair.second;
-        //   destSymmo = new SymArrayMemoryObject(destMO->address, array, pair.first, sizeExpr);
-        //   state.symbolicArrayMap[destMO->name] = destSymmo;
-        // } else {
-        //   destSymmo = state.symbolicArrayMap[destMO->name];
-        // }
         
         destSymmo->size = sourceSymmo->size;
         destSymmo->sizeName = sourceSymmo->sizeName;
@@ -3650,7 +3409,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           ref<Expr> sizeExpr = nullptr;
           for (uint64_t i = 0; i < shapeSize; ++i) {
               ref<Expr> element = shapeArrayOS->read(i*8, 64);
-              // llvm::outs() << "torch::empty shape " << i << " :" << element << "\n";
               if (i == 0) {
                 sizeExpr = element;
               } else {
@@ -3660,7 +3418,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           }
           destSymmo->size = sizeExpr;
           destSymmo->shapeSize = arguments[2];
-          // llvm::outs() << sizeExpr << "\n";
   
           ref<Expr> scalarType = ExtractExpr::create(arguments[4], 16, 16);
           destSymmo->scalarType = scalarType;
@@ -3815,55 +3572,17 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         if (state.symbolicArrayMap.find(sourceSymName) != state.symbolicArrayMap.end()) {
           SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceSymName];
           SymArrayMemoryObject *destSymmo = createSymArray(state, arguments[0], destMO, "torch::"+funcName, funcName+"_tensor_");
-          // ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
-          // uint64_t destAddress = destAddressCE->getZExtValue();
-          // if (destAddress != destMO->address) {
-          //   if (state.symNames.find(destAddress)!=state.symNames.end()) {
-          //     std::string destMName = state.symNames[destAddress];
-          //     if (state.symbolicArrayMap.find(destMName) == state.symbolicArrayMap.end()) {
-          //       klee_error("tensor view: do not find target tensor object");
-          //     }
-          //     destSymmo = state.symbolicArrayMap[destMName];
-          //   } else {
-          //     unsigned id = 0;
-          //     std::string uniqueName = "torch_"+funcName+"_tensor_0";
-          //     while (!state.arrayNames.insert(uniqueName).second) {
-          //       uniqueName = "torch_"+funcName+"_tensor_" + llvm::utostr(++id);
-          //     }
-          //     const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-          //     destSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, nullptr);
-          //     state.symbolicArrayMap[uniqueName] = destSymmo;
-          //     state.symNames[destAddress] = uniqueName;
-          //     state.symAddressMap[destMO->address] = destAddress;
-          //   }
-          // } else if (state.symbolicArrayMap.find(destMO->name) == state.symbolicArrayMap.end()) {
-          //   unsigned id = 0;
-          //   std::string uniqueName = "torch_"+funcName+"_tensor_0";
-          //   while (!state.arrayNames.insert(uniqueName).second) {
-          //     uniqueName = "torch_"+funcName+"_tensor_" + llvm::utostr(++id);
-          //   }
-          //   destMO->setName(uniqueName);
-          //   const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-          //   bindObjectInState(state, destMO, false, array);
-          //   state.addSymbolic(destMO, array);
-          //   destSymmo = new SymArrayMemoryObject(destMO->address, array, nullptr, nullptr);
-          //   state.symbolicArrayMap[destMO->name] = destSymmo;
-          // } else {
-          //   destSymmo = state.symbolicArrayMap[destMO->name];
-          // }
 
           const ObjectState *shapeArrayOS = op3.second;
           int inferIndex = -1;
           ref<Expr> sizeExpr = ConstantExpr::create(1, 64);
           for (uint64_t i = 0; i < shapeSize; ++i) {
             ref<Expr> element = shapeArrayOS->read(i*8, 64);
-            // llvm::outs() << "torch::view shape " << i << " :" << element << "\n";
             destSymmo->dimensionSize[i] = element;
             bool isNeg = false;
 
             if (auto CE = dyn_cast<ConstantExpr>(element)) {
               int64_t element_val = CE->getZExtValue();
-              // llvm::outs() << "element_val " << element_val << "\n";
               if (element_val == -1) {
                 if (inferIndex >= 0) {
                   terminateStateOnProgramError(state, "torch::"+funcName+": shape multiple -1", StateTerminationType::ReportError);
@@ -3880,7 +3599,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           }
           if (inferIndex >= 0) {
             destSymmo->dimensionSize[inferIndex] = UDivExpr::create(ZExtExpr::create(sourceSymmo->size, sizeExpr->getWidth()), sizeExpr);
-            // llvm::outs() << inferIndex << " size " << destSymmo->dimensionSize[inferIndex] << "\n";
             sizeExpr = sourceSymmo->size;
           }
           destSymmo->size = sizeExpr;
@@ -3914,7 +3632,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           terminateStateOnProgramError(state, "torch::"+funcName+": do not find target tensor object", StateTerminationType::ReportError);
           return;
         }
-        // terminateStateOnProgramError(state, "torch::"+funcName+": the size of the shape array is not a constant", StateTerminationType::ReportError);
         return;
       }
     } else if (f->getName().find("at6Tensor7flatten")!=std::string::npos) {
@@ -4732,38 +4449,8 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         return;
       }
     }
-    // else if (f->getName().find("8optionalIN2at6TensorEEC2ESt9nullopt")!=std::string::npos) {
-    //   bool success;
-    //   ObjectPair op;
-    //   if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-    //     terminateStateOnProgramError(state, "optional<tensor>: do not find target object", StateTerminationType::ReportError);
-    //     return;
-    //   }
 
-    //   const MemoryObject *mo = op.first;
-    //   unsigned id = 0;
-    //   std::string uniqueName = "optional_tensor_0";
-    //   while (!state.arrayNames.insert(uniqueName).second) {
-    //     uniqueName = "optional_tensor_" + llvm::utostr(++id);
-    //   }
-    //   mo->setName(uniqueName);
-    //   const Array *array = arrayCache.CreateArray(uniqueName, mo->size);
-    //   bindObjectInState(state, mo, false, array);
-    //   state.addSymbolic(mo, array);
 
-    //   std::string sizeName = mo->name + ".size";
-    //   auto pair = createSizeSymbol(state, sizeName);
-    //   ref<Expr> sizeExpr = pair.second;
-    //   SymArrayMemoryObject *symmo = new SymArrayMemoryObject(mo->address, array, pair.first, sizeExpr);
-    //   std::string elementSizeName = mo->name + ".item_size";
-    //   auto pair2 = createSizeSymbol(state, elementSizeName);
-    //   ref<Expr> elementSizeExpr = pair2.second;
-    //   symmo->elementSize = elementSizeExpr;
-    //   addConstraint(state, UgeExpr::create(elementSizeExpr, ConstantExpr::create(1, elementSizeExpr->getWidth())));
-    //   addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-    //   state.symbolicArrayMap[mo->name] = symmo;
-    //   return;
-    // } 
     else if (f->getName().find("8optionalIN2at6TensorEED2Ev")!=std::string::npos) {
       return;
     } else if (f->getName().find("5torch9from_blob")!=std::string::npos || f->getName().find("2at9from_blob")!=std::string::npos) { // TODO: copy data from args[1]
@@ -4775,24 +4462,8 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       }
 
       const MemoryObject *mo = op.first;
-      // std::string symName = getSymName(state, mo, arguments[0]);
       SymArrayMemoryObject *symmo = createSymArray(state, arguments[0], mo, "from_blob", "from_blob_tensor_");
-      // if (state.symbolicArrayMap.find(symName) == state.symbolicArrayMap.end()) {
-      //   unsigned id = 0;
-      //   std::string uniqueName = "torch_from_blob_tensor_0";
-      //   while (!state.arrayNames.insert(uniqueName).second) {
-      //     uniqueName = "torch_from_blob_tensor_" + llvm::utostr(++id);
-      //   }
-      //   mo->setName(uniqueName);
-      //   const Array *array = arrayCache.CreateArray(uniqueName, mo->size);
-      //   bindObjectInState(state, mo, false, array);
-      //   state.addSymbolic(mo, array);
 
-      //   symmo = new SymArrayMemoryObject(mo->address, array, nullptr, nullptr);
-      //   state.symbolicArrayMap[uniqueName] = symmo;
-      // } else {
-      //   symmo = state.symbolicArrayMap[symName];
-      // }
       
       if (auto shapeSizeExpr = dyn_cast<ConstantExpr>(arguments[3])) {
         uint64_t shapeSize = shapeSizeExpr->getZExtValue();
@@ -4806,7 +4477,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         ref<Expr> sizeExpr = nullptr;
         for (uint64_t i = 0; i < shapeSize; ++i) {
             ref<Expr> element = shapeArrayOS->read(i*8, 64);
-            // llvm::outs() << "torch::empty shape " << i << " :" << element << "\n";
             if (i == 0) {
               sizeExpr = element;
             } else {
@@ -4920,7 +4590,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       std::string symName = getSymName(state, mo, arguments[0]);
       if (state.symbolicArrayMap.find(symName) != state.symbolicArrayMap.end()) {
         llvm::Type *returnType = f->getReturnType();
-        // llvm::outs() << "vector.size(): symbolic size = " << state.symbolicArrayMap[symName]->size << "\n";
         bindLocal(ki, state, ZExtExpr::create(state.symbolicArrayMap[symName]->size, returnType->getIntegerBitWidth()));
         return;
       } else {
@@ -5018,7 +4687,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
             terminateStateOnProgramError(state, "vector get element: element type not handled", StateTerminationType::ReportError);
             return;
           }
-          // llvm::outs() << arguments[1] << "\n";
           ref<Expr> result = AddExpr::create(mo->getBaseExpr(), MulExpr::create(arguments[1], ConstantExpr::create(width/8, arguments[1]->getWidth())));
           state.base_mos[mo->address].insert(result);
           state.base_addrs[result] = mo->getBaseExpr();
@@ -5143,7 +4811,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       const MemoryObject *mo = op.first;
       std::string symName = getSymName(state, mo, arguments[0]);
       if (state.symbolicArrayMap.find(symName) != state.symbolicArrayMap.end()) {
-        // SymArrayMemoryObject *symmo = state.symbolicArrayMap[symName];
         if (isa<ConstantExpr>(SubExpr::create(arguments[1], arguments[0]))) {
           ref<ConstantExpr> size_CE = dyn_cast<ConstantExpr>(SubExpr::create(arguments[1], arguments[0]));
           int size = size_CE->getZExtValue();
@@ -5264,7 +4931,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       const MemoryObject *mo1 = op1.first;
       if (state.tensorSizesMap.find(mo1->name) != state.tensorSizesMap.end()) {
         TensorSizesMemoryObject* sizesSymMO = state.tensorSizesMap[mo1->name];
-        // SymArrayMemoryObject *symmo1 = state.symbolicArrayMap[vecSymMO->tensorName];
         ObjectState *wos = state.addressSpace.getWriteable(op0.first, op0.second);
         wos->write(0, arguments[1]);
         wos->write(8, ZExtExpr::create(sizesSymMO->length, Expr::Int64));
@@ -5302,7 +4968,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           bool setSize = false;
           for (int i = 0; i < shapeSize; ++i) {
             ref<Expr> element = shapeArrayOS->read(i*8, 64);
-            // llvm::outs() << "array.equal shape " << i << " :" << element << "\n";
             if (i == 0) {
               sizeExpr = element;
             } else {
@@ -5320,13 +4985,11 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
                     return;
                   }
                 } else {
-                  // llvm::outs() << "array.equal " << sizeMo0->tensorName << " shape " << i << " :" << element << " " << symmo0->dimensionSize[i] << "\n";
                   addConstraint(state, EqExpr::create(element, ZExtExpr::create(symmo0->dimensionSize[i], Expr::Int64)));
                   setSize = true;
                   symmo0->dimensionSize[i] = element;
                 }
               } else {
-                // llvm::outs() << "array.equal " << sizeMo0->tensorName << " shape " << i << " :" << element << " " << symmo0->dimensionSize[i] << "\n";
                 addConstraint(state, EqExpr::create(element, ZExtExpr::create(symmo0->dimensionSize[i], Expr::Int64)));
                 if (!isa<ConstantExpr>(symmo0->dimensionSize[i])) {
                   setSize = true;
@@ -5502,7 +5165,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
             const ObjectState *shapeArrayOS = op1.second;
             for (uint64_t i = 0; i < shapeSize; ++i) {
               ref<Expr> element = shapeArrayOS->read(i*8, 64);
-              // llvm::outs() << "at::resize shape " << i << " :" << element << "\n";
               symmo->dimensionSize[i] = element;
               sizeExpr = MulExpr::create(sizeExpr, element);
             }
@@ -5510,7 +5172,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         }
         symmo->size = sizeExpr;
         symmo->shapeSize = arguments[2];
-        // llvm::outs() << sizeExpr << "\n";
 
         setElementSize(state, symmo);
         if (!symmo->elementSize) {
@@ -5937,9 +5598,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       std::string sourceSymName = getSymName(state, sourceMO, arguments[1]);
 
       if (state.symbolicArrayMap.find(sourceSymName) != state.symbolicArrayMap.end()) {
-        // const ObjectState *sourceOS = op1.second;
-        // ObjectState *wos = state.addressSpace.getWriteable(op0.first, op0.second);
-        // wos->write(0, sourceOS->read(0, sourceMO->size*8));
 
         const MemoryObject *destMO = op0.first;
         SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceSymName];
@@ -6002,95 +5660,19 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         return;
       }
     }
-    // if (f->getName() == "_ZNK4vllm10ScalarTypeeqERKS0_") {
-    //   bool success;
-    //   ObjectPair op0;
-    //   if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op0, success) || !success) {
-    //     klee_error("_ZNK4vllm10ScalarTypeeqERKS0_: do not find the first object");
-    //   }
 
-    //   ObjectPair op1;
-    //   if (!state.addressSpace.resolveOne(state, solver.get(), arguments[1], op1, success) || !success) {
-    //     klee_error("_ZNK4vllm10ScalarTypeeqERKS0_: do not find the second object");
-    //   }
-    //   // llvm::outs() << arguments[0] << " e2 " << arguments[1] << "\n";
 
-    //   const ObjectState *os0 = op0.second; 
-    //   const ObjectState *os1 = op1.second; 
-    //   for(int i = 0; i<=6; i++) {
-    //     if (i==3)
-    //       continue;
-    //     if (i<3){
-    //       ref<Expr> e1 = os0->read(i, 8);
-    //       ref<Expr> e2 = os1->read(i, 8);
-    //       ref<Expr> condition = EqExpr::create(e1, e2);
-    //       // llvm::outs() << e1 << " e2 " << e2 << " con " << condition << "\n";
 
-    //       StatePair branches = fork(state, condition, true, BranchType::Conditional);
-    //       ExecutionState *unbound = branches.second;
-    //       if(unbound) {
-    //         terminateStateEarlyUser(*unbound, "failed check");
-    //       }
-    //     } else if (i==4) {
-    //       ref<Expr> e1 = os0->read(i, 32);
-    //       ref<Expr> e2 = os1->read(i, 32);
-    //       ref<Expr> condition = EqExpr::create(e1, e2);
-    //       // llvm::outs() << e1 << " e2 " << e2 << " con " << condition << "\n";
           
-    //       StatePair branches = fork(state, condition, true, BranchType::Conditional);
-    //       ExecutionState *unbound = branches.second;
-    //       if(unbound) {
-    //         terminateStateEarlyUser(*unbound, "failed check");
-    //       }
-    //     } else {
-    //       ref<Expr> e1 = os0->read(i+3, 8);
-    //       ref<Expr> e2 = os1->read(i+3, 8);
-    //       ref<Expr> condition = EqExpr::create(e1, e2);
-    //       // llvm::outs() << e1 << " e2 " << e2 << " con " << condition << "\n";
           
-    //       StatePair branches = fork(state, condition, true, BranchType::Conditional);
-    //       ExecutionState *unbound = branches.second;
-    //       if(unbound) {
-    //         terminateStateEarlyUser(*unbound, "failed check");
-    //       }
-    //     }
-    //   }
-    //   bindLocal(ki, state, ConstantExpr::create(1, Expr::Bool));
-    //   return;
-    // }
-    // if (f->getName().find("_ZN4vllm10ScalarType7from_idEl") != std::string::npos) {
-    //   ref<Expr> id = arguments[0];
 
     //   // Extract fields
-    //   ref<Expr> exponent    = ExtractExpr::create(id, 0, 8);   // uint8_t exponent (8 bits)
-    //   ref<Expr> mantissa    = ExtractExpr::create(id, 8, 8);   // uint8_t mantissa (8 bits)
-    //   ref<Expr> signed_raw  = ExtractExpr::create(id, 16, 1);  // bool signed_ (1 bit)
-    //   ref<Expr> bias        = ExtractExpr::create(id, 17, 32); // int32_t bias (32 bits)
-    //   ref<Expr> finite_vals = ExtractExpr::create(id, 49, 1);  // uint8_t finite_values_only (8 bits)
-    //   ref<Expr> nan_repr    = ExtractExpr::create(id, 50, 8);  // uint8_t nan_repr (8 bits)
-    //   ref<Expr> padding     = ConstantExpr::create(0, 8);      // 8-bit padding (constant 0)
-    //   ref<Expr> padding16 = ConstantExpr::create(0, 16); // 16-bit padding
 
     //   // Expand `signed_raw` from 1 bit to 8 bits
-    //   ref<Expr> signed_ext = ZExtExpr::create(signed_raw, 8);
 
-    //   // Construct `field1` = { exponent, mantissa, signed_, padding, bias } (64 bits)
-    //   ref<Expr> field1 = ConcatExpr::create(bias,
-    //                       ConcatExpr::create(padding,
-    //                           ConcatExpr::create(signed_ext,
-    //                               ConcatExpr::create(mantissa, exponent))));
 
-    //   // Construct `field2` = { finite_values_only, nan_repr } (32 bits)
-    //   ref<Expr> field2 = ConcatExpr::create(padding16, 
-    //                       ConcatExpr::create(nan_repr, ZExtExpr::create(finite_vals, 8)));
 
-    //   // Final return value `{ i64, i32 }`
-    //   ref<Expr> returnStruct = ConcatExpr::create(field2, field1);
-    //   // llvm::outs() << "returnStruct " << returnStruct << "\n";
 
-    //   bindLocal(ki, state, returnStruct);
-    //   return;
-    // }
 
     // Check if maximum stack size was reached.
     // We currently only count the number of stack frames
@@ -6108,7 +5690,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
     // FIXME: I'm not really happy about this reliance on prevPC but it is ok, I
     // guess. This just done to avoid having to pass KInstIterator everywhere
     // instead of the actual instruction, since we can't make a KInstIterator
-    // from just an instruction (unlike LLVM).
     KFunction *kf = kmodule->functionMap[f];
 
     state.pushFrame(state.prevPC, kf);
@@ -6161,7 +5742,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         if (WordSize == Expr::Int32 && !alignment)
           alignment = 4;
         else {
-          // AMD64-ABI 3.5.7p5: Step 7. Align l->overflow_arg_area upwards to a
           // 16 byte boundary if alignment needed by type exceeds 8 byte
           // boundary.
           if (!alignment && argWidth > Expr::Int64) {
@@ -6179,9 +5759,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         if (WordSize == Expr::Int32)
           size += Expr::getMinBytesForWidth(argWidth);
         else {
-          // AMD64-ABI 3.5.7p5: Step 9. Set l->overflow_arg_area to:
-          // l->overflow_arg_area + sizeof(type)
-          // Step 10. Align l->overflow_arg_area upwards to an 8 byte boundary.
           size += llvm::alignTo(argWidth, WordSize) / 8;
         }
       }
@@ -6232,7 +5809,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
 void Executor::transferToBasicBlock(BasicBlock *dst, BasicBlock *src, 
                                     ExecutionState &state) {
   // Note that in general phi nodes can reuse phi values from the same
-  // block but the incoming value is the eval() result *before* the
   // execution of any phi nodes. this is pathological and doesn't
   // really seem to occur, but just in case we run the PhiCleanerPass
   // which makes sure this cannot happen and so it is safe to just
@@ -6302,35 +5878,19 @@ std::pair<int, const MemoryObject *> Executor::findInductionVariable(ExecutionSt
 // for two loadInsts, iterate ir in latch, is there a store, also return the memoryobject
   int parIndex = 0;
   LoadInst *indexLoadInst = nullptr;
-  // LoadInst *leftLoadInst = llvm::dyn_cast<llvm::LoadInst>(ii->getOperand(0));
-  // LoadInst *rightLoadInst = llvm::dyn_cast<llvm::LoadInst>(ii->getOperand(1));
   LoadInst *leftLoadInst = getLoadOperand(ii->getOperand(0));
   LoadInst *rightLoadInst = getLoadOperand(ii->getOperand(1));
   bool bothSym = leftLoadInst != nullptr && rightLoadInst != nullptr;
 
-  // if (leftLoadInst) {
-  //   llvm::outs() << "operand0: " << *leftLoadInst << " address " << *leftLoadInst->getOperand(0) <<  "\n";
-  // }
-  // if (rightLoadInst) {
-  //   llvm::outs() << "operand1: " << *rightLoadInst << " address " << *rightLoadInst->getOperand(0) << "\n";
-  // }
 
   for (auto &ir : *loopInfo->backedge) {
-    // llvm::errs() << "ir: ";
-    // ir.print(llvm::errs());
-    // llvm::errs() << "\n";
     if (auto *storeInst = llvm::dyn_cast<llvm::StoreInst>(&ir)) {
-      // llvm::errs() << " operand1 " << *storeInst->getOperand(1) << "\n";
       if (leftLoadInst && storeInst->getOperand(1) == leftLoadInst->getOperand(0)) {
-        // storeInst->print(llvm::errs());
-        // llvm::errs() << " index 0\n";
         parIndex = 0;
         indexLoadInst = leftLoadInst;
         break;
       }
       if (rightLoadInst && storeInst->getOperand(1) == rightLoadInst->getOperand(0)) {
-        // storeInst->print(llvm::errs());
-        // llvm::errs() << " index 1\n";
         parIndex = 1;
         indexLoadInst = rightLoadInst;
         break;
@@ -6359,7 +5919,6 @@ std::pair<int, const MemoryObject *> Executor::findInductionVariable(ExecutionSt
     ref<Expr> pointerExpr;
 
     // Start index of this block
-    // unsigned startIdx = kf->basicBlockEntry[ii->getParent()];
     // Find last instruction index in this block
     unsigned endIdx;
     auto bbIter = ii->getParent()->getIterator();
@@ -6372,13 +5931,9 @@ std::pair<int, const MemoryObject *> Executor::findInductionVariable(ExecutionSt
     }
 
     for (int i = endIdx; i >= 0; --i) {
-    // for (unsigned i = kf->basicBlockEntry[ii->getParent()]; i < kf->numInstructions; ++i) {
       KInstruction *kbinst = kf->instructions[i];
-      // kbinst->inst->print(llvm::outs());
-      // llvm::outs() << "\n";
       if (kbinst->inst == indexLoadInst) {
         pointerExpr = eval(kbinst, 0, state).value;
-        // llvm::errs() << "Pointer Operand: " << pointerExpr << "\n";
         break;
       }
     }
@@ -6393,19 +5948,7 @@ std::pair<int, const MemoryObject *> Executor::findInductionVariable(ExecutionSt
   return std::make_pair(parIndex, mo);
 }
 
-// bool Executor::isReadArray(ExecutionState &state, ref<Expr> expr) {
-//   if (auto concatExpr = dyn_cast<ConcatExpr>(expr)) {
-//     return isReadArray(state, concatExpr->getKid(0)) || isReadArray(state, concatExpr->getKid(1));
-//   }
 
-//   if (auto readExpr = dyn_cast<ReadExpr>(expr)) {
-//     std::string name = readExpr->updates.root->name;
-//     if (name.find("const_arr") != std::string::npos || state.symbolicArrayMap.find(name) != state.symbolicArrayMap.end()) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
 
 void Executor::addBoundConstraintForArg(ExecutionState &state, KInstruction *ki) {
   Instruction *i = ki->inst;
@@ -6418,7 +5961,6 @@ void Executor::addBoundConstraintForArg(ExecutionState &state, KInstruction *ki)
       isSigned = false;
     } else {
       isSigned = binOp->hasNoSignedWrap();
-      // isSigned = !binOp->hasNoUnsignedWrap();
     }
     if (isSigned) {
       int numOps = i->getNumOperands();
@@ -6466,25 +6008,12 @@ void Executor::addBoundConstraintForArg(ExecutionState &state, KInstruction *ki)
         ref<Expr> argExpr = state.intArgAddBound[argName].first;
         if (isSigned) {
           if (argExpr->getWidth() <= 64) {
-            // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (argExpr->getWidth()-1), argExpr->getWidth(), true);   
-            // addConstraint(state, SgeExpr::create(argExpr, minValueExpr));  
             ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (argExpr->getWidth()-1)) - 1, argExpr->getWidth());
-            // if (indexExpr->getWidth() == 64) {
-            //   int64_t a = maxValueExpr->getZExtValue();
-            //   llvm::outs() << maxValueExpr << " " << a <<" \n"; 
-            // }
             addConstraint(state, SleExpr::create(argExpr, maxValueExpr));
           }
           isIntArgSigned[argName] = true;
         } else {
           addConstraint(state, UgeExpr::create(argExpr, ConstantExpr::create(0, argExpr->getWidth())));  
-          // ref<ConstantExpr> maxValueExpr;
-          // if (argExpr->getWidth() < 64) {
-          //   maxValueExpr = ConstantExpr::create((1ULL << argExpr->getWidth()) - 1, argExpr->getWidth());      
-          // } else if (argExpr->getWidth() == 64){
-          //   maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64);
-          // }
-          // addConstraint(state, UleExpr::create(argExpr, maxValueExpr));
           isIntArgSigned[argName] = false;
         }
         state.intArgAddBound[argName].second = true;
@@ -6503,25 +6032,12 @@ void Executor::addBoundConstraintForArg(ExecutionState &state, KInstruction *ki)
         ref<Expr> argExpr = state.intArgAddBound[argName].first;
         if (isSigned) {
           if (argExpr->getWidth() <= 64) {
-            // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (argExpr->getWidth()-1), argExpr->getWidth(), true);   
-            // addConstraint(state, SgeExpr::create(argExpr, minValueExpr));  
             ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (argExpr->getWidth()-1)) - 1, argExpr->getWidth());
-            // if (indexExpr->getWidth() == 64) {
-            //   int64_t a = maxValueExpr->getZExtValue();
-            //   llvm::outs() << maxValueExpr << " " << a <<" \n"; 
-            // }
             addConstraint(state, SleExpr::create(argExpr, maxValueExpr));
           }
           isIntArgSigned[argName] = true;
         } else {
           addConstraint(state, UgeExpr::create(argExpr, ConstantExpr::create(0, argExpr->getWidth())));  
-          // ref<ConstantExpr> maxValueExpr;
-          // if (argExpr->getWidth() < 64) {
-          //   maxValueExpr = ConstantExpr::create((1ULL << argExpr->getWidth()) - 1, argExpr->getWidth());      
-          // } else if (argExpr->getWidth() == 64){
-          //   maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64);
-          // }
-          // addConstraint(state, UleExpr::create(argExpr, maxValueExpr));
           isIntArgSigned[argName] = false;
         }
         state.intArgAddBound[argName].second = true;
@@ -6557,27 +6073,13 @@ bool isBinaryOpSigned(Instruction *i){
     }
 
     // check if result flows into signed variable
-    // for (User *U : BO->users()) {
-    //   if (auto *SI = dyn_cast<StoreInst>(U)) {
-    //     Value *Ptr = SI->getPointerOperand();
-    //     std::string varSign = getMD(Ptr, "var.signedness");
 
-    //     if (varSign == "signed") {
-    //         return true;
-    //     }
-    //   }
-    // }
   }
   return false;
 }
 
 void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
   Instruction *i = ki->inst;
-  // if (ki->info->assemblyLine == 138) {
-    // llvm::errs() << "Executing instruction (line " << ki->info->assemblyLine << "): ";
-    // ki->inst->print(llvm::outs());
-    // llvm::errs() << "\n";
-  // }
   if (!isLoopCheck)
     addBoundConstraintForArg(state, ki);
 
@@ -6592,7 +6094,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     
     if (!isVoidReturn) {
       result = eval(ki, 0, state).value;
-      // llvm::outs() << result << "\n";
     }
     
     if (state.stack.size() <= 1) {
@@ -6629,7 +6130,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           // this lpi doesn't handle the exception, continue the search
           unwindToNextLandingpad(state);
         } else {
-          // a clause (or a catch-all clause or filter clause) matches:
           // remember the stack index and switch to clean-up phase
           state.unwindingInformation =
               std::make_unique<CleanupPhaseUnwindingInformation>(
@@ -6637,8 +6137,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
                   sui->unwindingProgress);
           // this pointer is now invalidated
           sui = nullptr;
-          // continue the unwinding process (which will now start with the
-          // cleanup phase)
           unwindToNextLandingpad(state);
         }
 
@@ -6692,20 +6190,10 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       assert(bi->getCondition() == bi->getOperand(0) &&
              "Wrong operand index!");
       
-      // if (trampolineBrs.find(bi) != trampolineBrs.end()) {
-      //   std::vector<ref<Expr>> noArgs;
-      //   specialFunctionHandler->handleOpenMerge(state, ki, noArgs);
-      // }
       
       ref<Expr> cond = eval(ki, 0, state).value;
       cond = optimizer.optimizeExpr(cond, false);
 
-      // if (ki->info->assemblyLine==18481){
-      //   llvm::outs() << "cond " << cond << "\n";
-        // for (auto &con:state.constraints) {
-        //   llvm::outs() << "br con: " << con << "\n";
-        // }
-      // }
       
       BasicBlock *currentBlock = bi->getParent();
       auto it = state.loopInfoMap.find(currentBlock);
@@ -6729,10 +6217,8 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
             replacements[loopInfo->indexExpr] = SExtExpr::create(newIndexExpr, loopInfo->indexExpr->getWidth());
             ref<Expr> newCon = ConstraintManager::replaceReadExpr(loopInfo->cond, replacements);
             addConstraint(state, Expr::createIsZero(newCon));
-            // llvm::outs() << loopInfo->cond << " " << newCon << " " << newIndexExpr << "\n";
           }
           state.loopInfoMap[currentBlock]->indexExpr = nullptr;
-          // terminateStateEarlyUser(state, "symbolic loop second out");
           transferToBasicBlock(bi->getSuccessor(1), bi->getParent(), state);
           break;
         }
@@ -6740,19 +6226,11 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         state.loopInfoMap[currentBlock]->cond = cond;
       } 
       else if (state.loopInfoMap.find(currentBlock)!=state.loopInfoMap.end() && it->second != nullptr){
-      //   if (state.loopInfoMap[currentBlock]->times>3){
-      //     // transferToBasicBlock(bi->getSuccessor(1), bi->getParent(), state);
-      //     state.loopInfoMap[currentBlock]->times = 0;
-      //     checkDataRace(state, state.loopInfoMap[currentBlock]);
-      //     terminateStateEarlyUser(state, "exit symbolic loop");
-      //     break;
-      //   }
         if (state.loopInfoMap[currentBlock]->executedTimes>=loopSymMax){
           state.loopInfoMap[currentBlock]->executedTimes = 0;
           KLoopInfo *loopInfo = state.loopInfoMap[currentBlock];
           checkDataRace(state, loopInfo);
           transferToBasicBlock(bi->getSuccessor(1), bi->getParent(), state);
-          // terminateStateEarlyUser(state, "exit loop");
           break;
         }
       }
@@ -6760,11 +6238,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       Executor::StatePair branches = fork(state, cond, false, BranchType::Conditional);
 
       if (state.loopInfoMap.find(currentBlock)!=state.loopInfoMap.end() && (!state.loopInfoMap[currentBlock]->symbolizeIndex || !state.loopInfoMap[currentBlock]->indexExpr)){
-        // if (branches.first && branches.second) {
-        //   state.loopInfoMap[currentBlock]->times+=1;
-        // } else {
           state.loopInfoMap[currentBlock]->executedTimes+=1;
-        // }
       }
 
       if (it!=state.loopInfoMap.end() && it->second != nullptr && state.loopInfoMap[currentBlock]->indexExpr.isNull() && branches.second) {
@@ -6778,18 +6252,12 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         BasicBlock *backedge = loopInfo->backedge;
         KFunction *kf = state.stack.back().kf;
 
-        // unsigned int numIrs = 0;
-        // for (auto &inst : *backedge) {
-        //   numIrs++;
-        // }
         if (!loopInfo->twoBlocks) {
         for (unsigned i = kf->basicBlockEntry[backedge]; i < kf->numInstructions; ++i) {
           KInstruction *kbinst = kf->instructions[i];
           if (kbinst->inst->getParent() == backedge) {
             if (kbinst->inst->getOpcode() == Instruction::Store) {
-              // kbinst->inst->print(llvm::outs());
               ref<Expr> address = eval(kbinst, 1, state).value;
-              // llvm::outs() << " loopInfo->address " << loopInfo->address << " address " << address << "\n";
               if (address != loopInfo->address) {
                 isLoopCheck = true;
                 executeInstruction(state, kbinst);
@@ -6800,7 +6268,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
               ref<Expr> value = eval(kbinst, 0, state).value;
               ref<Expr> intialVal = loopInfo->initialVal;
               ref<Expr> indexExpr = loopInfo->indexExpr;
-              // llvm::outs() << "indexExpr " << indexExpr << " " << indexExpr->getWidth() << " intialVal " << intialVal << " " << intialVal->getWidth() << " value " << value << " " << value->getWidth() << "\n";
               if (isa<ExtractExpr>(value) || isa<ZExtExpr>(value) || isa<SExtExpr>(value)) {
                 value = value->getKid(0);
               }
@@ -6817,37 +6284,14 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
                 loopInfo->increType = KLoopInfo::IncreType::ADD;
                 
                 ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(SExtExpr::create(SubExpr::create(SExtExpr::create(indexExpr, intialVal->getWidth()), intialVal), increment->getWidth()), increment), ConstantExpr::create(0, increment->getWidth()));
-                // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
                 addConstraint(state, indexConstraint);
               } else if (SubExpr *subExpr = dyn_cast<SubExpr>(value)) {
                 loopInfo->increType = KLoopInfo::IncreType::SUB;
                 loopInfo->increment = subExpr->getKid(1);
                 ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(SExtExpr::create(SubExpr::create(intialVal, SExtExpr::create(indexExpr, intialVal->getWidth())), loopInfo->increment->getWidth()), subExpr->getKid(1)), ConstantExpr::create(0, loopInfo->increment->getWidth()));
-                // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
                 addConstraint(state, indexConstraint);
               } 
-              // else if (MulExpr *mulExpr = dyn_cast<MulExpr>(value)) {
-              //   ref<Expr> op1 = mulExpr->getKid(0);
-              //   ref<Expr> op2 = mulExpr->getKid(1);
-              //   ref<Expr> increment;
-              //   if (op1 == indexExpr) {
-              //     increment = op2;
-              //   } else {
-              //     increment = op1;
-              //   }
 
-              //   ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(UDivExpr::create(indexExpr, intialVal), increment), ConstantExpr::create(0, value->getWidth()));
-              //   // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
-              //   addConstraint(state, indexConstraint);
-              // } else if (UDivExpr *divExpr = dyn_cast<UDivExpr>(value)) {
-              //   ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(indexExpr, divExpr->getKid(1)), ConstantExpr::create(0, value->getWidth()));
-              //   // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
-              //   addConstraint(state, indexConstraint);
-              // } else if (SDivExpr *divExpr = dyn_cast<SDivExpr>(value)) {
-              //   ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(indexExpr, divExpr->getKid(1)), ConstantExpr::create(0, value->getWidth()));
-              //   // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
-              //   addConstraint(state, indexConstraint);
-              // }
               break;
             } else if (kbinst->inst->getOpcode() != Instruction::Br){
               isLoopCheck = true;
@@ -6862,19 +6306,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         for (unsigned i = kf->basicBlockEntry[backedge]; i < kf->numInstructions; ++i) {
           KInstruction *kbinst = kf->instructions[i];
           if (kbinst->inst->getParent() == backedge) {
-            // if (kbinst->inst->getOpcode() == Instruction::Add || kbinst->inst->getOpcode() == Instruction::Sub || kbinst->inst->getOpcode() == Instruction::Mul || kbinst->inst->getOpcode() == Instruction::SDiv || kbinst->inst->getOpcode() == Instruction::UDiv) {
-            //   ref<Expr> left = eval(kbinst, 0, state).value;
-            //   ref<Expr> right = eval(kbinst, 1, state).value;
-            //   // if (!left.isNull() || !right.isNull()) {
-            //   //   llvm::outs() << kbinst->info->assemblyLine << ": ";
-            //   //   kbinst->inst->print(llvm::outs());
-            //   //   llvm::outs() << "\n";
-            //   // }
-            //   if (left.isNull() || right.isNull()) continue;
-            //   isLoopCheck = true;
-            //   executeInstruction(state, kbinst);
-            //   isLoopCheck = false;
-            // } else 
             if (kbinst->inst->getOpcode() == Instruction::Load) {
               ref<Expr> address = eval(kbinst, 0, state).value;
               if (!address.isNull() && address == loopInfo->address) {
@@ -6906,13 +6337,11 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
                 loopInfo->increType = KLoopInfo::IncreType::ADD;
                 
                 ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(SExtExpr::create(SubExpr::create(SExtExpr::create(indexExpr, intialVal->getWidth()), intialVal), increment->getWidth()), increment), ConstantExpr::create(0, increment->getWidth()));
-                // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
                 addConstraint(state, indexConstraint);
               } else if (SubExpr *subExpr = dyn_cast<SubExpr>(value)) {
                 loopInfo->increType = KLoopInfo::IncreType::SUB;
                 loopInfo->increment = subExpr->getKid(1);
                 ref<Expr> indexConstraint = EqExpr::create(SRemExpr::create(SExtExpr::create(SubExpr::create(intialVal, SExtExpr::create(indexExpr, intialVal->getWidth())), loopInfo->increment->getWidth()), subExpr->getKid(1)), ConstantExpr::create(0, loopInfo->increment->getWidth()));
-                // llvm::outs() << "indexConstraint " << indexConstraint << "\n";
                 addConstraint(state, indexConstraint);
               }
             } else if (kbinst->inst->getOpcode() == Instruction::Call) {
@@ -6948,7 +6377,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
 
       // NOTE: There is a hidden dependency here, markBranchVisited
       // requires that we still be in the context of the branch
-      // instruction (it reuses its statistic id). Should be cleaned
       // up with convenient instruction specific data.
       if (statsTracker && state.stack.back().kf->trackCoverage)
         statsTracker->markBranchVisited(branches.first, branches.second);
@@ -6959,11 +6387,8 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           if (state.loopInfoMap.find(pred)!=state.loopInfoMap.end()){
             KLoopInfo *loopInfo = state.loopInfoMap[pred];
             if (loopInfo->symbolizeIndex==true && !loopInfo->indexExpr.isNull() && loopInfo->bodyBlocks.find(bi->getSuccessor(1)) == loopInfo->bodyBlocks.end()) {
-              // llvm::outs() << cond << " " << loopInfo->indexExpr << "\n";
-              // if (Expr::isRelatedWithLoopIndex(cond, loopInfo->indexExpr)){
                 isSymLoop = true;
                 break;
-              // }
             }
           }
         }
@@ -7059,7 +6484,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     ref<Expr> cond = eval(ki, 0, state).value;
     BasicBlock *bb = si->getParent();
 
-    // cond = toUnique(state, cond);
     if (ConstantExpr *CE = dyn_cast<ConstantExpr>(cond)) {
       // Somewhat gross to create these all the time, but fine till we
       // switch to an internal rep.
@@ -7089,23 +6513,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
 
       // Track default branch values
       ref<Expr> defaultValue = ConstantExpr::alloc(1, Expr::Bool);
-      // bool isSetTensorScalarType = false;
-      // SymArrayMemoryObject *symmo = nullptr;
 
-      // // llvm::outs() << cond << "\n";
-      // ref<ReadExpr> readExpr = ReadExpr::extractReadExpr(cond);
-      // if (readExpr) {
-      //   std::string readName = readExpr->updates.root->name;
-      //   std::string suffix = ".scalar_type";
-      //   if (readName.size() >= suffix.size()) {
-      //     if (readName.compare(readName.size() - suffix.size(), suffix.size(), suffix) == 0) {
-      //       std::string tensorName = readName.substr(0, readName.size() - suffix.size());
-      //       if (state.symbolicArrayMap.find(tensorName) != state.symbolicArrayMap.end()) {
-      //         symmo = state.symbolicArrayMap[tensorName];
-      //       }
-      //     }
-      //   }
-      // }
 
       // iterate through all non-default cases but in order of the expressions
       for (std::map<ref<Expr>, BasicBlock *>::iterator
@@ -7115,7 +6523,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         ref<Expr> match = EqExpr::create(cond, it->first);
 
         // skip if case has same successor basic block as default case
-        // (should work even with phi nodes as a switch is a single terminating instruction)
         if (it->second == si->getDefaultDest()) continue;
 
         // Make sure that the default value does not contain this target's value
@@ -7129,25 +6536,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         assert(success && "FIXME: Unhandled solver failure");
         (void) success;
         if (result) {
-          // if (symmo && isa<ConstantExpr>(it->first) && !isa<ConstantExpr>(match)) {
-          //   addConstraint(state, match);
-          //   symmo->scalarType = it->first;
-          //   unsigned size = getTensorTypeBytes(symmo->scalarType);
-          //   // llvm::outs() << it->first << " size " << size << "\n";
-          //   if (size > 0)
-          //     symmo->elementSize = ConstantExpr::create(size, Expr::Int64);
-          //   else if (!symmo->elementSize) {
-          //     std::string elementSizeName = symmo->arrayName->name + ".item_size";
-          //     auto pair = createSizeSymbol(state, elementSizeName);
-          //     ref<Expr> elementSizeExpr = pair.second;
-          //     symmo->elementSize = elementSizeExpr;
-          //     addConstraint(state, UgeExpr::create(elementSizeExpr, ConstantExpr::create(1, elementSizeExpr->getWidth())));
-          //     addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-          //   }
-          //   isSetTensorScalarType = true;
-          //   transferToBasicBlock(it->second, bb, state);
-          //   break;
-          // }
 
           BasicBlock *caseSuccessor = it->second;
 
@@ -7169,8 +6557,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           }
         }
       }
-      // if (isSetTensorScalarType)
-      //   break;
 
       // Check if control could take the default case
       defaultValue = optimizer.optimizeExpr(defaultValue, false);
@@ -7230,9 +6616,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     unsigned numArgs = cb.arg_size();
     Function *f = getTargetFunction(fp);
 
-    // if (ki->info->assemblyLine == 67554) {
-    //   llvm::outs() << "67554" << "\n";
-    // }
 
     // evaluate arguments
     std::vector< ref<Expr> > arguments;
@@ -7339,9 +6722,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
   case Instruction::PHI: {
     ref<Expr> result = eval(ki, state.incomingBBIndex, state).value;
     bindLocal(ki, state, result);
-    // if (ki->info->assemblyLine==17537) {
-    //   llvm::outs() << result << "\n";
-    // }
     break;
   }
 
@@ -7378,12 +6758,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       break;
     }
 
-    // if (ki->info->assemblyLine == 20976) {
-    //   llvm::outs() << "left " << left << " right " << right << " res " << result << "\n";
-      // for (auto con: state.constraints) {
-      //   llvm::outs() << "con: " << con << "\n";
-      // }
-    // }
     std::string arrayName = "";
     const Array *array0 = nullptr;
     ref<Expr> index0 = ConcatExpr::getArrayIndex(left, &array0);
@@ -7399,7 +6773,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       if (state.symbolicArrayMap.find(arrayName) != state.symbolicArrayMap.end()) {
         SymArrayMemoryObject *symmo = state.symbolicArrayMap[arrayName];
         if (symmo->maxVal.isNull()) {
-        // if (!symmo->minVal.isNull() && symmo->maxVal.isNull()) {
           bindLocal(ki, state, result);
           break;
         }
@@ -7411,8 +6784,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     }
 
     if (const llvm::BinaryOperator *binOp = llvm::dyn_cast<llvm::BinaryOperator>(i)) {
-      // bool isSigned = binOp->hasNoSignedWrap();
-      // bool isSigned = !binOp->hasNoUnsignedWrap();
       bool isSigned = isBinaryOpSigned(i);
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         if (isSigned) {
@@ -7430,8 +6801,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       if (resultType->isIntegerTy()) {
         unsigned bitWidth = resultType->getIntegerBitWidth();
         if (bitWidth <= 32) {           
-          // bool isUnsigned = binOp->hasNoUnsignedWrap();
-          // llvm::outs() << "line " << ki->info->assemblyLine << " mul left width " << left->getWidth() << " result bitWidth " << bitWidth << " exprwidth " << result->getWidth() << " result " << result << "\n";
           
           ref<Expr> overflowCheck;
           ref<Expr> maxValueExpr;
@@ -7456,19 +6825,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
 
           ExecutionState *unbound = branches.second;
           if(unbound) {
-            // ref<Expr> modValueExpr = ConstantExpr::create((1ULL << bitWidth), Expr::Int64);
-            // ref<Expr> castVal;
-            // if (isSigned) {
-            //   castVal = SRemExpr::create(realRes, modValueExpr);
-            // } else {
-            //   castVal = URemExpr::create(realRes, modValueExpr);
-            // }
-            // castVal = ExtractExpr::create(castVal, 0, bitWidth);
-            // unbound->io_expr_map[result] = castVal;
-            // // ref<ConstantExpr> negValueExpr = ConstantExpr::alloc((uint64_t)-1, result->getWidth(), true);   
-            // // state.io_expr_map[result] = negValueExpr;
-            // storeBuggyQuery(*unbound, StateTerminationType::Overflow, "integer overflow", ki->info->assemblyLine);
-            // bindLocal(ki, *unbound, castVal);
             terminateStateOnProgramError(*unbound, "integer overflow", StateTerminationType::Overflow);
           }
           break;
@@ -7485,7 +6841,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     ref<Expr> result = SubExpr::create(left, right);
 
     if (const llvm::BinaryOperator *binOp = llvm::dyn_cast<llvm::BinaryOperator>(i)) {
-      // bool isSigned = binOp->hasNoSignedWrap();
       bool isSigned = !binOp->hasNoUnsignedWrap();
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         if (isSigned) {
@@ -7508,12 +6863,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     ref<Expr> right = eval(ki, 1, state).value;
     ref<Expr> result = MulExpr::create(left, right);
     
-    // if (ki->info->assemblyLine==20144){
-    //   llvm::outs() << "left " << left << " right " << right << "\n";
-    //   for (auto &con:state.constraints) {
-    //     llvm::outs() << "br con: " << con << "\n";
-    //   }
-    // }
     if (isLoopCheck) {
       bindLocal(ki, state, result);
       break;
@@ -7534,20 +6883,13 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       if (state.symbolicArrayMap.find(arrayName) != state.symbolicArrayMap.end()) {
         SymArrayMemoryObject *symmo = state.symbolicArrayMap[arrayName];
         if (symmo->maxVal.isNull()) {
-        // if (!symmo->minVal.isNull() && symmo->maxVal.isNull()) {
           bindLocal(ki, state, result);
           break;
         }
       }
-      // if (arrayName.find("temp_storage") != std::string::npos) {
-      //   bindLocal(ki, state, result);
-      //   break;
-      // }
     }
 
     if (const llvm::BinaryOperator *binOp = llvm::dyn_cast<llvm::BinaryOperator>(i)) {
-      // bool isSigned = binOp->hasNoSignedWrap();
-      // bool isSigned = !binOp->hasNoUnsignedWrap();
       bool isSigned = isBinaryOpSigned(i);
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         if (isSigned) {
@@ -7565,20 +6907,12 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       if (resultType->isIntegerTy()) {
         unsigned bitWidth = resultType->getIntegerBitWidth();
         if (bitWidth <= 32) { 
-          // if (isReadArray(state, left) || isReadArray(state, right)) { // do not check for arr content
-          //   bindLocal(ki, state, result);
-          //   break;
-          // }
-          // bool isUnsigned = binOp->hasNoUnsignedWrap();
-          // llvm::outs() << "line " << ki->info->assemblyLine << " mul left width " << left->getWidth() << " result bitWidth " << bitWidth << " exprwidth " << result->getWidth() << " result " << result << "\n";
           
           ref<Expr> overflowCheck;
           ref<Expr> maxValueExpr;
           ref<Expr> realRes;
           if (isSigned) {
             uint64_t maxValue = (1ULL << (bitWidth - 1)) - 1; 
-            // int64_t minValue = -(1LL << (bitWidth - 1)); 
-            // llvm::outs() << "minVal " << minValue << " mask " << ((UINT64_C(-1)) >> (64 - result->getWidth())) << " assert " << bits64::truncateToNBits(minValue, result->getWidth()) << "\n";
             maxValueExpr = ConstantExpr::create(maxValue, Expr::Int64);
             realRes = MulExpr::create(SExtExpr::create(left, Expr::Int64), SExtExpr::create(right, Expr::Int64));
             overflowCheck = SleExpr::create(realRes, maxValueExpr);
@@ -7587,9 +6921,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
             realRes = MulExpr::create(ZExtExpr::create(left, Expr::Int64), ZExtExpr::create(right, Expr::Int64));
             overflowCheck = UleExpr::create(realRes, maxValueExpr);
           }
-          // if (ki->info->assemblyLine==15716){
-          //   llvm::outs() << overflowCheck << "\n";
-          // }
 
           StatePair branches = fork(state, overflowCheck, true, BranchType::Trunc);
           ExecutionState *bound = branches.first;
@@ -7599,19 +6930,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
 
           ExecutionState *unbound = branches.second;
           if(unbound) {
-            // ref<Expr> modValueExpr = ConstantExpr::create((1ULL << bitWidth), Expr::Int64);
-            // ref<Expr> castVal;
-            // if (isSigned) {
-            //   castVal = SRemExpr::create(realRes, modValueExpr);
-            // } else {
-            //   castVal = URemExpr::create(realRes, modValueExpr);
-            // }
-            // castVal = ExtractExpr::create(castVal, 0, bitWidth);
-            // unbound->io_expr_map[result] = castVal;
-            // // ref<ConstantExpr> negValueExpr = ConstantExpr::alloc((uint64_t)-1, result->getWidth(), true);   
-            // // state.io_expr_map[result] = negValueExpr;
-            // storeBuggyQuery(*unbound, StateTerminationType::Overflow, "integer overflow", ki->info->assemblyLine);
-            // bindLocal(ki, *unbound, castVal);
             terminateStateOnProgramError(*unbound, "integer overflow", StateTerminationType::Overflow);
           }
           break;
@@ -7720,11 +7038,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     CmpInst *ci = cast<CmpInst>(i);
     ICmpInst *ii = cast<ICmpInst>(ci);
 
-    // if (ki->info->assemblyLine==13553) {
-    //   ref<Expr> left = eval(ki, 0, state).value;
-    //   ref<Expr> right = eval(ki, 1, state).value;
-    //   llvm::outs() << left << " " << right << "\n";
-    // }
 
     BasicBlock *currentBlock = ci->getParent();
     bool needSymbolic = false;
@@ -7745,74 +7058,8 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     case ICmpInst::ICMP_EQ: {
       ref<Expr> left = eval(ki, 0, state).value;
       ref<Expr> right = eval(ki, 1, state).value;
-      // if (ki->info->assemblyLine==31891) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
 
-      // ref<ReadExpr> read_left = ReadExpr::extractReadExpr(left);
-      // ref<ReadExpr> read_right = ReadExpr::extractReadExpr(right);
-      // if (read_left && read_left->updates.root->name.find("_arg_3.size[0]")!=std::string::npos) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
-      // if (read_right && read_right->updates.root->name.find("_arg_3.size[0]")!=std::string::npos) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
 
-      // if (read_left && isa<ConstantExpr>(right)) {
-      //   std::string readName = read_left->updates.root->name;
-      //   std::string suffix = ".scalar_type";
-      //   if (readName.size() >= suffix.size()) {
-      //     if (readName.compare(readName.size() - suffix.size(), suffix.size(), suffix) == 0) {
-      //       std::string tensorName = readName.substr(0, readName.size() - suffix.size());
-      //       if (state.symbolicArrayMap.find(tensorName) != state.symbolicArrayMap.end()) {
-      //         SymArrayMemoryObject *symmo = state.symbolicArrayMap[tensorName];
-      //         addConstraint(state, EqExpr::create(left, right));
-      //         symmo->scalarType = right;
-      //         unsigned size = getTensorTypeBytes(symmo->scalarType);
-      //         if (size > 0)
-      //           symmo->elementSize = ConstantExpr::create(size, Expr::Int64);
-      //         else if (!symmo->elementSize) {
-      //           std::string elementSizeName = tensorName + ".item_size";
-      //           auto pair = createSizeSymbol(state, elementSizeName);
-      //           ref<Expr> elementSizeExpr = pair.second;
-      //           symmo->elementSize = elementSizeExpr;
-      //           addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-      //         }
-      //         bindLocal(ki, state, ConstantExpr::create(1, Expr::Bool));
-      //         break;
-      //       } else {
-      //         klee_error("compare scalar_type: did not find tensor object");
-      //       }
-      //     }
-      //   }
-      // } else if (read_right && isa<ConstantExpr>(left)) {
-      //   std::string readName = read_right->updates.root->name;
-      //   std::string suffix = ".scalar_type";
-      //   if (readName.size() >= suffix.size()) {
-      //     if (readName.compare(readName.size() - suffix.size(), suffix.size(), suffix) == 0) {
-      //       std::string tensorName = readName.substr(0, readName.size() - suffix.size());
-      //       if (state.symbolicArrayMap.find(tensorName) != state.symbolicArrayMap.end()) {
-      //         SymArrayMemoryObject *symmo = state.symbolicArrayMap[tensorName];
-      //         addConstraint(state, EqExpr::create(left, right));
-      //         symmo->scalarType = left;
-      //         unsigned size = getTensorTypeBytes(symmo->scalarType);
-      //         if (size > 0)
-      //           symmo->elementSize = ConstantExpr::create(size, Expr::Int64);
-      //         else if (!symmo->elementSize) {
-      //           std::string elementSizeName = tensorName + ".item_size";
-      //           auto pair = createSizeSymbol(state, elementSizeName);
-      //           ref<Expr> elementSizeExpr = pair.second;
-      //           symmo->elementSize = elementSizeExpr;
-      //           addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-      //         }
-      //         bindLocal(ki, state, ConstantExpr::create(1, Expr::Bool));
-      //         break;
-      //       } else {
-      //         klee_error("compare scalar_type: did not find tensor object");
-      //       }
-      //     }
-      //   }
-      // }
 
       bool isLarge = true;
       if(isa<ConstantExpr>(left) && isa<ConstantExpr>(right) && needSymbolic) {
@@ -7823,9 +7070,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (leftV < rightV)
           isLarge = false;
 
-        // if (leftV == 139518496870430 || leftV == 139518496870432) {
-        //   llvm::outs() << left << " " << right << "\n";
-        // }
         if (leftV > (1ULL << 31) - 1) {
           bool success;
           ObjectPair op;
@@ -7855,14 +7099,10 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = EqExpr::create(left, right);
-          // llvm::outs() << "eq const expr " << result << "\n";
           bindLocal(ki, state, result);
           break;
         }
@@ -7880,9 +7120,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo, true, loopInfo->initialVal);
           indexExpr = SExtExpr::create(indexExpr, right->getWidth());
           ref<Expr> result;
-          // ref<Expr> constraint;
           if (inductionRes.first==0){
-            // constraint = EqExpr::create(indexExpr, right);
             loopInfo->exitExpr = right;
             result = EqExpr::create(indexExpr, right);
             if (isLarge) {
@@ -7893,7 +7131,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
               addConstraint(state, UleExpr::create(indexExpr, right));
             }
           } else {
-            // constraint = EqExpr::create(indexExpr, left);
             loopInfo->exitExpr = left;
             result = EqExpr::create(indexExpr, left);
             if (isLarge) {
@@ -7904,7 +7141,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
               addConstraint(state, UleExpr::create(indexExpr, right));
             }
           }
-          // addConstraint(state, constraint);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -7913,7 +7149,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       }
 
       ref<Expr> result = EqExpr::create(left, right);
-      // llvm::outs() << left << " " << right << " " << result << "\n";
       bindLocal(ki, state, result);
       break;
     }
@@ -7922,8 +7157,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       ref<Expr> left = eval(ki, 0, state).value;
       ref<Expr> right = eval(ki, 1, state).value;
 
-      // if (ki->info->assemblyLine == 23199)
-      //   llvm::outs() << left << " " << right << "\n";
       bool isLarge = true;
       if(isa<ConstantExpr>(left) && isa<ConstantExpr>(right) && needSymbolic) {
         auto leftCE = dyn_cast<ConstantExpr>(left);
@@ -7936,10 +7169,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax || (rightV && leftV)) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = NeExpr::create(left, right);
@@ -7981,7 +7211,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
               addConstraint(state, UleExpr::create(indexExpr, right));
             }
           }
-          // addConstraint(state, constraint);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8006,10 +7235,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = UgtExpr::create(left, right);
@@ -8025,27 +7251,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo);
           indexExpr = ZExtExpr::create(indexExpr, right->getWidth());
           ref<Expr> result;
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = false;
             result = UgtExpr::create(indexExpr, right);
             addConstraint(state, UleExpr::create(indexExpr, left));
-            // rangeMin = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, left->getWidth()));;
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = false;
             result = UgtExpr::create(left, indexExpr);
             addConstraint(state, UgeExpr::create(indexExpr, right));
-            // rangeMin = right;
-            // rangeMax = left;
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, false, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state,result);
@@ -8071,10 +7290,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = UgeExpr::create(left, right);
@@ -8087,8 +7303,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         auto inductionRes = findInductionVariable(state, i, loopInfo);
         if (inductionRes.second) {
           const MemoryObject *mo = inductionRes.second;
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo);
           indexExpr = ZExtExpr::create(indexExpr, right->getWidth());
@@ -8098,19 +7312,14 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
             loopInfo->isSigned = false;
             result = UgeExpr::create(indexExpr, right);
             addConstraint(state, UleExpr::create(indexExpr, left));
-            // rangeMin = right;
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, right->getWidth()));
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = false;
             result = UgeExpr::create(left, indexExpr);
             addConstraint(state, UgeExpr::create(indexExpr, right));
-            // rangeMin = right;
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, right->getWidth()));;
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, false, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8126,9 +7335,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       ref<Expr> left = eval(ki, 0, state).value;
       ref<Expr> right = eval(ki, 1, state).value;
 
-      // if (ki->info->assemblyLine==37148) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
 
       if(isa<ConstantExpr>(left) && isa<ConstantExpr>(right)) {
         auto leftCE = dyn_cast<ConstantExpr>(left);
@@ -8139,10 +7345,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = UltExpr::create(left, right);
@@ -8158,27 +7361,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo);
           indexExpr = ZExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = false;
             result = UltExpr::create(indexExpr, right);
             addConstraint(state, UgeExpr::create(indexExpr, left));
-            // rangeMin = left;
-            // rangeMax = right;
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = false;
             result = UltExpr::create(left, indexExpr);
             addConstraint(state, UleExpr::create(indexExpr, right));
-            // rangeMin = AddExpr::create(left, ConstantExpr::create(1, left->getWidth()));
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, false, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8193,9 +7389,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     case ICmpInst::ICMP_ULE: {
       ref<Expr> left = eval(ki, 0, state).value;
       ref<Expr> right = eval(ki, 1, state).value;
-      // if (ki->info->assemblyLine==359319) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
 
       if(isa<ConstantExpr>(left) && isa<ConstantExpr>(right)) {
         auto leftCE = dyn_cast<ConstantExpr>(left);
@@ -8206,10 +7399,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = UleExpr::create(left, right);
@@ -8225,27 +7415,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo);
           indexExpr = ZExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = false;
             result = UleExpr::create(indexExpr, right);
             addConstraint(state, UgeExpr::create(indexExpr, left));
-            // rangeMin = left;
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = false;
             result = UleExpr::create(left, indexExpr);
             addConstraint(state, UleExpr::create(indexExpr, right));
-            // rangeMin = left;
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));;
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, false, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8267,10 +7450,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         rightCE->setSigned(true);
       }
 
-      // if (ki->info->assemblyLine==15485) {
-      //   llvm::outs() << state.id << ": " << left << " " << right << "\n";
-      //   llvm::outs() << state.loopInfoMap[currentBlock]->times << " " << state.loopInfoMap[currentBlock]->symbolizeIndex << " " << needSymbolic << "\n";
-      // }
 
       if(isa<ConstantExpr>(left) && isa<ConstantExpr>(right)) {
         auto leftCE = dyn_cast<ConstantExpr>(left);
@@ -8281,10 +7460,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = SgtExpr::create(left, right);
@@ -8297,33 +7473,23 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         auto inductionRes = findInductionVariable(state, i, loopInfo);
         if (inductionRes.second) {
           const MemoryObject *mo = inductionRes.second;
-          // if (ki->info->assemblyLine==15485) {
-          //   llvm::outs() << mo->address << " " << loopInfo->indexName << "\n";
-          // }
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo, true);
           indexExpr = SExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = true;
             result = SgtExpr::create(indexExpr, right);
             addConstraint(state, SleExpr::create(indexExpr, left));
-            // rangeMin = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, left->getWidth()));;
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = true;
             result = SgtExpr::create(left, indexExpr);
             addConstraint(state, SgeExpr::create(indexExpr, right));
-            // rangeMin = right;
-            // rangeMax = left;
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, true, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8354,10 +7520,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = SgeExpr::create(left, right);
@@ -8373,28 +7536,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo, true);
           indexExpr = SExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = true;
             result = SgeExpr::create(indexExpr, right);
             addConstraint(state, SleExpr::create(indexExpr, left));
-            // rangeMin = right;
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, right->getWidth()));
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = true;
             result = SgeExpr::create(left, indexExpr);
             addConstraint(state, SgeExpr::create(indexExpr, right));
-            // rangeMin = right;
-            // rangeMax = AddExpr::create(left, ConstantExpr::create(1, right->getWidth()));;
           }
-          // llvm::outs() << "induction " << inductionRes.first << " rangeMin " << rangeMin << " rangeMax " << rangeMax << " mo->size " << mo->size << "\n";
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, true, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8409,9 +7564,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     case ICmpInst::ICMP_SLT: {
       ref<Expr> left = eval(ki, 0, state).value;
       ref<Expr> right = eval(ki, 1, state).value;
-      // if (ki->info->assemblyLine==9267) {
-      //   llvm::outs() << left << " " << right << "\n";
-      // }
 
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         leftCE->setSigned(true);
@@ -8429,10 +7581,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = SltExpr::create(left, right);
@@ -8448,27 +7597,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo, true);
           indexExpr = SExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = true;
             result = SltExpr::create(indexExpr, right);
             addConstraint(state, SgeExpr::create(indexExpr, left));
-            // rangeMin = left;
-            // rangeMax = right;
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = true;
             result = SltExpr::create(left, indexExpr);
             addConstraint(state, SleExpr::create(indexExpr, right));
-            // rangeMin = AddExpr::create(left, ConstantExpr::create(1, left->getWidth()));
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
           }
 
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, true, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8499,10 +7641,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (std::abs(rightV-leftV) <= loopSymMax) {
           auto it = state.loopInfoMap.find(currentBlock);
           if (it != state.loopInfoMap.end() && it->second != nullptr) {
-            // delete it->second;
-            // state.loopInfoMap.erase(currentBlock);
             it->second->indexExpr = nullptr;
-            // it->second->symbolizeIndex = false;
           }
           
           ref<Expr> result = SleExpr::create(left, right);
@@ -8518,28 +7657,20 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<Expr> result;
           ref<Expr> indexExpr = symbolizeIndex(state, loopInfo->indexName, mo, true);
           indexExpr = SExtExpr::create(indexExpr, right->getWidth());
-          // ref<Expr> rangeMin;
-          // ref<Expr> rangeMax;
           if (inductionRes.first==0){
             loopInfo->initialVal = left;
             loopInfo->exitExpr = right;
             loopInfo->isSigned = true;
             result = SleExpr::create(indexExpr, right);
             addConstraint(state, SgeExpr::create(indexExpr, left));
-            // rangeMin = left;
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));
           } else {
             loopInfo->initialVal = right;
             loopInfo->exitExpr = left;
             loopInfo->isSigned = true;
             result = SleExpr::create(left, indexExpr);
             addConstraint(state, SleExpr::create(indexExpr, right));
-            // rangeMin = left;
-            // rangeMax = AddExpr::create(right, ConstantExpr::create(1, right->getWidth()));;
           }
 
-          // llvm::outs() << "induction " << inductionRes.first << " rangeMin " << rangeMin << " rangeMax " << rangeMax << " mo->size " << mo->size << "\n";
-          // ref<Expr> indexExpr = createIndexRangeExpr(state, loopInfo->indexName, left->getWidth()/8, false, rangeMin, rangeMax, true, mo);
           loopInfo->indexExpr = indexExpr;
           loopInfo->address = mo->getBaseExpr();
           bindLocal(ki, state, result);
@@ -8569,9 +7700,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       count = Expr::createZExtToPointerWidth(count);
       size = MulExpr::create(size, count);
     }
-    // if (ki->info->assemblyLine==63862) {
-    //   llvm::outs() << size << "\n";
-    // }
     executeAlloc(state, size, true, ki);
     break;
   }
@@ -8613,9 +7741,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
   case Instruction::Store: {    
     ref<Expr> base = eval(ki, 1, state).value;
     ref<Expr> value = eval(ki, 0, state).value;
-    // if (ki->info->assemblyLine==131337) {
-    //   llvm::outs() << "base " << base << " value " << value << " width " << value->getWidth() << "\n";
-    // }
     llvm::Type *valType = ki->inst->getOperand(0)->getType();
     if (valType->isPointerTy() && isLoopCheck) {
       break;
@@ -8685,7 +7810,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
               if (op0.first->name.empty() || op0.first->name!=symName || state.symbolicArrayMap.find(symName)==state.symbolicArrayMap.end() || !op0.second->hasArray()) {
                 op0.first->setName(symName);
                 ref<Expr> memSizeExpr = state.kernelConfig.getSharedMemSize();
-                // llvm::outs() << "sharedMemSizeExpr " << memSizeExpr << "\n";
                 int size = op0.first->size;
                 if (auto memSizeCE = dyn_cast<ConstantExpr>(memSizeExpr)) {
                   if (memSizeCE->getZExtValue() == 0) {
@@ -8718,9 +7842,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     KGEPInstruction *kgepi = static_cast<KGEPInstruction*>(ki);
     ref<Expr> base = eval(ki, 0, state).value;
     ref<Expr> original_base = base;
-    // if (ki->info->assemblyLine==18449) {
-    //   llvm::outs() << base << "\n";
-    // }
 
     ref<Expr> mo_base_address;
     if (isa<ConstantExpr>(base)) {
@@ -8744,7 +7865,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
             if (op0.first->name.empty() || op0.first->name!=symName || state.symbolicArrayMap.find(symName)==state.symbolicArrayMap.end() || !op0.second->hasArray()) {
               op0.first->setName(symName);
               ref<Expr> memSizeExpr = state.kernelConfig.getSharedMemSize();
-              // llvm::outs() << "sharedMemSizeExpr " << memSizeExpr << "\n";
               int size = op0.first->size;
               if (auto memSizeCE = dyn_cast<ConstantExpr>(memSizeExpr)) {
                 if (memSizeCE->getZExtValue() == 0) {
@@ -8785,14 +7905,9 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
          it != ie; ++it) {
       uint64_t elementSize = it->second;
       ref<Expr> index = eval(ki, it->first, state).value;
-      // base = AddExpr::create(base,
-      //                         MulExpr::create(Expr::createZExtToPointerWidth(index),
-      //                                         Expr::createPointer(elementSize)));
       base = AddExpr::create(base,
                              MulExpr::create(Expr::createSExtToPointerWidth(index),
                                              Expr::createPointer(elementSize)));
-      // if (ki->info->assemblyLine==23298) 
-      //   llvm::outs() << "elementSize " << elementSize << " index " << index << " base " << base << "\n";
     }
     if (kgepi->offset)
       base = AddExpr::create(base,
@@ -8813,8 +7928,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
           ref<ConstantExpr> r =
               ConstantExpr::alloc(op.first->address, Expr::Int64);
           state.base_addrs[base] = r;
-          // if (ki->info->assemblyLine==17835||ki->info->assemblyLine==17844)
-          //   llvm::outs() << "geteleptr base_mos[" << op.first->address << "]= " << base << "; base_addrs[" << base << "]= " << r << "\n";
         } else {
           // this case should not happen - we have a GEP instruction with const
           // base address, so we should be able to find an exact memory object
@@ -8828,16 +7941,8 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         if (base_it != state.base_addrs.end()) {
           // we need to update the current entry with a new value
           uint64_t address = base_it->second->getZExtValue();
-          // auto refs_it = state.base_mos[address].find(base_it->first);
-          // if (refs_it != state.base_mos[address].end()) {
-          //   state.base_mos[address].erase(refs_it);
-          // }
           state.base_mos[address].insert(base);
           state.base_addrs[base] = base_it->second;
-          // llvm::outs() << address << " " << base << " " << base_it->second << "\n";
-          // state.base_addrs.erase(base_it->first);
-          // if (ki->info->assemblyLine==17835||ki->info->assemblyLine==17844)
-          //   llvm::outs() << "geteleptr base_mos[" << address << "] insert " << base << "; base_addrs[" << base << "]= " << base_it->second << "\n";
         }
       }
     }
@@ -8855,73 +7960,13 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
                                            getWidthForLLVMType(ci->getType()));
     Type *srcType = ci->getSrcTy();
     Type *destType = ci->getDestTy();
-    // if (ki->info->assemblyLine == 1127) {
-    //   llvm::outs() << "trunc srcValue " << srcValue << " result " << result << "\n";
-    //   for (auto con: state.constraints) {
-    //     llvm::outs() << "con: " << con << "\n";
-    //   }
-    // }
 
-    // if (!srcType->isIntegerTy() || !destType->isIntegerTy() || destType->getIntegerBitWidth() >= 64 || isa<ConstantExpr>(srcValue) || isLoopCheck) {
       bindLocal(ki, state, result);
-    //   break; // Not an integer truncation, no need to check for overflow
-    // }
 
-    // unsigned destBitWidth = destType->getIntegerBitWidth();
-    // ref<Expr> minValueCheck;
-    // ref<Expr> maxValueCheck;
-    // ref<ReadExpr> readArg = ReadExpr::extractReadExpr(srcValue);
-    // if (readArg && readArg->updates.root && !readArg->updates.root->name.empty()) {
-    //   std::string argName = readArg->updates.root->name;
-    //   if (isIntArgSigned.find(argName) != isIntArgSigned.end()) {
-    //     if (isIntArgSigned[argName]) {
-    //       // if (destBitWidth <= 64) {
-    //         // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(-(1LL << (destBitWidth-1)), srcValue->getWidth());   
-    //         ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << (destBitWidth-1)) - 1, srcValue->getWidth());
-    //         // minValueCheck = SgeExpr::create(srcValue, minValueExpr);
-    //         maxValueCheck = SleExpr::create(srcValue, maxValueExpr);
-    //         minValueCheck = ConstantExpr::create(1, Expr::Bool);
-    //         // int64_t val = minValueExpr->getZExtValue();
-    //         // llvm::outs() << minValueExpr << " " << val << "\n";
-    //       // }
-    //     } else {
-    //       ref<Expr> minValueExpr = ConstantExpr::create(0, srcValue->getWidth());
-    //       ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << destBitWidth) - 1, srcValue->getWidth()); 
-    //       minValueCheck = UgeExpr::create(srcValue, minValueExpr);
-    //       maxValueCheck = UleExpr::create(srcValue, maxValueExpr);
-    //     }
-    //   }
-    // }
 
-    // ref<Expr> overflowCheck;
-    // if(!minValueCheck && !maxValueCheck) {
-    //   if (destBitWidth == 1)
-    //     overflowCheck = AndExpr::create(UgeExpr::create(srcValue, ConstantExpr::create(0, srcValue->getWidth())), UleExpr::create(srcValue, ConstantExpr::create(1, srcValue->getWidth())));
     //   else
-    //     overflowCheck = UleExpr::create(srcValue, ConstantExpr::create((1ULL << destBitWidth) - 1, srcValue->getWidth()));
-    // } else
-    //   overflowCheck = AndExpr::create(minValueCheck, maxValueCheck);
-    // // if (ki->info->assemblyLine == 24071)
-    // //   llvm::outs() << destBitWidth << " trunc srcValue" << srcValue << " result " << result << " overflowCheck " << overflowCheck << "\n";
 
-    // StatePair branches = fork(state, overflowCheck, true, BranchType::Trunc);
-    // ExecutionState *bound = branches.first;
-    // if (bound) {
-    //   bindLocal(ki, state, result);
-    // }
 
-    // ExecutionState *unbound = branches.second;
-    // if(unbound) {
-    //   // ref<Expr> modValueExpr = ConstantExpr::create((1ULL << destBitWidth), srcValue->getWidth());
-    //   // ref<Expr> castVal = SRemExpr::create(srcValue, modValueExpr);
-    //   // castVal = ExtractExpr::create(castVal, 0, destBitWidth);
-    //   // unbound->io_expr_map[result] = castVal;
-    //   // // ref<ConstantExpr> negValueExpr = ConstantExpr::alloc((uint64_t)-1, result->getWidth(), true);   
-    //   // // state.io_expr_map[result] = negValueExpr;
-    //   // storeBuggyQuery(*unbound, StateTerminationType::Overflow, "integer overflow", ki->info->assemblyLine);
-    //   // bindLocal(ki, *unbound, castVal);
-    //   terminateStateOnProgramError(*unbound, "integer overflow", StateTerminationType::Overflow);
-    // }
     break;
   }
   case Instruction::ZExt: {
@@ -8958,9 +8003,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     ref<Expr> result = eval(ki, 0, state).value;
     bindLocal(ki, state, result);
 
-    // if (ki->info->assemblyLine==15961 || ki->info->assemblyLine==15995) {
-    //   llvm::outs() << result << "\n";
-    // }
 
     llvm::BitCastInst *BCI = cast<llvm::BitCastInst>(i);
     bool success;
@@ -8999,9 +8041,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         }
         if (elementSize) {
           ref<ConstantExpr> elementSizeExpr = ConstantExpr::create(elementSize, Expr::Int64, false);
-          // if (symmo->elementSize && !isa<ConstantExpr>(symmo->elementSize)) {
-          //   addConstraint(state, EqExpr::create(ZExtExpr::create(symmo->elementSize, Expr::Int64), elementSizeExpr));
-          // }
           symmo->elementSize = elementSizeExpr;
         }
       }
@@ -9136,8 +8175,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         CE->setIsFloat(true);
       }
       ref<Expr> cond = NeExpr::create(right, ConstantExpr::create(0, right->getWidth()));
-      // addConstraint(state, cond);
-      // bindLocal(ki, state, SDivExpr::create(left, right));
 
       if (isLoopCheck) {
         bindLocal(ki, state, SDivExpr::create(left, right));
@@ -9177,7 +8214,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       if (auto CE = dyn_cast<ConstantExpr>(right)) {
         CE->setIsFloat(true);
       }
-      // bindLocal(ki, state, FRemExpr::create(left, right));
       bindLocal(ki, state, SRemExpr::create(left, right));
     }
     break;
@@ -9315,7 +8351,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       return terminateStateOnExecError(state, "Unsupported SIToFP operation");
 
     ref<Expr> arg = eval(ki, 0, state).value;
-    // llvm::outs() << arg << "\n";
     if (isa<ConstantExpr>(arg)) {
       ref<ConstantExpr> arg_constant = toConstant(state, arg,
                                        "floating point");
@@ -9458,7 +8493,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
         result = UltExpr::create(firstArg, secondArg);
         break;
       case FCmpInst::FCMP_OLT:
-        // llvm::outs() << "FCMP_OLT firstArg: " << firstArg << " secondArg: " << secondArg << "\n";
         result = SltExpr::create(firstArg, secondArg);
         break;
 
@@ -9675,7 +8709,6 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
       selectorValue = ConstantExpr::create(0, Expr::Int32);
     }
 
-    // we have to return a {i8*, i32}
     ref<Expr> result = ConcatExpr::create(
         ZExtExpr::create(selectorValue, Expr::Int32), exceptionPointer);
 
@@ -9856,8 +8889,6 @@ void Executor::bindModuleConstants() {
 bool Executor::checkMemoryUsage() {
   if (!MaxMemory) return true;
 
-  // We need to avoid calling GetTotalMallocUsage() often because it
-  // is O(elts on freelist). This is really bad since we start
   // to pummel the freelist once we hit the memory cap.
   if ((stats::instructions & 0xFFFFU) != 0) // every 65536 instructions
     return true;
@@ -9870,7 +8901,6 @@ bool Executor::checkMemoryUsage() {
   if (!atMemoryLimit)
     return true;
 
-  // only terminate states when threshold (+100MB) exceeded
   if (totalUsage <= MaxMemory + 100)
     return true;
 
@@ -9941,16 +8971,6 @@ void Executor::run(ExecutionState &initialState) {
       stepInstruction(state);
 
       executeInstruction(state, ki);
-      // Instruction *i = ki->inst;
-      // bool isCloseMergeIr = std::any_of(trampolineBrs.begin(), trampolineBrs.end(),
-      //                   [i](const auto &pair) {
-      //                       return pair.second == i;
-      //                   });
-      // if (isCloseMergeIr) {
-      //   std::vector<ref<Expr>> noArgs;
-      //   specialFunctionHandler->handleCloseMerge(state, ki, noArgs);
-      // }
-      // timers.invoke();
       if (::dumpStates) dumpStates();
       if (::dumpExecutionTree)
         dumpExecutionTree();
@@ -10000,25 +9020,10 @@ void Executor::run(ExecutionState &initialState) {
     stepInstruction(state);
 
     executeInstruction(state, ki);
-    // Instruction *i = ki->inst;
-    // bool isCloseMergeIr = std::any_of(trampolineBrs.begin(), trampolineBrs.end(),
-    //                   [i](const auto &pair) {
-    //                       return pair.second == i;
-    //                   });
-    // if (isCloseMergeIr) {
-    //   std::vector<ref<Expr>> noArgs;
-    //   specialFunctionHandler->handleCloseMerge(state, ki, noArgs);
-    // }  
-    // timers.invoke();
     if (::dumpStates) dumpStates();
     if (::dumpExecutionTree)
       dumpExecutionTree();
     
-    // if ((ki->info->assemblyLine > 950 && ki->info->assemblyLine < 1000) || (ki->info->assemblyLine > 634 && ki->info->assemblyLine < 700)) {
-    //   llvm::errs() << "Executing instruction (line " << ki->info->assemblyLine << "): ";
-    //   ki->inst->print(llvm::errs());
-    //   llvm::errs() << "\n";
-    // }
 
     updateStates(&state);
 
@@ -10132,10 +9137,7 @@ static std::string terminationTypeFileExtension(StateTerminationType type) {
 
 void Executor::terminateStateOnExit(ExecutionState &state) {
   ++stats::terminationExit;
-  // if (shouldWriteTest(state) || (AlwaysOutputSeeds && seedMap.count(&state)))
-  //   interpreterHandler->processTestCase(
   //       state, nullptr,
-  //       terminationTypeFileExtension(StateTerminationType::Exit).c_str());
 
   interpreterHandler->incPathsCompleted();
   terminateState(state, StateTerminationType::Exit);
@@ -10148,12 +9150,6 @@ void Executor::terminateStateEarly(ExecutionState &state, const Twine &message,
     ++stats::terminationEarly;
   }
 
-  // if ((reason <= StateTerminationType::EARLY && shouldWriteTest(state)) ||
-  //     (AlwaysOutputSeeds && seedMap.count(&state))) {
-  //   interpreterHandler->processTestCase(
-  //       state, (message + "\n").str().c_str(),
-  //       terminationTypeFileExtension(reason).c_str());
-  // }
 
   terminateState(state, reason);
 }
@@ -10180,7 +9176,6 @@ const InstructionInfo & Executor::getLastNonKleeInternalInstruction(const Execut
   ExecutionState::stack_ty::const_reverse_iterator it = state.stack.rbegin(),
       itE = state.stack.rend();
 
-  // don't check beyond the outermost function (i.e. main())
   itE--;
 
   const InstructionInfo * ii = 0;
@@ -10188,7 +9183,6 @@ const InstructionInfo & Executor::getLastNonKleeInternalInstruction(const Execut
     ii =  state.prevPC->info;
     *lastInstruction = state.prevPC->inst;
     //  Cannot return yet because even though
-    //  it->function is not an internal function it might of
     //  been called from an internal function.
   }
 
@@ -10261,10 +9255,6 @@ void Executor::terminateStateOnError(ExecutionState &state,
     if (!info_str.empty())
       msg << "Info: \n" << info_str;
 
-    // const std::string ext = terminationTypeFileExtension(terminationType);
-    // // use user provided suffix from klee_report_error()
-    // const char * file_suffix = suffix ? suffix : ext.c_str();
-    // interpreterHandler->processTestCase(state, msg.str().c_str(), file_suffix);
   }
 
   terminateState(state, terminationType);
@@ -10295,7 +9285,6 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
     const StackFrame &lastFrame = state.stack.back();
     if (lastFrame.caller) {
       if (auto *callerki = dyn_cast<KInstruction>(&*lastFrame.caller)) {
-        // llvm::outs() << "Call site instruction: " << callerki->inst << "\n";
         callerAsmLine = callerki->info->assemblyLine;
         if (sourceLine > 0)
           callerSourceLine = callerki->info->line;
@@ -10340,7 +9329,6 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
   }
 
   filename+="_"+bugType;
-  // llvm::outs() << outputDir << "\n";
 
   std::filesystem::path path = outputDir+"/"+filename+".txt";
   unsigned id = 1;
@@ -10354,7 +9342,6 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
 
   std::string queryStr;
   getConstraintLog(state, queryStr, Interpreter::LogType::STP);
-  // llvm::outs() << queryStr << "\n";
 
   std::string error;
   std::unique_ptr<llvm::raw_fd_ostream> dumpedQueriesFile = klee_open_output_file(outputDir+"/"+filename+".txt", error);
@@ -10369,19 +9356,6 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
   *dumpedQueriesFile << "(reset)\n";
   *dumpedQueriesFile << "; end Z3 query\n\n";
 
-  // for (unsigned i = 0; i != state.symbolics.size(); ++i) {
-  //   if (state.symbolics[i].second->name.find("_arg_", 0) == 0) {
-  //     std::string name = state.symbolics[i].second->name;
-  //     if (state.symbolicArrayMap.find(name)!=state.symbolicArrayMap.end() || state.tensorSizesMap.find(name)!=state.tensorSizesMap.end()) {
-  //       continue;
-  //     }
-  //     ref<Expr> varExpr = Expr::createTempRead(state.symbolics[i].second, state.symbolics[i].second->size*8);
-  //     std::pair<ref<Expr>, ref<Expr>> res =
-  //         solver->getRange(state.constraints, varExpr, state.queryMetaData);
-  //         *dumpedQueriesFile << name << " range: [" << res.first << ", " << res.second <<"]\n";
-  //       llvm::outs() << name << " range: [" << res.first << ", " << res.second <<"]\n";
-  //   }
-  // }
   
   dumpedQueriesFile->flush();
 }
@@ -10448,36 +9422,6 @@ unsigned Executor::getTypeBits(llvm::Type *returnType) {
 }
 
 // https://github.com/pytorch/pytorch/blob/main/c10/core/ScalarType.h
-// _(uint8_t, Byte) /* 0 */                               \
-//   _(int8_t, Char) /* 1 */                                \
-//   _(int16_t, Short) /* 2 */                              \
-//   _(int, Int) /* 3 */                                    \
-//   _(int64_t, Long) /* 4 */                               \
-//   _(at::Half, Half) /* 5 */                              \
-//   _(float, Float) /* 6 */                                \
-//   _(double, Double) /* 7 */                              \
-//   _(c10::complex<c10::Half>, ComplexHalf) /* 8 */        \
-//   _(c10::complex<float>, ComplexFloat) /* 9 */           \
-//   _(c10::complex<double>, ComplexDouble) /* 10 */        \
-//   _(bool, Bool) /* 11 */                                 \
-//   _(c10::qint8, QInt8) /* 12 */                          \
-//   _(c10::quint8, QUInt8) /* 13 */                        \
-//   _(c10::qint32, QInt32) /* 14 */                        \
-//   _(at::BFloat16, BFloat16) /* 15 */                     \
-//   _(c10::quint4x2, QUInt4x2) /* 16 */                    \
-//   _(c10::quint2x4, QUInt2x4) /* 17 */                    \
-//   _(c10::bits1x8, Bits1x8) /* 18 */                      \
-//   _(c10::bits2x4, Bits2x4) /* 19 */                      \
-//   _(c10::bits4x2, Bits4x2) /* 20 */                      \
-//   _(c10::bits8, Bits8) /* 21 */                          \
-//   _(c10::bits16, Bits16) /* 22 */                        \
-//   _(c10::Float8_e5m2, Float8_e5m2) /* 23 */              \
-//   _(c10::Float8_e4m3fn, Float8_e4m3fn) /* 24 */          \
-//   _(c10::Float8_e5m2fnuz, Float8_e5m2fnuz) /* 25 */      \
-//   _(c10::Float8_e4m3fnuz, Float8_e4m3fnuz) /* 26 */      \
-//   _(uint16_t, UInt16) /* 27 */                           \
-//   _(uint32_t, UInt32) /* 28 */                           \
-//   _(uint64_t, UInt64) /* 29 */          
 unsigned Executor::getTensorTypeBytes(ref<Expr> scalarType) {
   unsigned size = 0;
   if (auto typeCE = dyn_cast<ConstantExpr>(scalarType)) {
@@ -10541,24 +9485,6 @@ ref<Expr> Executor::getScalarTypeByStr(std::string typeStr) {
   return nullptr;
 }
 
-// CUDA_ACC_TYPE(BFloat16, float)
-// CUDA_ACC_TYPE(Half, float)
-// CUDA_ACC_TYPE(Float8_e5m2, float)
-// CUDA_ACC_TYPE(Float8_e4m3fn, float)
-// CUDA_ACC_TYPE(Float8_e5m2fnuz, float)
-// CUDA_ACC_TYPE(Float8_e4m3fnuz, float)
-// CUDA_ACC_TYPE(float, float)
-// CUDA_ACC_TYPE(double, double)
-// CUDA_ACC_TYPE(int8_t, int64_t)
-// CUDA_ACC_TYPE(uint8_t, int64_t)
-// CUDA_ACC_TYPE(char, int64_t)
-// CUDA_ACC_TYPE(int16_t, int64_t)
-// CUDA_ACC_TYPE(int32_t, int64_t)
-// CUDA_ACC_TYPE(int64_t, int64_t)
-// CUDA_ACC_TYPE(bool, bool)
-// CUDA_ACC_TYPE(c10::complex<Half>, c10::complex<float>)
-// CUDA_ACC_TYPE(c10::complex<float>, c10::complex<float>)
-// CUDA_ACC_TYPE(c10::complex<double>, c10::complex<double>)
 ref<Expr> Executor::getAccumalateTensorType(ref<Expr> scalarType) {
   unsigned acutype = 0;
   if (auto typeCE = dyn_cast<ConstantExpr>(scalarType)) {
@@ -10656,7 +9582,6 @@ void Executor::computeTensorIteratorShape(ExecutionState &state) {
         if (dimA >= 0 && dimB >= 0) {
           ref<Expr> sizeA = state.inputIterator->shape[dimA];
           ref<Expr> sizeB = symmo->dimensionSize[dimB];
-          // sizeA == sizeB || sizeA == 1 || sizeB == 1
           addConstraint(state, OrExpr::create(OrExpr::create(EqExpr::create(sizeA, ZExtExpr::create(sizeB, sizeA->getWidth())), EqExpr::create(sizeB, ConstantExpr::create(1, sizeB->getWidth()))), EqExpr::create(sizeA, ConstantExpr::create(1, sizeA->getWidth()))));
           ref<Expr> finalDimSize = SelectExpr::create(EqExpr::create(sizeA, ConstantExpr::create(1, sizeA->getWidth())), ZExtExpr::create(sizeB, sizeA->getWidth()), sizeA);
           state.inputIterator->shape[i] = finalDimSize;
@@ -10692,11 +9617,6 @@ void Executor::computeTensorIteratorStrides(ExecutionState &state, SymArrayMemor
     for (int i = shapeSize - 1; i >= 0; i--) {
       if (symmo->dimensionSize.find(i) == symmo->dimensionSize.end()) {
         std::string sizeName = symmo->arrayName->name + ".size[" + std::to_string(i)+"]";
-        // MemoryObject *sizeMo =
-        //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-        //                   &state, /*allocSite=*/state.prevPC->inst,
-        //                   /*alignment=*/8);          
-        // ref<Expr> dimSize = symbolizeIndex(state, sizeName, sizeMo);
         auto sizepair = createSizeSymbol(state, sizeName);
         ref<Expr> dimSize = sizepair.second; 
         addConstraint(state, UgeExpr::create(dimSize, ConstantExpr::create(1, dimSize->getWidth())));
@@ -10716,11 +9636,6 @@ void Executor::computeTensorIteratorStrides(ExecutionState &state, SymArrayMemor
     } else {
       cond = AndExpr::create(EqExpr::create(symmo->dimensionSize[i], ConstantExpr::create(1, symmo->dimensionSize[i]->getWidth())), NeExpr::create(state.inputIterator->shape[offset + i], ConstantExpr::create(1, state.inputIterator->shape[offset + i]->getWidth())));
     }
-    // if (original_shape[i] == 1 && shape_[offset + i] !=1) {
-    //   op.stride_bytes[offset + i] = 0;
-    // } else {
-    //   op.stride_bytes[offset + i] = original_stride[i] * element_size_in_bytes;
-    // }
     symmo->strides_bytes[offset + i] = SelectExpr::create(cond, stride0, stride1);
   }
 }
@@ -10811,7 +9726,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     unsigned width = getTypeBits(returnType);
     if (llvm::CallInst *CI = llvm::dyn_cast<llvm::CallInst>(target->inst)) {
       if (llvm::InlineAsm *IA = llvm::dyn_cast<llvm::InlineAsm>(CI->getCalledOperand())) {
-        // llvm::outs() << IA->getAsmString() << "\n";
         if (IA->getAsmString().find("mov.u32 $0, WARP_SZ") != std::string::npos) {
           bindLocal(target, state, ConstantExpr::create(32, Expr::Int32));
           return;
@@ -10843,31 +9757,8 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
             return;
           }
           
-          // const StackFrame &lastFrame = state.stack.back();
-          // unsigned callerLine = 0;
-          // if (auto *callerki = dyn_cast<KInstruction>(&*lastFrame.caller)) {
-          //   // llvm::outs() << "Call site instruction: " << callerki->inst << "\n";
-          //   callerLine = callerki->info->assemblyLine;
-          // }
 
-          // unsigned grandCallerLine = 0;
-          // if (state.stack.size() >= 2) {
-          //   const StackFrame &grandCallerFrame = state.stack[state.stack.size() - 2];
-          //   if (grandCallerFrame.caller) {
-          //     if (auto *grandCallerKI = dyn_cast<KInstruction>(&*grandCallerFrame.caller)) {
-          //       grandCallerLine = grandCallerKI->info->assemblyLine;
-          //     }
-          //   }
-          // }
 
-          // std::string lineId = llvm::utostr(target->info->assemblyLine);
-          // if (callerLine) {
-          //   lineId+="_"+llvm::utostr(callerLine);
-          // }
-          // if (grandCallerLine) {
-          //   lineId+="_"+llvm::utostr(grandCallerLine);
-          // }
-          // llvm::outs() << lineId << ": " << arguments[1] << " " << arguments[2] << "\n";
           executeMemoryOperation(state, false, arguments[2], 0, target, bytes);
           ref<Expr> loadedVal = getDestCell(state, target).value;
 
@@ -10884,170 +9775,28 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
             klee_warning("cp.async.cg.shared.global bytes are not constant");
             return;
           }
-          // llvm::outs() << arguments[0] << " " << arguments[1] << "\n";
 
           executeMemoryOperation(state, false, arguments[1], 0, target, bytes);
           ref<Expr> loadedVal = getDestCell(state, target).value;
 
-          // ref<Expr> sourceAddress = arguments[1];
-          // ref<Expr> loadedVal = nullptr;
-          // if (!isa<ConstantExpr>(sourceAddress))
-          //   sourceAddress = ConstraintManager::simplifyExpr(state.constraints, sourceAddress);
-          // sourceAddress = optimizer.optimizeExpr(sourceAddress, true);
           
-          // bool success;
-          // ObjectPair sourceOp;
-          // if (isa<ConstantExpr>(sourceAddress)) {
-          //   if (!state.addressSpace.resolveOne(state, solver.get(), sourceAddress, sourceOp, success)) {
-          //     sourceAddress = toConstant(state, sourceAddress, "resolveOne failure");
-          //     success = state.addressSpace.resolveOne(cast<ConstantExpr>(sourceAddress), sourceOp);
-          //   }
-          // } else {
-          //   auto base_it = state.base_addrs.find(sourceAddress);
-          //   if (base_it != state.base_addrs.end()) {
-          //     if (!state.addressSpace.resolveOne(state, solver.get(), base_it->second, sourceOp,
-          //                                       success) ||
-          //         !success) {
-          //       terminateStateOnProgramError(state, "Failed to resolve concrete address from the base_addrs map to a memory object in cp.async.cg.shared.global", StateTerminationType::ReportError);
-          //       return;
-          //     }
-          //   }
-          // }
 
-          // const MemoryObject *sourceMo = sourceOp.first;
-          // ref<Expr> sourceOffset = sourceMo->getOffsetExpr(sourceAddress);
-          // ref<Expr> sourceCheck = sourceMo->getBoundsCheckOffset(sourceOffset, bytes);
-          // sourceCheck = AndExpr::create(sourceCheck, SgeExpr::create(sourceOffset, ConstantExpr::create(0, sourceOffset->getWidth())));
 
-          // std::string sourceSymName = getSymName(state, sourceMo, arguments[1]);
-          // if (state.symbolicArrayMap.find(sourceSymName)!=state.symbolicArrayMap.end()) {
-          //   SymArrayMemoryObject *symmo = state.symbolicArrayMap[sourceSymName];
-          //   ref<Expr> sizeConstraint;
-          //   setElementSize(state, symmo);
-          //   if (symmo->elementSize) {
-          //     ref<Expr> sizeBytes = MulExpr::create(symmo->size, ZExtExpr::create(symmo->elementSize, symmo->size->getWidth()));
-          //     sizeConstraint = MemoryObject::getBoundsCheckOffsetWithSize(sourceOffset, sizeBytes, bytes);
-          //   } else {
-          //     sizeConstraint = MemoryObject::getBoundsCheckOffsetWithSize(sourceOffset, symmo->size, bytes);
-          //   }
-          //   sizeConstraint = AndExpr::create(sizeConstraint, SgeExpr::create(sourceOffset, ConstantExpr::create(0, sourceOffset->getWidth())));
-          //   // llvm::outs() << "sizeConstraint " << sizeConstraint << "\n";
-          //   // symmo->addSizeConstraint(sizeConstraint);
 
-          //   StatePair branches = fork(state, sizeConstraint, true, BranchType::MemOp);
-          //   ExecutionState *bound = branches.first;
-          //   const ObjectState *os = sourceOp.second;
 
-          //   if (bound) {
-          //     loadedVal = os->read(sourceOffset, bytes*8);
-          //   }
         
-          //   ExecutionState *unbound = branches.second;
-          //   if (unbound) {
-          //     terminateStateOnProgramError(*unbound, "memory error: out of bound pointer", StateTerminationType::Ptr);
-          //   }
-          // } else {
-          //   // sourceCheck = optimizer.optimizeExpr(sourceCheck, true);
-          //   bool inBounds;
-          //   solver->setTimeout(coreSolverTimeout);
-          //   bool success = solver->mustBeTrue(state.constraints, sourceCheck, inBounds,
-          //                                     state.queryMetaData, state.intArrNames, state.getIOExprs());
-          //   solver->setTimeout(time::Span());
-          //   if (!success) {
-          //     state.pc = state.prevPC;
-          //     terminateStateOnSolverError(state, "Query timed out (bounds check).");
-          //     return;
-          //   }
 
-          //   if (inBounds) {
-          //     const ObjectState *os = sourceOp.second;
-          //     loadedVal = os->read(sourceOffset, bytes*8);
-          //   } else {
-          //     addConstraint(state, Expr::createIsZero(sourceCheck));
-          //     terminateStateOnProgramError(state, "memory error: out of bound pointer", StateTerminationType::Ptr);
-          //     return;
-          //   }
-          // }
 
           if (!loadedVal.isNull()) {
             executeMemoryOperation(state, true, arguments[0], loadedVal, target);
             getDestCell(state, target).value = 0;
-            // ref<Expr> destAddress = arguments[0];
-            // if (!isa<ConstantExpr>(destAddress))
-            //   destAddress = ConstraintManager::simplifyExpr(state.constraints, destAddress);
-            // destAddress = optimizer.optimizeExpr(destAddress, true);
 
-            // ObjectPair destOp;
-            // if (!isa<ConstantExpr>(destAddress)) {
-            //   auto base_it = state.base_addrs.find(destAddress);
-            //   if (base_it != state.base_addrs.end()) {
-            //     if (!state.addressSpace.resolveOne(state, solver.get(), base_it->second, destOp,
-            //                                       success) ||
-            //         !success) {
-            //       terminateStateOnProgramError(state, "Failed to resolve concrete address from the base_addrs map to a memory object in cp.async.cg.shared.global", StateTerminationType::ReportError);
-            //       return;
-            //     }
-            //   }
-            // } else if (!state.addressSpace.resolveOne(state, solver.get(), destAddress, destOp, success)) {
-            //   destAddress = toConstant(state, destAddress, "resolveOne failure");
-            //   success = state.addressSpace.resolveOne(cast<ConstantExpr>(destAddress), destOp);
-            // }
 
-            // const MemoryObject *destMo = destOp.first;
-            // ref<Expr> destOffset = destMo->getOffsetExpr(destAddress);
-            // ref<Expr> destCheck = destMo->getBoundsCheckOffset(destOffset, bytes);
-            // destCheck = AndExpr::create(destCheck, SgeExpr::create(destOffset, ConstantExpr::create(0, destOffset->getWidth())));
 
-            // std::string destSymName = getSymName(state, destMo, arguments[0]);
-            // if (state.symbolicArrayMap.find(destSymName)!=state.symbolicArrayMap.end()) {
-            //   SymArrayMemoryObject *symmo = state.symbolicArrayMap[destSymName];
-            //   ref<Expr> sizeConstraint;
-            //   if (symmo->elementSize) {
-            //     ref<Expr> sizeBytes = MulExpr::create(symmo->size, ZExtExpr::create(symmo->elementSize, symmo->size->getWidth()));
-            //     sizeConstraint = MemoryObject::getBoundsCheckOffsetWithSize(destOffset, sizeBytes, bytes);
-            //   } else {
-            //     sizeConstraint = MemoryObject::getBoundsCheckOffsetWithSize(destOffset, symmo->size, bytes);
-            //   }
-            //   sizeConstraint = AndExpr::create(sizeConstraint, SgeExpr::create(destOffset, ConstantExpr::create(0, destOffset->getWidth())));
-            //   // llvm::outs() << "sizeConstraint " << sizeConstraint << "\n";
-            //   // symmo->addSizeConstraint(sizeConstraint);
 
-            //   StatePair branches = fork(state, sizeConstraint, true, BranchType::MemOp);
-            //   ExecutionState *bound = branches.first;
-            //   const ObjectState *os = destOp.second;
 
-            //   if (bound) {
-            //     ObjectState *wos = bound->addressSpace.getWriteable(destMo, os);
-            //     wos->write(destOffset, loadedVal);
-            //   }
           
-            //   ExecutionState *unbound = branches.second;
-            //   if (unbound) {
-            //     terminateStateOnProgramError(*unbound, "memory error: out of bound pointer", StateTerminationType::Ptr);
-            //   }
-            // } else {
-            //   // destCheck = optimizer.optimizeExpr(destCheck, true);
-            //   bool inBounds;
-            //   solver->setTimeout(coreSolverTimeout);
-            //   bool success = solver->mustBeTrue(state.constraints, destCheck, inBounds,
-            //                                     state.queryMetaData, state.intArrNames, state.getIOExprs());
-            //   solver->setTimeout(time::Span());
-            //   if (!success) {
-            //     state.pc = state.prevPC;
-            //     terminateStateOnSolverError(state, "Query timed out (bounds check).");
-            //     return;
-            //   }
 
-            //   if (inBounds) {
-            //     const ObjectState *os = destOp.second;
-            //     ObjectState *wos = state.addressSpace.getWriteable(destMo, os);
-            //     wos->write(destOffset, loadedVal);
-            //   } else {
-            //     addConstraint(state, Expr::createIsZero(destCheck));
-            //     terminateStateOnProgramError(state, "memory error: out of bound pointer", StateTerminationType::Ptr);
-            //     return;
-            //   }
-            // }
           }
           return;
         } else if (IA->getAsmString().find("cp.async.cg.shared.global") != std::string::npos && arguments.size() == 4) { 
@@ -11092,7 +9841,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           bindLocal(target, state, ExtractExpr::create(arguments[0], 16, 16));
           return;          
         } else if (IA->getAsmString().find("vsub4.s32.s32.s32") != std::string::npos) { // TODO: didn't consider overflow and underflow now
-          // ref<Expr> result = ConstantExpr::create(0, Expr::Int32);
           std::vector<ref<Expr>> resultLanes;
 
           for (unsigned i = 0; i < 4; ++i) {
@@ -11146,63 +9894,15 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           return;
         } else if (IA->getAsmString().find("ld.cg.global.v4.u32") != std::string::npos || IA->getAsmString().find("ld.shared.v4.b32") != std::string::npos ||
                     IA->getAsmString().find("ldmatrix.sync.aligned.m8n8.x4.shared.b16") != std::string::npos || IA->getAsmString().find("ldmatrix.sync.aligned.m8n8.x4.trans.shared.b16") != std::string::npos) {
-          // llvm::outs() << arguments[0] << "\n";
-          // if (!isa<ConstantExpr>(arguments[0])) {
             executeMemoryOperation(state, false, arguments[0], 0, target);
             return;
-          // }
-          // bool success;
-          // ObjectPair op;
-          // ref<Expr> baseAddress = arguments[0];
-          // if (!isa<ConstantExpr>(arguments[0])) {
-          //   auto base_it = state.base_addrs.find(arguments[0]);
-          //   if (base_it != state.base_addrs.end()) {
-          //     baseAddress = base_it->second;
-          //   }
-          // }
-          // if (!state.addressSpace.resolveOne(state, solver.get(), baseAddress, op, success) || !success) {
-          //   terminateStateOnProgramError(state, IA->getAsmString() + ": not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
           
-          // const ObjectState *os = op.second;
-          // std::vector<ref<Expr>> loaded;
-          // ref<Expr> offset = op.first->getOffsetExpr(arguments[0]);
-          // for (unsigned i = 0; i < 4; ++i) {
-          //   offset = AddExpr::create(offset, ConstantExpr::create(4*i, Expr::Int64));
-          //   ref<Expr> val = os->read(offset, Expr::Int32);
-          //   loaded.push_back(val);
-          // }
-          // ref<Expr> result = ConcatExpr::create4(loaded[3], loaded[2], loaded[1], loaded[0]);
-          // bindLocal(target, state, result);
-          // return;
         } else if (IA->getAsmString().find("ldmatrix.sync.aligned.m8n8.x2.shared.b16") != std::string::npos) {
           executeMemoryOperation(state, false, arguments[0], 0, target);
           return;
-          // bool success;
-          // ObjectPair op;
-          // ref<Expr> baseAddress = arguments[0];
-          // if (!isa<ConstantExpr>(arguments[0])) {
-          //   auto base_it = state.base_addrs.find(arguments[0]);
-          //   if (base_it != state.base_addrs.end()) {
-          //     baseAddress = base_it->second;
-          //   }
-          // }
-          // if (!state.addressSpace.resolveOne(state, solver.get(), baseAddress, op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ldmatrix.sync.aligned.m8n8.x2.shared.b16: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
           
-          // const ObjectState *os = op.second;
-          // ref<Expr> offset0 = op.first->getOffsetExpr(arguments[0]);
-          // ref<Expr> val0 = os->read(offset0, Expr::Int32);
-          // ref<Expr> offset1 = AddExpr::create(offset0, ConstantExpr::create(4, Expr::Int64));
-          // ref<Expr> val1 = os->read(offset1, Expr::Int32);
-          // bindLocal(target, state, ConcatExpr::create(val1, val0));
-          // return;
         } else if (IA->getAsmString().find("bfe.u32") != std::string::npos) {
           ref<Expr> one = ConstantExpr::create(1, Expr::Int32);
-          // Compute the mask = (1 << width) - 1.
           ref<Expr> shiftedOne = ShlExpr::create(one, arguments[2]);
           ref<Expr> mask = SubExpr::create(shiftedOne, ConstantExpr::create(1, Expr::Int32));
 
@@ -11223,7 +9923,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           return;
         } else if (IA->getAsmString().find("bfe.u64") != std::string::npos) {
           ref<Expr> one = ConstantExpr::create(1, Expr::Int64);
-          // Compute the mask = (1 << width) - 1.
           ref<Expr> shiftedOne = ShlExpr::create(one, arguments[2]);
           ref<Expr> mask = SubExpr::create(shiftedOne, ConstantExpr::create(1, Expr::Int64));
 
@@ -11244,7 +9943,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
 
           // Create a 64-bit constant '1'.
           ref<Expr> one = ConstantExpr::create(1, Expr::Int64);
-          // Compute mask = (1 << width) - 1.
           ref<Expr> mask = SubExpr::create(ShlExpr::create(one, width),
                                           ConstantExpr::create(1, Expr::Int64));
 
@@ -11261,36 +9959,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
         } else if (IA->getAsmString().find("ld.global.nc.b16") != std::string::npos) {
           executeMemoryOperation(state, false, arguments[0], 0, target);
           return;
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.global.nc.b16: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
 
-          // const ObjectState *os = op.second;
-          // ref<Expr> result = os->read(0, 16);
-          // bindLocal(target, state, result);
-          // return;
         } else if (IA->getAsmString().find("ld.global.nc.v2.u64") != std::string::npos) {
-          // llvm::outs() << IA->getAsmString() << " arg0 " << arguments[0] << "\n";
-          // if (!isa<ConstantExpr>(arguments[0])) {
             executeMemoryOperation(state, false, arguments[0], 0, target);
             return;
-          // }
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.global.nc.v2.u64: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
 
-          // const ObjectState *os = op.second;
-          // ref<Expr> r0 = os->read(0, 64);
-          // ref<Expr> r1 = os->read(8, 64);
-          // ref<Expr> result = ConcatExpr::create(r1, r0);
-          // bindLocal(target, state, result);
-          // return;
         } else if (IA->getAsmString().find("ld.global.cs.v2.b32") != std::string::npos) {
           executeMemoryOperation(state, false, arguments[0], 0, target);
           return;
@@ -11302,37 +9975,15 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           executeMemoryOperation(state, true, arguments[0], arguments[1], target);
           return;
         } else if (IA->getAsmString().find("st.global.cs.v2.u64") != std::string::npos) {
-          // llvm::outs() << IA->getAsmString() << " arg0 " << arguments[0] << "\n";
           ref<Expr> writeVal = ConcatExpr::create(arguments[2], arguments[1]);
           executeMemoryOperation(state, true, arguments[0], writeVal, target);
           return;
 
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "st.global.cs.v2.u64: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
 
-          // ObjectState *wos = state.addressSpace.getWriteable(op.first, op.second);
-          // wos->write(0, arguments[1]);
-          // wos->write(8, arguments[2]);
-          // return;
         } else if (IA->getAsmString().find("ld.volatile.global.u32") != std::string::npos) {
-          // llvm::outs() << IA->getAsmString() << " arg0 " << arguments[0] << "\n";
           executeMemoryOperation(state, false, arguments[0], 0, target);
           return;
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.volatile.global.u32: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
 
-          // const ObjectState *os = op.second;
-          // ref<Expr> result = os->read(0, 32);
-          // bindLocal(target, state, result);
-          // return;
         } else if (IA->getAsmString().find(".reg .b16") != std::string::npos && IA->getAsmString().find("mov.b16") != std::string::npos && IA->getAsmString().find("fma.rn.bf16") != std::string::npos) {
           bindLocal(target, state, AddExpr::create(arguments[0], arguments[1]));
           return;
@@ -11381,24 +10032,9 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
               return;
             }
           }
-          // if (!isa<ConstantExpr>(arguments[0])) {
             executeMemoryOperation(state, false, arguments[0], 0, target);
             return;
-          // }
 
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.global.ca.v2.b32: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
-          // const ObjectState *os = op.second;
-          // ref<Expr> offset0 = op.first->getOffsetExpr(arguments[0]);
-          // ref<Expr> val0 = os->read(offset0, Expr::Int32);
-          // ref<Expr> offset1 = AddExpr::create(offset0, ConstantExpr::create(4, Expr::Int64));
-          // ref<Expr> val1 = os->read(offset1, Expr::Int32);
-          // bindLocal(target, state, ConcatExpr::create(val1, val0));
-          // return;
         } else if (IA->getAsmString().find("mov.b16") != std::string::npos && IA->getAsmString().find("ld.global.ca.b16") != std::string::npos) {
           if (auto CE = dyn_cast<ConstantExpr>(arguments[1])) {
             int value = CE->getZExtValue();
@@ -11409,17 +10045,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           }
           executeMemoryOperation(state, false, arguments[0], 0, target);
           return;
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.global.ca.b16: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
-          // const ObjectState *os = op.second;
-          // ref<Expr> offset = op.first->getOffsetExpr(arguments[0]);
-          // ref<Expr> val = os->read(offset, Expr::Int16);
-          // bindLocal(target, state, val);
-          // return;
         } else if (IA->getAsmString().find("prmt.b32 $0, $2, 0x64, 0x4140;prmt.b32 $1, $2, 0x64, 0x4342") != std::string::npos) {
           ref<Expr> a = arguments[0];
           ref<ConstantExpr> b = ConstantExpr::create(0x64, Expr::Int32);
@@ -11492,31 +10117,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
               return;
             }
           }
-          // if (!isa<ConstantExpr>(arguments[0])) {
             executeMemoryOperation(state, false, arguments[0], 0, target);
             return;
-          // }
 
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "ld.global.cg.v4.b32: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
 
-          // ref<Expr> offset = op.first->getOffsetExpr(arguments[0]);
-          // const ObjectState *os = op.second;
-          // std::vector<ref<Expr>> loaded;
-          // for (unsigned i = 0; i < 4; ++i) {
-          //   offset = AddExpr::create(offset, ConstantExpr::create(4*i, Expr::Int64));
-          //   ref<Expr> val = os->read(offset, Expr::Int32);
-          //   loaded.push_back(val);
-          // }
-          // ref<Expr> result = ConcatExpr::create4(loaded[3], loaded[2], loaded[1], loaded[0]);
-          // bindLocal(target, state, result);
-          // return;
         } else if (IA->getAsmString().find("mov.b32") != std::string::npos && arguments.size() == 2) {
-          // llvm::outs() << ConcatExpr::create(arguments[0], arguments[1]) << "\n";
           bindLocal(target, state, ConcatExpr::create(arguments[0], arguments[1]));
           return;
         } else if (IA->getAsmString().find("mov.b32") != std::string::npos && arguments.size() == 1) {
@@ -11543,19 +10148,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           ref<Expr> writeVal = ConcatExpr::create(arguments[5], ConcatExpr::create(arguments[4], ConcatExpr::create(arguments[3], arguments[2])));
           executeMemoryOperation(state, true, arguments[0], writeVal, target);
           return;
-          // bool success;
-          // ObjectPair op;
-          // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[0], op, success) || !success) {
-          //   terminateStateOnProgramError(state, "st.global.v4.b32: not find object", StateTerminationType::ReportError);
-          //   return;
-          // }
-          // ObjectState *wos = state.addressSpace.getWriteable(op.first, op.second);
-          // ref<Expr> offset = op.first->getOffsetExpr(arguments[0]);
-          // for (unsigned i = 0; i < 4; ++i) {
-          //   offset = AddExpr::create(offset, ConstantExpr::create(4*i, Expr::Int64));
-          //   wos->write(i*4, arguments[i+2]);
-          // }
-          // return;
         } else if (IA->getAsmString().find("reg .f16 a, b, c, d") != std::string::npos && IA->getAsmString().find("cvt.rn.f16.f32 a") != std::string::npos
                   && IA->getAsmString().find("cvt.rn.f16.f32 b") != std::string::npos && IA->getAsmString().find("cvt.rn.f16.f32 c") != std::string::npos
                   && IA->getAsmString().find("cvt.rn.f16.f32 a") != std::string::npos) {
@@ -11597,9 +10189,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     }
 
     if (arguments.size() == 1 && width > 0) {
-      // if (target->info->assemblyLine==17846) {
-      //   llvm::outs() << callable->getName() << " " << arguments[0] << " width " << width << "\n";
-      // }
       bindLocal(target, state, ZExtExpr::create(arguments[0], width));
       return;
     }
@@ -11619,10 +10208,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     return;
   }
 
-  // if (callable->getName().find("2at10TensorBase8data_ptr") != std::string::npos) {
-  //   bindLocal(target, state, arguments[0]);
-  //   return;
-  // }
 
   if (callable->getName().find("cudaGetLastError") != std::string::npos) {
     bindLocal(target, state, ConstantExpr::create(0, Expr::Int32));
@@ -12037,8 +10622,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     ref<Expr> val2 = op2.second->read(offset2, Expr::Int64);
 
     ref<Expr> result = NeExpr::create(val1, val2);
-    // llvm::outs() << arguments[0] << " " << offset0 << " " << arguments[1] << " " << offset1 << " " << arguments[2] << " " << offset2 <<"\n";
-    // llvm::outs() << val1 << " " << val2 << " res " << result <<"\n";
     ObjectState *wos = state.addressSpace.getWriteable(op0.first, op0.second);
     wos->write(offset0, result);
     return;
@@ -12066,7 +10649,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     }
     ref<Expr> offset = op0.first->getOffsetExpr(arguments[0]);
     ref<Expr> val = op0.second->read(offset, Expr::Int8);
-    // llvm::outs() << offset << " " << val <<"\n";
     bindLocal(target, state, EqExpr::create(val, ConstantExpr::create(1, Expr::Int8)));
     return;
   }
@@ -12115,7 +10697,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     const ObjectState *os1 = op1.second;
     ref<Expr> string0 = os0->read8(8);
     ref<Expr> string1 = os1->read8(0);
-    // llvm::outs() << "string compare " << string0 << " " << string1 << "\n";
     if (!isa<ConstantExpr>(string0) || !isa<ConstantExpr>(string0)) {
       bindLocal(target, state, ConstantExpr::create(0, 32));
       return;
@@ -12199,9 +10780,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
           ref<Expr> totalSize = UDivExpr::create(sourceSymmo->size, ZExtExpr::create(dim0Size, sourceSymmo->size->getWidth()));
 
           const Array *array = arrayCache.CreateArray(elementName, destMo->size);
-          // std::string sizeName = elementName + ".size";
-          // auto pair = createSizeSymbol(state, sizeName);
-          // ref<Expr> sizeExpr = pair.second;
           elementSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, totalSize);
           state.symNames[destAddress] = elementName;
           state.symAddressMap[destMo->address] = destAddress;
@@ -12252,9 +10830,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
         }
         ref<Expr> totalSize = UDivExpr::create(sourceSymmo->size, ZExtExpr::create(dim0Size, sourceSymmo->size->getWidth()));
 
-        // std::string sizeName = elementName + ".size";
-        // auto pair = createSizeSymbol(state, sizeName);
-        // ref<Expr> sizeExpr = pair.second;
         elementSymmo = new SymArrayMemoryObject(destMo->address, array, nullptr, totalSize);
         elementSymmo->scalarType = sourceSymmo->scalarType;
         elementSymmo->elementSize = sourceSymmo->elementSize;
@@ -12346,7 +10921,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       ref<Expr> sizeExpr = nullptr;
       for (uint64_t i = 0; i < shapeSize; ++i) {
           ref<Expr> element = shapeArrayOS->read(i*8, 64);
-          // llvm::outs() << "empty_cuda shape " << i << " :" << element << "\n";
           if (i == 0) {
             sizeExpr = element;
           } else {
@@ -12470,7 +11044,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     symmo->size = sizeExpr;
 
     ref<Expr> scalarType = ExtractExpr::create(arguments[4], 0, 8);
-    // llvm::outs() << arguments[3] << " " << scalarType << "\n";
     symmo->scalarType = scalarType;
     unsigned itemSize = getTensorTypeBytes(symmo->scalarType);
     if (itemSize > 0)
@@ -12568,13 +11141,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       ref<Expr> sizeExpr = ConstantExpr::create(1, 64);
       for (uint64_t i = 0; i < shapeSize; ++i) {
         ref<Expr> element = shapeArrayOS->read(i*8, 64);
-        // llvm::outs() << "at::resize shape " << i << " :" << element << "\n";
         symmo->dimensionSize[i] = element;
         sizeExpr = MulExpr::create(sizeExpr, element);
       }
       symmo->size = sizeExpr;
       symmo->shapeSize = arguments[2];
-      // llvm::outs() << sizeExpr << "\n";
 
       setElementSize(state, symmo);
       if (!symmo->elementSize) {
@@ -12653,13 +11224,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       ref<Expr> sizeExpr = ConstantExpr::create(1, 64);
       for (uint64_t i = 0; i < shapeSize; ++i) {
         ref<Expr> element = shapeArrayOS->read(i*8, 64);
-        // llvm::outs() << "at::resize shape " << i << " :" << element << "\n";
         symmo->dimensionSize[i] = element;
         sizeExpr = MulExpr::create(sizeExpr, element);
       }
       symmo->size = sizeExpr;
       symmo->shapeSize = arguments[2];
-      // llvm::outs() << sizeExpr << "\n";
 
       setElementSize(state, symmo);
       if (!symmo->elementSize) {
@@ -12802,12 +11371,10 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     os->write(648, ConstantExpr::create(65536, Expr::Int32));    // regsPerMultiprocessor
     os->write(712, ConstantExpr::create(32, Expr::Int32));       // maxBlocksPerMultiProcessor
 
-    // Initialize UUID (16 bytes set to zero)
     for (int i = 0; i < 16; i++) {
         os->write(256 + i, ConstantExpr::create(0, Expr::Int8));
     }
 
-    // Initialize LUID (8 bytes set to zero)
     for (int i = 0; i < 8; i++) {
         os->write(272 + i, ConstantExpr::create(0, Expr::Int8));
     }
@@ -13160,13 +11727,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     // value * inv_scale
     ref<Expr> scaledValue = MulExpr::create(arguments[2], invScaleExpr);
 
-    // Round to nearest (simulate round to nearest by adding 0.5 and truncating)
     ref<Expr> half = ConstantExpr::alloc(0x3f000000, Expr::Int32, false, true); // 0.5f
     ref<Expr> rounded = AddExpr::create(scaledValue, half);
     // Convert to int64: truncate
     ref<Expr> roundedInt = ZExtExpr::create(rounded, Expr::Int64);
 
-    // qvalue = zero_point + rounded
     ref<Expr> qvalue = AddExpr::create(arguments[1], roundedInt);
 
     // Clamp to qmin, qmax
@@ -13303,43 +11868,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     if (state.symbolicArrayMap.find(sourceSymName) != state.symbolicArrayMap.end()) {
       SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceSymName];
       SymArrayMemoryObject *destSymmo = createSymArray(state, arguments[0], destMO, "at4_ops3max4callERKNS_6Tensor", "max_tensor_");
-      // ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
-      // uint64_t destAddress = destAddressCE->getZExtValue();
-      // if (destAddress != destMO->address) {
-      //   if (state.symNames.find(destAddress)!=state.symNames.end()) {
-      //     std::string destMName = state.symNames[destAddress];
-      //     if (state.symbolicArrayMap.find(destMName) == state.symbolicArrayMap.end()) {
-      //       terminateStateOnProgramError(state, "at4_ops3max4callERKNS_6Tensor: do not find target tensor object", StateTerminationType::ReportError);
-      //       return;
-      //     }
-      //     destSymmo = state.symbolicArrayMap[destMName];
-      //   } else {
-      //     unsigned id = 0;
-      //     std::string uniqueName = "max_tensor_0";
-      //     while (!state.arrayNames.insert(uniqueName).second) {
-      //       uniqueName = "max_tensor_" + llvm::utostr(++id);
-      //     }
-      //     const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-      //     destSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, ConstantExpr::create(1, Expr::Int64));
-      //     state.symbolicArrayMap[uniqueName] = destSymmo;
-      //     state.symNames[destAddress] = uniqueName;
-      //     state.symAddressMap[destMO->address] = destAddress;
-      //   }
-      // } else if (state.symbolicArrayMap.find(destMO->name) != state.symbolicArrayMap.end()) {
-      //   destSymmo = state.symbolicArrayMap[destMO->name];
-      // } else {
-      //   unsigned id = 0;
-      //   std::string uniqueName = "max_tensor_0";
-      //   while (!state.arrayNames.insert(uniqueName).second) {
-      //     uniqueName = "max_tensor_" + llvm::utostr(++id);
-      //   }
-      //   destMO->setName(uniqueName);
-      //   const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-      //   bindObjectInState(state, destMO, false, array);
-      //   state.addSymbolic(destMO, array);
-      //   destSymmo = new SymArrayMemoryObject(destMO->address, array, nullptr, ConstantExpr::create(1, Expr::Int64));
-      //   state.symbolicArrayMap[uniqueName] = destSymmo;
-      // }
       destSymmo->size = ConstantExpr::create(1, Expr::Int64);
       destSymmo->scalarType = sourceSymmo->scalarType;
       destSymmo->elementSize = sourceSymmo->elementSize;
@@ -13488,43 +12016,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
 
     const MemoryObject *destMO = op0.first;
     SymArrayMemoryObject *destSymmo = createSymArray(state, arguments[0], destMO, "at::_ops::scalar_tensor::call", "scalar_tensor_");
-    // ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
-    // uint64_t destAddress = destAddressCE->getZExtValue();
-    // if (destAddress != destMO->address) {
-    //   if (state.symNames.find(destAddress)!=state.symNames.end()) {
-    //     std::string destMName = state.symNames[destAddress];
-    //     if (state.symbolicArrayMap.find(destMName) == state.symbolicArrayMap.end()) {
-    //       terminateStateOnProgramError(state, "at::_ops::scalar_tensor::call: do not find target tensor object", StateTerminationType::ReportError);
-    //     return;
-    //     }
-    //     destSymmo = state.symbolicArrayMap[destMName];
-    //   } else {
-    //     unsigned id = 0;
-    //     std::string uniqueName = "scalar_tensor_0";
-    //     while (!state.arrayNames.insert(uniqueName).second) {
-    //       uniqueName = "scalar_tensor_" + llvm::utostr(++id);
-    //     }
-    //     const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-    //     destSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, nullptr);
-    //     state.symbolicArrayMap[uniqueName] = destSymmo;
-    //     state.symNames[destAddress] = uniqueName;
-    //     state.symAddressMap[destMO->address] = destAddress;
-    //   }
-    // } else if (state.symbolicArrayMap.find(destMO->name) == state.symbolicArrayMap.end()) {
-    //   unsigned id = 0;
-    //   std::string uniqueName = "scalar_tensor_0";
-    //   while (!state.arrayNames.insert(uniqueName).second) {
-    //     uniqueName = "scalar_tensor_" + llvm::utostr(++id);
-    //   }
-    //   destMO->setName(uniqueName);
-    //   const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-    //   bindObjectInState(state, destMO, false, array);
-    //   state.addSymbolic(destMO, array);
-    //   destSymmo = new SymArrayMemoryObject(destMO->address, array, nullptr, nullptr);
-    //   state.symbolicArrayMap[destMO->name] = destSymmo;
-    // } else {
-    //   destSymmo = state.symbolicArrayMap[destMO->name];
-    // }
 
     ref<Expr> scalarType = ExtractExpr::create(arguments[2], 0, 8);
     destSymmo->scalarType = scalarType;
@@ -13573,19 +12064,10 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
         return;
     }
 
-    // ObjectPair op1;
-    // if (!state.addressSpace.resolveOne(state, solver.get(), arguments[1], op1, success) || !success) {
-    //   klee_error("at4_ops3all4callERKNS_6TensorE: do not find source tensor object");
-    // }
 
-    // const MemoryObject *sourceMO = op1.first;
     const MemoryObject *destMO = op0.first;
 
-    // if (state.symbolicArrayMap.find(sourceMO->name) == state.symbolicArrayMap.end()) {
-    //   klee_error("at4_ops3all4callERKNS_6TensorE: do not find source tensor symbolic object");
-    // }
 
-    // SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceMO->name];
     SymArrayMemoryObject *destSymmo;
     ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
     uint64_t destAddress = destAddressCE->getZExtValue();
@@ -13847,7 +12329,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       if (size > 0)
         destSymmo->elementSize = ConstantExpr::create(size, Expr::Int64);
       else {
-        // bool setItemSize = false;
         ref<ReadExpr> readExpr = ReadExpr::extractReadExpr(scalarType);
         if (readExpr) {
           std::string readName = readExpr->updates.root->name;
@@ -13859,19 +12340,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
                 SymArrayMemoryObject *originalSymmo = state.symbolicArrayMap[tensorName];
                 if (originalSymmo->elementSize) {
                   destSymmo->elementSize = originalSymmo->elementSize;
-                  // setItemSize = true;
                 }
               }
             }
           }
         }
-        // if (!setItemSize) {
-        //   std::string elementSizeName = mo->name + ".item_size";
-        //   auto pair2 = createSizeSymbol(state, elementSizeName);
-        //   ref<Expr> elementSizeExpr = pair2.second;
-        //   destSymmo->elementSize = elementSizeExpr;
-        //   addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-        // }
       }
       return;
     } else {
@@ -13916,7 +12389,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       if (size > 0)
         destSymmo->elementSize = ConstantExpr::create(size, Expr::Int64);
       else {
-        // bool setItemSize = false;
         ref<ReadExpr> readExpr = ReadExpr::extractReadExpr(arguments[2]);
         if (readExpr) {
           std::string readName = readExpr->updates.root->name;
@@ -13928,19 +12400,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
                 SymArrayMemoryObject *originalSymmo = state.symbolicArrayMap[tensorName];
                 if (originalSymmo->elementSize) {
                   destSymmo->elementSize = originalSymmo->elementSize;
-                  // setItemSize = true;
                 }
               }
             }
           }
         }
-        // if (!setItemSize) {
-        //   std::string elementSizeName = mo->name + ".item_size";
-        //   auto pair2 = createSizeSymbol(state, elementSizeName);
-        //   ref<Expr> elementSizeExpr = pair2.second;
-        //   symmo->elementSize = elementSizeExpr;
-        //   addConstraint(state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-        // }
       }
       return;
     } else {
@@ -13974,42 +12438,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
 
     SymArrayMemoryObject *sourceSymmo = state.symbolicArrayMap[sourceSymName];
     SymArrayMemoryObject *destSymmo = createSymArray(state, arguments[0], destMO, "at4_ops11squeeze_dim4callERKNS_6TensorEl", "torch_squeeze_tensor_");
-    // ref<ConstantExpr> destAddressCE = dyn_cast<ConstantExpr>(arguments[0]);
-    // uint64_t destAddress = destAddressCE->getZExtValue();
-    // if (destAddress != destMO->address) {
-    //   if (state.symNames.find(destAddress)!=state.symNames.end()) {
-    //     std::string destMName = state.symNames[destAddress];
-    //     if (state.symbolicArrayMap.find(destMName) == state.symbolicArrayMap.end()) {
-    //       klee_error("at4_ops11squeeze_dim4callERKNS_6TensorEl: do not find target tensor object");
-    //     }
-    //     destSymmo = state.symbolicArrayMap[destMName];
-    //   } else {
-    //     unsigned id = 0;
-    //     std::string uniqueName = "torch_squeeze_tensor_0";
-    //     while (!state.arrayNames.insert(uniqueName).second) {
-    //       uniqueName = "torch_squeeze_tensor_" + llvm::utostr(++id);
-    //     }
-    //     const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-    //     destSymmo = new SymArrayMemoryObject(destAddress, array, nullptr, nullptr);
-    //     state.symbolicArrayMap[uniqueName] = destSymmo;
-    //     state.symNames[destAddress] = uniqueName;
-    //     state.symAddressMap[destMO->address] = destAddress;
-    //   }
-    // } else if (state.symbolicArrayMap.find(destMO->name) == state.symbolicArrayMap.end()) {
-    //   unsigned id = 0;
-    //   std::string uniqueName = "torch_squeeze_tensor_0";
-    //   while (!state.arrayNames.insert(uniqueName).second) {
-    //     uniqueName = "torch_squeeze_tensor_" + llvm::utostr(++id);
-    //   }
-    //   destMO->setName(uniqueName);
-    //   const Array *array = arrayCache.CreateArray(uniqueName, destMO->size);
-    //   bindObjectInState(state, destMO, false, array);
-    //   state.addSymbolic(destMO, array);
-    //   destSymmo = new SymArrayMemoryObject(destMO->address, array, nullptr, nullptr);
-    //   state.symbolicArrayMap[destMO->name] = destSymmo;
-    // } else {
-    //   destSymmo = state.symbolicArrayMap[destMO->name];
-    // }
 
     if (auto dimIndexExpr = dyn_cast<ConstantExpr>(arguments[2])) {
       if (!sourceSymmo->shapeSize.isNull() && isa<ConstantExpr>(sourceSymmo->shapeSize)) {
@@ -14288,11 +12716,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       SymArrayMemoryObject *symmo = state.symbolicArrayMap[symName];
       if (symmo->shapeSize.isNull()) {
         std::string dimName = symName + ".dim";
-        // MemoryObject *dimMo =
-        //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-        //                   &state, /*allocSite=*/state.prevPC->inst,
-        //                   /*alignment=*/8);  
-        // ref<Expr> dimExpr = symbolizeIndex(state, dimName, dimMo);
         auto dimpair = createSizeSymbol(state, dimName);
         ref<Expr> dimExpr = dimpair.second; 
         symmo->shapeSize = dimExpr;
@@ -14303,11 +12726,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
         int index = ce->getZExtValue();
         if (symmo->dimensionSize.find(index) == symmo->dimensionSize.end()) {
           std::string sizeName = symName + ".size[" + std::to_string(index)+"]";
-          // MemoryObject *sizeMo =
-          //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-          //                   &state, /*allocSite=*/state.prevPC->inst,
-          //                   /*alignment=*/8);      
-          // ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);    
           auto sizepair = createSizeSymbol(state, sizeName);
           ref<Expr> sizeExpr = sizepair.second; 
           addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));  
@@ -14519,8 +12937,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
   }
 
   // normal external function handling path
-  // allocate 512 bits for each argument (+return value) to support
-  // fp80's and SIMD vectors as parameters for external calls;
   // we could iterate through all the arguments first and determine the exact
   // size we need, but this is faster, and the memory usage isn't significant.
   size_t allocatedBytes = Expr::MaxWidth / 8 * (arguments.size() + 1);
@@ -14566,34 +12982,11 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
   }
 
   // Prepare external memory for invoking the function
-  // static std::size_t residentPages = 0;
-  // double avgNeededPages = 0;
-  // if (MemoryManager::isDeterministic) {
-  //   auto const minflt = [] {
-  //     struct rusage ru = {};
-  //     [[maybe_unused]] int ret = getrusage(RUSAGE_SELF, &ru);
-  //     assert(!ret && "getrusage failed");
-  //     assert(ru.ru_minflt >= 0);
-  //     return ru.ru_minflt;
-  //   };
 
-  //   auto tmp = minflt();
-  //   std::size_t neededPages = state.addressSpace.copyOutConcretes();
-  //   auto newPages = minflt() - tmp;
-  //   assert(newPages >= 0);
-  //   residentPages += newPages;
-  //   assert(residentPages >= neededPages &&
   //          "allocator too full, assumption that each object occupies its own "
-  //          "page is no longer true");
 
   //   // average of pages needed for an external function call
-  //   static double avgNeededPages_ = residentPages;
-  //   // exponential moving average with alpha = 1/3
-  //   avgNeededPages_ = (3.0 * avgNeededPages_ + neededPages) / 4.0;
-  //   avgNeededPages = avgNeededPages_;
-  // } else {
     state.addressSpace.copyOutConcretes();
-  // }
 
 #ifndef WINDOWS
   // Update external errno state with local state value
@@ -14648,12 +13041,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     return;
   }
 
-  // if (MemoryManager::isDeterministic && residentPages > ExternalPageThreshold &&
-  //     residentPages > 2 * avgNeededPages) {
-  //   if (memory->markMappingsAsUnneeded()) {
-  //     residentPages = 0;
-  //   }
-  // }
 
 #ifndef WINDOWS
   // Update errno memory object with the errno value from the call
@@ -14679,7 +13066,6 @@ ref<Expr> Executor::replaceReadWithSymbolic(ExecutionState &state,
   if (!n || replayKTest || replayPath)
     return e;
 
-  // right now, we don't replace symbolics (is there any reason to?)
   if (!isa<ConstantExpr>(e))
     return e;
 
@@ -14726,7 +13112,6 @@ std::pair<const Array *, ref<Expr>> Executor::createSizeSymbol(ExecutionState &s
   const Array *sizeArray = arrayCache.CreateArray(sizeName, sizeMo->size, true);
   bindObjectInState(state, sizeMo, false, sizeArray);
   state.addSymbolic(sizeMo, sizeArray);
-  // ref<Expr> sizeExpr = Expr::createIntTempRead(sizeArray, sizeMo->size*8);
   ref<Expr> sizeExpr = Expr::createTempRead(sizeArray, sizeMo->size*8);
 
   addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(0, sizeExpr->getWidth())));  
@@ -14743,13 +13128,6 @@ std::pair<const Array *, ref<Expr>> Executor::createSizeSymbol(ExecutionState &s
     }
   }
  
-  // if (sizeExpr->getWidth() < 64) {
-  //   ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << sizeExpr->getWidth()) - 1, sizeExpr->getWidth());  
-  //   addConstraint(state, UleExpr::create(sizeExpr, maxValueExpr));
-  // } else if (sizeExpr->getWidth() == 64) {
-  //   ref<ConstantExpr> maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64);
-  //   addConstraint(state, UleExpr::create(sizeExpr, maxValueExpr));
-  // }
   return std::make_pair(sizeArray, sizeExpr);
 }
 
@@ -14774,30 +13152,14 @@ ref<Expr> Executor::symbolizeIndex(ExecutionState &state, const std::string &nam
     replacements[initialVal] = indexExpr;
     ref<Expr> newVal = ConstraintManager::replaceReadExpr(curVal, replacements);
     os->write(0, newVal);
-    // llvm::outs() << curVal << " -> " << newVal << "\n";
-    // if (newVal->getNumKids()==2) {
-    //   if (auto CE = dyn_cast<ConstantExpr>(newVal->getKid(0))) {
-    //     llvm::outs() << CE->isValueSigned() << "\n";
-    //   }
-    // }
   } else 
     os->write(0, indexExpr);
 
   if (isSigned) {
-    // if (indexExpr->getWidth() <= 64) {
       ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (indexExpr->getWidth()-1), indexExpr->getWidth(), true);   
-      // if (indexExpr->getWidth() == 64) {
-      //   int64_t a = minValueExpr->getZExtValue();
-      //   llvm::outs() << minValueExpr << " " << a <<" \n"; 
-      // }
       addConstraint(state, SgeExpr::create(indexExpr, minValueExpr));  
       ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (indexExpr->getWidth()-1)) - 1, indexExpr->getWidth());
-      // if (indexExpr->getWidth() == 64) {
-      //   int64_t a = maxValueExpr->getZExtValue();
-      //   llvm::outs() << maxValueExpr << " " << a <<" \n"; 
-      // }
       addConstraint(state, UleExpr::create(indexExpr, maxValueExpr));
-    // }
   } else {
     addConstraint(state, UgeExpr::create(indexExpr, ConstantExpr::create(0, indexExpr->getWidth())));  
     if (indexExpr->getWidth() < 64) {
@@ -14805,7 +13167,6 @@ ref<Expr> Executor::symbolizeIndex(ExecutionState &state, const std::string &nam
       addConstraint(state, UleExpr::create(indexExpr, maxValueExpr));     
     } else if (indexExpr->getWidth() == 64) {
       ref<ConstantExpr> maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64);
-      // ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << 63) - 1, indexExpr->getWidth()); 
       addConstraint(state, UleExpr::create(indexExpr, maxValueExpr));
     }
   }
@@ -14813,7 +13174,6 @@ ref<Expr> Executor::symbolizeIndex(ExecutionState &state, const std::string &nam
   return indexExpr;
 }
 
-// [rangeMin, rangeMax)
 ref<Expr> Executor::createIndexRangeExpr(ExecutionState &state, const std::string &name, uint64_t size, bool isLocal, ref<Expr> rangeMin, ref<Expr> rangeMax, bool compareSigned, const MemoryObject *mo) {
     if (!mo)
       mo = memory->allocate(size, isLocal, /*isGlobal=*/false,
@@ -14822,10 +13182,8 @@ ref<Expr> Executor::createIndexRangeExpr(ExecutionState &state, const std::strin
     const Array *array = arrayCache.CreateArray(name, mo->size, true);
     bindObjectInState(state, mo, isLocal, array);
 
-    // ref<Expr> indexExpr = Expr::createIntTempRead(array, mo->size * 8);
     ref<Expr> indexExpr = Expr::createTempRead(array, mo->size * 8);
     state.addSymbolic(mo, array);
-    // llvm::outs() << "index expr:" << indexExpr;
 
     if (rangeMin) {
       ref<Expr> lowerBound;
@@ -14835,7 +13193,6 @@ ref<Expr> Executor::createIndexRangeExpr(ExecutionState &state, const std::strin
         lowerBound = UgeExpr::create(indexExpr, rangeMin);
       }
       addConstraint(state, lowerBound);
-      // llvm::outs() << " lowerBound:" << lowerBound;   
     } else {
       if (compareSigned && indexExpr->getWidth() <= 64) {
         ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (indexExpr->getWidth()-1), indexExpr->getWidth(), true);   
@@ -14852,7 +13209,6 @@ ref<Expr> Executor::createIndexRangeExpr(ExecutionState &state, const std::strin
         upperBound = UltExpr::create(indexExpr, rangeMax);
       }
       addConstraint(state, upperBound);  
-      // llvm::outs() << " upperBound:" << upperBound << "\n";
     } else {
       if (indexExpr->getWidth() <= 64) {
         if (compareSigned){
@@ -14863,15 +13219,12 @@ ref<Expr> Executor::createIndexRangeExpr(ExecutionState &state, const std::strin
           if (indexExpr->getWidth() == 64) {
             maxValueExpr = ConstantExpr::create((1ULL << (indexExpr->getWidth()-1)) - 1, indexExpr->getWidth()); 
           } else {
-            // maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64); 
             maxValueExpr = ConstantExpr::create((1ULL << 63) - 1, indexExpr->getWidth()); 
           }
           addConstraint(state, UleExpr::create(indexExpr, maxValueExpr));
         }     
       }
     }
-    // os->write(0, indexExpr);
-    // return mo->getBaseExpr();
     return indexExpr;
 }
 
@@ -14883,22 +13236,7 @@ void Executor::validateKernelConfig(ExecutionState &state, ref<Expr> config, ref
       maxValueExpr = ConstantExpr::create((1ULL << 31) - 1, config->getWidth());  
     }
   }
-  // if (state.io_expr_map.empty()) {
-  //   addConstraint(state, UgeExpr::create(config, ConstantExpr::create(0, config->getWidth())));
-  //   if (config->getWidth() < 64){  
-  //     addConstraint(state, UleExpr::create(config, maxValueExpr));
-  //   }
-  //   return;
-  // }
 
-  // ref<Expr> replacedConfig = ConstraintManager::replaceReadExpr(config, state.io_expr_map);
-  // if (replacedConfig == config) {
-  //   addConstraint(state, UgeExpr::create(config, ConstantExpr::create(0, config->getWidth())));
-  //   if (config->getWidth() < 64){  
-  //     addConstraint(state, UleExpr::create(config, maxValueExpr));
-  //   }
-  //   return;
-  // }
 
   ref<Expr> con = SgeExpr::create(config, ConstantExpr::create(0, config->getWidth()));
   con = AndExpr::create(con, UleExpr::create(config, maxValueExpr));
@@ -14916,29 +13254,14 @@ void Executor::initializeCudaKernelConfig(ExecutionState &state, ref<Expr> gridx
     if (!isa<ConstantExpr>(gridzExpr)) {
       ref<Expr> maxValueExpr = ConstantExpr::create(65536, blockzExpr->getWidth());  
       validateKernelConfig(state, gridzExpr, maxValueExpr);
-      // addConstraint(state, UgeExpr::create(gridzExpr, ConstantExpr::create(0, gridzExpr->getWidth())));
-      // if (gridzExpr->getWidth() < 64){  
-      //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << gridzExpr->getWidth()) - 1, gridzExpr->getWidth());  
-      //   addConstraint(state, UleExpr::create(gridzExpr, maxValueExpr));
-      // }
     }
   }
   if (!isa<ConstantExpr>(gridxExpr)) {
     validateKernelConfig(state, gridxExpr);
-    // addConstraint(state, UgeExpr::create(gridxExpr, ConstantExpr::create(0, gridxExpr->getWidth())));  
-    // if (gridxExpr->getWidth() < 64) {  
-    //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << gridxExpr->getWidth()) - 1, gridxExpr->getWidth());   
-    //   addConstraint(state, UleExpr::create(gridxExpr, maxValueExpr));
-    // }
   }
   if (!isa<ConstantExpr>(gridyExpr)) {
     ref<Expr> maxValueExpr = ConstantExpr::create(65536, blockzExpr->getWidth()); 
     validateKernelConfig(state, gridyExpr, maxValueExpr);
-    // addConstraint(state, UgeExpr::create(gridyExpr, ConstantExpr::create(0, gridyExpr->getWidth())));  
-    // if (gridyExpr->getWidth() < 64) {  
-    //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << gridyExpr->getWidth()) - 1, gridyExpr->getWidth());   
-    //   addConstraint(state, UleExpr::create(gridyExpr, maxValueExpr));
-    // }
   }
   CUDAKernelConfig::Dim3 block(blockxExpr, blockyExpr);
   if (blockzExpr) {
@@ -14946,30 +13269,15 @@ void Executor::initializeCudaKernelConfig(ExecutionState &state, ref<Expr> gridx
     if (!isa<ConstantExpr>(blockzExpr)) {
       ref<Expr> maxValueExpr = ConstantExpr::create(64, blockzExpr->getWidth());  
       validateKernelConfig(state, blockzExpr, maxValueExpr);
-      // addConstraint(state, UgeExpr::create(blockzExpr, ConstantExpr::create(0, blockzExpr->getWidth())));  
-      // if (blockzExpr->getWidth() < 64) {  
-      //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << blockzExpr->getWidth()) - 1, blockzExpr->getWidth());   
-      //   addConstraint(state, UleExpr::create(blockzExpr, maxValueExpr));
-      // }
     }
   }
   if (!isa<ConstantExpr>(blockxExpr)) {
     ref<Expr> maxValueExpr = ConstantExpr::create(1024, blockxExpr->getWidth());  
     validateKernelConfig(state, blockxExpr, maxValueExpr);
-    // addConstraint(state, UgeExpr::create(blockxExpr, ConstantExpr::create(0, blockxExpr->getWidth())));  
-    // if (blockxExpr->getWidth() < 64) {  
-    //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << blockxExpr->getWidth()) - 1, blockxExpr->getWidth());   
-    //   addConstraint(state, UleExpr::create(blockxExpr, maxValueExpr));
-    // }
   }
   if (!isa<ConstantExpr>(blockyExpr)) {
     ref<Expr> maxValueExpr = ConstantExpr::create(1024, blockyExpr->getWidth());  
     validateKernelConfig(state, blockyExpr, maxValueExpr);
-    // addConstraint(state, UgeExpr::create(blockyExpr, ConstantExpr::create(0, blockyExpr->getWidth())));  
-    // if (blockyExpr->getWidth() < 64) {  
-    //   ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << blockyExpr->getWidth()) - 1, blockyExpr->getWidth());   
-    //   addConstraint(state, UleExpr::create(blockyExpr, maxValueExpr));
-    // }
   }
   CUDAKernelConfig kernelConfig;
   kernelConfig.setGridDim(grid);
@@ -15006,15 +13314,11 @@ void Executor::executeAlloc(ExecutionState &state,
                             const ObjectState *reallocFrom,
                             size_t allocationAlignment, ref<Expr> cudaAddress) {
   size = toUnique(state, size);
-  // if (target && target->info->assemblyLine==31507) {
-  //   llvm::outs() << "executeAlloc size: " << size << "\n";
-  // }
   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(size)) {
     const llvm::Value *allocSite = state.prevPC->inst;
     if (allocationAlignment == 0) {
       allocationAlignment = getAllocationAlignment(allocSite);
     }
-    // allocationAlignment = std::max(allocationAlignment, size_t(4));
     uint64_t sizeVal = std::max(CE->getZExtValue(), uint64_t(4));
 
     bool isGlobal = false;
@@ -15043,7 +13347,6 @@ void Executor::executeAlloc(ExecutionState &state,
       if (cudaAddress){
         ObjectPair op;
         bool success;
-        // llvm::outs() << "executeAlloc cuda devPtrAddress: " << devPtrAddress << "\n";
         
         if (state.addressSpace.resolveOne(state, solver.get(), cudaAddress, op, success) && success) {
           if (op.second->readOnly) {
@@ -15076,12 +13379,8 @@ void Executor::executeAlloc(ExecutionState &state,
     // XXX For now we just pick a size. Ideally we would support
     // symbolic sizes fully but even if we don't it would be better to
     // "smartly" pick a value, for example we could fork and pick the
-    // min and max values and perhaps some intermediate (reasonable
-    // value).
     // 
     // It would also be nice to recognize the case when size has
-    // exactly two values and just fork (but we need to get rid of
-    // return argument first). This shows up in pcre when llvm
     // collapses the size expression with a select.
 
     size = optimizer.optimizeExpr(size, true);
@@ -15122,7 +13421,6 @@ void Executor::executeAlloc(ExecutionState &state,
     if (cudaAddress) {
       ObjectPair op;
       bool success;
-      // llvm::outs() << "executeAlloc cuda devPtrAddress: " << devPtrAddress << "\n";
       
       if (state.addressSpace.resolveOne(state, solver.get(), cudaAddress, op, success) && success) {
         if (op.second->readOnly) {
@@ -15142,78 +13440,17 @@ void Executor::executeAlloc(ExecutionState &state,
     }
 
     // Check if in seed mode, then try to replicate size from a seed
-  //   ref<ConstantExpr> example = getValueFromSeeds(state, size);
-  //   if (!example) {
-  //     bool success = solver->getValue(state.constraints, size, example,
-  //                                     state.queryMetaData);
-  //     assert(success && "FIXME: Unhandled solver failure");
-  //     (void)success;
 
   //     // Try and start with a small example.
-  //     Expr::Width W = example->getWidth();
-  //     while (example->Ugt(ConstantExpr::alloc(128, W))->isTrue()) {
-  //       ref<ConstantExpr> tmp = example->LShr(ConstantExpr::alloc(1, W));
-  //       bool res;
-  //       [[maybe_unused]] bool success =
-  //           solver->mayBeTrue(state.constraints, EqExpr::create(tmp, size), res,
-  //                             state.queryMetaData);
-  //       assert(success && "FIXME: Unhandled solver failure");
-  //       if (!res)
-  //         break;
-  //       example = tmp;
-  //     }
-  //   }
 
-  //   StatePair fixedSize =
-  //       fork(state, EqExpr::create(example, size), true, BranchType::Alloc);
 
-  //   if (fixedSize.second) { 
   //     // Check for exactly two values
-  //     ref<ConstantExpr> tmp;
-  //     bool success = solver->getValue(fixedSize.second->constraints, size, tmp,
-  //                                     fixedSize.second->queryMetaData);
-  //     assert(success && "FIXME: Unhandled solver failure");      
-  //     (void) success;
-  //     bool res;
-  //     success = solver->mustBeTrue(fixedSize.second->constraints,
-  //                                  EqExpr::create(tmp, size), res,
-  //                                  fixedSize.second->queryMetaData);
-  //     assert(success && "FIXME: Unhandled solver failure");      
-  //     (void) success;
-  //     if (res) {
-  //       executeAlloc(*fixedSize.second, tmp, isLocal,
-  //                    target, zeroMemory, reallocFrom);
-  //     } else {
   //       // See if a *really* big value is possible. If so assume
   //       // malloc will fail for it, so lets fork and return 0.
-  //       StatePair hugeSize =
-  //           fork(*fixedSize.second,
-  //                UltExpr::create(
-  //                    ConstantExpr::alloc(1U << 31, example->getWidth()), size),
-  //                true, BranchType::Alloc);
-  //       if (hugeSize.first) {
-  //         klee_message("NOTE: found huge malloc, returning 0");
-  //         bindLocal(target, *hugeSize.first, 
-  //                   ConstantExpr::alloc(0, Context::get().getPointerWidth()));
-  //       }
         
-  //       if (hugeSize.second) {
 
-  //         std::string Str;
-  //         llvm::raw_string_ostream info(Str);
-  //         ExprPPrinter::printOne(info, "  size expr", size);
-  //         info << "  concretization : " << example << "\n";
-  //         info << "  unbound example: " << tmp << "\n";
-  //         terminateStateOnProgramError(*hugeSize.second,
   //                                      "concretized symbolic size",
-  //                                      StateTerminationType::Model, info.str());
-  //       }
-  //     }
-  //   }
 
-  //   if (fixedSize.first) // can be zero when fork fails
-  //     executeAlloc(*fixedSize.first, example, isLocal, 
-  //                  target, zeroMemory, reallocFrom);
   }
 }
 
@@ -15303,7 +13540,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
                                       ref<Expr> size,
                                       KInstruction *target) {
   unsigned bytes;
-  // llvm::outs() << "executeCudaMemcpy size: " << size << "\n";
   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(size)) {
     bytes = CE->getZExtValue();
   } else { // for symoblic size, directly check bound but do not read value and write value
@@ -15403,7 +13639,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
     bindLocal(target, state, ConstantExpr::create(0, Context::get().getPointerWidth()));
     return;
   }
-  // desAddress = optimizer.optimizeExpr(desAddress, true);
   srcAddress = optimizer.optimizeExpr(srcAddress, true);
   
   ObjectPair desOp;
@@ -15416,14 +13651,12 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
 
   if (resolveSingleObject && !isa<ConstantExpr>(srcAddress)) {
     // Address is symbolic
-    // llvm::outs() << "resolveSingleObject address " << srcAddress << "\n";
 
     resolveSingleObject = false;
     auto base_it = state.base_addrs.find(srcAddress);
     if (base_it != state.base_addrs.end()) {
       // Concrete address found in the map, now find the associated memory
       // object
-      // llvm::outs() << "resolveSingleObject baseAddress " << base_it->second << "\n";
       if (!state.addressSpace.resolveOne(state, solver.get(), base_it->second, srcOp,
                                          srcSuccess) ||
           !srcSuccess) {
@@ -15433,7 +13666,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
         // We have resolved the stored concrete address to a memory object.
         // Now let's see if we can prove an overflow - we are only interested in
         // two cases: either we overflow and it's a bug or we don't and we carry
-        // on; in this mode we are not interested in trying out other memory
         // objects
         resolveSingleObject = true;
       }
@@ -15463,7 +13695,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
         // We have resolved the stored concrete address to a memory object.
         // Now let's see if we can prove an overflow - we are only interested in
         // two cases: either we overflow and it's a bug or we don't and we carry
-        // on; in this mode we are not interested in trying out other memory
         // objects
         resolveSingleObject = true;
       }
@@ -15510,8 +13741,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
       if (bound) {
         ObjectState* new_os = os->cloneFor(desOp.first, *desOp.second);             
         state.addressSpace.bindObject(desOp.first, new_os);
-        // ref<Expr> value = os->read(offset, bytes*8);
-        // executeMemoryOperation(state, true, desAddress, value, target);
         bindLocal(target, state, ConstantExpr::create(0, Context::get().getPointerWidth()));
       }
       
@@ -15538,8 +13767,6 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
       const ObjectState *os = srcOp.second;
       ObjectState* new_os = os->cloneFor(desOp.first, *desOp.second);             
       state.addressSpace.bindObject(desOp.first, new_os);
-      // ref<Expr> value = os->read(offset, bytes*8);
-      // executeMemoryOperation(state, true, desAddress, value, target);
       bindLocal(target, state, ConstantExpr::create(0, Context::get().getPointerWidth()));
       return;
     } else if (auto checkce = dyn_cast<ConstantExpr>(check)) {
@@ -15551,50 +13778,11 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
     }
   }
   
-  // if (!state.addressSpace.resolveOne(state, solver.get(), desAddress, desOp, desSuccess) || !state.addressSpace.resolveOne(state, solver.get(), srcAddress, srcOp, srcSuccess)) {
-  //     bindLocal(target, state, 
-  //         ConstantExpr::alloc(1, Context::get().getPointerWidth()));
-  //         return;
-  // }
 
-  // if (desOp.second->readOnly) {
-  //     terminateStateOnProgramError(state, "memory error: object read only",
-  //                                   StateTerminationType::ReadOnly);
-  //     return;
-  // }else {
-  //   ObjectState *wos = state.addressSpace.getWriteable(desOp.first, desOp.second);
-  //   uint64_t limit;
-  //   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(size)) {
-  //     limit = CE->getZExtValue();
-  //     // llvm::outs() << "executeCudaMemcpy constant size: " << limit << "\n";
 
-  //     ref<Expr> desOffset = desOp.first->getOffsetExpr(desAddress);
-  //     ref<Expr> check = desOp.first->getBoundsCheckOffset(desOffset, limit/8);
-  //     check = optimizer.optimizeExpr(check, true);
-  //     bool desInBounds;
-  //     solver->setTimeout(coreSolverTimeout);
-  //     bool desSuccess = solver->mustBeTrue(state.constraints, check, desInBounds,
-  //                                       state.queryMetaData);
       
-  //     ref<Expr> srcOffset = srcOp.first->getOffsetExpr(srcAddress);
-  //     check = srcOp.first->getBoundsCheckOffset(srcOffset, limit/8);
-  //     check = optimizer.optimizeExpr(check, true);
-  //     bool srcInBounds;
-  //     solver->setTimeout(coreSolverTimeout);
-  //     bool srcSuccess = solver->mustBeTrue(state.constraints, check, srcInBounds,
-  //                                       state.queryMetaData);
-  //     if (!desSuccess || ! srcSuccess) {
-  //       return;
-  //     }
 
-  //     ref<Expr> value = srcOp.second->read(0, limit*8);
-  //     wos->write(0, value);
 
-  //     // llvm::outs() << "constant size write value:" << value << "\n";
-  //   }
-  //   bindLocal(target, state, 
-  //     ConstantExpr::alloc(0, Context::get().getPointerWidth()));
-  // }
 }
 
 bool Executor::exprContainsConstant(ref<Expr> expr, uint64_t target) {
@@ -15688,7 +13876,6 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
 
   bool isLoopIinitialThreadRelated = false;
   bool isLoopIinitialSharedDiff = false;
-  // llvm::outs() << loopInfo->initialVal << " " << Expr::isRelatedWithThread(loopInfo->initialVal) << "\n";
   if (!loopInfo->initialVal.isNull() && (Expr::isRelatedWithThread(loopInfo->initialVal) || Expr::isRelatedWithBlock(loopInfo->initialVal))) {
     isLoopIinitialSharedDiff = Expr::isRelatedWithThread(loopInfo->initialVal);
     isLoopIinitialThreadRelated = true;
@@ -15698,15 +13885,12 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
     }
     int width = oldReadIndex->getWidth();
     const Array *newLIndexArray = arrayCache.CreateArray(loopInfo->indexName+"_2", width / 8, true);
-    // ref<Expr> newReadIndex = Expr::createTempRead(newLIndexArray, width);
     ref<Expr> newLIndex = Expr::createTempRead(newLIndexArray, width);
-    // ref<Expr> newLIndex = ConstraintManager::replaceExpr(loopInfo->indexExpr, oldReadIndex, newReadIndex);
     ref<Expr> iterationTimes1 = KLoopInfo::getIterationTimes(loopInfo->indexExpr, loopInfo->increType, loopInfo->increment, loopInfo->initialVal);
     globalReplacements[oldReadIndex] = newLIndex;
     sharedReplacements[oldReadIndex] = newLIndex;
 
     if (iterationTimes1) {
-      // llvm::outs() << loopInfo->indexExpr << " " << oldReadIndex << " " << newLIndex << "\n";
       ref<Expr> newIncrement = ConstraintManager::replaceReadExpr(loopInfo->increment, globalReplacements);
       ref<Expr> newInitial = ConstraintManager::replaceReadExpr(loopInfo->initialVal, globalReplacements);
       ref<Expr> iterationTimes2 = KLoopInfo::getIterationTimes(newLIndex, loopInfo->increType, newIncrement, newInitial);
@@ -15722,30 +13906,17 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
   }
 
   for (auto con: state.constraints) {
-    // if (Expr::isRelatedWithThread(con)|| (isLoopIinitialThreadRelated && Expr::isRelatedWithLoopIndex(originalAddress, loopInfo->indexExpr))) {
       ref<Expr> replacedCon = ConstraintManager::replaceReadExpr(con, globalReplacements);
       if (replacedCon != con) {
         globalBaseConstraints.push_back(replacedCon);
-        // allGlobalNewCon = AndExpr::create(allGlobalNewCon, replacedCon);
       }
     replacedCon = ConstraintManager::replaceReadExpr(con, sharedReplacements);
     if (replacedCon != con) {
       sharedBaseConstraints.push_back(replacedCon);
-      // allSharedNewCon = AndExpr::create(allSharedNewCon, replacedCon);
     }
   }
 
-  // const StackFrame &lastFrame = state.stack.back();
-  // unsigned callerLine = 0;
-  // if (auto *callerki = dyn_cast<KInstruction>(&*lastFrame.caller)) {
-  //   // llvm::outs() << "Call site instruction: " << callerki->inst << "\n";
-  //   callerLine = callerki->info->assemblyLine;
-  // }
 
-  // std::string lineId = llvm::utostr(ki->info->assemblyLine);
-  // if (callerLine) {
-  //   lineId+="_"+llvm::utostr(callerLine);
-  // }
 
   
   for(auto pair: state.addressInLoop[loopInfo->indexName]) {
@@ -15760,10 +13931,8 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
     std::string queryStr = "";
     if (std::get<1>(pair.second) == MemoryObject::MemType::GLOBAL) {
       ref<Expr> condition = ConstantExpr::create(1, Expr::Bool);
-      // if (Expr::isRelatedWithThread(originalAddress) || Expr::isRelatedWithBlock(originalAddress) || (isLoopIinitialThreadRelated && Expr::isRelatedWithLoopIndex(originalAddress, loopInfo->indexExpr))) {
         ref<Expr> replacedAddress = ConstraintManager::replaceReadExpr(originalAddress, globalReplacements);
         condition = EqExpr::create(replacedAddress, originalAddress);
-        // llvm::outs() << replacedAddress << " old: " << originalAddress << " cond:" << condition << "\n";
 
         std::vector<ref<Expr>> concatExprs;
         std::set<ref<Expr>> visited;
@@ -15786,32 +13955,18 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
             }
           }
         }
-        // llvm::outs() << condition << "\n";
-        // if (isa<ConstantExpr>(condition)) {
-        //   condition = globalThreadCon;
-        // }
-        // llvm::outs() << condition << "\n";
         allGlobalNewCon = AndExpr::create(allGlobalNewCon, condition);
-        // llvm::outs() << allGlobalNewCon << "  all cons\n";
-        // success = solver->mayBeTrue(globalBaseConstraints, condition, mayBeTrue, state.queryMetaData, state.intArrNames, state.getIOExprs());
         success = solver->evaluate(globalBaseConstraints, allGlobalNewCon, res,
                                   state.queryMetaData, state.intArrNames, state.getIOExprs(), true);
-        // success = solver->evaluate(state.constraints, allGlobalNewCon, res,
-        //                           state.queryMetaData, state.intArrNames, state.getIOExprs());
-      // }
-      // if (success && mayBeTrue) {
       if (success && (res == Solver::True || res == Solver::Unknown)) {
         mayBeTrue = true;
         Query query(globalBaseConstraints, NotExpr::create(condition), state.intArrNames, state.getIOExprs());
-        // Query query(state.constraints, NotExpr::create(allGlobalNewCon), state.intArrNames, state.getIOExprs());
         queryStr = solver->getConstraintLog(query);
       }
     } else {
       ref<Expr> condition = ConstantExpr::create(1, Expr::Bool);
-      // if (Expr::isRelatedWithThread(originalAddress) || (isLoopIinitialSharedDiff && Expr::isRelatedWithLoopIndex(originalAddress, loopInfo->indexExpr))) {
         ref<Expr> replacedAddress = ConstraintManager::replaceReadExpr(originalAddress, sharedReplacements);
         condition = EqExpr::create(replacedAddress, originalAddress);
-        // llvm::outs() << replacedAddress << " " << originalAddress << " " << condition << "\n";
 
         std::vector<ref<Expr>> concatExprs;
         std::set<ref<Expr>> visited;
@@ -15834,18 +13989,9 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
             }
           }
         }
-        // if (isa<ConstantExpr>(condition)) {
-        //   condition = sharedblockCon;
-        // }
-        // llvm::outs() << condition << "\n";
         allSharedNewCon = AndExpr::create(allSharedNewCon, condition);
-        // success = solver->mayBeTrue(sharedBaseConstraints, condition, mayBeTrue, state.queryMetaData, state.intArrNames, state.getIOExprs());
         success = solver->evaluate(sharedBaseConstraints, allSharedNewCon, res,
                                   state.queryMetaData, state.intArrNames, state.getIOExprs(), true);
-        // success = solver->evaluate(state.constraints, allSharedNewCon, res,
-        //                           state.queryMetaData, state.intArrNames, state.getIOExprs());
-      // }
-      // if (success && mayBeTrue) {
       if (success && (res == Solver::True || res == Solver::Unknown)) {
         mayBeTrue = true;
         Query query(sharedBaseConstraints, NotExpr::create(condition), state.intArrNames, state.getIOExprs());
@@ -15853,10 +13999,6 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
       }
     }
     
-    // llvm::outs() << condition << "\n";
-    // for (auto con: baseConstraints) {
-    //   llvm::outs() << "con: " << con << "\n";
-    // }
 
     if (success && mayBeTrue) {
       llvm::outs() << originalAddress << " data race\n";
@@ -15864,7 +14006,6 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
       state.dataRaces[lineId].push_back(originalAddress);
 
       std::string filename = lineId + "_dr";;
-      // llvm::outs() << outputDir << "\n";
       std::filesystem::path path = outputDir+"/"+filename+".txt";
       unsigned id = 1;
       std::string tmp_filename = filename;
@@ -15901,7 +14042,6 @@ void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<E
     }
   }
 
-  // llvm::outs() << address << " type " << mo->memType << "\n";
   if (mo->memType==MemoryObject::MemType::LOCAL || state.addressInLoop.empty()) {
     return;
   }
@@ -15911,7 +14051,6 @@ void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<E
   unsigned callerSourceLine = 0;
   unsigned callerAsmLine = 0;
   if (auto *callerki = dyn_cast<KInstruction>(&*lastFrame.caller)) {
-    // llvm::outs() << "Call site instruction: " << callerki->inst << "\n";
     callerAsmLine = callerki->info->assemblyLine;
     if (hasSourceLine)
       callerSourceLine = callerki->info->line;
@@ -15954,10 +14093,6 @@ void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<E
   }
 
   for (auto &pair : state.addressInLoop) {
-    // llvm::outs() << pair.first->id << "\n";
-    // if (pair.first->indexExpr){
-    //   llvm::outs() << pair.first->indexExpr << " " <<  pair.first->initialVal << " " << pair.first->increment << "\n";
-    // }
     auto &addressMap = pair.second;
     if (addressMap.find(address) == addressMap.end())
       addressMap[address] = std::make_tuple(isWrite ? ExecutionState::MemOp::WRITE : ExecutionState::MemOp::READ, mo->memType, lineId);
@@ -15965,7 +14100,6 @@ void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<E
       addressMap[address] = std::make_tuple(ExecutionState::MemOp::BOTH, mo->memType, lineId);
     else if (std::get<0>(addressMap[address])==ExecutionState::MemOp::WRITE && !isWrite)
       std::get<0>(addressMap[address]) = ExecutionState::MemOp::BOTH;
-    // llvm::outs() <<addressMap.size() << "\n";
   }
 }
 
@@ -16002,7 +14136,6 @@ void Executor::modifyArrayBound(ExecutionState &state, ref<Expr> value, SymArray
   if (!symmo) return;
 
   if (auto valueCE = dyn_cast<ConstantExpr>(value)) {
-    // llvm::outs() << value << " " << valueCE->isValueSigned() << "\n";
     if (value->getWidth() > 64) {
       return;
     }
@@ -16011,14 +14144,12 @@ void Executor::modifyArrayBound(ExecutionState &state, ref<Expr> value, SymArray
       if (symmo->isFloat) {
         if (value->getWidth() == 32) {
           float x = ConstantExpr::getFloatFromConstantExpr(value);
-          // llvm::outs() << x << "\n";
           if (x <= INT32_MIN) {
             return;
           }
         }
         if (value->getWidth() == 64) {
           double x = ConstantExpr::getDoubleFromConstantExpr(value);
-          // llvm::outs() << x << "\n";
           if (x <= INT64_MIN) {
             return;
           }
@@ -16151,26 +14282,8 @@ void Executor::modifyArrayBound(ExecutionState &state, ref<Expr> value, SymArray
         }
         return;
       }
-      // if (!arrBIndex.isNull()) {
-      //   if (!arrBMax.isNull()) {
-      //     ref<Expr> toAdd = MulExpr::create(arrBMax, SExtExpr::create(loopCount, arrBMax->getWidth()));
-      //     if (!symmo->maxVal.isNull()) {
-      //       symmo->maxVal = AddExpr::create(symmo->maxVal, SExtExpr::create(toAdd, symmo->maxVal->getWidth()));
-      //     } else {
-      //       symmo->maxVal = toAdd;
-      //     }
-      //   }
-      // } else {
-      //   ref<Expr> toAdd = MulExpr::create(addOp, SExtExpr::create(loopCount, addOp->getWidth()));
-      //   if (!symmo->maxVal.isNull()) {
-      //     symmo->maxVal = AddExpr::create(SExtExpr::create(symmo->maxVal, toAdd->getWidth()), toAdd);
-      //   } else {
-      //     symmo->maxVal = toAdd;
-      //   }
-      // }
     }
   } 
-  // else {
     if (!arrBIndex.isNull()) {
       if (!arrBMax.isNull()) {
         if (!symmo->maxVal.isNull()) {
@@ -16186,7 +14299,6 @@ void Executor::modifyArrayBound(ExecutionState &state, ref<Expr> value, SymArray
         symmo->maxVal = addOp;
       }
     }
-  // }
 }
 
 void Executor::executeMemoryOperation(ExecutionState &state,
@@ -16194,15 +14306,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
                                       ref<Expr> address,
                                       ref<Expr> value /* undef if read */,
                                       KInstruction *target, unsigned loadBytes, ref<Expr> selectAddress) {                                   
-  // Expr::Width type = (isWrite ? value->getWidth() : 
-  //                    getWidthForLLVMType(target->inst->getType()));
-  // unsigned bytes = Expr::getMinBytesForWidth(type);
-  // if (target && target->info->assemblyLine==33023) {
-  //   llvm::outs() <<"executeMemoryOperation address " << address << " isWrite " << isWrite << "\n";
-  // // }
-  // // if (target && (target->info->assemblyLine==32078 || target->info->assemblyLine==33550 || target->info->assemblyLine==34702 || target->info->assemblyLine==34647)) {
-  // //   llvm::outs() <<"executeMemoryOperation address " << address << " isWrite " << isWrite << "\n";
-  // }
 
   Expr::Width type;
   unsigned bytes;
@@ -16232,7 +14335,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
 
   if (resolveSingleObject && !isa<ConstantExpr>(address)) {
     // Address is symbolic
-    // llvm::outs() << "resolveSingleObject address " << address << "\n";
 
     resolveSingleObject = false;
     auto base_it = state.base_addrs.find(address);
@@ -16249,7 +14351,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
     if (base_it != state.base_addrs.end()) {
       // Concrete address found in the map, now find the associated memory
       // object
-      // llvm::outs() << "resolveSingleObject baseAddress " << base_it->second << "\n";
       if (!state.addressSpace.resolveOne(state, solver.get(), base_it->second, op,
                                          success) ||
           !success) {
@@ -16259,7 +14360,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
         // We have resolved the stored concrete address to a memory object.
         // Now let's see if we can prove an overflow - we are only interested in
         // two cases: either we overflow and it's a bug or we don't and we carry
-        // on; in this mode we are not interested in trying out other memory
         // objects
         resolveSingleObject = true;
       }
@@ -16282,8 +14382,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
       }
       terminateStateOnProgramError(state, "read/write: not find object", StateTerminationType::ReportError);
       return;
-      // address = toConstant(state, address, "resolveOne failure");
-      // success = state.addressSpace.resolveOne(cast<ConstantExpr>(address), op);
     }
     solver->setTimeout(time::Span());
 
@@ -16299,15 +14397,10 @@ void Executor::executeMemoryOperation(ExecutionState &state,
       check = AndExpr::create(check, SgeExpr::create(offset, ConstantExpr::create(0, offset->getWidth())));
 
       if (state.tensorSizesMap.find(mo->name)!=state.tensorSizesMap.end()) {
-        // if (isWrite) {
-        //   klee_warning("write to tensor sizes");
-        //   return;
-        // }
         if (auto offsetCE = dyn_cast<ConstantExpr>(offset)) {
           uint64_t offsetVal = offsetCE->getZExtValue();
           uint64_t index  = offsetVal/8;
           uint64_t startBit = (offsetVal%8)*8;
-          // llvm::outs() <<"address " << address << " mo->address: " << mo->address << " offset " << offset << " offsetVal " << offsetVal << " bytes " << bytes << "\n";
           TensorSizesMemoryObject *tensorSizesMO = state.tensorSizesMap[mo->name];
           if (state.symbolicArrayMap.find(tensorSizesMO->tensorName)==state.symbolicArrayMap.end()) {
             terminateStateOnProgramError(state, "did not find tensor object", StateTerminationType::ReportError);
@@ -16344,11 +14437,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
             } else {
               if (symmo->strides.find(index) == symmo->strides.end()) {
                 std::string strideName = symmo->arrayName->name + ".stride[" + std::to_string(index)+"]";
-                // MemoryObject *strideMo =
-                //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-                //                   &state, /*allocSite=*/state.prevPC->inst,
-                //                   /*alignment=*/8);          
-                // ref<Expr> strideExpr = symbolizeIndex(state, strideName, strideMo);
                 auto stridepair = createSizeSymbol(state, strideName, true);
                 ref<Expr> strideExpr = stridepair.second; 
                 symmo->strides[index] = strideExpr;
@@ -16369,11 +14457,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
             } else {
               if (symmo->dimensionSize.find(index) == symmo->dimensionSize.end()) {
                 std::string sizeName = symmo->arrayName->name + ".size[" + std::to_string(index)+"]";
-                // MemoryObject *sizeMo =
-                //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-                //                   &state, /*allocSite=*/state.prevPC->inst,
-                //                   /*alignment=*/8);          
-                // ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);
                 auto sizepair = createSizeSymbol(state, sizeName);
                 ref<Expr> sizeExpr = sizepair.second; 
                 addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));
@@ -16384,8 +14467,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
               return;
             }
           }
-          // if (bytes!=8)
-          //   llvm::outs() << "offsetVal " << offsetVal << " index " << index << " offset " << (offsetVal%8)*8 << " bytes " << bytes << " res " << result << "\n";
         } else {
           terminateStateOnProgramError(state, "tensor sizes offset is not constant", StateTerminationType::ReportError);
           return;
@@ -16394,11 +14475,8 @@ void Executor::executeMemoryOperation(ExecutionState &state,
 
       std::string symName = mo->name;
       if ((mo->name.empty() || mo->name=="unnamed") && state.symAddressMap.find(mo->address) != state.symAddressMap.end()) {
-        // bool isSym;
         ref<Expr> newAddress = ConstantExpr::createPointer(state.symAddressMap[mo->address]);
         // we create tensor as a object with large size, but tensor struct is a ptr
-        // ref<Expr> cond = UgeExpr::create(address, newAddress);
-        // bool success = solver->mustBeTrue(state.constraints, cond, isSym, state.queryMetaData, state.intArrNames, state.getIOExprs());
         if (isInSymArray(target, address)) {
           symName = state.symNames[state.symAddressMap[mo->address]];
           offset = SubExpr::create(address, newAddress);
@@ -16413,19 +14491,8 @@ void Executor::executeMemoryOperation(ExecutionState &state,
         }
         if (isLoadOrStore && bytes >= 1 && bytes <= 8) {
           llvm::Function *parentFunction = target->inst->getFunction();
-          // if (parentFunction)
-          //   llvm::outs() << parentFunction->getName() << " " << symName << "\n";
           if (!parentFunction || !isMemFuncName(parentFunction->getName().str())) {
-            // llvm::Type *type = target->inst->getType();
-            // if (type->isIntegerTy()) {
             state.intArrNames[symName] = bytes;
-              // if (state.intArrNames.find(symName)!=state.intArrNames.end()) {
-              //   if (state.intArrNames[symName] != bytes)
-              //     state.intArrNames.erase(symName);
-              // } else {
-              //   state.intArrNames[symName] = bytes;
-              // }
-            // }
           }
         }
 
@@ -16438,11 +14505,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           sizeConstraint = MemoryObject::getBoundsCheckOffsetWithSize(offset, symmo->size, bytes);
         }
         sizeConstraint = AndExpr::create(sizeConstraint, SgeExpr::create(offset, ConstantExpr::create(0, offset->getWidth())));
-        // if (target && target->info->assemblyLine==18464) {
-        //   llvm::outs() <<"sizeConstraint " << sizeConstraint << "\n";
-        // }
-        // llvm::outs() << "sizeConstraint " << sizeConstraint << "\n";
-        // symmo->addSizeConstraint(sizeConstraint);
 
         StatePair branches = fork(state, sizeConstraint, true, BranchType::MemOp);
         ExecutionState *bound = branches.first;
@@ -16456,23 +14518,13 @@ void Executor::executeMemoryOperation(ExecutionState &state,
             } else {
               ObjectState *wos = bound->addressSpace.getWriteable(mo, os);
               wos->write(offset, value);
-              // llvm::outs() << "write address:" << address << " mo.address " << mo->address << " value: " << value << "\n";
-              // if (bytes > 1 && bytes <= 8) {
                 modifyArrayBound(state, value, symmo, target);
-              // }
             }
           } else {
             ref<Expr> result = os->read(offset, type);
             if (!isa<ConstantExpr>(result)) {
               if (!symmo->maxVal.isNull()) {
                 if (symmo->elementSize.isNull() || (isa<ConstantExpr>(symmo->elementSize) && dyn_cast<ConstantExpr>(symmo->elementSize)->getZExtValue()>=bytes)) {
-                  // llvm::outs() << symmo->maxVal << " " << result->getWidth() << " " << SExtExpr::create(symmo->maxVal, result->getWidth()) << "\n";
-                  // if (auto maxCE = dyn_cast<ConstantExpr>(symmo->maxVal)) {
-                  //   if (maxCE->getZExtValue() > ((1ULL << (bytes * 8)) - 1)) {
-                  //     terminateStateOnProgramError(*bound, "max value exceeds data type limit", StateTerminationType::Overflow);
-                  //     return;
-                  //   }
-                  // }
                   addConstraint(state, SleExpr::create(result, SExtExpr::create(symmo->maxVal, result->getWidth())));
                 }
               }
@@ -16482,30 +14534,13 @@ void Executor::executeMemoryOperation(ExecutionState &state,
                 }
               }
             } 
-            // else if (!symmo->elementSize.isNull() && isa<ConstantExpr>(symmo->elementSize) && !isa<ConstantExpr>(result)) {
-            //   auto eleCE = dyn_cast<ConstantExpr>(symmo->elementSize);
-            //   int eleSize = eleCE->getZExtValue();
-            //   if (eleSize == bytes) {
-            //     if (symmo->maxVal) {
-            //       addConstraint(state, SleExpr::create(result, SExtExpr::create(symmo->maxVal, result->getWidth())));
-            //     }
-            //     if (symmo->minVal) {
-            //       addConstraint(state, SgeExpr::create(result, SExtExpr::create(symmo->minVal, result->getWidth())));
-            //     }
-            //   }
-            // }
             bindLocal(target, *bound, result);
-            // if (target && (target->info->assemblyLine==448154||target->info->assemblyLine==448156||target->info->assemblyLine==357323||target->info->assemblyLine==357325))
-            //   llvm::outs() << "load address:" << address << " mo.address " << mo->address << " result: " << result << "\n";
           }
         }
         
         ExecutionState *unbound = branches.second;
         if (unbound) {
           llvm::outs() << address << " " << mo->name << " " << sizeConstraint << "\n";
-          // for (auto con: unbound->constraints) {
-          //   llvm::outs() << "con: " << con << "\n";
-          // }
           terminateStateOnProgramError(*unbound, "memory error: out of bound pointer", StateTerminationType::Ptr);
         }
         return;
@@ -16550,11 +14585,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
               if (type->isIntegerTy()) {
                 std::string aName = readExpr->updates.root->name;
                 state.intArrNames[aName] = bytes;
-                // if (state.intArrNames.find(aName)!=state.intArrNames.end()) {
-                //   if (state.intArrNames[aName]!=bytes)
-                //     state.intArrNames.erase(aName);
-                // } else
-                //   state.intArrNames[aName] = bytes;
               }
             }
           }
@@ -16563,14 +14593,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
 
         return;
       } 
-      // else if (isa<ConstantExpr>(check) && !isa<ConstantExpr>(address)) {
-      //   auto checkce = dyn_cast<ConstantExpr>(check);
-      //   if (checkce->isZero()) {
-      //     llvm::outs() << mo->name << " address " << address << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
-      //     terminateStateOnProgramError(state, "cannot handle memory operation", StateTerminationType::ReportError);
-      //     return;
-      //   }
-      // } 
       else if (!isa<ConstantExpr>(address)) {
         llvm::outs() << mo->name << " address " << address << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
         terminateStateOnProgramError(state, "cannot handle memory operation", StateTerminationType::ReportError);
@@ -16579,8 +14601,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
     }
   }
 
-  // we are on an error path (no resolution, multiple resolution, one
-  // resolution with out of bounds), or we do a single object resolution
 
   address = optimizer.optimizeExpr(address, true);
   ResolutionList rl;
@@ -16597,8 +14617,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
   // XXX there is some query wasteage here. who cares?
   ExecutionState *unbound = &state;
   SymArrayMemoryObject *symmo = nullptr;
-  // ref<Expr> buggyCons;
-  // std::string symName;
   
   for (ResolutionList::iterator i = rl.begin(), ie = rl.end(); i != ie; ++i) {
     const MemoryObject *mo = i->first;
@@ -16606,8 +14624,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
     ref<Expr> inBounds = mo->getBoundsCheckPointer(address, bytes);
     ref<Expr> offset = mo->getOffsetExpr(address);
     inBounds = AndExpr::create(inBounds, SgeExpr::create(offset, ConstantExpr::create(0, offset->getWidth())));
-    // if (target && target->info->assemblyLine==18464)
-    //     llvm::outs() <<"address " << address << " mo->address: " << mo->address << " name: " << mo->name << " offset " << offset << " bytes " << bytes << " size " << mo->size << " inBounds " << inBounds << "\n";
 
     if (state.tensorSizesMap.find(mo->name)!=state.tensorSizesMap.end()) {
       if (auto offsetCE = dyn_cast<ConstantExpr>(offset)) {
@@ -16650,11 +14666,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           } else {
             if (symmo->strides.find(index) == symmo->strides.end()) {
               std::string strideName = symmo->arrayName->name + ".stride[" + std::to_string(index)+"]";
-              // MemoryObject *strideMo =
-              //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-              //                   &state, /*allocSite=*/state.prevPC->inst,
-              //                   /*alignment=*/8);          
-              // ref<Expr> strideExpr = symbolizeIndex(state, strideName, strideMo);
               auto stridepair = createSizeSymbol(state, strideName, true);
               ref<Expr> strideExpr = stridepair.second; 
               symmo->strides[index] = strideExpr;
@@ -16675,11 +14686,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           } else {
             if (symmo->dimensionSize.find(index) == symmo->dimensionSize.end()) {
               std::string sizeName = symmo->arrayName->name + ".size[" + std::to_string(index)+"]";
-              // MemoryObject *sizeMo =
-              //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-              //                   &state, /*allocSite=*/state.prevPC->inst,
-              //                   /*alignment=*/8);          
-              // ref<Expr> sizeExpr = symbolizeIndex(state, sizeName, sizeMo);
               auto sizepair = createSizeSymbol(state, sizeName);
               ref<Expr> sizeExpr = sizepair.second; 
               addConstraint(state, UgeExpr::create(sizeExpr, ConstantExpr::create(1, sizeExpr->getWidth())));
@@ -16690,8 +14696,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
             return;
           }
         }
-        // if (bytes!=8)
-        //   llvm::outs() << "offsetVal " << offsetVal << " index " << index << " offset " << (offsetVal%8)*8 << " bytes " << bytes << " res " << result << "\n";
       } else {
         terminateStateOnProgramError(state, "tensor sizes offset is not constant", StateTerminationType::ReportError);
         return;
@@ -16701,9 +14705,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
     std::string symName = mo->name;
     if ((mo->name.empty() || mo->name=="unnamed") && state.symAddressMap.find(mo->address) != state.symAddressMap.end()) {
       ref<Expr> newAddress = ConstantExpr::createPointer(state.symAddressMap[mo->address]);
-      // bool isSym;
-      // ref<Expr> cond = UgeExpr::create(address, newAddress);
-      // bool success = solver->mustBeTrue(state.constraints, cond, isSym, state.queryMetaData, state.intArrNames);
       if (isInSymArray(target, address)) {
         symName = state.symNames[state.symAddressMap[mo->address]];
         offset = SubExpr::create(address, newAddress);
@@ -16718,19 +14719,8 @@ void Executor::executeMemoryOperation(ExecutionState &state,
       }
       if (isLoadOrStore && target && bytes >= 1 && bytes <= 8) {
         llvm::Function *parentFunction = target->inst->getFunction();
-        // if (parentFunction)
-        //     llvm::outs() << parentFunction->getName() << " " << symName << "\n";
         if (!parentFunction || !isMemFuncName(parentFunction->getName().str())) {
-          // llvm::Type *type = target->inst->getType();
-          // if (type->isIntegerTy()) {
           state.intArrNames[symName] = bytes;
-            // if (state.intArrNames.find(symName)!=state.intArrNames.end()) {
-            //   if (state.intArrNames[symName] != bytes)
-            //     state.intArrNames.erase(symName);
-            // } else {
-            //   state.intArrNames[symName] = bytes;
-            // }
-          // }
         }
       }
       ref<Expr> sizeConstraint;
@@ -16743,12 +14733,10 @@ void Executor::executeMemoryOperation(ExecutionState &state,
       }
       sizeConstraint = AndExpr::create(sizeConstraint, SgeExpr::create(offset, ConstantExpr::create(0, offset->getWidth())));
       inBounds = sizeConstraint;
-      // symName = mo->name;
     }
     
     StatePair branches = fork(*unbound, inBounds, true, BranchType::MemOp);
     ExecutionState *bound = branches.first;
-    // buggyCons = inBounds;
 
     // bound can be 0 on failure or overlapped 
     if (bound) {
@@ -16760,16 +14748,12 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           ObjectState *wos = bound->addressSpace.getWriteable(mo, os);
           wos->write(mo->getOffsetExpr(address), value);
           if (symmo) {
-            // if (bytes > 1 && bytes <= 8) {
               modifyArrayBound(state, value, symmo, target);
-            // }
           }
         }
       } else {
         ref<Expr> result = os->read(mo->getOffsetExpr(address), type);
         llvm::Function *parentFunction = target->inst->getFunction();
-        // if (parentFunction)
-        //     llvm::outs() << parentFunction->getName() << " " << result << "\n";
         bool isLoadIr = false;
         if (target) {
           isLoadIr = llvm::isa<llvm::LoadInst>(target->inst);
@@ -16781,11 +14765,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
             if (type->isIntegerTy()) {
               std::string aName = readExpr->updates.root->name;
               state.intArrNames[aName] = bytes;
-              // if (state.intArrNames.find(aName)!=state.intArrNames.end()) {
-              //   if (state.intArrNames[aName]!=bytes)
-              //     state.intArrNames.erase(aName);
-              // } else
-              //   state.intArrNames[aName] = bytes;
             }
           }
         }
@@ -16794,13 +14773,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           if (!isa<ConstantExpr>(result)) {
             if (!symmo->maxVal.isNull()) {
               if (symmo->elementSize.isNull() || (isa<ConstantExpr>(symmo->elementSize) && dyn_cast<ConstantExpr>(symmo->elementSize)->getZExtValue()>=bytes)) {
-                // llvm::outs() << symmo->maxVal << " " << result->getWidth() << " " << SExtExpr::create(symmo->maxVal, result->getWidth()) << "\n";
-                // if (auto maxCE = dyn_cast<ConstantExpr>(symmo->maxVal)) {
-                //   if (maxCE->getZExtValue() > ((1ULL << (bytes * 8 - 1)) - 1)) {
-                //     terminateStateOnProgramError(*bound, "max value exceeds data type limit", StateTerminationType::Overflow);
-                //     return;
-                //   }
-                // }
                 addConstraint(*bound, SleExpr::create(result, SExtExpr::create(symmo->maxVal, result->getWidth())));
               }
             }
@@ -16810,18 +14782,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
               }
             }
           } 
-        //   else if (!symmo->elementSize.isNull() && isa<ConstantExpr>(symmo->elementSize) && !isa<ConstantExpr>(result)) {
-        //     auto eleCE = dyn_cast<ConstantExpr>(symmo->elementSize);
-        //     int eleSize = eleCE->getZExtValue();
-        //     if (eleSize == bytes) {
-        //       if (symmo->maxVal) {
-        //         addConstraint(state, SleExpr::create(result, SExtExpr::create(symmo->maxVal, result->getWidth())));
-        //       }
-        //       if (symmo->minVal) {
-        //         addConstraint(state, SgeExpr::create(result, SExtExpr::create(symmo->minVal, result->getWidth())));
-        //       }
-        //     }
-        //   }
         }
         
         bindLocal(target, *bound, result);
@@ -16850,8 +14810,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
           using kdalloc::LocationInfo;
           auto li = unbound->heapAllocator.locationInfo(ptr, bytes);
           if (li == LocationInfo::LI_AllocatedOrQuarantined) {
-            // In case there is no size mismatch (checked by resolving for base
-            // address), the object is quarantined.
             auto base = reinterpret_cast<std::uintptr_t>(li.getBaseAddress());
             auto baseExpr = Expr::createPointer(base);
             ObjectPair op;
@@ -16875,7 +14833,6 @@ void Executor::executeMemoryOperation(ExecutionState &state,
 void Executor::executeMakeSymbolic(ExecutionState &state, 
                                    const MemoryObject *mo,
                                    const std::string &name) {
-  // Create a new object state for the memory object (instead of a copy).
   if (!replayKTest) {
     // Find a unique name for this array.  First try the original name,
     // or if that fails try adding a unique identifier.
@@ -16953,18 +14910,12 @@ MemoryObject* Executor::loadTensorConfig(ExecutionState *state, ParameterValue p
       std::string sizeName = symName + ".size[" + std::to_string(i)+"]";
       auto sizepair = createSizeSymbol(*state, sizeName);
       dimSizeExpr = sizepair.second;
-      // MemoryObject *sizeMo =
-      //   memory->allocate(8, /*isLocal=*/false, /*isGlobal=*/false,
-      //                   state, /*allocSite=*/state->pc->inst,
-      //                   /*alignment=*/8);      
-      // dimSizeExpr = symbolizeIndex(*state, sizeName, sizeMo);    
       addConstraint(*state, UgeExpr::create(dimSizeExpr, ConstantExpr::create(1, dimSizeExpr->getWidth())));
     }
     dimensionSize[i] = dimSizeExpr;
     totalSizeExpr = MulExpr::create(totalSizeExpr, dimSizeExpr);
   }
   if (!isa<ConstantExpr>(totalSizeExpr)) {
-    // ref<Expr> maxValueExpr = ConstantExpr::alloc(18446744073709551615ULL, 64);
     ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << 63) - 1, 64);
     addConstraint(*state, UleExpr::create(totalSizeExpr, maxValueExpr));
   }
@@ -16981,7 +14932,6 @@ MemoryObject* Executor::loadTensorConfig(ExecutionState *state, ParameterValue p
                     state, /*allocSite=*/state->pc->inst,
                     /*alignment=*/8);    
   mo->setName(symName);
-  // mo->setMemType(MemoryObject::MemType::GLOBAL);
   const Array *array = arrayCache.CreateArray(symName, mo->size, false);
   bindObjectInState(*state, mo, false, array);
   state->addSymbolic(mo, array);
@@ -17032,12 +14982,8 @@ MemoryObject* Executor::loadTensorConfig(ExecutionState *state, ParameterValue p
   }
   if (pval.minVal > INT32_MIN) {
     uint64_t uval = static_cast<uint32_t>(pval.minVal); 
-    // symmo->minVal = ConstantExpr::create(pval.minVal, Expr::Int32, true);
     symmo->minVal = ConstantExpr::create(uval, Expr::Int32, true);
     llvm::outs() << symName << " min " << symmo->minVal << "\n";
-    // ref<ConstantExpr> tmpCE = ConstantExpr::create(uval, Expr::Int32, true);
-    // int tmp = tmpCE->getZExtValue();
-    // llvm::outs() << tmp << "\n";
   }
   symmo->hasDuplicateVal = pval.hasDuplicateVal;
   llvm::outs() << symName << " hasDuplicateVal " << symmo->hasDuplicateVal << "\n";
@@ -17098,11 +15044,9 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
 
   ExecutionState *state =
       new ExecutionState(kmodule->functionMap[f], memory.get());
-  // state->coveredNew = false;
   if (AllowSymLoop) {
     initializeLoopInfo(mainModule, *state);
   }
-  // findTrampolineBranches(mainModule);
 
   // For each argument in the entry function, create a symbolic variable
   for (auto &arg : f->args()) {
@@ -17232,20 +15176,10 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
               osObj->write(0, moStr->getBaseExpr());
               // Write size
               osObj->write(8, ConstantExpr::alloc(strSize-1, Expr::Int64));
-              // Write capacity (same as size, or larger)
               osObj->write(16, ConstantExpr::alloc(strSize-1, Expr::Int64)); // union.i64
-              // Optional: could write to offset 24 as well (union.[8 x i8])
               ref<Expr> parExpr = moObj->getBaseExpr();
 
-              // ObjectState *wos = state->addressSpace.getWriteable(mo, os);
-              // for (size_t i = 0; i < pval.valueStr.size(); ++i) {
-              //   wos->write(i, ConstantExpr::alloc(pval.valueStr[i], Expr::Int8));
-              // }
-              // ref<Expr> parExpr = mo->getBaseExpr();
 
-              // int sizeInBits = kmodule->targetData->getTypeSizeInBits(argType);
-              // llvm::APInt apint(sizeInBits, pval.valueStr, 10); // base 10
-              // ref<Expr> parExpr = ConstantExpr::alloc(apint);
               arguments.push_back(parExpr);
               argIndex++;
               continue; 
@@ -17284,30 +15218,7 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             }
           }
         } else if (pval.type.find("None")!=std::string::npos) {
-          // ref<Expr> parExpr;
           int sizeInBits = kmodule->targetData->getTypeSizeInBits(arg.getType());
-          // bool isConstant = false;
-          // if (arg.getType()->isStructTy()) {
-          //   auto *structTy = llvm::cast<llvm::StructType>(arg.getType());
-          //   if (structTy->hasName() && structTy->getName().contains("optional")) {
-          //     parExpr = ConstantExpr::create(0, sizeInBits, false);
-          //     isConstant = true;
-          //   }
-          // }
-          // if (arg.getType()->isPointerTy()) {
-          //   if (argType->isStructTy()) {
-          //       auto *structTy = llvm::cast<llvm::StructType>(argType);
-          //       if (structTy->hasName() && structTy->getName().contains("optional")) {
-          //         parExpr = ConstantExpr::create(0, sizeInBits, false);
-          //         isConstant = true;
-          //       }
-          //   }
-          // }
-          // if (isConstant) {
-          //   arguments.push_back(parExpr);
-          //   argIndex++;
-          //   continue; 
-          // }
           arguments.push_back(ConstantExpr::create(0, sizeInBits, false));
           argIndex++;
           continue; 
@@ -17382,7 +15293,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
                             state, /*allocSite=*/state->pc->inst,
                             /*alignment=*/8);    
           mo->setName(symName);
-          // mo->setMemType(MemoryObject::MemType::GLOBAL);
           const Array *array = arrayCache.CreateArray(symName, mo->size, false);
           bindObjectInState(*state, mo, false, array);
           state->addSymbolic(mo, array);
@@ -17473,9 +15383,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
       }
       
       mo->setName(symName);
-      // mo->setMemType(MemoryObject::MemType::GLOBAL);
-      // int typeSize = kmodule->targetData.get()->getTypeSizeInBits(arg.getType());
-      // bool isIntVar = arg.getType()->isIntegerTy() && typeSize<=64 && typeSize>1;
       bool isIntVar = arg.getType()->isIntegerTy() || arg.getType()->isFloatingPointTy();
       const Array *array = arrayCache.CreateArray(symName, mo->size, isIntVar);
       bindObjectInState(*state, mo, false, array);
@@ -17491,33 +15398,14 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
           // for test
           iterator->noutputs = 1;
           iterator->size = ConstantExpr::create(3, Expr::Int32);
-          // iterator->numel = ConstantExpr::create(largeSymbolSize, Expr::Int32);
           
           for(int i = 0;i<3;i++) {
-            // std::string tensorName = symName + "_tensor_" + std::to_string(i);
-            // MemoryObject *tensorMo =
-            //   memory->allocate(argSize, /*isLocal=*/false, /*isGlobal=*/false,
-            //                   state, /*allocSite=*/state->pc->inst,
-            //                   /*alignment=*/8);    
-            // tensorMo->setName(tensorName);
-            // const Array *tensorArray = arrayCache.CreateArray(tensorName, tensorMo->size, false);
-            // bindObjectInState(*state, tensorMo, false, tensorArray);
-            // state->addSymbolic(tensorMo, tensorArray);
 
             Interpreter::ParameterValue p("torch.tensor", "", i+2, "");
             MemoryObject *tensorMo = loadTensorConfig(state, p, symName + "_tensor_" + std::to_string(i), argSize);
             iterator->addTensor(tensorMo->name, false);
 
-            // auto pair = createSizeSymbol(*state, tensorName + ".size");
-            // SymArrayMemoryObject *symmo = new SymArrayMemoryObject(tensorMo->address, tensorArray, pair.first, pair.second);
-            // state->symbolicArrayMap[tensorName] = symmo;
 
-            // std::string elementSizeName = tensorName + ".item_size";
-            // auto pair2 = createSizeSymbol(*state, elementSizeName);
-            // ref<Expr> elementSizeExpr = pair2.second;
-            // symmo->elementSize = elementSizeExpr;
-            // addConstraint(*state, UleExpr::create(elementSizeExpr, ConstantExpr::create(16, elementSizeExpr->getWidth())));
-            // iterator->addTensor(tensorName, false);
           }
 
           state->inputIterator = iterator;
@@ -17578,7 +15466,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
           if (parExpr->getWidth() <= 64) {
             ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (parExpr->getWidth() - 1), parExpr->getWidth(), true);   
             addConstraint(*state, SgeExpr::create(parExpr, minValueExpr)); 
-            // ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (parExpr->getWidth() - 1)) - 1, parExpr->getWidth());     
             ref<ConstantExpr> maxValueExpr;
             if (parExpr->getWidth() < 64) {
               maxValueExpr = ConstantExpr::create((1ULL << parExpr->getWidth()) - 1, parExpr->getWidth());      
@@ -17589,10 +15476,8 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
           } 
         }
       }
-      // os->write(0, parExpr);
       arguments.push_back(parExpr);
       argIndex++;
-      // llvm::outs() << "Created symbolic variable for argument " << symName << " with size " << argSize << " mo->getBaseExpr(): " << mo->getBaseExpr() << "\n";
   }
 
   auto batchSizeSymbol = createSizeSymbol(*state, "batch_size");
@@ -17606,22 +15491,16 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
   auto seqLenSymbol = createSizeSymbol(*state, "seq_len");
   ref<Expr> seqLenExpr = seqLenSymbol.second;
   addConstraint(*state, UgeExpr::create(seqLenExpr, ConstantExpr::create(1, seqLenExpr->getWidth())));
-  // bool hasSeqLimit = false;
   if (promptCons.find("seq_len") != promptCons.end()) {
-    // hasSeqLimit = true;
     addConstraint(*state, UleExpr::create(seqLenExpr, ConstantExpr::create(promptCons["seq_len"], seqLenExpr->getWidth())));
   } else {
     addConstraint(*state, UleExpr::create(seqLenExpr, ConstantExpr::create(2000000, seqLenExpr->getWidth())));
   }
   if (promptCons.find("num_token") != promptCons.end()) {
-    // hasSeqLimit = true;
     addConstraint(*state, UleExpr::create(MulExpr::create(batchSizeExpr, seqLenExpr), ConstantExpr::create(promptCons["num_token"], seqLenExpr->getWidth())));
   } else {
     addConstraint(*state, UleExpr::create(MulExpr::create(batchSizeExpr, seqLenExpr), ConstantExpr::create(9000000, seqLenExpr->getWidth())));
   }
-  // if (!hasSeqLimit) {
-  //   addConstraint(*state, UleExpr::create(seqLenExpr, ConstantExpr::create(1000000, seqLenExpr->getWidth())));
-  // }
 
   for (auto &pcon: parCons) {
     std::string mathExpr = pcon.first;
@@ -17659,7 +15538,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             isInt = false;
             break;
           }
-          // double dividend = parseDividend(term);
           if (std::floor(dividend) == dividend) {
             if (dividend != 1.0) {
               int n = static_cast<int>(dividend);
@@ -17687,7 +15565,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             isInt = false;
             break;
           }
-          // double dividend = parseDividend(term);
           if (std::floor(dividend) == dividend) {
             if (dividend != 1.0) {
               int n = static_cast<int>(dividend);
@@ -17715,7 +15592,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             isInt = false;
             break;
           }
-          // double dividend = parseDividend(term);
           if (std::floor(dividend) == dividend) {
             if (dividend != 1.0) {
               int n = static_cast<int>(dividend);
@@ -17873,34 +15749,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
     }
   }
 
-  // for (auto &pcon: parCons) {
-  //   std::vector<std::tuple<int, int, int>> equals = pcon.second;
-  //   if (equals.size() <= 1) {
-  //     continue;
-  //   }
-  //   std::pair<int, int> first = equals[0];
-  //   std::string arrayName = "_arg_"+llvm::utostr(first.first);
-  //   ref<Expr> left;
-  //   if (state->symbolicArrayMap.find(arrayName) != state->symbolicArrayMap.end()){
-  //     SymArrayMemoryObject *symmo0 = state->symbolicArrayMap[arrayName];
-  //     left = symmo0->dimensionSize[first.second];
-  //   } else {
-  //     left = arguments[first.first];
-  //   }
-  //   for (size_t i = 1; i < equals.size(); ++i) {
-  //     std::pair<int, int> second = equals[i];
-  //     ref<Expr> right;
-  //     std::string arrayName_tmp = "_arg_"+llvm::utostr(second.first);
-  //     if (state->symbolicArrayMap.find(arrayName_tmp) != state->symbolicArrayMap.end()){
-  //       SymArrayMemoryObject *symmo1 = state->symbolicArrayMap[arrayName_tmp];
-  //       right = symmo1->dimensionSize[second.second];
-  //     } else {
-  //       right = arguments[second.first];
-  //     }
-  //     addConstraint(*state, EqExpr::create(left, ZExtExpr::create(right, left->getWidth())));
-  //     llvm::outs() << EqExpr::create(left, ZExtExpr::create(right, left->getWidth())) << "\n";
-  //   }
-  // }
 
   if (pathWriter) 
     state->pathOS = pathWriter->open();
@@ -17972,7 +15820,6 @@ void Executor::runFunctionAsMain(Function *f,
 
   // In order to make uclibc happy and be closer to what the system is
   // doing we lay out the environments at the end of the argv array
-  // (both are terminated by a null). There is also a final terminating
   // null that uclibc seems to expect, possibly the ELF header?
 
   int envc;
@@ -18122,11 +15969,8 @@ bool Executor::getSymbolicSolution(const ExecutionState &state,
   ConstraintManager cm(extendedConstraints);
 
   // Go through each byte in every test case and attempt to restrict
-  // it to the constraints contained in cexPreferences.  (Note:
-  // usually this means trying to make it an ASCII character (0-127)
   // and therefore human readable. It is also possible to customize
   // the preferred constraints.  See test/Features/PreferCex.c for
-  // an example) While this process can be very expensive, it can
   // also make understanding individual test cases much easier.
   for (auto& pi: state.cexPreferences) {
     bool mustBeTrue;
@@ -18188,9 +16032,7 @@ void Executor::doImpliedValueConcretization(ExecutionState &state,
       const ObjectState *os = state.addressSpace.findObject(mo);
 
       if (!os) {
-        // object has been free'd, no need to concretize (although as
         // in other cases we would like to concretize the outstanding
-        // reads, but we have no facility for that yet)
       } else {
         assert(!os->readOnly && 
                "not possible? read only object with static read?");

@@ -1,4 +1,4 @@
-//===-- Parser.cpp --------------------------------------------------------===//
+﻿//===-- Parser.cpp --------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -200,8 +200,6 @@ namespace {
     void SkipUntilRParen(unsigned Level) {
       // FIXME: I keep wavering on whether it is an error to call this
       // with the current token an rparen. In most cases this should
-      // have been handled differently (error reported,
-      // whatever). Audit & resolve.
       assert(Level <= ParenLevel && 
              "Refusing to skip until rparen at higher level.");
       while (Tok.kind != Token::EndOfFile) {
@@ -239,8 +237,6 @@ namespace {
     void SkipUntilRSquare(unsigned Level) {
       // FIXME: I keep wavering on whether it is an error to call this
       // with the current token an rparen. In most cases this should
-      // have been handled differently (error reported,
-      // whatever). Audit & resolve.
       assert(Level <= ParenLevel && 
              "Refusing to skip until rparen at higher level.");
       while (Tok.kind != Token::EndOfFile) {
@@ -489,12 +485,9 @@ DeclResult ParserImpl::ParseArrayDecl() {
       Values.clear();
     }
 
-    // for (unsigned i = 0; i != Size.get(); ++i) {
     // TODO: Check: Must be constant expression.
-    //}
   }
 
-  // FIXME: Validate that size makes sense for domain type.
 
   if (DomainType.get() != Expr::Int32) {
     Error("array domain must currently be w32.");
@@ -572,7 +565,6 @@ DeclResult ParserImpl::ParseQueryCommand() {
   std::vector<const Array*> Objects;
   ExprResult Res;
 
-  // FIXME: We need a command for this. Or something.
   ExprSymTab.clear();
   VersionSymTab.clear();
 
@@ -611,7 +603,6 @@ DeclResult ParserImpl::ParseQueryCommand() {
   if (!Res.isValid()) // Error emitted by ParseExpr.
     Res = ExprResult(Builder->Constant(0, Expr::Bool));
 
-  // Return if there are no optional lists of things to evaluate.
   if (Tok.kind == Token::RParen)
     goto exit;
 
@@ -635,7 +626,6 @@ DeclResult ParserImpl::ParseQueryCommand() {
   }
   ConsumeRSquare();
 
-  // Return if there are no optional lists of things to evaluate.
   if (Tok.kind == Token::RParen)
     goto exit;
 
@@ -680,7 +670,6 @@ DeclResult ParserImpl::ParseQueryCommand() {
   if (Tok.kind != Token::EndOfFile)
     ExpectRParen("unexpected argument to 'query'.");
 
-  // If we assume that the queries are independent, we clear the array
   // table from the previous declarations
   if (ClearArrayAfterQuery)
     ArraySymTab.clear();
@@ -758,7 +747,6 @@ ExprResult ParserImpl::ParseExpr(TypeResult ExpectedType) {
   Token Start = Tok;
   ExprResult Res = ParseParenExpr(ExpectedType);
   if (!Res.isValid()) {
-    // If we know the type, define the identifier just so we don't get
     // use-of-undef errors. 
     // FIXME: Maybe we should let the symbol table map to invalid
     // entries?
@@ -781,7 +769,6 @@ ExprResult ParserImpl::ParseExpr(TypeResult ExpectedType) {
   return Res;
 }
 
-// Additional kinds for macro forms.
 enum MacroKind {
   eMacroKind_ReadLSB = Expr::LastKind + 1, // Multibyte read
   eMacroKind_ReadMSB,                      // Multibyte write
@@ -914,7 +901,6 @@ ExprResult ParserImpl::ParseParenExpr(TypeResult FIXME_UNUSED) {
 
   ConsumeLParen();
   
-  // Check for coercion case (w32 11).
   if (Tok.kind == Token::KWWidth) {
     TypeResult ExpectedType = ParseTypeSpecifier();
 
@@ -944,13 +930,10 @@ ExprResult ParserImpl::ParseParenExpr(TypeResult FIXME_UNUSED) {
   Token Name = Tok;
   ConsumeToken();
 
-  // FIXME: Use invalid type (i.e. width==0)?
   Token TypeTok = Tok;
   bool HasType = TypeTok.kind == Token::KWWidth;
   TypeResult Type = HasType ? ParseTypeSpecifier() : Expr::Bool;
 
-  // FIXME: For now just skip to rparen on error. It might be nice
-  // to try and actually parse the child nodes though for error
   // messages & better recovery?
   if (!Type.isValid()) {
     SkipUntilRParen();
@@ -962,15 +945,12 @@ ExprResult ParserImpl::ParseParenExpr(TypeResult FIXME_UNUSED) {
   bool IsFixed;
   int NumArgs;
   if (!LookupExprInfo(Name, ExprKind, IsFixed, NumArgs)) {
-    // FIXME: For now just skip to rparen on error. It might be nice
-    // to try and actually parse the child nodes though for error
     // messages & better recovery?
     Error("unknown expression kind.", Name);
     SkipUntilRParen();
     return ExprResult();
   }
 
-  // See if we have to parse this form specially.
   if (NumArgs == -1) {
     switch (ExprKind) {
     case eMacroKind_Concat:
@@ -1317,7 +1297,6 @@ VersionResult ParserImpl::ParseVersionSpecifier() {
   VersionResult Res = ParseVersion();
   // Define update list to avoid use-of-undef errors.
   if (!Res.isValid()) {
-    // FIXME: I'm not sure if this is right. Do we need a unique array here?
     Res =
         VersionResult(true, UpdateList(TheArrayCache.CreateArray("", 0), NULL));
   }
@@ -1396,7 +1375,6 @@ VersionResult ParserImpl::ParseVersion() {
          ie = Writes.rend(); it != ie; ++it) {
     const WriteInfo &WI = *it;
     ExprResult LHS, RHS;
-    // FIXME: This can be factored into common helper for coercing a
     // NumberOrExpr into an Expr.
     if (WI.LHS.isNumber()) {
       LHS = ParseNumberToken(ArrayDomainType, WI.LHS.getNumber());
@@ -1440,7 +1418,6 @@ ExprResult ParserImpl::ParseNumberToken(Expr::Width Type, const Token &Tok) {
   unsigned Radix = 10, RadixBits = 4;
   bool HasMinus = false;
 
-  // Detect +/- (a number token cannot have both).
   if (S[0] == '+') {
     ++S;
     --N;
@@ -1503,7 +1480,6 @@ ExprResult ParserImpl::ParseNumberToken(Expr::Width Type, const Token &Tok) {
     Val = Val * RadixVal + DigitVal;
   }
 
-  // FIXME: Actually do the check for overflow.
   if (HasMinus)
     Val = -Val;
 
@@ -1525,7 +1501,6 @@ TypeResult ParserImpl::ParseTypeSpecifier() {
   int width = atoi(std::string(Tok.start+1,Tok.length-1).c_str());
   ConsumeToken();
 
-  // FIXME: We should impose some sort of maximum just for sanity?
   return TypeResult(width);
 }
 

@@ -1,4 +1,4 @@
-#ifndef KLEE_CUDAKernelConfig_H
+﻿#ifndef KLEE_CUDAKernelConfig_H
 #define KLEE_CUDAKernelConfig_H
 
 #include "klee/Expr/Expr.h"
@@ -57,17 +57,9 @@ private:
     ref<Expr> sharedMemSize;  // number of bytes of shared memory allocated per block
     Dim3 blockIdx; // blockIdx.x/y/z, TempReadExpr if it's symbolic, address otherwise 
     Dim3 threadIdx;
-    // Dim3 gridDimTempRead; // TempReadExpr
-    // Dim3 blockDimTempRead;
-    // Dim3 blockIdxTempRead; 
-    // Dim3 threadIdxTempRead;
 
 public:
     // Constructor
-    // CUDAKernelConfig(const Dim3& grid, const Dim3& block, ref<Expr> sharedMem = ConstantExpr::create(0, Expr::Int32), 
-    //    const Dim3& bidx = Dim3(ConstantExpr::create(0, Expr::Int32),ConstantExpr::create(0, Expr::Int32),ConstantExpr::create(0, Expr::Int32)), 
-    //     const Dim3& tidx = Dim3(ConstantExpr::create(0, Expr::Int32),ConstantExpr::create(0, Expr::Int32),ConstantExpr::create(0, Expr::Int32)))
-    //     : gridDim(grid), blockDim(block), sharedMemSize(sharedMem), blockIdx(bidx), threadIdx(tidx) {}
     
     CUDAKernelConfig(const Dim3& grid, const Dim3& block, ref<Expr> sharedMem = ConstantExpr::create(0, Expr::Int32))
         : gridDim(grid), blockDim(block), sharedMemSize(sharedMem), blockIdx(Dim3(0,0,0)), threadIdx(Dim3(0,0,0)) {}
@@ -85,10 +77,6 @@ public:
     ref<Expr> getSharedMemSize() const { return sharedMemSize; }
     Dim3 getBlockIdx() const { return blockIdx; }
     Dim3 getThreadIdx() const { return threadIdx; }
-    // Dim3 getGridDimTempRead() const { return gridDimTempRead; }
-    // Dim3 getBlockDimTempRead() const { return blockDimTempRead; }
-    // Dim3 getBlockIdxTempRead() const { return blockIdxTempRead; }
-    // Dim3 getThreadIdxTempRead() const { return threadIdxTempRead; }
 
     // Setters
     void setGridDim(const Dim3& grid) { gridDim = grid; }
@@ -96,10 +84,6 @@ public:
     void setSharedMemSize(ref<Expr> size) { sharedMemSize = size; }
     void setBlockIdx(const Dim3& bid) { blockIdx = bid; }
     void setThreadIdx(const Dim3& tid) { threadIdx = tid; }
-    // void setGridDimTempRead(const Dim3& grid) { gridDimTempRead = grid; }
-    // void setBlockDimTempRead(const Dim3& block) { blockDimTempRead = block; }
-    // void setBlockIdxTempRead(const Dim3& bid) { blockIdxTempRead = bid; }
-    // void setThreadIdxTempRead(const Dim3& tid) { threadIdxTempRead = tid; }
 };
 
 } // namespace klee

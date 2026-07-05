@@ -1,4 +1,4 @@
-//===-- ExecutionState.cpp ------------------------------------------------===//
+﻿//===-- ExecutionState.cpp ------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -161,14 +161,6 @@ ExecutionState::ExecutionState(const ExecutionState& state):
   for (const auto &pair : state.tensorSizesMap) {
     tensorSizesMap[pair.first] = new TensorSizesMemoryObject(*pair.second);
   }
-
-  // for (const auto &pair : state.addressInLoop) {
-  //   std::map<ref<Expr>, std::tuple<MemOp, MemoryObject::MemType, std::string>> tmpMap;
-  //   for (const auto &innerPair : pair.second) {
-  //     tmpMap[innerPair.first] = innerPair.second;
-  //   }
-  //   addressInLoop[pair.first] = tmpMap;
-  // }
 }
 
 ExecutionState *ExecutionState::branch() {
@@ -357,15 +349,6 @@ bool ExecutionState::merge(const ExecutionState &b) {
   for (std::set< ref<Expr> >::iterator it = bSuffix.begin(), 
          ie = bSuffix.end(); it != ie; ++it)
     inB = AndExpr::create(inB, *it);
-  
-  // ref<Expr> inArrA = ConstantExpr::alloc(1, Expr::Bool);
-  // ref<Expr> inArrB = ConstantExpr::alloc(1, Expr::Bool);
-  // for (std::set< ref<Expr> >::iterator it = aArrSuffix.begin(), 
-  //         ie = aArrSuffix.end(); it != ie; ++it)
-  //   inArrA = AndExpr::create(inArrA, *it);
-  // for (std::set< ref<Expr> >::iterator it = bArrSuffix.begin(), 
-  //         ie = bArrSuffix.end(); it != ie; ++it)
-  //   inArrB = AndExpr::create(inArrB, *it);
 
   // XXX should we have a preference as to which predicate to use?
   // it seems like it can make a difference, even though logically
@@ -412,7 +395,6 @@ bool ExecutionState::merge(const ExecutionState &b) {
       if (!isa<ConstantExpr>(bv)) {
         needWriteWhole = true;
       }
-      // llvm::outs() << av << " " << bv << "\n";
     }
     if (needWriteWhole) {
       ref<Expr> av = wos->read(0, mo->size*8);
@@ -506,15 +488,6 @@ bool ExecutionState::merge(const ExecutionState &b) {
       }
     }
   }
-
-  // for (auto &kv : b.io_expr_map) {
-  //   auto it = io_expr_map.find(kv.first);
-  //   if (it == io_expr_map.end()) {
-  //     io_expr_map[kv.first] = kv.second;
-  //   } else if (it->second != kv.second) {
-  //     klee_warning("merge states, io_expr_map are different\n");
-  //   }
-  // }
 
   return true;
 }

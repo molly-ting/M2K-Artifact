@@ -1,4 +1,4 @@
-//===-- CmdLineOptions.cpp --------------------------------------*- C++ -*-===//
+﻿//===-- CmdLineOptions.cpp --------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

@@ -1,4 +1,4 @@
-//===-- StatsTracker.cpp --------------------------------------------------===//
+﻿//===-- StatsTracker.cpp --------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -251,7 +251,6 @@ StatsTracker::StatsTracker(Executor &_executor, std::string _objectFilename,
       klee_error("%s", sqlite3ErrToStringAndFree("Can't set options for database: ", zErrMsg).c_str());
     }
 
-    // note: we use WAL here a) for speed and b) to prevent creation of new file descriptors (as with TRUNCATE)
     if (sqlite3_exec(statsFile, "PRAGMA journal_mode = WAL", nullptr, nullptr, &zErrMsg) != SQLITE_OK) {
       klee_error("%s", sqlite3ErrToStringAndFree("Can't set options for database: ", zErrMsg).c_str());
     }
@@ -772,7 +771,6 @@ void StatsTracker::writeIStats() {
   if (istatsMask.test(stats::states.getID()))
     updateStateStatistics((uint64_t)-1);
   
-  // Clear then end of the file if necessary (no truncate op?).
   unsigned pos = of.tell();
   for (unsigned i=pos; i<istatsSize; ++i)
     of << '\n';
@@ -848,7 +846,6 @@ void StatsTracker::computeReachableUncovered() {
             const CallBase &cb = cast<CallBase>(*inst);
             if (isa<InlineAsm>(cb.getCalledOperand())) {
               // We can never call through here so assume no targets
-              // (which should be correct anyhow).
               callTargets.insert(std::make_pair(inst,
                                                 std::vector<Function*>()));
             } else if (Function *target = getDirectCallTarget(
@@ -944,9 +941,6 @@ void StatsTracker::computeReachableUncovered() {
             }
           }
           // there's a corner case here when a function only includes a single
-          // instruction (a ret). in that case, we MUST update
-          // functionShortestPath, or it will remain 0 (erroneously indicating
-          // that no return instructions are reachable)
           Function *f = inst->getParent()->getParent();
           if (best != cur || (inst == &*(f->begin()->begin())
                   && functionShortestPath[f] != best)) {

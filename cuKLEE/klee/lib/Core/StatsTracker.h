@@ -1,4 +1,4 @@
-//===-- StatsTracker.h ------------------------------------------*- C++ -*-===//
+﻿//===-- StatsTracker.h ------------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -75,7 +75,6 @@ namespace klee {
     StatsTracker &operator=(const StatsTracker &other) = delete;
     StatsTracker &operator=(StatsTracker &&other) noexcept = delete;
 
-    // called after a new StackFrame has been pushed (for callpath tracing)
     void framePushed(ExecutionState &es, StackFrame *parentFrame);
 
     // called after a StackFrame has been popped

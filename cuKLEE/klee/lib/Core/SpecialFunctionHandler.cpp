@@ -1,4 +1,4 @@
-//===-- SpecialFunctionHandler.cpp ----------------------------------------===//
+﻿//===-- SpecialFunctionHandler.cpp ----------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -139,21 +139,15 @@ static constexpr std::array handlerInfo = {
   add("klee_eh_typeid_for", handleEhTypeid, true),
 #endif
 
-  // operator delete[](void*)
   add("_ZdaPv", handleDeleteArray, false),
-  // operator delete(void*)
   add("_ZdlPv", handleDelete, false),
 
-  // operator new[](unsigned int)
   add("_Znaj", handleNewArray, true),
-  // operator new(unsigned int)
   add("_Znwj", handleNew, true),
 
   // FIXME-64: This is wrong for 64-bit long...
 
-  // operator new[](unsigned long)
   add("_Znam", handleNewArray, true),
-  // operator new(unsigned long)
   add("_Znwm", handleNew, true),
 
 #undef addDNR
@@ -865,9 +859,6 @@ void SpecialFunctionHandler::handleMarkGlobal(ExecutionState &state,
 void SpecialFunctionHandler::handleCudaMalloc(ExecutionState &state,
                                               KInstruction *target,
                                               std::vector<ref<Expr>> &arguments) {
-    // klee_warning("Handling cudaMalloc");
-    // assert(arguments.size()==2 && "invalid number of arguments to cudaMalloc");
-    // llvm::outs() << "ptr: " << arguments[0] << "; size: " << arguments[1] << "\n";
 
     executor.executeAlloc(state, arguments[1], false, target, false, nullptr, 0, arguments[0]);
 }
@@ -875,12 +866,7 @@ void SpecialFunctionHandler::handleCudaMalloc(ExecutionState &state,
 void SpecialFunctionHandler::handleCudaMemcpy(ExecutionState &state,
                                               KInstruction *target,
                                               std::vector<ref<Expr>> &arguments) {
-    // klee_warning("Handling cudaMemcpy");
-    assert(arguments.size() == 4 && "Invalid number of arguments to cudaMemcpy");
-     
-    // for (size_t i = 0; i < arguments.size(); ++i) {
-    //     llvm::outs() << "Argument " << i << ": " << arguments[i] << "\n";
-    // }
+    assert(arguments.size() == 4 && "Invalid number of arguments to cudaMemcpy"); 
 
     ref<Expr> dstPtrExpr = arguments[0];  // Destination pointer (symbolic)
     ref<Expr> srcPtrExpr = arguments[1];  // Source pointer (symbolic)
@@ -917,7 +903,6 @@ void SpecialFunctionHandler::handleCudaFree(ExecutionState &state,
 
   assert(arguments.size()==1 &&
          "invalid number of arguments to free");
-  // executor.executeFree(state, arguments[0]);
   executor.bindLocal(target, state, ConstantExpr::create(0, Expr::Int32));
 }                                              
 
@@ -936,7 +921,6 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
     if (it != executor.legalFunctions.end()) {
       Function *f = it->second;
       funcName = f->getName().str();
-      // llvm::outs() << funcName << "\n";
     } else {
       executor.terminateStateOnProgramError(state, "cudaLaunchKernel: no function found",
                                          StateTerminationType::ReportError);
@@ -978,10 +962,7 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
   llvm::FunctionType* funcType;
   for (const auto &kernelName : executor.kernelNames) {
     if (kernelName.size() < realFunctionName.size()) continue;
-    // (realFunctionName == "fused_add_rms_norm_kernelIN3c108BFloat16ELi8EEENSt9enable_ifIXooeqT0_Li0Entsr12_typeConvertIT_EE6existsEvE4typeEPS4_S7_PKS4_fii" 
-    //     && kernelName.find("fused_add_rms_norm_kernelIN3c108BFloat16ELi8EEENSt9enable_ifIXaagtT0_Li0Esr12_typeConvertIT_EE6existsEvE4typeEPS4_S7_PKS4_fii") != std::string::npos)
     if (std::equal(realFunctionName.rbegin(), realFunctionName.rend(), kernelName.rbegin())) {
-    // if (kernelName.find(realFunctionName) != std::string::npos) {
       kName = kernelName;
       kernelf = executor.getFunctionByName(kName);
       funcType = kernelf->getFunctionType();
@@ -999,7 +980,6 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
                                          StateTerminationType::ReportError);
     return;     
   }
-  // llvm::outs() << realFunctionName << " kernel: " << kName << "\n";
 
   if (!kernelf) {
     executor.terminateStateOnProgramError(state, "cudaLaunchKernel: target function not found",
@@ -1011,10 +991,7 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
   const ObjectState *argOS = op0.second;
   for (unsigned i = 0; i < numArgs; ++i) {
     llvm::Type* argType = funcType->getParamType(i);
-    argType->print(llvm::errs());
-    llvm::errs() << "\n";
     ref<Expr> argExpr = argOS->read(i*8, Expr::Int64);
-    // llvm::outs() << i << ": " << argExpr << "\n";
 
     if (!attrList.hasParamAttr(i, llvm::Attribute::ByVal) && !argExpr.isNull()) {
       ObjectPair op1;
@@ -1033,7 +1010,6 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
         }
       }
       argExpr = op1.second->read(0, op1.first->size*8);
-      // llvm::outs() << op1.first->size*8 << " argContent " << argExpr << "\n";
     }
     passedArguments.push_back(argExpr);
 
@@ -1049,8 +1025,6 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
         }
       } else {
         if (!state.addressSpace.resolveOne(state, executor.solver.get(), argExpr, op1, success) || !success) {
-          // executor.terminateStateOnProgramError(state, "cudaLaunchKernel: do not find argument object", StateTerminationType::ReportError);
-          // return;
           continue;
         }
       }
@@ -1063,10 +1037,8 @@ void SpecialFunctionHandler::handleCudaLaunchKernel(ExecutionState &state,
           executor.terminateStateOnProgramError(state, "cudaLaunchKernel: do not find tensor object", StateTerminationType::ReportError);
           return;
         }
-        // llvm::outs() << op2.first->name << " " << dataAddress << "\n";
         op2.first->setMemType(MemoryObject::MemType::GLOBAL);
       }
-      // llvm::outs() << op1.first->name << "\n";
       op1.first->setMemType(MemoryObject::MemType::GLOBAL);
     }
   }
@@ -1080,38 +1052,24 @@ void SpecialFunctionHandler::handleCudaPopCallConfiguration(ExecutionState &stat
                                                     std::vector<ref<Expr>> &arguments) {
     klee_warning("ignore __cudaPopCallConfiguration");
 
-    // for (size_t i = 0; i < arguments.size(); ++i) {
-    //     llvm::outs() << "Argument " << i << ": " << arguments[i] << "\n";
-    // }
-
     executor.bindLocal(target, state, ConstantExpr::create(0, Expr::Int32));
 }
 
 void SpecialFunctionHandler::handleCudaPushCallConfiguration(ExecutionState &state,
                                                     KInstruction *target,
                                                     std::vector<ref<Expr>> &arguments) {
-    // klee_warning("Handling __cudaPushCallConfiguration");
-
-    // for (size_t i = 0; i < arguments.size(); ++i) {
-    //   llvm::outs() << "Argument " << i << ": " << arguments[i] << "\n";
-    // }
 
     ref<Expr> gridExpr = arguments[0];
-     // Split gridExpr (i64) into two 32-bit integers for grid.x and grid.y
     auto gridxExpr = klee::ExtractExpr::create(gridExpr, 0, 32);  // Lower 32 bits
     auto gridyExpr = klee::ExtractExpr::create(gridExpr, 32, 32); // Upper 32 bits
     ref<Expr> gridzExpr = arguments[1];
-    llvm::outs() << "gridxExpr " << gridxExpr << " gridyExpr " << gridyExpr << "\n";
 
     ref<Expr> blockExpr = arguments[2];
-    // Split blockExpr (i64) into two 32-bit integers for grid.x and grid.y
     auto blockxExpr = klee::ExtractExpr::create(blockExpr, 0, 32);  // Lower 32 bits
     auto blockyExpr = klee::ExtractExpr::create(blockExpr, 32, 32); // Upper 32 bits
     ref<Expr> blockzExpr = arguments[3];
-    llvm::outs() << "blockxExpr " << blockxExpr << " blockyExpr " << blockyExpr << "\n";
 
     ref<Expr> sharedMemSizeExpr = arguments[4];
-    llvm::outs() << "sharedMemSizeExpr " << sharedMemSizeExpr << "\n";
 
     executor.initializeCudaKernelConfig(state, gridxExpr, gridyExpr, gridzExpr, blockxExpr, blockyExpr, blockzExpr, sharedMemSizeExpr);
     executor.bindLocal(target, state, ConstantExpr::create(0, Expr::Int32));
@@ -1128,8 +1086,6 @@ void SpecialFunctionHandler::handleCudaDeviceSynchronize(ExecutionState &state,
 void SpecialFunctionHandler::handleCudaDeviceGetAttribute(ExecutionState &state,
                                                     KInstruction *target,
                                                     std::vector<ref<Expr>> &arguments) {
-    // klee_warning("Handling cudaDeviceGetAttribute");
-
     ref<Expr> address = arguments[0];
     ref<Expr> kindExpr = arguments[1];
     ref<Expr> value;
@@ -1170,17 +1126,12 @@ void SpecialFunctionHandler::handleCudaFuncSetAttribute(ExecutionState &state,
                                                     std::vector<ref<Expr>> &arguments) {
     klee_warning("ignore cudaFuncSetAttribute");
 
-    // ref<Expr> attr = arguments[1];
-    // ref<Expr> value = arguments[2];
-
     executor.bindLocal(target, state, ConstantExpr::create(0, Expr::Int32));
 }
 
 void SpecialFunctionHandler::handleCudaMemcpyAsync(ExecutionState &state,
                                                     KInstruction *target,
                                                     std::vector<ref<Expr>> &arguments) {
-    // klee_warning("Handling cudaMemcpyAsync");
-
     ref<Expr> dstPtrExpr = arguments[0];  
     ref<Expr> srcPtrExpr = arguments[1];  
     ref<Expr> sizeExpr = arguments[2];    

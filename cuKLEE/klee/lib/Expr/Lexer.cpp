@@ -1,4 +1,4 @@
-//===-- Lexer.cpp ---------------------------------------------------------===//
+﻿//===-- Lexer.cpp ---------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -82,7 +82,6 @@ int Lexer::GetNextChar() {
     return -1;
 
   // Handle DOS/Mac newlines here, by stripping duplicates and by
-  // returning '\n' for both.
   char Result = *BufferPos++;
   if (Result == '\n' || Result == '\r') {
     if (BufferPos != BufferEnd && *BufferPos == ('\n' + '\r' - Result))
@@ -109,7 +108,6 @@ Token &Lexer::SetTokenKind(Token &Result, Token::Kind k) {
 static bool isReservedKW(const char *Str, unsigned N) {
     unsigned i;
 
-  // Check for i[0-9]+
   if (N>1 && Str[0] == 'i') {
     for (i=1; i<N; ++i)
       if (!isdigit(Str[i]))
@@ -118,7 +116,6 @@ static bool isReservedKW(const char *Str, unsigned N) {
       return true;
   }
 
-  // Check for fp[0-9]+([.].*)?$
   if (N>3 && Str[0]=='f' && Str[1]=='p' && isdigit(Str[2])) {
     for (i=3; i<N; ++i)
       if (!isdigit(Str[i]))

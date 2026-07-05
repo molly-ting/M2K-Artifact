@@ -50,7 +50,6 @@ struct SignednessPropagationPass
                 Value *Val = SI->getValueOperand();
                 Value *Ptr = SI->getPointerOperand();
 
-                // std::string valSign = getMD(Val, "signedness");
                 std::string varSign = getMD(Ptr, "var.signedness");
                 if (varSign != "signed")
                     continue;

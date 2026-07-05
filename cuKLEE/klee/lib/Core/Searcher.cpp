@@ -1,4 +1,4 @@
-//===-- Searcher.cpp ------------------------------------------------------===//
+﻿//===-- Searcher.cpp ------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -438,7 +438,6 @@ ExecutionState &BatchingSearcher::selectState() {
     return *lastState;
   }
 
-  // ensure time budget is larger than time between two calls (for same state)
   if (lastState && timeBudgetEnabled) {
     time::Span delta = time::getWallTime() - lastStartTime;
     auto t = timeBudget;
@@ -501,7 +500,6 @@ void IterativeDeepeningTimeSearcher::update(ExecutionState *current,
 
   const auto elapsed = time::getWallTime() - startTime;
 
-  // update underlying searcher (filter paused states unknown to underlying searcher)
   if (!removedStates.empty()) {
     std::vector<ExecutionState *> alt = removedStates;
     for (const auto state : removedStates) {

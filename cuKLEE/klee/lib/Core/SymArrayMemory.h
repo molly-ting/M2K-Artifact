@@ -1,4 +1,4 @@
-#ifndef KLEE_SYMARRAYMEMORY_H
+﻿#ifndef KLEE_SYMARRAYMEMORY_H
 #define KLEE_SYMARRAYMEMORY_H
 
 
@@ -10,20 +10,13 @@
 namespace klee {
     class SymArrayMemoryObject {
         friend class ExecutionState;
-        // friend class ref<SymArrayMemoryObject>;
-        // friend class ref<const SymArrayMemoryObject>;
 
         // private:
-        //     static int counter;
-        //     /// @brief Required by klee::ref-managed objects
-        //     mutable class ReferenceCounter _refCount;
         public:
-            // unsigned id;
             uint64_t arrayAddress;
             const Array * arrayName;
             const Array * sizeName;
             ref<Expr> size; // for tensor: the number of elements, others: bytes of the array
-            // std::vector<ref<Expr>> sizeConstraints;
             std::map<int, ref<Expr>> dimensionSize;
             std::map<int, ref<Expr>> strides;
             std::vector<ref<Expr>> strides_bytes; // broadcast strides in bytes
@@ -75,15 +68,7 @@ namespace klee {
                 symbolicIndexAddress.clear();
             }
 
-            // void addSizeConstraint(ref<Expr> cons) {
-            //     auto it = std::find_if(sizeConstraints.begin(), sizeConstraints.end(),
-            //         [&cons](const ref<Expr>& existingCons) {
-            //             return existingCons == cons; // Compare the underlying expressions
-            //         });
                     
-            //     if (it == sizeConstraints.end())
-            //         sizeConstraints.emplace_back(cons);
-            // }
     };
 }
 

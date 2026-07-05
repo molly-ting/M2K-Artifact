@@ -1,4 +1,4 @@
-//===-- ExecutionTreeWriter.cpp -------------------------------------------===//
+﻿//===-- ExecutionTreeWriter.cpp -------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -149,8 +149,6 @@ void ExecutionTreeWriter::batchCommit(bool force) {
 void ExecutionTreeWriter::write(const AnnotatedExecutionTreeNode &node) {
   unsigned rc = 0;
 
-  // bind values (SQLITE_OK is defined as 0 - just check success once at the
-  // end)
   rc |= sqlite3_bind_int64(insertStmt, 1, node.id);
   rc |= sqlite3_bind_int(insertStmt, 2, node.stateID);
   rc |= sqlite3_bind_int64(
@@ -175,8 +173,6 @@ void ExecutionTreeWriter::write(const AnnotatedExecutionTreeNode &node) {
   }
   rc |= sqlite3_bind_int(insertStmt, 6, value);
   if (rc != SQLITE_OK) {
-    // This is either a programming error (e.g. SQLITE_MISUSE) or we ran out of
-    // resources (e.g. SQLITE_NOMEM). Calling sqlite3_errmsg() after a possible
     // successful call above is undefined, hence no error message here.
     klee_error("Execution tree database: cannot persist data for node: %u",
                node.id);

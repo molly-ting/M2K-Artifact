@@ -1,4 +1,4 @@
-//===-- ExecutionTreeWriter.h -----------------------------------*- C++ -*-===//
+﻿//===-- ExecutionTreeWriter.h -----------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

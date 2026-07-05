@@ -1,4 +1,4 @@
-//===-- STPSolver.cpp -----------------------------------------------------===//
+﻿//===-- STPSolver.cpp -----------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -67,7 +67,6 @@ static unsigned char *shared_memory_ptr = nullptr;
 static int shared_memory_id = 0;
 // Darwin by default has a very small limit on the maximum amount of shared
 // memory, which will quickly be exhausted by KLEE running its tests in
-// parallel. For now, we work around this by just requesting a smaller size --
 // in practice users hitting this limit on counterexample sizes probably already
 // are hitting more serious scalability issues.
 #ifdef __APPLE__
@@ -232,7 +231,6 @@ bool STPSolverImpl::computeValue(const Query &query, ref<Expr> &result) {
   bool hasSolution;
 
   // Find the object used in the expression, and compute an assignment
-  // for them.
   findSymbolicObjects(query.expr, objects);
   if (!computeInitialValues(query.withFalse(), objects, values, hasSolution))
     return false;
@@ -298,7 +296,6 @@ runAndGetCexForked(::VC vc, STPBuilder *builder, ::VCExpr q,
       exit(1);
     return SolverImpl::SOLVER_RUN_STATUS_FORK_FAILED;
   }
-  // - child (solver)
   if (pid == 0) {
     if (timeout) {
       ::alarm(0); /* Turn off alarm so we can safely set signal handler */
@@ -333,7 +330,6 @@ runAndGetCexForked(::VC vc, STPBuilder *builder, ::VCExpr q,
     }
 
     // From timed_run.py: It appears that linux at least will on
-    // "occasion" return a status when the process was terminated by a
     // signal, so test signal first.
     if (WIFSIGNALED(status) || !WIFEXITED(status)) {
       klee_warning("STP did not return successfully.  Most likely you forgot "
@@ -372,7 +368,6 @@ runAndGetCexForked(::VC vc, STPBuilder *builder, ::VCExpr q,
       return SolverImpl::SOLVER_RUN_STATUS_TIMEOUT;
     }
 
-    // unknown return code
     klee_warning("STP did not return a recognized code");
     if (!IgnoreSolverFailures)
       exit(1);

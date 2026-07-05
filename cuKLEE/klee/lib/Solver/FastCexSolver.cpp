@@ -1,4 +1,4 @@
-//===-- FastCexSolver.cpp -------------------------------------------------===//
+﻿//===-- FastCexSolver.cpp -------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -147,10 +147,8 @@ public:
     } else if (b.m_min <= m_min && b.m_max >= m_max) { // empty
       return ValueRange(1, 0);
     } else if (b.m_min <= m_min) { // one range out
-      // cannot overflow because b.m_max < m_max
       return ValueRange(b.m_max + 1, m_max);
     } else if (b.m_max >= m_max) {
-      // cannot overflow because b.min > m_min
       return ValueRange(m_min, b.m_min - 1);
     } else {
       // two ranges, take bottom
@@ -229,8 +227,6 @@ public:
     return ValueRange(0, bits64::maxValueOfNBits(width));
   }
 
-  // use min() to get value if true (XXX should we add a method to
-  // make code clearer?)
   bool isFixed() const noexcept { return m_min == m_max; }
 
   bool operator==(const ValueRange &b) const noexcept {
@@ -265,7 +261,6 @@ public:
     assert((m_min >> bits) == 0 && (m_max >> bits) == 0 &&
            "range is outside given number of bits");
 
-    // if max allows sign bit to be set then it can be smallest value,
     // otherwise since the range is not empty, min cannot have a sign
     // bit
 
@@ -284,7 +279,6 @@ public:
 
     std::uint64_t smallest = (static_cast<std::uint64_t>(1) << (bits - 1));
 
-    // if max and min have sign bit then max is max, otherwise if only
     // max has sign bit then max is largest signed integer, otherwise
     // max is max
 
@@ -360,7 +354,6 @@ public:
     : objects(_objects) {}
 
   ValueRange getInitialReadRange(const Array &array, ValueRange index) {
-    // Check for a concrete read of a constant array.
     if (array.isConstantArray() && 
         index.isFixed() && 
         index.min() < array.size)
@@ -373,7 +366,6 @@ public:
 class CexPossibleEvaluator : public ExprEvaluator {
 protected:
   ref<Expr> getInitialValue(const Array& array, unsigned index) {
-    // If the index is out of range, we cannot assign it a value, since that
     // value cannot be part of the assignment.
     if (index >= array.size)
       return ReadExpr::create(UpdateList(&array, 0), 
@@ -394,7 +386,6 @@ public:
 class CexExactEvaluator : public ExprEvaluator {
 protected:
   ref<Expr> getInitialValue(const Array& array, unsigned index) {
-    // If the index is out of range, we cannot assign it a value, since that
     // value cannot be part of the assignment.
     if (index >= array.size)
       return ReadExpr::create(UpdateList(&array, 0), 
@@ -456,7 +447,6 @@ public:
 
     switch (e->getKind()) {
     case Expr::Constant:
-      // rather a pity if the constant isn't in the range, but how can
       // we use this?
       break;
 
@@ -470,12 +460,10 @@ public:
       CexObjectData &cod = getObjectData(array);
 
       // FIXME: This is imprecise, we need to look through the existing writes
-      // to see if this is an initial read or not.
       if (ConstantExpr *CE = dyn_cast<ConstantExpr>(re->index)) {
         uint64_t index = CE->getZExtValue();
 
         if (index < array->size) {
-          // If the range is fixed, just set that; even if it conflicts with the
           // previous range it should be a better guess.
           if (range.isFixed()) {
             cod.setPossibleValue(index, range.min());
@@ -488,7 +476,6 @@ public:
           }
         }
       } else {
-        // XXX        fatal("XXX not implemented");
       }
       break;
     }
@@ -504,24 +491,18 @@ public:
         }
       } else {
         // XXX imprecise... we have a choice here. One method is to
-        // simply force both sides into the specified range (since the
-        // condition is indetermined). This may lose in two ways, the
         // first is that the condition chosen may limit further
         // restrict the range in each of the children, however this is
         // less of a problem as the range will be a superset of legal
-        // values. The other is if the condition ends up being forced
         // by some other constraints, then we needlessly forced one
         // side into the given range.
         //
         // The other method would be to force the condition to one
         // side and force that side into the given range. This loses
         // when we force the condition to an unsatisfiable value
-        // (either because the condition cannot be that, or the
         // resulting range given that condition is not in the required
-        // range).
         // 
         // Currently we just force both into the range. A hybrid would
-        // be to evaluate the ranges for each of the children... if
         // one of the ranges happens to already be a subset of the
         // required range then it may be preferable to force the
         // condition to that side.
@@ -533,13 +514,11 @@ public:
 
       // XXX imprecise... the problem here is that extracting bits
       // loses information about what bits are connected across the
-      // bytes. if a value can be 1 or 256 then either the top or
       // lower byte is 0, but just extraction loses this information
       // and will allow neither,one,or both to be 1.
       //
       // we can protect against this in a limited fashion by writing
       // the extraction a byte at a time, then checking the evaluated
-      // value, isolating for that range, and continuing.
     case Expr::Concat: {
       ConcatExpr *ce = cast<ConcatExpr>(e);
       Expr::Width LSBWidth = ce->getKid(1)->getWidth();
@@ -560,7 +539,6 @@ public:
       // Simply intersect the output range with the range of all possible
       // outputs and then truncate to the desired number of bits.
 
-      // For ZExt this simplifies to just intersection with the possible input
       // range.
     case Expr::ZExt: {
       CastExpr *ce = cast<CastExpr>(e);
@@ -570,7 +548,6 @@ public:
       propagatePossibleValues(ce->src, input);
       break;
     }
-      // For SExt instead of doing the intersection we just take the output
       // range minus the impossible values. This is nicer since it is a single
       // interval.
     case Expr::SExt: {
@@ -598,7 +575,6 @@ public:
           if (range.isEmpty())
             break;
 
-          // C_0 + X \in [MIN, MAX) ==> X \in [MIN - C_0, MAX - C_0)
           Expr::Width W = CE->getWidth();
           CexValueData nrange(ConstantExpr::alloc(range.min(), W)->Sub(CE)->getZExtValue(),
                               ConstantExpr::alloc(range.max(), W)->Sub(CE)->getZExtValue());
@@ -625,7 +601,6 @@ public:
               propagatePossibleValue(be->left, 0);
               left = evalRangeForExpr(be->left);
 
-              // see if that worked
               if (!left.mustEqual(1))
                 propagatePossibleValue(be->right, 0);
             }
@@ -659,7 +634,6 @@ public:
               propagatePossibleValue(be->left, 1);
               left = evalRangeForExpr(be->left);
 
-              // see if that worked
               if (!left.mustEqual(1))
                 propagatePossibleValue(be->right, 1);
             }
@@ -719,7 +693,6 @@ public:
     case Expr::Ult: {
       BinaryExpr *be = cast<BinaryExpr>(e);
       
-      // XXX heuristic / lossy, what order if conflict
 
       if (range.isFixed()) {
         ValueRange left = evalRangeForExpr(be->left);
@@ -727,7 +700,6 @@ public:
 
         uint64_t maxValue = bits64::maxValueOfNBits(be->right->getWidth());
 
-        // XXX should deal with overflow (can lead to empty range)
 
         if (left.isFixed()) {
           if (range.min()) {
@@ -752,13 +724,11 @@ public:
     case Expr::Ule: {
       BinaryExpr *be = cast<BinaryExpr>(e);
       
-      // XXX heuristic / lossy, what order if conflict
 
       if (range.isFixed()) {
         ValueRange left = evalRangeForExpr(be->left);
         ValueRange right = evalRangeForExpr(be->right);
 
-        // XXX should deal with overflow (can lead to empty range)
 
         uint64_t maxValue = bits64::maxValueOfNBits(be->right->getWidth());
         if (left.isFixed()) {
@@ -797,7 +767,6 @@ public:
   void propagateExactValues(ref<Expr> e, CexValueData range) {
     switch (e->getKind()) {
     case Expr::Constant: {
-      // FIXME: Assert that range contains this constant.
       break;
     }
 
@@ -814,17 +783,14 @@ public:
       for (const auto *un = re->updates.head.get(); un; un = un->next.get()) {
         CexValueData ui = evalRangeForExpr(un->index);
 
-        // If these indices can't alias, continue propagation
         if (!ui.mayEqual(index))
           continue;
 
-        // Otherwise if we know they alias, propagate into the write value.
         if (ui.mustEqual(index) || re->index == un->index)
           propagateExactValues(un->value, range);
         return;
       }
 
-      // We reached the initial array write, update the exact range if possible.
       if (index.isFixed()) {
         if (array->isConstantArray()) {
           // Verify the range.
@@ -891,10 +857,8 @@ public:
           if (CE->getWidth() <= 64) {
             uint64_t value = CE->getZExtValue();
             if (range.min()) {
-              // If the equality is true, then propagate the value.
               propagateExactValue(be->right, value);
             } else {
-              // If the equality is false and the comparison is of booleans,
               // then we can infer the value to propagate.
               if (be->right->getWidth() == Expr::Bool)
                 propagateExactValue(be->right, !value);
@@ -905,7 +869,6 @@ public:
       break;
     }
 
-    // If a boolean not, and the result is known, propagate it
     case Expr::Not: {
       if (e->getWidth() == Expr::Bool && range.isFixed()) {
         propagateExactValue(e->getKid(0), !range.min());
@@ -1029,7 +992,6 @@ static bool propagateValues(const Query &query, CexData &cd, bool checkExpr,
     if (!cd.evaluatePossible(query.expr)->isFalse())
       hasSatisfyingAssignment = false;
 
-    // If the query is known to be true, then we have proved validity.
     if (cd.evaluateExact(query.expr)->isTrue()) {
       isValid = true;
       return true;
@@ -1040,7 +1002,6 @@ static bool propagateValues(const Query &query, CexData &cd, bool checkExpr,
     if (hasSatisfyingAssignment && !cd.evaluatePossible(constraint)->isTrue())
       hasSatisfyingAssignment = false;
 
-    // If this constraint is known to be false, then we can prove anything, so
     // the query is valid.
     if (cd.evaluateExact(constraint)->isFalse()) {
       isValid = true;
@@ -1075,7 +1036,6 @@ bool FastCexSolver::computeValue(const Query& query, ref<Expr> &result) {
   bool isValid;
   bool success = propagateValues(query, cd, false, isValid);
 
-  // Check if propagation wasn't able to determine anything.
   if (!success)
     return false;
 
@@ -1107,7 +1067,6 @@ FastCexSolver::computeInitialValues(const Query& query,
   bool isValid;
   bool success = propagateValues(query, cd, true, isValid);
 
-  // Check if propagation wasn't able to determine anything.
   if (!success)
     return false;
 

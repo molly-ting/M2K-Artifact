@@ -1,4 +1,4 @@
-//===-- Memory.h ------------------------------------------------*- C++ -*-===//
+﻿//===-- Memory.h ------------------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -160,7 +160,6 @@ public:
    * UltExpr::create(offset, ...): This creates a comparison expression that evaluates to true if offset is less than the upper bound (size - bytes + 1), meaning the memory access is valid.
    */
   ref<Expr> getBoundsCheckOffset(ref<Expr> offset, unsigned bytes) const {
-    // llvm::outs() << "getBoundsCheckOffset offset" << offset << " bytes:" << bytes << " size: " << size << "\n";
     if (bytes<=size) {
       return UltExpr::create(offset, 
                              ConstantExpr::alloc(size - bytes + 1, 

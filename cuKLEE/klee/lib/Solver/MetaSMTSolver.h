@@ -1,5 +1,4 @@
-//===-- MetaSMTSolver.h
-//---------------------------------------------------===//
+﻿//===-- MetaSMTSolver.h
 //
 //                     The KLEE Symbolic Virtual Machine
 //

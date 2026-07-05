@@ -1,4 +1,4 @@
-//===-- ExternalDispatcher.cpp --------------------------------------------===//
+﻿//===-- ExternalDispatcher.cpp --------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -76,7 +76,6 @@ public:
 };
 
 std::string &ExternalDispatcherImpl::getFreshModuleID() {
-  // We store the module IDs because `llvm::Module` constructor takes the
   // module ID as a StringRef so it doesn't own the ID.  Therefore we need to
   // own the ID.
   static uint64_t counter = 0;
@@ -96,7 +95,6 @@ void *ExternalDispatcherImpl::resolveSymbol(const std::string &name) {
   // We use this to validate that function names can be resolved so we
   // need to match how the JIT does it. Unfortunately we can't
   // directly access the JIT resolution function
-  // JIT::getPointerToNamedFunction so we emulate the important points.
 
   if (str[0] == 1) // asm specifier, skipped
     ++str;
@@ -106,7 +104,6 @@ void *ExternalDispatcherImpl::resolveSymbol(const std::string &name) {
     return addr;
 
   // If it has an asm specifier and starts with an underscore we retry
-  // without the underscore. I (DWD) don't know why.
   if (name[0] == 1 && str[0] == '_') {
     ++str;
     addr = sys::DynamicLibrary::SearchForAddressOfSymbol(str);
@@ -140,7 +137,6 @@ ExternalDispatcherImpl::ExternalDispatcherImpl(LLVMContext &ctx)
   llvm::InitializeNativeTargetAsmParser();
   llvm::InitializeNativeTargetAsmPrinter();
 
-  // from ExecutionEngine::create
   if (executionEngine) {
     // Make sure we can resolve symbols in the program as well. The zero arg
     // to the function tells DynamicLibrary to load the program, not a library.
@@ -272,7 +268,6 @@ Function *ExternalDispatcherImpl::createDispatcher(KCallable *target,
 
   // MCJIT functions need unique names, or wrong function can be called.
   // The module identifier is included because for the MCJIT we need
-  // unique function names across all `llvm::Modules`s.
   std::string fnName =
       "dispatcher_" + target->getName().str() + module->getModuleIdentifier();
   Function *dispatcher =

@@ -1,4 +1,4 @@
-//===-- ImpliedValue.cpp --------------------------------------------------===//
+﻿//===-- ImpliedValue.cpp --------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -39,8 +39,6 @@ void ImpliedValue::getImpliedValues(ref<Expr> e,
 
   case Expr::Read: {
     // XXX in theory it is possible to descend into a symbolic index
-    // under certain circumstances (all values known, known value
-    // unique, or range known, max / min hit). Seems unlikely this
     // would work often enough to be worth the effort.
     ReadExpr *re = cast<ReadExpr>(e);
     results.push_back(std::make_pair(re, value));
@@ -99,14 +97,12 @@ void ImpliedValue::getImpliedValues(ref<Expr> e,
 
   case Expr::Add: { // constants on left
     BinaryExpr *be = cast<BinaryExpr>(e);
-    // C_0 + A = C  =>  A = C - C_0
     if (ConstantExpr *CE = dyn_cast<ConstantExpr>(be->left))
       getImpliedValues(be->right, value->Sub(CE), results);
     break;
   }
   case Expr::Sub: { // constants on left
     BinaryExpr *be = cast<BinaryExpr>(e);
-    // C_0 - A = C  =>  A = C_0 - C
     if (ConstantExpr *CE = dyn_cast<ConstantExpr>(be->left))
       getImpliedValues(be->right, CE->Sub(value), results);
     break;
@@ -133,7 +129,6 @@ void ImpliedValue::getImpliedValues(ref<Expr> e,
         getImpliedValues(be->right, value, results);
       }
     } else {
-      // FIXME; We can propagate a mask here where we know "some bits". May or
       // may not be useful.
     }
     break;

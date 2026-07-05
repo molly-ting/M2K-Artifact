@@ -1,4 +1,4 @@
-//===-- Constraints.cpp ---------------------------------------------------===//
+﻿//===-- Constraints.cpp ---------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -143,10 +143,8 @@ void ConstraintManager::addConstraintInternal(const ref<Expr> &e) {
   case Expr::Eq: {
     if (RewriteEqualities) {
       // XXX: should profile the effects of this and the overhead.
-      // traversing the constraints looking for equalities is hardly the
       // slowest thing we do, but it is probably nicer to have a
       // ConstraintSet ADT which efficiently remembers obvious patterns
-      // (byte-constant comparison).
       BinaryExpr *be = cast<BinaryExpr>(e);
       if (isa<ConstantExpr>(be->left)) {
 	ExprReplaceVisitor visitor(be->right, be->left);

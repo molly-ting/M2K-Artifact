@@ -1,4 +1,4 @@
-//===-- TimingSolver.cpp --------------------------------------------------===//
+﻿//===-- TimingSolver.cpp --------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -30,22 +30,14 @@ using namespace llvm;
 bool TimingSolver::evaluate(const ConstraintSet &constraints, ref<Expr> expr,
                             Solver::Validity &result,
                             SolverQueryMetaData &metaData, std::map<std::string, unsigned> intArrNames, std::vector<ref<Expr>> noCheckExprs, bool forceSolve) {
-  // llvm::outs() << "TimingSolver::evaluate:  expr: " << expr << "\n";
 
-  // for (auto const &constraint : constraints) {
-  //   llvm::outs() << "constraint: " << constraint << "\n";
-  // }
 
-  // for (auto const &p : intArrNames) {
-  //   llvm::outs() << p.first << " " << p.second << "\n";
-  // }
 
   ++stats::queries;
   // Fast path, to avoid timer and OS overhead.
   if (!forceSolve) {
     if (ConstantExpr *CE = dyn_cast<ConstantExpr>(expr)) {
       result = CE->isTrue() ? Solver::True : Solver::False;
-      // llvm::outs() << "CE->isTrue(): " << CE->isTrue() << "\n";
       return true;
     }
   }
@@ -54,7 +46,6 @@ bool TimingSolver::evaluate(const ConstraintSet &constraints, ref<Expr> expr,
 
   if (simplifyExprs){
     expr = ConstraintManager::simplifyExpr(constraints, expr);
-    // llvm::outs() << "simplifyExprs: " << expr << "\n";
   }
   
   bool success = solver->evaluate(Query(constraints, expr, intArrNames, noCheckExprs), result, forceSolve);
@@ -66,12 +57,6 @@ bool TimingSolver::evaluate(const ConstraintSet &constraints, ref<Expr> expr,
 
 bool TimingSolver::mustBeTrue(const ConstraintSet &constraints, ref<Expr> expr,
                               bool &result, SolverQueryMetaData &metaData, std::map<std::string, unsigned> intArrNames, std::vector<ref<Expr>> noCheckExprs) {
-  // llvm::outs() << "TimingSolver::mustBeTrue: " << "\n";
-  // std::string exprStr;
-  // llvm::raw_string_ostream rso(exprStr);
-  // expr->print(rso); 
-  // rso.flush();
-  // llvm::outs() << "expr: " << exprStr << "\n";
   ++stats::queries;
   // Fast path, to avoid timer and OS overhead.
   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(expr)) {
@@ -83,12 +68,8 @@ bool TimingSolver::mustBeTrue(const ConstraintSet &constraints, ref<Expr> expr,
 
   if (simplifyExprs){
     expr = ConstraintManager::simplifyExpr(constraints, expr);
-    // llvm::outs() << "simplifyExprs: " << expr << "\n";
   }
   
-  // for (auto const &constraint : constraints) {
-  //   llvm::outs() << "constraint: " << constraint << "\n";
-  // }
 
   bool success = solver->mustBeTrue(Query(constraints, expr, intArrNames, noCheckExprs), result);
 

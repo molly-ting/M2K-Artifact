@@ -1,5 +1,4 @@
-//===-- QueryLoggingSolver.h
-//---------------------------------------------------===//
+﻿//===-- QueryLoggingSolver.h
 //
 //                     The KLEE Symbolic Virtual Machine
 //

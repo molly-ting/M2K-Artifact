@@ -1,4 +1,4 @@
-//===-- Solver.cpp --------------------------------------------------------===//
+﻿//===-- Solver.cpp --------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -131,7 +131,6 @@ std::pair< ref<Expr>, ref<Expr> > Solver::getRange(const Query& query) {
   } else if (ConstantExpr *CE = dyn_cast<ConstantExpr>(e)) {
     min = max = CE->getZExtValue();
   } else {
-    // binary search for # of useful bits
     uint64_t lo=0, hi=width, mid, bits=0;
     while (lo<hi) {
       mid = lo + (hi - lo)/2;
@@ -156,7 +155,6 @@ std::pair< ref<Expr>, ref<Expr> > Solver::getRange(const Query& query) {
       bits = lo;
     }
     
-    // could binary search for training zeros and offset
     // min max but unlikely to be very useful
 
     // check common case
@@ -172,7 +170,6 @@ std::pair< ref<Expr>, ref<Expr> > Solver::getRange(const Query& query) {
     if (res) {
       min = 0;
     } else {
-      // binary search for min
       lo=0, hi=bits64::maxValueOfNBits(bits);
       while (lo<hi) {
         mid = lo + (hi - lo)/2;
@@ -196,7 +193,6 @@ std::pair< ref<Expr>, ref<Expr> > Solver::getRange(const Query& query) {
       min = lo;
     }
 
-    // binary search for max
     lo=min, hi=bits64::maxValueOfNBits(bits);
     while (lo<hi) {
       mid = lo + (hi - lo)/2;

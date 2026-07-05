@@ -1,4 +1,4 @@
-//===-- MergeHandler.cpp --------------------------------------------------===//
+﻿//===-- MergeHandler.cpp --------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -83,7 +83,6 @@ void MergeHandler::addClosedState(ExecutionState *es,
   // Update stats
   ++closedStateCount;
 
-  // Incremental update of mean (travelling mean)
   // https://math.stackexchange.com/a/1836447
   closedMean += (static_cast<double>(getInstructionDistance(es)) - closedMean) /
                closedStateCount;

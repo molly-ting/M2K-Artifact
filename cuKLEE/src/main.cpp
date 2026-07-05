@@ -94,14 +94,11 @@ std::map<std::string, std::set<std::string>> buildCallGraph(const llvm::Module &
                     const llvm::Value *storeAddress = storeInst->getPointerOperand();
                     if (const auto *funcValue = llvm::dyn_cast<llvm::Function>(storedValue)) {
                         addressToFunction[storeAddress].insert(funcValue->getName().str());
-                        // callGraph[funcValue->getName().str()].insert(callerName);
-                        // llvm::errs() << "store " << funcValue->getName().str() << " caller " << callerName << " storeAddress " << storeAddress << "\n";
                     }
                 }
 
                 if (const auto *loadInst = llvm::dyn_cast<llvm::LoadInst>(&inst)) {
                     const llvm::Value *loadAddress = loadInst->getPointerOperand();
-                    // llvm::errs() << "load " << loadAddress << "\n";
 
                     if (addressToFunction.count(loadAddress)) {
                         for (auto& calleeName: addressToFunction[loadAddress])
@@ -115,11 +112,9 @@ std::map<std::string, std::set<std::string>> buildCallGraph(const llvm::Module &
 
                     if (const auto *trueFunc = llvm::dyn_cast<llvm::Function>(trueValue)) {
                         callGraph[trueFunc->getName().str()].insert(callerName);
-                        // llvm::errs() << "select " << funcValue->getName().str() << " caller " << callerName << "\n";
                     }
                     if (const auto *falseFunc = llvm::dyn_cast<llvm::Function>(falseValue)) {
                         callGraph[falseFunc->getName().str()].insert(callerName);
-                        // llvm::errs() << "select " << funcValue->getName().str() << " caller " << callerName << "\n";
                     }
                 }
             }
@@ -179,7 +174,6 @@ std::string substituteOrAdd(const std::string &encoded, SubstTable &subs) {
     for (size_t i = 0; i < subs.size(); ++i) {
         if (subs[i] == encoded) {
             // For index 0, substitution is "S_"; otherwise "S<index>_"
-            // return (i == 0 ? "S_" : ("S" + std::to_string(i) + "_"));
             return ("S" + std::to_string(i) + "_");
         }
     }
@@ -317,9 +311,6 @@ std::string mapBasicType(const std::string &baseType) {
         return "x";
     if (baseType == "void")
         return "v";
-    // If the type is qualified (contains "::"), use our qualified type encoder.
-    // if (baseType.find("::") != std::string::npos)
-    //     return encodeQualifiedType(baseType, *(new SubstTable())); // temporary table (should not be used)
     return encodeName(baseType);
 }
 
@@ -338,11 +329,6 @@ std::string encodeType(const std::string &typeStr, SubstTable &subs) {
     } else
         typeCode = mapBasicType(base);
     
-    // std::cerr << typeStr << " typecode: " << typeCode << "\n";
-    // std::cerr << "Substitution Table:\n";
-    // for (size_t i = 0; i < subs.size(); ++i) {
-    //     std::cerr << "S" << i << " -> " << subs[i] << "\n";
-    // }
     std::string full;
     if (isRef) {
         full = "R";
@@ -402,7 +388,6 @@ std::string mangleFunctionName(const std::string &qualifiedName,
 
 std::string getModifiedFilePath(const std::string &inputFilePath) {
     fs::path inputPath(inputFilePath);
-    // fs::path outputPath = inputPath.parent_path() / "modified_module.bc";
     fs::path outputPath = inputPath.parent_path() / (inputPath.stem().string() + "_modified.bc");
     return outputPath.string();
 }
@@ -414,14 +399,12 @@ bool commandExists(const std::string &command) {
 }
 
 void runOptCommand(const std::string &inputFilePath, const std::string &outputFilePath) {
-    // std::string passLibPath = "../build/libReplaceDeviceStubCallsPass.so";
     std::filesystem::path currentFilePath = __FILE__;
     std::filesystem::path passLibPath = std::filesystem::absolute(currentFilePath).parent_path().parent_path() / "build/libSignednessPropagationPass.so";
     std::string passLibPathStr = passLibPath.string();
 
     // Construct the opt command
     std::string optCommand = "opt-13 -load-pass-plugin " + passLibPathStr +
-                            //  " -passes=replace-stub-calls <" + inputFilePath +
                              " -passes=signedness-prop <" + inputFilePath +
                              " > " + outputFilePath;
     std::cout << "running " << optCommand << "\n";
@@ -619,7 +602,6 @@ int main(int argc, char **argv) {
                     }
 
                     if (demangledFuncName == function) {
-                        // llvm::outs() << mangledName << " " << demangledFuncName << "\n";
                         targetFunctionName = mangledName;
                         break;
                     }

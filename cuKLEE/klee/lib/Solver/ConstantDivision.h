@@ -1,4 +1,4 @@
-//===-- ConstantDivision.h --------------------------------------*- C++ -*-===//
+﻿//===-- ConstantDivision.h --------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

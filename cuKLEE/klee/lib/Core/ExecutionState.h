@@ -1,4 +1,4 @@
-//===-- ExecutionState.h ----------------------------------------*- C++ -*-===//
+﻿//===-- ExecutionState.h ----------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -61,9 +61,6 @@ struct StackFrame {
   unsigned minDistToUncoveredOnReturn;
 
   // For vararg functions: arguments not passed via parameter are
-  // stored (packed tightly) in a local (alloca) memory object. This
-  // is set up to match the way the front-end generates vaarg code (it
-  // does not pass vaarg through as expected). VACopy is lowered inside
   // of intrinsic lowering.
   MemoryObject *varargs;
 
@@ -224,7 +221,6 @@ public:
 
   /// @brief Ordered list of symbolics: used to generate test cases.
   //
-  // FIXME: Move to a shared list structure (not critical).
   std::vector<std::pair<ref<const MemoryObject>, const Array *>> symbolics;
 
   /// @brief A set of boolean expressions

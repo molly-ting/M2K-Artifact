@@ -1,4 +1,4 @@
-//===-- ExternalDispatcher.h ------------------------------------*- C++ -*-===//
+﻿//===-- ExternalDispatcher.h ------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //

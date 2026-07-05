@@ -1,4 +1,4 @@
-#ifndef KLEE_TENSORSIZESMEMORY_H
+﻿#ifndef KLEE_TENSORSIZESMEMORY_H
 #define KLEE_TENSORSIZESMEMORY_H
 
 
@@ -13,11 +13,7 @@ namespace klee {
         friend class ref<SymArrayMemoryObject>;
 
         // private:
-        //     static int counter;
-        //     /// @brief Required by klee::ref-managed objects
-        //     mutable class ReferenceCounter _refCount;
         public:
-            // unsigned id;
             uint64_t address;
             const Array * name;
             const std::string tensorName;

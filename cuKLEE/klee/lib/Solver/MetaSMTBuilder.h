@@ -1,4 +1,4 @@
-//===-- MetaSMTBuilder.h ----------------------------------------*- C++ -*-===//
+﻿//===-- MetaSMTBuilder.h ----------------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -106,7 +106,6 @@ public:
   typename SolverContext::result_type bvSExtConst(unsigned width,
                                                   uint64_t value);
 
-  // logical left and right shift (not arithmetic)
   typename SolverContext::result_type
   bvLeftShift(typename SolverContext::result_type expr, unsigned width,
               unsigned shift);
@@ -184,7 +183,6 @@ MetaSMTBuilder<SolverContext>::getArrayForUpdate(const Array *root,
   if (!un) {
     un_expr = getInitialArray(root);
   }
-  // `un_expr` now holds an expression for the array - either from cache or by
   // virtue of being the initial array expression
 
   // Create and cache solver expressions based on the update nodes starting from
@@ -279,7 +277,6 @@ MetaSMTBuilder<SolverContext>::bvSExtConst(unsigned width, uint64_t value) {
   if (width <= 64) {
     res = bvConst64(width, value);
   } else {
-    // ToDo Reconsider -- note differences in STP and metaSMT for sign_extend
     // arguments
     res = evaluate(_solver, sign_extend(width - 64, bvConst64(64, value)));
   }
@@ -329,7 +326,6 @@ MetaSMTBuilder<SolverContext>::constructAShrByConstant(
   return (res);
 }
 
-// width is the width of expr; x -- number of bits to shift with
 template <typename SolverContext>
 typename SolverContext::result_type
 MetaSMTBuilder<SolverContext>::constructMulByConstant(
@@ -339,7 +335,6 @@ MetaSMTBuilder<SolverContext>::constructMulByConstant(
   typename SolverContext::result_type res;
   bool first = true;
 
-  // expr*x == expr*(add-sub) == expr*add - expr*sub
   ComputeMultConstants64(x, add, sub);
 
   // legal, these would overflow completely
@@ -400,14 +395,12 @@ MetaSMTBuilder<SolverContext>::constructUDivByConstant(
 
   assert(width == 32 && "can only compute udiv constants for 32-bit division");
 
-  // Compute the constants needed to compute n/d for constant d without division
   // by d.
   uint32_t mprime, sh1, sh2;
   ComputeUDivConstants32(d, mprime, sh1, sh2);
   typename SolverContext::result_type expr_sh1 = bvConst32(32, sh1);
   typename SolverContext::result_type expr_sh2 = bvConst32(32, sh2);
 
-  // t1  = MULUH(mprime, n) = ( (uint64_t)mprime * (uint64_t)n ) >> 32
   typename SolverContext::result_type expr_n_64 =
       evaluate(_solver, concat(bvZero(32), expr_n)); // extend to 64 bits
   typename SolverContext::result_type t1_64bits =
@@ -415,7 +408,6 @@ MetaSMTBuilder<SolverContext>::constructUDivByConstant(
   typename SolverContext::result_type t1 =
       bvExtract(t1_64bits, 63, 32); // upper 32 bits
 
-  // n/d = (((n - t1) >> sh1) + t1) >> sh2;
   typename SolverContext::result_type n_minus_t1 =
       evaluate(_solver, bvsub(expr_n, t1));
   typename SolverContext::result_type shift_sh1 =
@@ -448,17 +440,14 @@ MetaSMTBuilder<SolverContext>::constructSDivByConstant(
 
   assert(width == 32 && "can only compute udiv constants for 32-bit division");
 
-  // Compute the constants needed to compute n/d for constant d w/o division by
   // d.
   int32_t mprime, dsign, shpost;
   ComputeSDivConstants32(d, mprime, dsign, shpost);
   typename SolverContext::result_type expr_dsign = bvConst32(32, dsign);
   typename SolverContext::result_type expr_shpost = bvConst32(64, shpost);
 
-  // q0 = n + MULSH( mprime, n ) = n + (( (int64_t)mprime * (int64_t)n ) >> 32)
   int64_t mprime_64 = (int64_t)mprime;
 
-  // ToDo Reconsider -- note differences in STP and metaSMT for sign_extend
   // arguments
   typename SolverContext::result_type expr_n_64 =
       evaluate(_solver, sign_extend(64 - width, expr_n));
@@ -479,17 +468,14 @@ MetaSMTBuilder<SolverContext>::constructSDivByConstant(
 
   /////////////
 
-  // XSIGN(n) is -1 if n is negative, positive one otherwise
   typename SolverContext::result_type is_signed = bvBoolExtract(expr_n, 31);
   typename SolverContext::result_type neg_one = bvMinusOne(32);
   typename SolverContext::result_type xsign_of_n =
       evaluate(_solver, metaSMT::logic::Ite(is_signed, neg_one, bvZero(32)));
 
-  // q0 = (n_plus_mulsh >> shpost) - XSIGN(n)
   typename SolverContext::result_type q0 =
       evaluate(_solver, bvsub(shift_shpost, xsign_of_n));
 
-  // n/d = (q0 ^ dsign) - dsign
   typename SolverContext::result_type q0_xor_dsign =
       evaluate(_solver, bvxor(q0, expr_dsign));
   typename SolverContext::result_type res =
@@ -546,7 +532,6 @@ MetaSMTBuilder<SolverContext>::bvVarLeftShift(
   assert(_solver.get_bv_width(expr) == width);
   assert(_solver.get_bv_width(shift) == width);
 
-  // If overshifting, shift to zero
   return evaluate(_solver,
                   metaSMT::logic::Ite(bvult(shift, bvConst32(width, width)),
                                       bvshl(expr, shift), bvZero(width)));
@@ -563,7 +548,6 @@ MetaSMTBuilder<SolverContext>::bvVarRightShift(
   assert(_solver.get_bv_width(expr) == width);
   assert(_solver.get_bv_width(shift) == width);
 
-  // If overshifting, shift to zero
   return evaluate(_solver,
                   metaSMT::logic::Ite(bvult(shift, bvConst32(width, width)),
                                       bvshr(expr, shift), bvZero(width)));
@@ -580,7 +564,6 @@ MetaSMTBuilder<SolverContext>::bvVarArithRightShift(
   assert(_solver.get_bv_width(expr) == width);
   assert(_solver.get_bv_width(shift) == width);
 
-  // If overshifting, shift to zero
   return evaluate(_solver,
                   metaSMT::logic::Ite(bvult(shift, bvConst32(width, width)),
                                       bvashr(expr, shift), bvZero(width)));
@@ -629,15 +612,11 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
 
   int width = 0;
   if (!width_out) {
-    // assert(false);
     width_out = &width;
   }
 
   ++stats::queryConstructs;
 
-  //     llvm::errs() << "Constructing expression ";
-  //     ExprPPrinter::printSingleExpr(llvm::errs(), e);
-  //     llvm::errs() << "\n";
 
   switch (e->getKind()) {
 
@@ -647,7 +626,6 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
     unsigned coe_width = coe->getWidth();
     *width_out = coe_width;
 
-    // Coerce to bool if necessary.
     if (coe_width == 1) {
       res = (coe->isTrue()) ? getTrue() : getFalse();
     } else if (coe_width <= 32) {
@@ -751,11 +729,7 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
     }
 
     // ToDo calculate how many zeros to add
-    // Note: STP and metaSMT differ in the prototype arguments;
-    // STP requires the width of the resulting bv;
-    // whereas metaSMT (and Z3) require the width of the zero vector that is to
     // be appended
-    // res = evaluate(_solver, zero_extend(ce_width, construct(ce->src)));
 
     break;
   }
@@ -893,7 +867,6 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
       if (bits64::isPowerOfTwo(divisor)) {
 
         unsigned bits = bits64::indexOfSingleBit(divisor);
-        // special case for modding by 1 or else we bvExtract -1:0
         if (bits == 0) {
           res = bvZero(*width_out);
           construct_both = false;
@@ -904,7 +877,6 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
         }
       }
 
-      // Use fast division to compute modulo without explicit division for
       // constant divisor.
 
       if (_optimizeDivides &&
@@ -943,7 +915,6 @@ MetaSMTBuilder<SolverContext>::constructActual(ref<Expr> e, int *width_out) {
                 if (ConstantExpr *cre = de->right->asConstant()) {
                     uint64_t divisor = cre->asUInt64;
     
-                    //use fast division to compute modulo without explicit division for constant divisor
                     if( *width_out == 32 ) { //only works for 32-bit division
                        	typename SolverContext::result_type quotient = constructSDivByConstant(left, *width_out, divisor);
                         typename SolverContext::result_type quot_times_divisor = constructMulByConstant(quotient, *width_out, divisor);

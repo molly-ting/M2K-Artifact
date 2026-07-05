@@ -1,4 +1,4 @@
-//===-- IndependentSolver.cpp ---------------------------------------------===//
+﻿//===-- IndependentSolver.cpp ---------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -111,9 +111,7 @@ public:
   IndependentElementSet(ref<Expr> e) {
     exprs.push_back(e);
     // Track all reads in the program.  Determines whether reads are
-    // concrete or symbolic.  If they are symbolic, "collapses" array
     // by adding it to wholeObjects.  Otherwise, creates a mapping of
-    // the form Map<array, set<index>> which tracks which parts of the
     // array are being accessed.
     std::vector< ref<ReadExpr> > reads;
     findReads(e, /* visitUpdates= */ true, reads);
@@ -127,8 +125,6 @@ public:
 
       if (!wholeObjects.count(array)) {
         if (ConstantExpr *CE = dyn_cast<ConstantExpr>(re->index)) {
-          // if index constant, then add to set of constraints operating
-          // on that array (actually, don't add constraint, just set index)
           ::DenseSet<unsigned> &dis = elements[array];
           dis.add((unsigned) CE->getZExtValue(32));
         } else {
@@ -185,7 +181,6 @@ public:
 
   // more efficient when this is the smaller set
   bool intersects(const IndependentElementSet &b) {
-    // If there are any symbolic arrays in our query that b accesses
     for (std::set<const Array*>::iterator it = wholeObjects.begin(), 
            ie = wholeObjects.end(); it != ie; ++it) {
       const Array *array = *it;
@@ -196,11 +191,9 @@ public:
     for (elements_ty::iterator it = elements.begin(), ie = elements.end();
          it != ie; ++it) {
       const Array *array = it->first;
-      // if the array we access is symbolic in b
       if (b.wholeObjects.count(array))
         return true;
       elements_ty::const_iterator it2 = b.elements.find(array);
-      // if any of the elements we access are also accessed by b
       if (it2 != b.elements.end()) {
         if (it->second.intersects(it2->second))
           return true;
@@ -241,7 +234,6 @@ public:
           modified = true;
           elements.insert(*it);
         } else {
-          // Now need to see if there are any (z=?)'s
           if (it2->second.add(it->second))
             modified = true;
         }
@@ -260,7 +252,6 @@ inline llvm::raw_ostream &operator<<(llvm::raw_ostream &os,
 // Breaks down a constraint into all of it's individual pieces, returning a
 // list of IndependentElementSets or the independent factors.
 //
-// Caller takes ownership of returned std::list.
 static std::list<IndependentElementSet>*
 getAllIndependentConstraintsSets(const Query &query) {
   std::list<IndependentElementSet> *factors = new std::list<IndependentElementSet>();
@@ -275,8 +266,6 @@ getAllIndependentConstraintsSets(const Query &query) {
 
   for (const auto &constraint : query.constraints) {
     // iterate through all the previously separated constraints.  Until we
-    // actually return, factors is treated as a queue of expressions to be
-    // evaluated.  If the queue property isn't maintained, then the exprs
     // could be returned in an order different from how they came it, negatively
     // affecting later stages.
     factors->push_back(IndependentElementSet(constraint));
@@ -291,7 +280,6 @@ getAllIndependentConstraintsSets(const Query &query) {
       IndependentElementSet current = factors->front();
       factors->pop_front();
       // This list represents the set of factors that are separate from current.
-      // Those that are not inserted into this list (queue) intersect with
       // current.
       std::list<IndependentElementSet> *keep =
           new std::list<IndependentElementSet>;
@@ -300,8 +288,6 @@ getAllIndependentConstraintsSets(const Query &query) {
         factors->pop_front();
         if (current.intersects(compare)) {
           if (current.add(compare)) {
-            // Means that we have added (z=y)added to (x=y)
-            // Now need to see if there are any (z=?)'s
             doneLoop = false;
           }
         } else {
@@ -329,7 +315,6 @@ IndependentElementSet getIndependentConstraints(const Query& query,
     worklist.push_back(
         std::make_pair(constraint, IndependentElementSet(constraint)));
 
-  // XXX This should be more efficient (in terms of low level copy stuff).
   bool done = false;
   do {
     done = true;
@@ -340,8 +325,6 @@ IndependentElementSet getIndependentConstraints(const Query& query,
         if (eltsClosure.add(it->second))
           done = false;
         result.push_back(it->first);
-        // Means that we have added (z=y)added to (x=y)
-        // Now need to see if there are any (z=?)'s
       } else {
         newWorklist.push_back(*it);
       }
@@ -435,21 +418,17 @@ bool IndependentSolver::computeValue(const Query& query, ref<Expr> &result) {
   return solver->impl->computeValue(Query(tmp, query.expr, query.intArrNames, query.noCheckExprs), result);
 }
 
-// Helper function used only for assertions to make sure point created
 // during computeInitialValues is in fact correct. The ``retMap`` is used
 // in the case ``objects`` doesn't contain all the assignments needed.
 bool assertCreatedPointEvaluatesToTrue(
     const Query &query, const std::vector<const Array *> &objects,
     std::vector<std::vector<unsigned char>> &values,
     std::map<const Array *, std::vector<unsigned char>> &retMap) {
-  // _allowFreeValues is set to true so that if there are missing bytes in the
   // assignment we will end up with a non ConstantExpr after evaluating the
   // assignment and fail
   Assignment assign = Assignment(objects, values, /*_allowFreeValues=*/true);
 
   // Add any additional bindings.
-  // The semantics of std::map should be to not insert a (key, value)
-  // pair if it already exists so we should continue to use the assignment
   // from ``objects`` and ``values``.
   if (retMap.size() > 0)
     assign.bindings.insert(retMap.begin(), retMap.end());
@@ -477,10 +456,7 @@ bool IndependentSolver::computeInitialValues(const Query& query,
                                              bool &hasSolution){
   // We assume the query has a solution except proven differently
   // This is important in case we don't have any constraints but
-  // we need initial values for requested array objects.
   hasSolution = true;
-  // FIXME: When we switch to C++11 this should be a std::unique_ptr so we don't need
-  // to remember to manually call delete
   std::list<IndependentElementSet> *factors = getAllIndependentConstraintsSets(query);
 
   //Used to rearrange all of the answers into the correct order
@@ -489,7 +465,6 @@ bool IndependentSolver::computeInitialValues(const Query& query,
        it != factors->end(); ++it) {
     std::vector<const Array*> arraysInFactor;
     calculateArrayReferences(*it, arraysInFactor);
-    // Going to use this as the "fresh" expression for the Query() invocation below
     assert(it->exprs.size() >= 1 && "No null/empty factors");
     if (arraysInFactor.size() == 0){
       continue;
@@ -511,8 +486,6 @@ bool IndependentSolver::computeInitialValues(const Query& query,
       for (unsigned i = 0; i < tempValues.size(); i++){
         if (retMap.count(arraysInFactor[i])){
           // We already have an array with some partially correct answers,
-          // so we need to place the answers to the new query into the right
-          // spot while avoiding the undetermined values also in the array
           std::vector<unsigned char> * tempPtr = &retMap[arraysInFactor[i]];
           assert(tempPtr->size() == tempValues[i].size() &&
                  "we're talking about the same array here");
@@ -522,7 +495,6 @@ bool IndependentSolver::computeInitialValues(const Query& query,
             (* tempPtr)[index] = tempValues[i][index];
           }
         } else {
-          // Dump all the new values into the array
           retMap[arraysInFactor[i]] = tempValues[i];
         }
       }

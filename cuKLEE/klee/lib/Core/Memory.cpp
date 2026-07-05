@@ -1,4 +1,4 @@
-//===-- Memory.cpp --------------------------------------------------------===//
+﻿//===-- Memory.cpp --------------------------------------------------------===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -156,7 +156,6 @@ ObjectState::~ObjectState() {
 ObjectState* ObjectState::cloneFor(const MemoryObject* newMO, const ObjectState &original) const {
     ObjectState* os = new ObjectState(*this);
     os->object = newMO;
-    // os->updates = UpdateList(original.getArray(), updates.head);
     os->copyOnWriteOwner = 0;
     os->size = newMO->size;
 
@@ -174,54 +173,11 @@ ArrayCache *ObjectState::getArrayCache() const {
 const UpdateList &ObjectState::getUpdates() const {
   // Constant arrays are created lazily.
   if (!updates.root) {
-    // Collect the list of writes, with the oldest writes first.
-    
-    // FIXME: We should be able to do this more efficiently, we just need to be
-    // careful to get the interaction with the cache right. In particular we
-    // should avoid creating UpdateNode instances we never use.
-    // unsigned NumWrites = updates.head ? updates.head->getSize() : 0;
-    // std::vector< std::pair< ref<Expr>, ref<Expr> > > Writes(NumWrites);
-    // const auto *un = updates.head.get();
-    // for (unsigned i = NumWrites; i != 0; un = un->next.get()) {
-    //   --i;
-    //   Writes[i] = std::make_pair(un->index, un->value);
-    // }
-
-    // std::vector< ref<ConstantExpr> > Contents(size);
-
-    // // Initialize to zeros.
-    // for (unsigned i = 0, e = size; i != e; ++i)
-    //   Contents[i] = ConstantExpr::create(0, Expr::Int8);
-
-    // // Pull off as many concrete writes as we can.
-    // unsigned Begin = 0, End = Writes.size();
-    // for (; Begin != End; ++Begin) {
-    //   // Push concrete writes into the constant array.
-    //   ConstantExpr *Index = dyn_cast<ConstantExpr>(Writes[Begin].first);
-    //   if (!Index)
-    //     break;
-
-    //   ConstantExpr *Value = dyn_cast<ConstantExpr>(Writes[Begin].second);
-    //   if (!Value)
-    //     break;
-
-    //   Contents[Index->getZExtValue()] = Value;
-    // }
-
-    // static unsigned id = 0;
-    // const Array *array = getArrayCache()->CreateArray(
-    //     "const_arr" + llvm::utostr(++id), size, false, &Contents[0],
-    //     &Contents[0] + Contents.size());
-    // updates = UpdateList(array, 0);
-
     static unsigned id = 0;
     const Array *array = getArrayCache()->CreateArray(
         "sym_arr" + llvm::utostr(++id), size, false);
     updates = UpdateList(array, updates.head);
 
-    // Apply the remaining (non-constant) writes.
-    // for (; Begin != End; ++Begin)
-    //   updates.extend(Writes[Begin].first, Writes[Begin].second);
   }
 
   return updates;
@@ -445,9 +401,6 @@ ref<Expr> ObjectState::read8(unsigned offset) const {
 ref<Expr> ObjectState::read8(ref<Expr> offset) const {
   assert(!isa<ConstantExpr>(offset) &&
          "constant offset passed to symbolic read8");
-  // unsigned base, size;
-  // fastRangeCheckOffset(offset, &base, &size);
-  // flushRangeForRead(base, size);
 
   if (size > 4096) {
     std::string allocInfo;
@@ -464,7 +417,6 @@ ref<Expr> ObjectState::read8(ref<Expr> offset) const {
 }
 
 void ObjectState::write8(unsigned offset, uint8_t value) {
-  //assert(read_only == false && "writing to read-only object!");
   concreteStore[offset] = value;
   setKnownSymbolic(offset, 0);
 
@@ -494,9 +446,6 @@ void ObjectState::write8(unsigned offset, ref<Expr> value) {
 void ObjectState::write8(ref<Expr> offset, ref<Expr> value) {
   assert(!isa<ConstantExpr>(offset) &&
          "constant offset passed to symbolic write8");
-  // unsigned base, size;
-  // fastRangeCheckOffset(offset, &base, &size);
-  // flushRangeForWrite(base, size);
 
   if (size > 4096) {
     std::string allocInfo;
@@ -554,19 +503,16 @@ ref<Expr> ObjectState::read(unsigned offset, Expr::Width width) const {
     unsigned idx = Context::get().isLittleEndian() ? i : (NumBytes - i - 1);
     ref<Expr> Byte = read8(offset + idx);
     Res = i ? ConcatExpr::create(Byte, Res) : Byte;
-    // llvm::outs() << "read offset " << offset + idx << " byte " << Byte << " Res " << Res << "\n";
   }
   if (isOffsetSigned(offset)) {
     if (auto CE = dyn_cast<ConstantExpr>(Res)) {
       CE->setSigned(true);
-      // return CE;
     }
   }
 
   if (isOffsetFloat(offset)) {
     if (auto CE = dyn_cast<ConstantExpr>(Res)) {
       CE->setIsFloat(true);
-      // return CE;
     }
   }
 
@@ -637,7 +583,6 @@ void ObjectState::write(unsigned offset, ref<Expr> value) {
   assert(w == NumBytes * 8 && "Invalid write size!");
   for (unsigned i = 0; i != NumBytes; ++i) {
     unsigned idx = Context::get().isLittleEndian() ? i : (NumBytes - i - 1);
-    // llvm::outs() << "write offset " << offset + idx << " byte " << ExtractExpr::create(value, 8 * i, Expr::Int8) << "\n";
     write8(offset + idx, ExtractExpr::create(value, 8 * i, Expr::Int8));
   }
 } 

@@ -1,4 +1,4 @@
-//===-- Z3Builder.cpp ------------------------------------------*- C++ -*-====//
+﻿//===-- Z3Builder.cpp ------------------------------------------*- C++ -*-====//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -29,7 +29,6 @@ llvm::cl::opt<bool> UseConstructHashZ3(
     llvm::cl::init(true),
     llvm::cl::cat(klee::ExprCat));
 
-// FIXME: This should be std::atomic<bool>. Need C++11 for that.
 bool Z3InterationLogOpen = false;
 }
 
@@ -48,7 +47,6 @@ template <> void Z3NodeHandle<Z3_ast>::dump() {
 void custom_z3_error_handler(Z3_context ctx, Z3_error_code ec) {
   ::Z3_string errorMsg =
 #ifdef HAVE_Z3_GET_ERROR_MSG_NEEDS_CONTEXT
-      // Z3 > 4.4.1
       Z3_get_error_msg(ctx, ec);
 #else
       // Z3 4.4.1
@@ -62,8 +60,6 @@ void custom_z3_error_handler(Z3_context ctx, Z3_error_code ec) {
   }
   llvm::errs() << "Error: Incorrect use of Z3. [" << ec << "] " << errorMsg
                << "\n";
-  // NOTE: The current implementation of `Z3_close_log()` can be safely
-  // called even if the log isn't open.
   Z3_close_log();
   abort();
 }
@@ -142,7 +138,6 @@ Z3ASTHandle Z3Builder::buildArray(const char *name, unsigned indexWidth,
 }
 
 Z3ASTHandle Z3Builder::buildIntArray(const char *name) {
-  // Use integer sorts for domain and range
   Z3SortHandle domainSort = getIntSort();
   Z3SortHandle rangeSort = getIntSort();
   Z3SortHandle arr_sort = getArraySort(domainSort, rangeSort);
@@ -270,14 +265,12 @@ Z3ASTHandle Z3Builder::bvVarLeftShift(Z3ASTHandle expr, Z3ASTHandle shift) {
   unsigned width = getBVLength(expr);
   Z3ASTHandle res = bvZero(width);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   for (int i = width - 1; i >= 0; i--) {
     res =
         iteExpr(eqExpr(shift, bvConst32(width, i)), bvLeftShift(expr, i), res);
   }
 
-  // If overshifting, shift to zero
   Z3ASTHandle ex = bvLtExpr(shift, bvConst32(getBVLength(shift), width));
   res = iteExpr(ex, res, bvZero(width));
   return res;
@@ -289,14 +282,12 @@ Z3ASTHandle Z3Builder::bvVarRightShift(Z3ASTHandle expr, Z3ASTHandle shift) {
   unsigned width = getBVLength(expr);
   Z3ASTHandle res = bvZero(width);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   for (int i = width - 1; i >= 0; i--) {
     res =
         iteExpr(eqExpr(shift, bvConst32(width, i)), bvRightShift(expr, i), res);
   }
 
-  // If overshifting, shift to zero
   Z3ASTHandle ex = bvLtExpr(shift, bvConst32(getBVLength(shift), width));
   res = iteExpr(ex, res, bvZero(width));
   return res;
@@ -311,10 +302,8 @@ Z3ASTHandle Z3Builder::bvVarArithRightShift(Z3ASTHandle expr,
   // get the sign bit to fill with
   Z3ASTHandle signedBool = bvBoolExtract(expr, width - 1);
 
-  // start with the result if shifting by width-1
   Z3ASTHandle res = constructAShrByConstant(expr, width - 1, signedBool);
 
-  // construct a big if-then-elif-elif-... with one case per possible shift
   // amount
   // XXX more efficient to move the ite on the sign outside all exprs?
   // XXX more efficient to sign extend, right shift, then extract lower bits?
@@ -323,7 +312,6 @@ Z3ASTHandle Z3Builder::bvVarArithRightShift(Z3ASTHandle expr,
                   constructAShrByConstant(expr, i, signedBool), res);
   }
 
-  // If overshifting, shift to zero
   Z3ASTHandle ex = bvLtExpr(shift, bvConst32(getBVLength(shift), width));
   res = iteExpr(ex, res, bvZero(width));
   return res;
@@ -438,7 +426,6 @@ Z3ASTHandle Z3Builder::getInitialArray(const Array *root) {
     // Unique arrays by name, so we make sure the name is unique by
     // using the size of the array hash as a counter.
     std::string unique_id = llvm::utostr(_arr_hash._array_hash.size());
-    // Prefix unique ID with '_' to avoid name collision if name ends with
     // number
     std::string unique_name = root->name + "_" + unique_id;
 
@@ -448,7 +435,6 @@ Z3ASTHandle Z3Builder::getInitialArray(const Array *root) {
     if (root->isConstantArray() && constant_array_assertions.count(root) == 0) {
       std::vector<Z3ASTHandle> array_assertions;
       for (unsigned i = 0, e = root->size; i != e; ++i) {
-        // construct(= (select i root) root->value[i]) to be asserted in
         // Z3Solver.cpp
         int width_out;
         Z3ASTHandle array_value =
@@ -477,31 +463,24 @@ Z3ASTHandle Z3Builder::getInitialIntArray(const Array *root, int elementWidth) {
     // Unique arrays by name, so we make sure the name is unique by
     // using the size of the array hash as a counter.
     std::string unique_id = llvm::utostr(_int_arr_hash._array_hash.size());
-    // Prefix unique ID with '_' to avoid name collision if name ends with
     // number
     std::string unique_name = root->name + "_" + unique_id;
 
     array_expr = buildIntArray(unique_name.c_str());
     unsigned byteWidth = elementWidth / 8;
-    // llvm::outs() << "name " << root->name << " id " << unique_id << " byteWidth " << byteWidth << "\n";
 
     if (root->isConstantArray() && constant_array_assertions.count(root) == 0) {
       std::vector<Z3ASTHandle> array_assertions;
       for (unsigned i = 0, e = root->size / byteWidth; i != e; ++i) {
-        // construct(= (select i root) root->value[i]) to be asserted in
         // Z3Solver.cpp
         ref<ConstantExpr> full_value = ConstantExpr::create(0, elementWidth);
         for (unsigned j = 0; j < byteWidth; ++j) {
           ref<ConstantExpr> byte_value = root->constantValues[i * byteWidth + j];
-          // llvm::outs() << "i " << i << " j " << j << " offset " << i * byteWidth + j << " byte_value " << byte_value << "\n";
           full_value = full_value->Or(byte_value->ZExt(elementWidth)->Shl(ConstantExpr::create(j * 8, elementWidth)));
-          // llvm::outs() << "i " << i << " j " << j << " full_value " << full_value << "\n";
         }
 
-        // llvm::outs() << "i " << i << " full_value " << full_value << "\n";
         int width_out;
         Z3ASTHandle array_value = constructForInt(full_value, &width_out);
-        // assert(width_out == (int)elementWidth && "Constructed value does not match expected width");
     
         array_assertions.push_back(
             eqExpr(readExpr(array_expr, intConst32(i)), array_value));
@@ -539,7 +518,6 @@ Z3ASTHandle Z3Builder::getArrayForUpdate(const Array *root,
   if (!un) {
     un_expr = getInitialArray(root);
   }
-  // `un_expr` now holds an expression for the array - either from cache or by
   // virtue of being the initial array expression
 
   // Create and cache solver expressions based on the update nodes starting from
@@ -550,12 +528,6 @@ Z3ASTHandle Z3Builder::getArrayForUpdate(const Array *root,
     Z3ASTHandle valueAST;
     if (forInt) {
       indexAST = constructForInt(un->index, 0, true);
-      // Z3_sort index_sort = Z3_get_sort(ctx, indexAST);
-      // Z3_sort_kind index_kind = Z3_get_sort_kind(ctx, index_sort);
-      // if (index_kind == Z3_INT_SORT) {
-      //   useInt2BV = true;
-      //   indexAST = Z3ASTHandle(Z3_mk_int2bv(ctx, un->index->getWidth(), indexAST), ctx);
-      // } 
       valueAST = constructForInt(un->value, 0, true);
     } else {
       indexAST = construct(un->index, 0);
@@ -571,61 +543,27 @@ Z3ASTHandle Z3Builder::getArrayForUpdate(const Array *root,
   return un_expr;
 }
 
-// Z3ASTHandle Z3Builder::getIntArrayForUpdate(const Array *root, const UpdateNode *un, int elementWidth) {
 //   // Iterate over the update nodes, until we find a cached version of the node,
 //   // or no more update nodes remain
-//   Z3ASTHandle un_expr;
-//   std::vector<const UpdateNode *> update_nodes;
-//   for (; un && !_int_arr_hash.lookupUpdateNodeExpr(un, un_expr);
-//        un = un->next.get()) {
-//     update_nodes.push_back(un);
-//   }
-//   if (!un) {
-//     un_expr = getInitialIntArray(root, elementWidth);
-//   }
-//   // `un_expr` now holds an expression for the array - either from cache or by
 //   // virtue of being the initial array expression
 
 //   // Create and cache solver expressions based on the update nodes starting from
 //   // the oldest
-//   for (const auto &un :
-//        llvm::make_range(update_nodes.crbegin(), update_nodes.crend())) {
-//     Z3ASTHandle indexAST = constructForInt(un->index, 0);
-//     Z3ASTHandle valueAST = constructForInt(un->value, 0);
-//     un_expr =
-//         writeExpr(un_expr, indexAST, valueAST);
 
-//     _int_arr_hash.hashUpdateNodeExpr(un, un_expr);
-//   }
 
-//   return un_expr;
-// }
 
 // bool: isWholeInt
 std::pair<Z3ASTHandle, bool> Z3Builder::readIntExprInitial(const Array *array) {
-  // std::string symName = array->name;
-  // if (index > 0) {
-  //   symName += "_" + std::to_string(index);
-  //   if (int_ast_map.find(symName) != int_ast_map.end()) 
-  //     return std::make_pair(int_ast_map[symName], false);
-  // }
 
   if (int_ast_map.find(array->name) != int_ast_map.end()) 
     return std::make_pair(int_ast_map[array->name], true);
   
-  // Z3SortHandle t = getIntSort(array->getRange());
-  // Z3ASTHandle res = Z3ASTHandle(Z3_mk_const(ctx, Z3_mk_string_symbol(ctx, symName.c_str()), t), ctx);
-  // int_ast_map[symName] = res;
   return std::make_pair(Z3ASTHandle(), false);
 }
 
 Z3ASTHandle Z3Builder::readIntExpr(const Array *array) {  
   assert(array);
   std::string symName = array->name;
-  // if (index > 0) {
-  //   symName += "_" + std::to_string(index);
-  //   klee_warning("read int but offset not 0");
-  // }
 
   if (int_ast_map.find(symName) != int_ast_map.end()) 
     return int_ast_map[symName];
@@ -639,7 +577,6 @@ Z3ASTHandle Z3Builder::readIntExpr(const Array *array) {
 /** if *width_out!=1 then result is a bitvector,
     otherwise it is a bool */
 Z3ASTHandle Z3Builder::construct(ref<Expr> e, int *width_out) {
-  // TODO: We could potentially use Z3_simplify() here
   // to store simpler expressions.
   if (!UseConstructHashZ3 || isa<ConstantExpr>(e)) {
     return constructActual(e, width_out);
@@ -687,7 +624,6 @@ Z3ASTHandle Z3Builder::intCStyleModExpr(Z3ASTHandle left, Z3ASTHandle right) {
 }
 
 Z3ASTHandle Z3Builder::constructForInt(ref<Expr> e, int *width_out, bool isBitVec) {
-  // TODO: We could potentially use Z3_simplify() here
   // to store simpler expressions.
   if (!UseConstructHashZ3 || isa<ConstantExpr>(e)) {
     return constructActualForInt(e, width_out, isBitVec);
@@ -715,13 +651,7 @@ Z3ASTHandle Z3Builder::constructForInt(ref<Expr> e, int *width_out, bool isBitVe
           res = Z3ASTHandle(Z3_mk_int2bv(ctx, e->getWidth(), res), ctx);
         }
       }
-      // llvm::outs() << "find " << e << " " << isBitVec << " ";
-      // if (res_kind == Z3_INT_SORT) 
-      //   llvm::outs() << "int sort\n";
-      // else if (res_kind == Z3_BV_SORT) 
-      //   llvm::outs() << "bv sort\n";
       // else 
-      //   llvm::outs() << res_kind << "\n";
       return res;
     } else {
       int width;
@@ -743,13 +673,7 @@ Z3ASTHandle Z3Builder::constructForInt(ref<Expr> e, int *width_out, bool isBitVe
           res = Z3ASTHandle(Z3_mk_int2bv(ctx, e->getWidth(), res), ctx);
         }
       }
-      // llvm::outs() << "new " << e << " " << isBitVec << " ";
-      // if (res_kind == Z3_INT_SORT) 
-      //   llvm::outs() << "int sort\n";
-      // else if (res_kind == Z3_BV_SORT) 
-      //   llvm::outs() << "bv sort\n";
       // else 
-      //   llvm::outs() << res_kind << "\n";
       constructed.insert(std::make_pair(e, std::make_pair(res, *width_out)));
       return res;
     }
@@ -757,7 +681,6 @@ Z3ASTHandle Z3Builder::constructForInt(ref<Expr> e, int *width_out, bool isBitVe
 }
 
 Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool isBitVec) {
-  // llvm::outs() << e << " isBitVec " << isBitVec << "\n";
   int width;
   if (!width_out)
     width_out = &width;
@@ -769,7 +692,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     ConstantExpr *CE = cast<ConstantExpr>(e);
     *width_out = CE->getWidth();
 
-    // Coerce to bool if necessary.
     if (*width_out == 1)
       return CE->isTrue() ? getTrue() : getFalse();
 
@@ -796,7 +718,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       if (*width_out < 32) {
         uint64_t rawValue = CE->getZExtValue();
         int32_t value;
-        // bool isNegative = (rawValue >> (*width_out - 1)) & 1;  
         if (CE->isValueSigned()) {
           value = static_cast<int32_t>(rawValue | (~0U << *width_out));
         } else {
@@ -807,36 +728,16 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
         if (CE->isValueSigned()) {
             return intConst32(CE->getZExtValue());
         } else {
-          // uint64_t rawValue = CE->getZExtValue();
-          // if (rawValue > INT32_MAX) {
-          //   int32_t value = CE->getZExtValue();
-          //   return intConst32(value);
-          // }
           return uintConst32(CE->getZExtValue());
         }
-        // uint32_t tmp = CE->getZExtValue();
-        // bool isSigned = (tmp & (1ULL << 31)) != 0; 
-        // if (!isSigned || tmp - 1 > INT32_MAX)
-        //   return uintConst32(CE->getZExtValue());
         // else
-        //   return intConst32(CE->getZExtValue());
       } else if (*width_out <= 64) {
         if (CE->isValueSigned())
           return intConst64(CE->getZExtValue());
         else {
-          // uint64_t rawValue = CE->getZExtValue();
-          // if (rawValue > INT64_MAX) {
-          //   int64_t value = CE->getZExtValue();
-          //   return intConst64(value);
-          // }
           return uintConst64(CE->getZExtValue());
         }
-        // uint64_t value = CE->getZExtValue();
-        // bool isSigned = (value & (1ULL << 63)) != 0; // Check the 63rd bit (sign bit)
-        // if (!isSigned || value - 1 > INT64_MAX)
-        //   return uintConst64(CE->getZExtValue());
         // else
-        //   return intConst64(CE->getZExtValue());
       }
     }
     
@@ -869,13 +770,11 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     ReadExpr *re = cast<ReadExpr>(e);
     assert(re && re->updates.root);
     *width_out = re->updates.root->getRange();
-    // llvm::outs() << "constructForInt " << e << " name " << re->updates.root->name << " isBitVec " << isBitVec << " isIntVar " << re->updates.root->isIntVar << "\n";
     int index = 0;
     if (auto CE = dyn_cast<ConstantExpr>(re->index)) {
       index = CE->getZExtValue();
     } 
     if (!isBitVec && index == 0 && intArrNames.find(re->updates.root->name)!=intArrNames.end()) {
-      // llvm::outs() << intArrNames[re->updates.root->name] << " " << e->getWidth() << "\n";
       if (intArrNames[re->updates.root->name] * 8 == e->getWidth()) {
         Z3ASTHandle indexAST = uintConst32(0);  
         Z3ASTHandle readAST = readExpr(getInitialIntArray(re->updates.root, e->getWidth()), indexAST);
@@ -883,7 +782,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       }
     }
     if (isBitVec || !re->updates.root->isIntVar || index > 0) {
-      // llvm::outs() << "constructForInt " << e << " isBitVec " << isBitVec << " isInt " << re->updates.root->isIntVar << "\n";
       Z3ASTHandle indexAST = constructForInt(re->index, 0, true);
       return readExpr(getArrayForUpdate(re->updates.root, re->updates.head.get(), true), indexAST);
     }
@@ -943,23 +841,10 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     if (!isReadInt) {
       ref<ConstantExpr> lastConstExpr = ConcatExpr::getLastConstantInConcat(e, &array);
       if (lastConstExpr && !array->isConstantArray()) {
-        // Z3ASTHandle var = readIntExpr(array);
-        // ref<ConstantExpr> divideExpr = ConstantExpr::create(1ULL << lastConstExpr->getWidth(), ce->getWidth()); 
-        // ref<ConstantExpr> addend = ConstantExpr::create(lastConstExpr->getZExtValue(), ce->getWidth()); 
-        // Z3ASTHandle a = Z3ASTHandle(Z3_mk_div(ctx, var, constructForInt(divideExpr, 0, false)), ctx);
-        // Z3ASTHandle b = constructForInt(addend, 0, false);
-        // Z3_ast args[2] = {a, b};
-        // return Z3ASTHandle(Z3_mk_add(ctx, 2, args), ctx);
         return readIntExpr(array);
       }
 
-      // llvm::outs() << e << " isBitVec " << isBitVec << "\n";
       ref<Expr> indexExpr = ConcatExpr::getArrayIndex(e, &array);
-      // if (indexExpr)
-      //   llvm::outs() << "index: " << indexExpr << " " << array->name << "\n";
-      // for (auto p: intArrNames) {
-      //   llvm::outs() << p.first << " " << p.second << "\n";
-      // }
       if (indexExpr) {
         Z3ASTHandle tmpAST = constructForInt(indexExpr, 0);
         Z3_sort tmp_sort = Z3_get_sort(ctx, tmpAST);
@@ -970,7 +855,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
           if (intArrNames.find(array->name)!=intArrNames.end()) {
             int tmpWidth = intArrNames[array->name] * 8;
             if (tmpWidth > 8 && tmpWidth < elementWidth) {
-              // elementWidth = tmpWidth;
             }
             if (tmpWidth != elementWidth) {
               llvm::outs() << "Z3Builder: intArrNames[array->name] * 8 != e->getWidth() " << e << "\n";
@@ -978,27 +862,10 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
             }
           }
           Z3ASTHandle indexAST = Z3ASTHandle(Z3_mk_div(ctx, tmpAST, uintConst32(elementWidth/8)), ctx);  
-          // int elementWidth = intArrNames[array->name] * 8;
-          // if (elementWidth <= 8 || elementWidth > e->getWidth()) {
-          //   elementWidth = e->getWidth();
-          // }
           Z3ASTHandle readAST = readExpr(getInitialIntArray(array, ce->getWidth()), indexAST);
-          // ref<ReadExpr> re = dyn_cast<ReadExpr>(ce->getKid(0));
-          // Z3ASTHandle readAST = readExpr(getIntArrayForUpdate(array, re->updates.head.get(), ce->getWidth()), indexAST);
 
-          // if (intArrNames[array->name] * 8 != e->getWidth()) {
-          //   llvm::outs() << "Z3Builder: intArrNames[array->name] * 8 != e->getWidth() " << e << "\n";
-          //   llvm::outs() << array->name << " vsize " << intArrNames[array->name] << " width " << e->getWidth() << "\n";
-          // }
 
-          // if(!isa<ConstantExpr>(indexExpr)) {
-          //   Z3ASTHandle index_lowerBounds = Z3ASTHandle(Z3_mk_ge(ctx, indexAST, uintConst32(0)), ctx);
-          //   Z3ASTHandle index_upperBounds = Z3ASTHandle(Z3_mk_le(ctx, indexAST, maxValueAST), ctx);
-          //   int_array_bounds[array->name].push_back(index_lowerBounds);
-          //   int_array_bounds[array->name].push_back(index_upperBounds);
-          // }
           
-          // if (!isHandlingQuery) {
           if (elementWidth <= 64) {
             ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (elementWidth-1)) - 1, elementWidth);
             Z3ASTHandle maxValueAST = constructForInt(maxValueExpr, 0);
@@ -1015,7 +882,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
     
     if (isBitVec || !isReadInt) {
-      // llvm::outs() << "constructForInt " << e << " isBitVec " << isBitVec << " isReadInt " << isReadInt << "\n";
       Z3ASTHandle res = constructForInt(ce->getKid(numKids - 1), 0, true);
       for (int i = numKids - 2; i >= 0; i--) {
         res =
@@ -1075,9 +941,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
   case Expr::SExt: {
     int srcWidth;
     CastExpr *ce = cast<CastExpr>(e);
-    // if (auto CE = dyn_cast<ConstantExpr>(ce->src)) {
-    //   CE->setSigned(true);
-    // }
     Z3ASTHandle src = constructForInt(ce->src, &srcWidth, isBitVec);
     
     Z3_sort src_sort = Z3_get_sort(ctx, src);
@@ -1112,12 +975,9 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       Z3_ast args[2] = {left, right};
       Z3ASTHandle result = Z3ASTHandle(Z3_mk_add(ctx, 2, args), ctx);
       if (e->getWidth()>32 && !isHandlingQuery && std::find(noCheckExprs.begin(), noCheckExprs.end(), e) == noCheckExprs.end()) {
-        // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (e->getWidth()-1), e->getWidth(), true);   
         ref<ConstantExpr> maxValueExpr = ConstantExpr::create((1ULL << (e->getWidth()-1)) - 1, e->getWidth());
         Z3ASTHandle maxValueAST = constructForInt(maxValueExpr, 0);
-        // Z3ASTHandle lowerBounds = Z3ASTHandle(Z3_mk_ge(ctx, result, constructForInt(minValueExpr, 0)), ctx);
         Z3ASTHandle upperBounds = Z3ASTHandle(Z3_mk_le(ctx, result, maxValueAST), ctx);
-        // int_array_bounds["int_add"].push_back(lowerBounds);
         int_array_bounds["int_add"].push_back(upperBounds);
       }
       return result;
@@ -1202,9 +1062,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
       Z3_ast args[2] = {left, right};
       Z3ASTHandle result = Z3ASTHandle(Z3_mk_sub(ctx, 2, args), ctx);
-      // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(1ULL << (e->getWidth()-1), e->getWidth(), true);   
-      // Z3ASTHandle lowerBounds = Z3ASTHandle(Z3_mk_ge(ctx, result, constructForInt(minValueExpr, 0)), ctx);
-      // int_array_bounds["int_sub"].push_back(lowerBounds);
       return result;
     }
     if (left_kind == Z3_INT_SORT && isa<ConstantExpr>(se->right)) {
@@ -1359,37 +1216,16 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3_sort right_sort = Z3_get_sort(ctx, right);
     Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
 
-    // if (left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT){
-      // if(!isa<ConstantExpr>(de->left)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, left, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
-      // if(!isa<ConstantExpr>(de->right)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, right, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
-    //   return intCStyleDivExpr(left, right);
-    // }
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
       return Z3ASTHandle(Z3_mk_div(ctx, left, right), ctx);
     }
     if (left_kind == Z3_INT_SORT && isa<ConstantExpr>(de->right)) {
-      // Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, left, uintConst32(0)), ctx);
-      // if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //   int_array_bounds["integers"].push_back(var_lowerBound);
       right = constructForInt(de->right, width_out, false);
       return Z3ASTHandle(Z3_mk_div(ctx, left, right), ctx);
-      // return intCStyleDivExpr(left, right);
     }
     if (right_kind == Z3_INT_SORT && isa<ConstantExpr>(de->left)) {
-      // Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, right, uintConst32(0)), ctx);
-      // if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //   int_array_bounds["integers"].push_back(var_lowerBound);
       left = constructForInt(de->left, width_out, false);
       return Z3ASTHandle(Z3_mk_div(ctx, left, right), ctx);
-      // return intCStyleDivExpr(left, right);
     }
     if (left_kind == Z3_INT_SORT && right_kind == Z3_REAL_SORT) {
       left = Z3ASTHandle(Z3_mk_int2real(ctx, left), ctx);
@@ -1418,12 +1254,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
 
   case Expr::SDiv: {
     SDivExpr *de = cast<SDivExpr>(e);
-    // if (auto CE = dyn_cast<ConstantExpr>(de->left)) {
-    //   CE->setSigned(true);
-    // }
-    // if (auto CE = dyn_cast<ConstantExpr>(de->right)) {
-    //   CE->setSigned(true);
-    // }
     Z3ASTHandle left = constructForInt(de->left, width_out, isBitVec);
     assert(*width_out != 1 && "uncanonicalized sdiv");
     Z3ASTHandle right = constructForInt(de->right, width_out, isBitVec);
@@ -1439,12 +1269,10 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
     if (left_kind == Z3_INT_SORT && isa<ConstantExpr>(de->right)) {
       right = constructForInt(de->right, width_out, false);
-      // return Z3ASTHandle(Z3_mk_div(ctx, left, right), ctx);
       return intCStyleDivExpr(left, right);
     }
     if (right_kind == Z3_INT_SORT && isa<ConstantExpr>(de->left)) {
       left = constructForInt(de->left, width_out, false);
-      // return Z3ASTHandle(Z3_mk_div(ctx, left, right), ctx);
       return intCStyleDivExpr(left, right);
     }
     if (left_kind == Z3_INT_SORT && right_kind == Z3_REAL_SORT) {
@@ -1475,20 +1303,16 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3_sort_kind left_kind = Z3_get_sort_kind(ctx, left_sort);
     Z3_sort right_sort = Z3_get_sort(ctx, right);
     Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT)
-    //   return intCStyleModExpr(left, right);
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
     }
     if (left_kind == Z3_INT_SORT && isa<ConstantExpr>(de->right)) {
       right = constructForInt(de->right, width_out, false);
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
-      // return intCStyleModExpr(left, right);
     }
     if (right_kind == Z3_INT_SORT && isa<ConstantExpr>(de->left)) {
       left = constructForInt(de->left, width_out, false);
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
-      // return intCStyleModExpr(left, right);
     }
     if (left_kind == Z3_INT_SORT && right_kind == Z3_REAL_SORT) {
       left = Z3ASTHandle(Z3_mk_int2real(ctx, left), ctx);
@@ -1507,10 +1331,8 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
 
         if (bits64::isPowerOfTwo(divisor)) {
           // FIXME: This should be unsigned but currently needs to be signed to
-          // avoid signed-unsigned comparison in assert.
           int bits = bits64::indexOfSingleBit(divisor);
 
-          // special case for modding by 1 or else we bvExtract -1:0
           if (bits == 0) {
             return bvZero(*width_out);
           } else {
@@ -1531,12 +1353,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
 
   case Expr::SRem: {
     SRemExpr *de = cast<SRemExpr>(e);
-    // if (auto CE = dyn_cast<ConstantExpr>(de->left)) {
-    //   CE->setSigned(true);
-    // }
-    // if (auto CE = dyn_cast<ConstantExpr>(de->right)) {
-    //   CE->setSigned(true);
-    // }
     Z3ASTHandle left = constructForInt(de->left, width_out, isBitVec);
     Z3ASTHandle right = constructForInt(de->right, width_out, isBitVec);
     assert(*width_out != 1 && "uncanonicalized srem");
@@ -1545,20 +1361,16 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3_sort_kind left_kind = Z3_get_sort_kind(ctx, left_sort);
     Z3_sort right_sort = Z3_get_sort(ctx, right);
     Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT)
-    //   return intCStyleModExpr(left, right);
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
     }
     if (left_kind == Z3_INT_SORT && isa<ConstantExpr>(de->right)) {
       right = constructForInt(de->right, width_out, false);
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
-      // return intCStyleModExpr(left, right);
     }
     if (right_kind == Z3_INT_SORT && isa<ConstantExpr>(de->left)) {
       left = constructForInt(de->left, width_out, false);
       return Z3ASTHandle(Z3_mk_rem(ctx, left, right), ctx);
-      // return intCStyleModExpr(left, right);
     }
     if (left_kind == Z3_INT_SORT && right_kind == Z3_REAL_SORT) {
       left = Z3ASTHandle(Z3_mk_int2real(ctx, left), ctx);
@@ -1573,8 +1385,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     right = constructForInt(de->right, width_out, true);
     assert(*width_out != 1 && "uncanonicalized srem");
     // LLVM's srem instruction says that the sign follows the dividend
-    // (``left``).
-    // Z3's C API says ``Z3_mk_bvsrem()`` does this so these seem to match.
     Z3ASTHandle result = Z3ASTHandle(Z3_mk_bvsrem(ctx, left, right), ctx);
     assert(getBVLength(result) == static_cast<unsigned>(*width_out) &&
            "width mismatch");
@@ -1605,13 +1415,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       Z3_sort right_sort = Z3_get_sort(ctx, right);
       Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
       if (left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) {
-        // if (isa<ConstantExpr>(ae->left) && isa<ConstantExpr>(ae->right)) {
-        //   auto leftCE = dyn_cast<ConstantExpr>(ae->left);
-        //   auto rightCE = dyn_cast<ConstantExpr>(ae->right);
-        //   int leftVal = leftCE->getZExtValue();
-        //   int rightVal = rightCE->getZExtValue();
-        //   return constructForInt(ConstantExpr::create(leftVal & rightVal, ae->right->getWidth()), width_out, false);
-        // }
         if (isa<ConstantExpr>(ae->left) || isa<ConstantExpr>(ae->right))
           return constructForInt(Expr::andExprUsingArithmetic(ae->left, ae->right), width_out);
       }
@@ -1633,13 +1436,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       Z3_sort right_sort = Z3_get_sort(ctx, right);
       Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
       if (left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) {
-        // if (isa<ConstantExpr>(oe->left) && isa<ConstantExpr>(oe->right)) {
-        //   auto leftCE = dyn_cast<ConstantExpr>(oe->left);
-        //   auto rightCE = dyn_cast<ConstantExpr>(oe->right);
-        //   int leftVal = leftCE->getZExtValue();
-        //   int rightVal = rightCE->getZExtValue();
-        //   return constructForInt(ConstantExpr::create(leftVal | rightVal, oe->right->getWidth()), width_out, false);
-        // }
         if (isa<ConstantExpr>(oe->left) || isa<ConstantExpr>(oe->right))
           return constructForInt(Expr::orExprUsingArithmetic(oe->left, oe->right), width_out);
       }
@@ -1655,7 +1451,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3ASTHandle right = constructForInt(xe->right, width_out, isBitVec);
 
     if (*width_out == 1) {
-      // XXX check for most efficient?
       return iteExpr(left, Z3ASTHandle(notExpr(right)), right);
     } else {
       left = constructForInt(xe->left, width_out, true);
@@ -1753,15 +1548,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     EqExpr *ee = cast<EqExpr>(e);
     Z3ASTHandle left = constructForInt(ee->left, width_out, isBitVec);
     Z3ASTHandle right = constructForInt(ee->right, width_out, isBitVec);
-    // if (*width_out == 1) {
-    //   if (ConstantExpr *CE = dyn_cast<ConstantExpr>(ee->left)) {
-    //     if (CE->isTrue())
-    //       return right;
-    //     return notExpr(right);
-    //   } else {
-    //     return iffExpr(left, right);
-    //   }
-    // } else {
       if (isa<ConstantExpr>(ee->left) && ee->left->getWidth()==Expr::Bool) {
         ConstantExpr *CE = dyn_cast<ConstantExpr>(ee->left);
         Z3_sort right_sort = Z3_get_sort(ctx, right);
@@ -1793,7 +1579,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
       }
       *width_out = 1;
       return eqExpr(left, right);
-    // }
   }
 
   case Expr::Ult: {
@@ -1807,16 +1592,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
 
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
-      // if(!isa<ConstantExpr>(ue->left)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, left, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
-      // if(!isa<ConstantExpr>(ue->right)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, right, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
       *width_out = 1;
       return Z3ASTHandle(Z3_mk_lt(ctx, left, right), ctx);
     }
@@ -1832,17 +1607,7 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
 
     left = constructForInt(ue->left, width_out, true);
-    // left_sort = Z3_get_sort(ctx, left);
-    // left_kind = Z3_get_sort_kind(ctx, left_sort);
-    // if (left_kind == Z3_INT_SORT) {
-    //   left = Z3ASTHandle(Z3_mk_int2bv(ctx, ue->left->getWidth(), left), ctx);
-    // }
     right = constructForInt(ue->right, width_out, true);
-    // right_sort = Z3_get_sort(ctx, right);
-    // right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (right_kind == Z3_INT_SORT) {
-    //   right = Z3ASTHandle(Z3_mk_int2bv(ctx, ue->right->getWidth(), right), ctx);
-    // }
     assert(*width_out != 1 && "uncanonicalized ult");
     *width_out = 1;
     return bvLtExpr(left, right);
@@ -1859,16 +1624,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     Z3_sort_kind right_kind = Z3_get_sort_kind(ctx, right_sort);
 
     if ((left_kind == Z3_INT_SORT && right_kind == Z3_INT_SORT) || (left_kind == Z3_REAL_SORT && right_kind == Z3_REAL_SORT)) {
-      // if(!isa<ConstantExpr>(ue->left)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, left, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
-      // if(!isa<ConstantExpr>(ue->right)) {
-      //   Z3ASTHandle var_lowerBound = Z3ASTHandle(Z3_mk_ge(ctx, right, uintConst32(0)), ctx);
-      //   if (std::find(int_array_bounds["integers"].begin(), int_array_bounds["integers"].end(), var_lowerBound) == int_array_bounds["integers"].end())
-      //     int_array_bounds["integers"].push_back(var_lowerBound);
-      // }
       *width_out = 1;
       return Z3ASTHandle(Z3_mk_le(ctx, left, right), ctx);
     }
@@ -1884,17 +1639,7 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
 
     left = constructForInt(ue->left, width_out, true);
-    // left_sort = Z3_get_sort(ctx, left);
-    // left_kind = Z3_get_sort_kind(ctx, left_sort);
-    // if (left_kind == Z3_INT_SORT) {
-    //   left = Z3ASTHandle(Z3_mk_int2bv(ctx, ue->left->getWidth(), left), ctx);
-    // }
     right = constructForInt(ue->right, width_out, true);
-    // right_sort = Z3_get_sort(ctx, right);
-    // right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (right_kind == Z3_INT_SORT) {
-    //   right = Z3ASTHandle(Z3_mk_int2bv(ctx, ue->right->getWidth(), right), ctx);
-    // }
     assert(*width_out != 1 && "uncanonicalized ule");
     *width_out = 1;
     return bvLeExpr(left, right);
@@ -1902,12 +1647,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
 
   case Expr::Slt: {
     SltExpr *se = cast<SltExpr>(e);
-    // if (auto CE = dyn_cast<ConstantExpr>(se->left)) {
-    //   CE->setSigned(true);
-    // }
-    // if (auto CE = dyn_cast<ConstantExpr>(se->right)) {
-    //   CE->setSigned(true);
-    // }
     Z3ASTHandle left = constructForInt(se->left, width_out, isBitVec);
     Z3ASTHandle right = constructForInt(se->right, width_out, isBitVec);
     assert(*width_out != 1 && "uncanonicalized slt");
@@ -1932,17 +1671,7 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
 
     left = constructForInt(se->left, width_out, true);
-    // left_sort = Z3_get_sort(ctx, left);
-    // left_kind = Z3_get_sort_kind(ctx, left_sort);
-    // if (left_kind == Z3_INT_SORT) {
-    //   left = Z3ASTHandle(Z3_mk_int2bv(ctx, se->left->getWidth(), left), ctx);
-    // }
     right = constructForInt(se->right, width_out, true);
-    // right_sort = Z3_get_sort(ctx, right);
-    // right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (right_kind == Z3_INT_SORT) {
-    //   right = Z3ASTHandle(Z3_mk_int2bv(ctx, se->right->getWidth(), right), ctx);
-    // }
     assert(*width_out != 1 && "uncanonicalized slt");
     *width_out = 1;
     return sbvLtExpr(left, right);
@@ -1950,12 +1679,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
 
   case Expr::Sle: {
     SleExpr *se = cast<SleExpr>(e);
-    // if (auto CE = dyn_cast<ConstantExpr>(se->left)) {
-    //   CE->setSigned(true);
-    // }
-    // if (auto CE = dyn_cast<ConstantExpr>(se->right)) {
-    //   CE->setSigned(true);
-    // }
     Z3ASTHandle left = constructForInt(se->left, width_out, isBitVec);
     Z3ASTHandle right = constructForInt(se->right, width_out, isBitVec);
     assert(*width_out != 1 && "uncanonicalized sle");
@@ -1980,17 +1703,7 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
     }
 
     left = constructForInt(se->left, width_out, true);
-    // left_sort = Z3_get_sort(ctx, left);
-    // left_kind = Z3_get_sort_kind(ctx, left_sort);
-    // if (left_kind == Z3_INT_SORT) {
-    //   left = Z3ASTHandle(Z3_mk_int2bv(ctx, se->left->getWidth(), left), ctx);
-    // }
     right = constructForInt(se->right, width_out, true);
-    // right_sort = Z3_get_sort(ctx, right);
-    // right_kind = Z3_get_sort_kind(ctx, right_sort);
-    // if (right_kind == Z3_INT_SORT) {
-    //   right = Z3ASTHandle(Z3_mk_int2bv(ctx, se->right->getWidth(), right), ctx);
-    // }
     assert(*width_out != 1 && "uncanonicalized sle");
     *width_out = 1;
     return sbvLeExpr(left, right);
@@ -2025,7 +1738,6 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
     ConstantExpr *CE = cast<ConstantExpr>(e);
     *width_out = CE->getWidth();
 
-    // Coerce to bool if necessary.
     if (*width_out == 1)
       return CE->isTrue() ? getTrue() : getFalse();
 
@@ -2134,7 +1846,6 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
       Z3ASTHandle no_overflow_check = Z3ASTHandle(Z3_mk_bvadd_no_overflow(ctx, left, right, isSigned), ctx);
       if (std::find(int_array_bounds["bv"].begin(), int_array_bounds["bv"].end(), no_overflow_check) == int_array_bounds["bv"].end()){
           int_array_bounds["bv"].push_back(no_overflow_check);
-          // llvm::outs() << isSigned << " add builder " << ::Z3_ast_to_string(ctx, no_overflow_check) << "\n"; 
       }
     }
     assert(getBVLength(result) == static_cast<unsigned>(*width_out) &&
@@ -2148,14 +1859,6 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
     Z3ASTHandle right = construct(se->right, width_out);
     assert(*width_out != 1 && "uncanonicalized sub");
     Z3ASTHandle result = Z3ASTHandle(Z3_mk_bvsub(ctx, left, right), ctx);
-    // if (!isHandlingQuery && std::find(noCheckExprs.begin(), noCheckExprs.end(), e) == noCheckExprs.end()) {
-    //   bool isSigned = se->isValueSigned();
-    //   Z3ASTHandle no_underflow_check = Z3ASTHandle(Z3_mk_bvsub_no_underflow(ctx, left, right, isSigned), ctx);
-    //   if (std::find(int_array_bounds["bv"].begin(), int_array_bounds["bv"].end(), no_underflow_check) == int_array_bounds["bv"].end()) {
-    //       int_array_bounds["bv"].push_back(no_underflow_check);
-    //       // llvm::outs() << isSigned << " sub builder " << ::Z3_ast_to_string(ctx, no_underflow_check) << "\n"; 
-    //   }
-    // }
     assert(getBVLength(result) == static_cast<unsigned>(*width_out) &&
            "width mismatch");
     return result;
@@ -2172,24 +1875,9 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
       Z3ASTHandle no_overflow_check = Z3ASTHandle(Z3_mk_bvmul_no_overflow(ctx, left, right, isSigned), ctx);
       if (std::find(int_array_bounds["bv"].begin(), int_array_bounds["bv"].end(), no_overflow_check) == int_array_bounds["bv"].end()) {
           int_array_bounds["bv"].push_back(no_overflow_check);
-          // llvm::outs() << isSigned << " mul builder " << ::Z3_ast_to_string(ctx, no_overflow_check) << "\n"; 
       }
     }
     // check overflow
-    // if (!(isa<ConstantExpr>(me->left)&&isa<ConstantExpr>(me->right))) {
-    //   // llvm::outs() << me->left << "   " << me->right << "\n";
-    //   // llvm::outs() << ::Z3_ast_to_string(ctx, left) << "  " <<  ::Z3_ast_to_string(ctx, right) << "\n";
-    //   unsigned n = me->left->getWidth(); 
-    //   Z3ASTHandle left_ext_ast = Z3ASTHandle(Z3_mk_concat(ctx, bvZero(n), left), ctx);
-    //   Z3ASTHandle right_ext_ast = Z3ASTHandle(Z3_mk_concat(ctx, bvZero(n), right), ctx);
-    //   // llvm::outs() << ::Z3_ast_to_string(ctx, left_ext_ast) << "  " <<  ::Z3_ast_to_string(ctx, right_ext_ast) << "\n";
-    //   Z3ASTHandle prod_ext_ast = Z3ASTHandle(Z3_mk_bvmul(ctx, left_ext_ast, right_ext_ast), ctx);
-    //   Z3ASTHandle high_bits = bvExtract(prod_ext_ast, n + n - 1, n);
-    //   Z3ASTHandle no_overflow_check = eqExpr(high_bits, construct(ConstantExpr::create(0, n)));
-    //   // llvm::outs() << ::Z3_ast_to_string(ctx, no_overflow_check) << "\n";
-    //   if (std::find(int_array_bounds["bv"].begin(), int_array_bounds["bv"].end(), no_overflow_check) == int_array_bounds["bv"].end())
-    //     int_array_bounds["bv"].push_back(no_overflow_check);
-    // }
 
     assert(getBVLength(result) == static_cast<unsigned>(*width_out) &&
            "width mismatch");
@@ -2238,10 +1926,8 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
 
         if (bits64::isPowerOfTwo(divisor)) {
           // FIXME: This should be unsigned but currently needs to be signed to
-          // avoid signed-unsigned comparison in assert.
           int bits = bits64::indexOfSingleBit(divisor);
 
-          // special case for modding by 1 or else we bvExtract -1:0
           if (bits == 0) {
             return bvZero(*width_out);
           } else {
@@ -2267,8 +1953,6 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
     Z3ASTHandle right = construct(de->right, width_out);
     assert(*width_out != 1 && "uncanonicalized srem");
     // LLVM's srem instruction says that the sign follows the dividend
-    // (``left``).
-    // Z3's C API says ``Z3_mk_bvsrem()`` does this so these seem to match.
     Z3ASTHandle result = Z3ASTHandle(Z3_mk_bvsrem(ctx, left, right), ctx);
     assert(getBVLength(result) == static_cast<unsigned>(*width_out) &&
            "width mismatch");
@@ -2314,7 +1998,6 @@ Z3ASTHandle Z3Builder::constructActual(ref<Expr> e, int *width_out) {
     Z3ASTHandle right = construct(xe->right, width_out);
 
     if (*width_out == 1) {
-      // XXX check for most efficient?
       return iteExpr(left, Z3ASTHandle(notExpr(right)), right);
     } else {
       return bvXorExpr(left, right);

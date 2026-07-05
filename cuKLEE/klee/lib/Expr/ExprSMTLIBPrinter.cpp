@@ -1,4 +1,4 @@
-//===-- ExprSMTLIBPrinter.cpp -----------------------------------*- C++ -*-===//
+﻿//===-- ExprSMTLIBPrinter.cpp -----------------------------------*- C++ -*-===//
 //
 //                     The KLEE Symbolic Virtual Machine
 //
@@ -166,7 +166,6 @@ void ExprSMTLIBPrinter::printConstant(const ref<ConstantExpr> &e) {
 
 void ExprSMTLIBPrinter::printExpression(
     const ref<Expr> &e, ExprSMTLIBPrinter::SMTLIB_SORT expectedSort) {
-  // check if casting might be necessary
   if (getSort(e) != expectedSort) {
     printCastToSort(e, expectedSort);
     return;
@@ -231,7 +230,6 @@ void ExprSMTLIBPrinter::printFullExpression(
     return;
 
   case Expr::Select:
-    // the if-then-else expression.
     printSelectExpr(cast<SelectExpr>(e), expectedSort);
     return;
 
@@ -339,29 +337,14 @@ void ExprSMTLIBPrinter::printCastExpr(const ref<CastExpr> &e) {
 
 void ExprSMTLIBPrinter::printAShrExpr(const ref<AShrExpr> &e) {
   // There is a difference between AShr and SMT-LIBv2's
-  // bvashr function when the shift amount is >= the bit width
   // so we need to treat it specially here.
   //
-  // Technically this is undefined behaviour for LLVM's ashr operator
-  // but currently llvm::APInt:ashr(...) will emit 0 if the shift amount
-  // is >= the bit width but this does not match how SMT-LIBv2's bvashr
   // behaves as demonstrates by the following query
   //
-  // (declare-fun x () (_ BitVec 32))
-  // (declare-fun y () (_ BitVec 32))
-  // (declare-fun result () (_ BitVec 32))
-  // (assert (bvuge y (_ bv32 32)))
-  // (assert (= result (bvashr x y)))
-  // (assert (distinct (_ bv0 32) result))
-  // (check-sat)
   // sat
   //
   // Our solution is to instead emit
   //
-  // (ite (bvuge shift_amount bit_width)
-  //      (_ bv0 bitwidth)
-  //      (bvashr value_to_shift shift_amount)
-  // )
   //
 
   Expr::Width bitWidth = e->getKid(0)->getWidth();
@@ -369,7 +352,6 @@ void ExprSMTLIBPrinter::printAShrExpr(const ref<AShrExpr> &e) {
   ref<Expr> bitWidthExpr = ConstantExpr::create(bitWidth, bitWidth);
   ref<Expr> zeroExpr = ConstantExpr::create(0, bitWidth);
 
-  // FIXME: we print e->getKid(1) twice and it might not get
   // abbreviated
   *p << "(ite";
   p->pushIndent();
@@ -443,7 +425,6 @@ const char *ExprSMTLIBPrinter::getSMTLIBKeyword(const ref<Expr> &e) {
     return "bvshl";
   case Expr::LShr:
     return "bvlshr";
-  // AShr is not supported here. See printAShrExpr()
 
   case Expr::Eq:
     return "=";
@@ -509,7 +490,6 @@ void ExprSMTLIBPrinter::scanAll() {
   // Scan the query too
   scan(query->expr);
 
-  // Scan bindings for expression intra-dependencies
   if (abbrMode == ABBR_LET)
     scanBindingExprDeps();
 }
@@ -560,7 +540,6 @@ struct ArrayPtrsByName {
 }
 
 void ExprSMTLIBPrinter::printArrayDeclarations() {
-  // Assume scan() has been called
   if (humanReadable)
     *o << "; Array declarations\n";
 
@@ -576,7 +555,6 @@ void ExprSMTLIBPrinter::printArrayDeclarations() {
        << "\n";
   }
 
-  // Set array values for constant values
   if (haveConstantArray) {
     if (humanReadable)
       *o << "; Constant Array Definitions\n";
@@ -625,7 +603,6 @@ void ExprSMTLIBPrinter::printHumanReadableQuery() {
   *o << "; Constraints\n";
 
   if (abbrMode != ABBR_LET) {
-    // Generate assert statements for each constraint
     for (const auto &constraint : query->constraints)
       printAssert(constraint);
 
@@ -636,8 +613,6 @@ void ExprSMTLIBPrinter::printHumanReadableQuery() {
     ref<Expr> queryAssert = Expr::createIsZero(query->expr);
     printAssert(queryAssert);
   } else {
-    // let bindings are only scoped within a single (assert ...) so
-    // the entire query must be printed within a single assert
     *o << "; Constraints and QueryExpr\n";
     printQueryInSingleAssert();
   }
@@ -660,12 +635,10 @@ void ExprSMTLIBPrinter::printQueryInSingleAssert() {
     queryAssert = AndExpr::create(queryAssert, *i);
   }
 
-  // print just a single (assert ...) containing entire query
   printAssert(queryAssert);
 }
 
 void ExprSMTLIBPrinter::printAction() {
-  // Ask solver to check for satisfiability
   *o << "(check-sat)\n";
 
   /* If we have arrays to find the values of then we'll
@@ -703,7 +676,6 @@ void ExprSMTLIBPrinter::scan(const ref<Expr> &e) {
       if (usedArrays.insert(re->updates.root).second) {
         // Array was not recorded before
 
-        // check if the array is constant
         if (re->updates.root->isConstantArray())
           haveConstantArray = true;
 
@@ -717,7 +689,6 @@ void ExprSMTLIBPrinter::scan(const ref<Expr> &e) {
     for (unsigned int i = 0; i < ep->getNumKids(); i++)
       scan(ep->getKid(i));
   } else {
-    // Add the expression to the binding map. The semantics of std::map::insert
     // are such that it will not be inserted twice.
     bindings.insert(std::make_pair(e, bindings.size()+1));
   }
@@ -730,16 +701,11 @@ void ExprSMTLIBPrinter::scanBindingExprDeps() {
   // Mutual dependency storage
   typedef std::map<const ref<Expr>, std::set<ref<Expr> > > ExprDepMap;
 
-  // A map from binding Expr (need abbreviating) "e" to the set of binding Expr
-  // that are sub expressions of "e" (i.e. "e" uses these sub expressions).
-  // usesSubExprMap[a].count(b) == 1  means that binding Expr "a" uses
-  // sub Expr "b" (also a binding Expr).
   // One can think of this map representing the "depends on" edges
   // in a "dependency graph" where nodes are binding Expr roots
   ExprDepMap usesSubExprMap;
 
   // A map from Binding Expr "e" to the set of binding Expr that use "e"
-  // subExprOfMap[a].count(b) == 1 means that binding Expr "a" is a sub Expr
   // of binding Expr "b".
   // One can think of this map as representing the edges in the previously
   // mentioned "dependency graph" except the direction of the edges
@@ -799,7 +765,6 @@ void ExprSMTLIBPrinter::scanBindingExprDeps() {
           assert(subExprIt != usesSubExprMap.end());
           assert(subExprIt->second.count(*nonDepExprIt));
           subExprIt->second.erase(*nonDepExprIt);
-          // If the expression *exprIt does not have any
           // dependencies anymore, add it to the queue
           if (!subExprIt->second.size()) {
             nonDepBindings.push_back(*exprIt);
@@ -863,7 +828,6 @@ void ExprSMTLIBPrinter::printAssert(const ref<Expr> &e) {
   printSeperator();
 
   if (abbrMode == ABBR_LET && orderedBindings.size() != 0) {
-    // Only print let expression if we have bindings to use.
     *p << "(let";
     p->pushIndent();
     printSeperator();
@@ -896,7 +860,6 @@ void ExprSMTLIBPrinter::printAssert(const ref<Expr> &e) {
       *p << ")";
       printSeperator();
 
-      // Add nested let expressions (if any)
       if (i < orderedBindings.size()-1) {
         *p << "(let";
         p->pushIndent();
@@ -945,8 +908,6 @@ ExprSMTLIBPrinter::SMTLIB_SORT ExprSMTLIBPrinter::getSort(const ref<Expr> &e) {
   case Expr::Uge:
     return SORT_BOOL;
 
-  // These may be bitvectors or bools depending on their width (see
-  // printConstant and printLogicalOrBitVectorExpr).
   case Expr::Constant:
   case Expr::And:
   case Expr::Not:
@@ -1019,7 +980,6 @@ void ExprSMTLIBPrinter::printCastToSort(const ref<Expr> &e,
 
 void ExprSMTLIBPrinter::printSelectExpr(const ref<SelectExpr> &e,
                                         ExprSMTLIBPrinter::SMTLIB_SORT s) {
-  // This is the if-then-else expression
 
   *p << "(" << getSMTLIBKeyword(e) << " ";
   p->pushIndent(); // add indent for recursive call
@@ -1032,11 +992,9 @@ void ExprSMTLIBPrinter::printSelectExpr(const ref<SelectExpr> &e,
    * can be of any sort.
    */
 
-  // if true
   printSeperator();
   printExpression(e->getKid(1), s);
 
-  // if false
   printSeperator();
   printExpression(e->getKid(2), s);
 
@@ -1114,7 +1072,6 @@ bool ExprSMTLIBPrinter::setSMTLIBboolOption(SMTLIBboolOptions option,
         std::pair<SMTLIBboolOptions, bool>(option, theValue));
 
     if (value == OPTION_DEFAULT) {
-      // we should unset (by removing from map) this option so the solver uses
       // its default
       smtlibBoolOptions.erase(thePair.first);
       return true;
@@ -1134,8 +1091,6 @@ void
 ExprSMTLIBPrinter::setArrayValuesToGet(const std::vector<const Array *> &a) {
   arraysToCallGetValueOn = &a;
 
-  // This option must be set in order to use the SMTLIBv2 command (get-value ()
-  // )
   if (!a.empty())
     setSMTLIBboolOption(PRODUCE_MODELS, OPTION_TRUE);
 
