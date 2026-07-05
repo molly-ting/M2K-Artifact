@@ -32,16 +32,19 @@ RUN apt-get update && apt-get install -y file g++-multilib gcc-multilib libcap-d
 RUN pip3 install lit wllvm
 RUN apt-get install -y python3-tabulate 
 
-# RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|apt-key add -
-# RUN apt-get install -y clang-13 llvm-13 llvm-13-dev llvm-13-tools
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|apt-key add -
+RUN apt-get install -y clang-13 llvm-13 llvm-13-dev llvm-13-tools
 
-# ENV LLVM_DIR=/usr/lib/llvm-13
-# ENV PATH="$LLVM_DIR/bin:$PATH"
+ENV LLVM_DIR=/usr/lib/llvm-13
+ENV PATH="$LLVM_DIR/bin:$PATH"
 
 RUN git clone git@github.com:molly-ting/llvm-project.git
 WORKDIR '/home/llvm-project'
 RUN git checkout signed
-# TODO compile llvm and set path
+RUN mkdir build
+WORKDIR '/home/llvm-project/build'
+RUN cmake ..
+RUN make -j8
 
 WORKDIR '/home'
 RUN [ ! -d /home/z3 ] && git clone https://github.com/Z3Prover/z3.git
