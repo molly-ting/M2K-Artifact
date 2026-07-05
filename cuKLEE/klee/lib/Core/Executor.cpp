@@ -9265,7 +9265,7 @@ void Executor::terminateStateOnError(ExecutionState &state,
 
 void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reason, std::string message, unsigned sourceLine, unsigned assemblyLine) {
   if (isLoopCheck) return;
-  if (reason != StateTerminationType::Ptr && reason != StateTerminationType::Overflow) {
+  if (reason != StateTerminationType::Ptr && reason != StateTerminationType::Overflow && reason != StateTerminationType::RACE) {
     return;
   }
   if (reason == StateTerminationType::Ptr && (message.find("out of bound") == std::string::npos) || (message.find("null pointer") != std::string::npos)) {
@@ -9277,6 +9277,8 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
     bugType="oob";
   } else if (reason == StateTerminationType::Overflow) {
     bugType="io";
+  } else if (reason == StateTerminationType::RACE) {
+    bugType="dr";
   }
   
   unsigned callerSourceLine = 0;
@@ -9329,16 +9331,6 @@ void Executor::storeBuggyQuery(ExecutionState &state, StateTerminationType reaso
   }
 
   filename+="_"+bugType;
-
-  std::filesystem::path path = outputDir+"/"+filename+".txt";
-  unsigned id = 1;
-  std::string tmp_filename = filename;
-  while (std::filesystem::exists(path)) {
-    tmp_filename = filename + "-" + llvm::utostr(id);
-    id += 1;
-    path = outputDir+"/"+tmp_filename+".txt";
-  }
-  filename = tmp_filename;
 
   std::string queryStr;
   getConstraintLog(state, queryStr, Interpreter::LogType::STP);
@@ -13916,9 +13908,6 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
     }
   }
 
-
-
-  
   for(auto pair: state.addressInLoop[loopInfo->indexName]) {
     if (std::get<0>(pair.second) == ExecutionState::MemOp::READ) {
       continue;
@@ -14001,21 +13990,10 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
     
 
     if (success && mayBeTrue) {
-      llvm::outs() << originalAddress << " data race\n";
       std::string lineId = std::get<2>(pair.second);
       state.dataRaces[lineId].push_back(originalAddress);
 
       std::string filename = lineId + "_dr";;
-      std::filesystem::path path = outputDir+"/"+filename+".txt";
-      unsigned id = 1;
-      std::string tmp_filename = filename;
-      while (std::filesystem::exists(path)) {
-        tmp_filename = filename + "-" + llvm::utostr(id);
-        id += 1;
-        path = outputDir+"/"+tmp_filename+".txt";
-      }
-      filename = tmp_filename;
-
       std::string error;
       std::unique_ptr<llvm::raw_fd_ostream> dumpedQueriesFile = klee_open_output_file(outputDir+"/"+filename+".txt", error);
       if (!dumpedQueriesFile) {
@@ -14029,7 +14007,19 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
       *dumpedQueriesFile << "(reset)\n";
       *dumpedQueriesFile << "; end Z3 query\n\n";
       dumpedQueriesFile->flush();
-    }
+
+      const InstructionInfo &ii = *state.prevPC->info;
+      if (!ii.file.empty()) {
+        std::string sourceLine = lineId.substr(0, lineId.find('-'));
+        klee_message("ERROR: %s:%s: data race", ii.file.c_str(), sourceLine.c_str());
+      } else {
+        std::string assemblyLine = lineId;
+        size_t asmPrefix = assemblyLine.find("asm-");
+        if (asmPrefix != std::string::npos)
+          assemblyLine = assemblyLine.substr(asmPrefix + 4);
+        assemblyLine = assemblyLine.substr(0, assemblyLine.find('-'));
+        klee_message("ERROR: assemblyLine %s: data race", assemblyLine.c_str());
+      }
   }
   state.addressInLoop.erase(loopInfo->indexName);
 }

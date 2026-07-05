@@ -1,0 +1,70 @@
+[
+    {
+        "py_function": "dynamic_scaled_fp8_quant",
+        "cuda_function": "dynamic_scaled_fp8_quant",
+        "input_file_path": "examples/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    2048
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ],
+        "seq_len": 32768
+    },
+    {
+        "py_function": "dynamic_scaled_fp8_quant",
+        "cuda_function": "dynamic_scaled_fp8_quant",
+        "input_file_path": "examples/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ],
+        "seq_len": 32768
+    }
+]

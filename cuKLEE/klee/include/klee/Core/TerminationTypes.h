@@ -69,7 +69,8 @@ enum class StateTerminationClass : std::uint8_t {
   TTMARK(EXECERR, 61U)                                                         \
   TTYPE(Replay, 70U, "")                                                       \
   TTYPE(Merge, 71U, "")                                                        \
-  TTMARK(EARLYALGORITHM, 71U)                                                  \
+  TTMARK(EARLYALGORITHM, 71U)    
+  TTYPE(RACE, 72U, "data_race.err")                                              \
   TTYPE(SilentExit, 80U, "")                                                   \
   TTMARK(EARLYUSER, 80U)                                                       \
   TTMARK(END, 80U)
