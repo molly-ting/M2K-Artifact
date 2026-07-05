@@ -167,8 +167,6 @@ class _SingleStatementNestedIfFlattener(ast.NodeTransformer):
             if not isinstance(node.value, ast.IfExp):
                 return node
 
-            # temp_var = f"_temp_if{self.temp_counter}"
-            # self.temp_counter += 1
             new_if = ast.If(
                 node.value.test,
                 body=[ast.Assign(targets=node.targets, value=node.value.body)],

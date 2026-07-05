@@ -40,14 +40,12 @@ class TorchCallVisitor:
         # 1. init module
         self._env = ModuleInstanceValue.from_ast_module(self._init_mod)
 
-        # 1. init class with config ( x = cls(config=config) )
         paths = FuncRunner(CachedCFGBuilder()).run(
             self._init_cls,
             kwargs={"config": self._config},
             env=self._env,
         )
 
-        # 2. call function forward ( x.forward() )
         func = get_func_from_cls(self._init_cls, self._init_func)
 
         possible_selfs = [p.return_value for p in paths]

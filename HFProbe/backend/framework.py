@@ -464,7 +464,6 @@ def collect_tensor_args(*args, method = None):
             if not isinstance(arg, (int, float)):
                 value = str(arg)
             argCons.append({"value": value, "type": type(arg).__name__})
-    # return hasTensor, argCons
     return True, argCons
 
 mock()
@@ -489,21 +488,8 @@ def log_and_forward(name, func):
         
         if name == "torch.empty":
             return torch.zeros(*args, **kwargs)
-        
-        # hasTensor, argCons = collect_tensor_args(*args, method=name)
-        # if hasTensor:
-        #     to_add = {"name": name, "args": argCons}
-        #     if to_add not in tensor_calls:
-        #         tensor_calls.append(to_add)
-        #         # print(name, argCons)
-        #     if name not in calls_map:
-        #         calls_map[name] = []
-        #     if argCons not in calls_map[name]:
-        #         calls_map[name].append(argCons)
-            # print(name)        
+             
         res = func(*args, **kwargs)
-        # if hasTensor:
-        #     print("computation done.")
         return res
     return wrapper
 
@@ -583,12 +569,6 @@ torch.Tensor.device = fake_device
 torch.Tensor.is_cuda = fake_is_cuda
 
 from torch._subclasses import FakeTensor
-
-# _orig_fake_to = FakeTensor.to
-# def fake_to(self, *args, **kwargs):
-#     return self
-# FakeTensor.to = fake_to
-# FakeTensor.cuda = lambda self, *args, **kwargs: self
 
 _original_getitem = FakeTensor.__getitem__
 def patched_getitem(self, key):
@@ -768,13 +748,10 @@ def retrieve_stack(stack):
     for frame in stack:
         if i >= 5:
             break
-        # print(frame)
         if "/vllm/" in frame.filename:
-            # print(i, frame.filename)
             call_stack.append((frame.filename.split("vllm/")[1], frame.lineno))
-            # call_stack.append((frame.filename.split("vllm/")[1],frame.lineno,frame.function))
             i+=1
-    # print("call_stack:", call_stack)
+
     return tuple(call_stack)
 
 
@@ -791,19 +768,8 @@ def fallback_op(name, overload_name=None):
                 callName = "vllm."+name
                 to_add = {"name": callName, "args": argCons}
 
-                # in_calls = False
-                # for x in tensor_calls:
-                #     if x["name"] != callName:
-                #         continue
-                #     to_compare_cons = x["args"]
-                #     if isArgConsSame(argCons, to_compare_cons):
-                #         in_calls = True
-                #         break
-
-                # if not in_calls:
                 if to_add not in tensor_calls:
                     tensor_calls.append(to_add)
-                    # call_stack = retrieve_stack(traceback.extract_stack())
                     call_stack = retrieve_stack(inspect.stack())
 
                     if callName not in calls_map:
@@ -851,7 +817,6 @@ class SafeOpsNamespace:
                                 to_add = {"name": callName, "args": argCons}
                                 if to_add not in tensor_calls:
                                     tensor_calls.append(to_add)
-                                    # call_stack = retrieve_stack(traceback.extract_stack())
                                     call_stack = retrieve_stack(inspect.stack())
 
                                     if callName not in calls_map:
@@ -861,10 +826,7 @@ class SafeOpsNamespace:
                                     if argCons not in calls_map[callName][call_stack]:
                                         calls_map[callName][call_stack].append(argCons)
                         
-                            # if "paged_attention" in name:
-                            #     print(name, argCons)
                             if name in void_funcs:
-                                # print("void", name)
                                 return None
                             
                             res = forwardFunc(name, *args, **kwargs)
@@ -886,17 +848,7 @@ class SafeOpsNamespace:
                     return OpWrapper()
             else:
                 return FOpWrapper(name)
-
-        # except RuntimeError as e:
-        #     # Only intercept if the op is truly missing
-        #     if "does not exist" in str(e):
-        #         def dummy_op(*args, **kwargs):
-        #             print(f"[DummyOp] torch.ops._C.{name} called (MISSING)")
-        #             return torch.empty(0)
-        #         return dummy_op
-        #     raise
         except AttributeError as e:
-            # print(e)
             return FOpWrapper(name)
 
     def __dir__(self):
@@ -946,11 +898,6 @@ xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forwar
 xops.memory_efficient_attention = fake_memory_efficient_attention
 
 from vllm_kernel_mock import *
-
-
-# import torch._higher_order_ops.auto_functionalize as fha
-# fha.can_auto_functionalize = lambda op: True
-
 
 import torch.library
 _orig_register_fake = torch.library.Library._register_fake
@@ -1186,10 +1133,6 @@ class FakeMatmulConfig:
     with_scaling: bool = False
     with_zeros: bool = False
 
-    # zeros_mode documentation in comments:
-    # original: target = (dequantize_weight - zero_point) * scale
-    # rescale: target = dequantize_weight * scale - zero_point
-    # quantized: target = (dequantize_weight - dequantize_zeros) * scale
     zeros_mode: Literal["original", "rescale", "quantized"] = "original"
     storage_dtype: str = "int8"
 
@@ -1258,11 +1201,6 @@ sys.modules["bitblas.cache"] = fake_cache_module
 sys.modules["bitblas.quantization"] = fake_quant_module
 sys.modules["bitblas.quantization.utils"] = fake_quant_utils_module
 
-# dummy_ssd_bmm = types.ModuleType("vllm.model_executor.layers.mamba.ops.ssd_bmm")
-# dummy_ssd_bmm._bmm_chunk_fwd = bmm_chunk_fwd_mock
-
-# sys.modules["vllm.model_executor.layers.mamba.ops.ssd_bmm"] = dummy_ssd_bmm
-
 
 import vllm.platforms as platforms
 
@@ -1276,18 +1214,11 @@ def current_platform_rocm_mock():
 
 platforms._current_platform = None
 platforms.resolve_current_platform_cls_qualname = current_platform_cuda_mock
-# platforms.resolve_current_platform_cls_qualname = current_platform_rocm_mock
 platform = platforms.current_platform
 print(f"Forced platform: {platform.__class__.__name__}")
 
 import vllm._custom_ops as custom_ops
 custom_ops.current_platform = platform
-
-# from vllm.platforms.interface import Platform
-# Platform.has_device_capability = lambda self, cap: True
-
-# from vllm.platforms.cuda import CudaPlatform, DeviceCapability
-# CudaPlatform.get_device_capability = classmethod(lambda cls, device_id=None: DeviceCapability(8, 0))
 
 
 import vllm.utils as vu
@@ -1324,15 +1255,9 @@ class DummyContextManager:
     
 class DummyGroup:
     def __init__( self,
-        # group_ranks: list[list[int]],
-        # local_rank: int,
-        # torch_distributed_backend,
-        # use_device_communicator: bool,
-        # use_message_queue_broadcaster: bool = False,
         group_name: Optional[str] = None,):
         self.rank_in_group = 0
         self.rank = 0
-        # self.world_size = 2
         self.world_size = 1
         group_name = group_name or "anonymous"
         self.unique_name = _get_unique_name(group_name)
@@ -1479,19 +1404,7 @@ def dummy_autotune(*args, **kwargs):
         return fn
     return wrapper
 
-# triton.runtime.autotuner.autotune = dummy_autotune
 triton.autotune = dummy_autotune
-# sys.modules['triton.autotune'] = dummy_autotune
-# sys.modules['triton.runtime.autotuner.Autotuner'] = DummyAutotuner
-# sys.modules['triton.runtime.autotuner.autotune'] = dummy_autotune
-
-# class DummyDriver:
-#     def get_benchmarker(self):
-#         return None
-
-# triton.runtime.driver.active = DummyDriver()
-# triton.runtime.driver._initialize_obj = lambda self: setattr(self, "_obj", DummyDriver())
-# triton.runtime.driver._create_driver = lambda: DummyDriver()
 
 
 import flashinfer.jit.core as fjitcore
@@ -1500,8 +1413,6 @@ class DummyPlan:
     def __init__(self):
         self.default = self
     def __call__(self, *args, **kwargs):
-        # print("[dummy plan called]")
-        # Return a non-None object to satisfy _plan_info
         return object()
 
 class DummyFunc:
@@ -1523,21 +1434,6 @@ def dummy_build_and_load(self, *args, **kwargs):
 fjitcore.JitSpec.build_and_load = dummy_build_and_load
 
 
-# import importlib
-
-# _original_import_module = importlib.import_module
-
-# def dummy_import_module(name, package=None):
-#     if "vllm.model_executor.layers.mamba.ops.ssd_bmm" in name:
-#         print(f"[patch] dummy import for {name}")
-#         mod = types.ModuleType(name)
-#         mod._bmm_chunk_fwd = bmm_chunk_fwd_mock
-#         return mod
-#     return _original_import_module(name, package)
-
-# importlib.import_module = dummy_import_module
-
-
 import vllm.attention.ops.triton_unified_attention as triton_attn
 triton_attn.unified_attention = lambda *args, **kwargs: None
 
@@ -1555,9 +1451,6 @@ triton_decode_attention._decode_softmax_reducev_fwd = lambda *args, **kwargs: No
 import vllm.attention.ops.triton_merge_attn_states as triton_merge_attn_states
 triton_merge_attn_states.merge_attn_states = lambda *args, **kwargs: None
 
-# import vllm.attention.ops.triton_flash_attention as triton_flash_attention
-# triton_flash_attention.has_cdna_target = lambda: True
-# triton_flash_attention.triton_attention_rocm = triton_attention_rocm_mock
 
 import vllm.attention.ops.blocksparse_attention.blocksparse_attention_kernel as blocksparse_attention_kernel
 blocksparse_attention_kernel.blocksparse_flash_attn_varlen_fwd = blocksparse_flash_attn_varlen_fwd_mock
@@ -1587,22 +1480,10 @@ import vllm.model_executor.layers.lightning_attn as lightning_attn
 lightning_attn.lightning_attention_ = lightning_attention_mock
 lightning_attn.linear_decode_forward_triton = linear_decode_forward_triton_mock
 
-# import vllm.model_executor.layers.fused_moe.fused_moe as fused_moe
-# fused_moe.invoke_fused_moe_kernel = lambda *args, **kwargs: None
-
-# sys.modules["vllm.model_executor.layers.fused_moe.fused_moe"].invoke_fused_moe_kernel = lambda *args, **kwargs: None
 
 import vllm.model_executor.layers.fused_moe.fused_batched_moe as fused_batched_moe
 fused_batched_moe.invoke_moe_batched_triton_kernel = lambda *args, **kwargs: None
 
-# class DummyKernel:
-#     def __getitem__(self, grid):
-#         def launcher(*args, **kwargs):
-#             print("[DummyKernel] Skipped fused_moe_kernel launch")
-#             return None
-#         return launcher
-
-# fused_moe.fused_moe_kernel = DummyKernel()
 
 import vllm.model_executor.layers.fused_moe.moe_align_block_size as moe_align_block_size
 moe_align_block_size.moe_align_block_size_triton = lambda *args, **kwargs: None
@@ -1627,18 +1508,6 @@ ssd_state_passing._state_passing_fwd = state_passing_fwd_mock
 import vllm.model_executor.layers.quantization.compressed_tensors.triton_scaled_mm as triton_scaled_mm
 triton_scaled_mm.triton_scaled_mm = triton_scaled_mm_mock
 
-# from vllm.model_executor.model_loader.gguf_loader import GGUFModelLoader
-
-# _orig_get_gguf_weights_map = GGUFModelLoader._get_gguf_weights_map
-
-# def _patched_get_gguf_weights_map(self, model_config):
-#     if getattr(model_config, "hf_config", None) is not None:
-#         if getattr(model_config.hf_config, "model_type", None) == "qwen2_moe":
-#             model_config.hf_config.model_type = "qwen2moe"
-#     return _orig_get_gguf_weights_map(self, model_config)
-
-# GGUFModelLoader._get_gguf_weights_map = _patched_get_gguf_weights_map
-
 
 import vllm.worker.worker as worker
 worker.init_worker_distributed_environment = lambda *a, **k: print("[mock] skipping distributed init")
@@ -1653,8 +1522,6 @@ def patched_raise_if_cache_size_invalid(*args, **kwargs):
 
 worker.raise_if_cache_size_invalid = patched_raise_if_cache_size_invalid
 
-# import vllm.v1.worker.gpu_worker as gpu_worker
-# gpu_worker.init_worker_distributed_environment = lambda *a, **k: print("[mock] skipping distributed init")
 
 import contextlib
 @contextlib.contextmanager
@@ -1664,16 +1531,6 @@ def fake_device_loading_context(module, target_device):
 
 import vllm.model_executor.model_loader.utils as utils
 utils.device_loading_context = fake_device_loading_context
-
-# import vllm.core.scheduler as scheduler_mod
-
-# original_can_append_slots = scheduler_mod.Scheduler._can_append_slots
-
-# def patched_can_append_slots(self, *args, **kwargs):
-#     # print("[patch] Forcing _can_append_slots to return True")
-#     return True
-
-# scheduler_mod.Scheduler._can_append_slots = patched_can_append_slots
 
 import vllm.config.model as model_config_mod
 
@@ -1716,11 +1573,6 @@ def patched_nvfp4_process_weights_after_loading(self, layer: torch.nn.Module) ->
 
 modelopt.ModelOptNvFp4FusedMoE.process_weights_after_loading = patched_nvfp4_process_weights_after_loading
 
-# import vllm.model_executor.layers.quantization.utils.marlin_utils as marlin_utils
-# def check_moe_marlin_supports_layer_fake(layer, group_size):
-#     return False
-# marlin_utils.check_moe_marlin_supports_layer = check_moe_marlin_supports_layer_fake
-
 
 import subprocess
 import vllm.model_executor.models.registry as registry
@@ -1732,12 +1584,20 @@ def _patched_run_in_subprocess(fn):
     with tempfile.TemporaryDirectory() as tempdir:
         output_filepath = os.path.join(tempdir, "registry_output.tmp")
         input_bytes = cloudpickle.dumps((fn, output_filepath))
+        current_path_string = os.path.abspath(__file__)
 
         # Build patched command
         cmd = registry._SUBPROCESS_COMMAND.copy()
         # inject our patch loader before "-m"
-        cmd = [cmd[0], "-c", f"exec(open('/home/mvh6224/CUDA-BOSolver/pyanalyzer/framework.py').read()); import runpy; runpy._run_module_as_main('{cmd[2]}')"]
-
+        path_repr = repr(current_path_string)
+        module_repr = repr(cmd[2])
+        bootstrap = (
+            f"import runpy; "
+            f"globals()['__file__']={path_repr}; "
+            f"exec(open({path_repr}).read(), globals(), globals()); "
+            f"runpy._run_module_as_main({module_repr})"
+        )
+        cmd = [cmd[0], "-c", bootstrap]
         returned = subprocess.run(cmd, input=input_bytes, capture_output=True)
 
         try:
@@ -1749,152 +1609,3 @@ def _patched_run_in_subprocess(fn):
             return pickle.load(f)
 
 registry._run_in_subprocess = _patched_run_in_subprocess
-
-
-# from vllm.model_executor.model_loader.bitsandbytes_loader import BitsAndBytesModelLoader
-
-# def patched_prepare_weights(self, model_name_or_path: str, revision: Optional[str]):
-#     return [], True
-
-# def patched_hf_weight_iter(self, f_weights_files, use_safetensors: bool):
-#     print("Patched _hf_weight_iter: using self.model to extract param names/shapes")
-
-#     def _maybe_pool_model(module_name: str):
-#         if self.is_pool_model and self.target_modules[0].startswith("model.") and not module_name.startswith("model."):
-#             return "model." + module_name
-#         return module_name
-
-#     for org_name, param in self.tmp_model.named_parameters():
-#         # dummy_tensor = torch.zeros(param.shape, dtype=param.dtype)
-#         # with torch.no_grad():
-#         #     param.data.zero_()
-#         mapped_name = self.weight_mapper(org_name)
-#         mapped_name = _maybe_pool_model(mapped_name)
-#         yield org_name, mapped_name, param
-
-#         # If it's a weight param, add dummy quant_state entries
-#         if ".weight" in mapped_name:
-#             shape = param.shape
-#             dtype = param.dtype
-#             device = "cpu"
-
-#             # Regular zero tensors
-#             yield org_name + ".quant_state.bitsandbytes__scales", mapped_name + ".quant_state.bitsandbytes__scales", torch.zeros(shape, dtype=dtype, device=device)
-#             yield org_name + ".quant_state.bitsandbytes__zeros", mapped_name + ".quant_state.bitsandbytes__zeros", torch.zeros(shape, dtype=dtype, device=device)
-#             yield org_name + ".quant_state.bitsandbytes__g_idx", mapped_name + ".quant_state.bitsandbytes__g_idx", torch.zeros(shape, dtype=dtype, device=device)
-
-#             # JSON metadata in .nf4
-#             qs_dict = {
-#                 "version": 1,
-#                 "type": "nf4",
-#                 "params": {"dummy": True}
-#             }
-#             json_str = json.dumps(qs_dict)
-#             byte_tensor = torch.tensor(list(json_str.encode("utf-8")), dtype=torch.uint8)
-#             yield org_name + ".quant_state.bitsandbytes__nf4", mapped_name + ".quant_state.bitsandbytes__nf4", byte_tensor
-    
-# original_load_weights = BitsAndBytesModelLoader._load_weights
-# def patched_load_weights(self, model_config, model):
-#     self.tmp_model = model
-#     original_load_weights(self, model_config, model)
-
-# BitsAndBytesModelLoader._load_weights = patched_load_weights
-# BitsAndBytesModelLoader._prepare_weights = patched_prepare_weights
-# BitsAndBytesModelLoader._hf_weight_iter = patched_hf_weight_iter
-
-
-# import transformers
-# _real_load_pretrained_model = transformers.modeling_utils.PreTrainedModel._load_pretrained_model.__func__
-
-# @classmethod
-# def _dummy_load_pretrained_model(
-#     cls,
-#     model,
-#     state_dict=None,
-#     checkpoint_files=None,
-#     pretrained_model_name_or_path=None,
-#     ignore_mismatched_sizes=False,
-#     sharded_metadata=None,
-#     device_map=None,
-#     disk_offload_folder=None,
-#     offload_state_dict=None,
-#     dtype=None,
-#     hf_quantizer=None,
-#     keep_in_fp32_regex=None,
-#     device_mesh=None,
-#     key_mapping=None,
-#     weights_only=True,
-# ):
-#     if state_dict is None:
-#         print("Generating dummy weights for", cls.__name__)
-#         dummy_dict = {
-#             name: torch.zeros_like(param, device="cpu")
-#             for name, param in model.named_parameters()
-#         }
-#         # dummy_dict = {
-#         #     key: torch.zeros_like(value, device="cpu")
-#         #     for key, value in model.state_dict().items()
-#         # }
-#         state_dict = dummy_dict
-#         checkpoint_files = []
-
-#     return _real_load_pretrained_model(
-#         cls,
-#         model=model,
-#         state_dict=state_dict,
-#         checkpoint_files=checkpoint_files,
-#         pretrained_model_name_or_path=pretrained_model_name_or_path,
-#         ignore_mismatched_sizes=ignore_mismatched_sizes,
-#         sharded_metadata=sharded_metadata,
-#         device_map=device_map,
-#         disk_offload_folder=disk_offload_folder,
-#         offload_state_dict=offload_state_dict,
-#         dtype=dtype,
-#         hf_quantizer=hf_quantizer,
-#         keep_in_fp32_regex=keep_in_fp32_regex,
-#         device_mesh=device_mesh,
-#         key_mapping=key_mapping,
-#         weights_only=weights_only,
-#     )
-
-# transformers.modeling_utils.PreTrainedModel._load_pretrained_model = _dummy_load_pretrained_model
-
-# mock cpp extension load
-from cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
-
-def retrieve_stack_hf(stack):
-    call_stack = []
-    i = 0
-    for frame in stack:
-        if i >= 5:
-            break
-        if "/transformers" in frame.filename and "/torch/nn/" not in frame.filename:
-            call_stack.append((frame.filename.split("/transformers")[1],frame.lineno))
-            # call_stack.append((frame.filename.split("/transformers")[1],frame.lineno,frame.function))
-            i+=1
-    return tuple(call_stack)
-
-def _on_called(method, *args, **kwargs):
-    global tensor_calls
-    global calls_map
-    global argChanged
-
-    # call_stack = retrieve_stack_hf(traceback.extract_stack())
-    call_stack = retrieve_stack_hf(inspect.stack())
-    
-    hasTensor, argCons = collect_tensor_args(*args[0]) 
-    to_add = {"name": method, "args": argCons, "stack": call_stack}
-    if to_add not in tensor_calls:
-        tensor_calls.append(to_add)
-
-    if method not in calls_map:
-        calls_map[method] = {}
-    if call_stack not in calls_map[method]:
-        calls_map[method][call_stack] = []
-    if argCons not in calls_map[method][call_stack]:
-        calls_map[method][call_stack].append(argCons)
-        argChanged = True
-        # print(method, argCons)
-    
-cpp_mock = LoadedCppExtensionMock(_on_called)
-mock_torch_utils_cpp_extension(cpp_mock)

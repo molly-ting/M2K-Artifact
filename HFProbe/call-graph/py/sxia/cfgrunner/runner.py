@@ -143,7 +143,6 @@ class FuncRunner(ast.NodeVisitor):
                 base_path=None,
             )
             path.return_value = self_value
-            # simply return one path with the class instance
             return [path]
 
     def _new_path(
@@ -245,8 +244,6 @@ class FuncRunner(ast.NodeVisitor):
                 if bb.statements:
                     logger.info(f"return to line {bb.statements[0].lineno}")
             if frame.name == "__init__":
-                # if __init__ is called, we need to set the return value to self
-                # since __init__ does not return anything
                 if frame.ret_val_obj:
                     frame.ret_val_obj[frame.ret_val_obj_key] = frame.self_value
         else:
@@ -261,9 +258,6 @@ class FuncRunner(ast.NodeVisitor):
         visited = set()
 
         while bb is not None:
-            # if bb in visited:
-            #     logger.warning(f"loop detected in path: {path.id}, block: {bb.id}")
-            #     break
             visited.add(bb)
             self._bb = bb
             logger.info(f"visiting block: {bb.id}")
@@ -273,7 +267,6 @@ class FuncRunner(ast.NodeVisitor):
                     self.visit(stmt)
 
             if self._next_bbs is None:
-                # self._next_bbs can be updated by _handle_call
                 self._next_bbs = bb.successors
 
             if self._next_bbs:
@@ -454,19 +447,15 @@ class FuncRunner(ast.NodeVisitor):
                     arg0 = node.iter.args[0]
                     arg0_val = self._eval(frame, arg0)
                     if isinstance(node.target, ast.Tuple):
-                        #     # for i, (x, y) in enumerate(...)
                         if isinstance(node.target.elts[1], ast.Tuple):
                             for i, el in enumerate(node.target.elts[1].elts):
                                 if isinstance(el, ast.Name):
                                     print("!")
                                     self._eval(frame, el, arg0_val[0][i])
-                                    # if arg0_ty.ty == "zip":
-                                    #     fn_ty[el.id] = arg0_ty.args[i].item
 
         self.generic_visit(node)
 
     def visit_Return(self, node):
-        # super().generic_visit(node)
         frame = self._get_current_frame()
         return_value = self._eval(frame, node.value)
 
@@ -546,7 +535,6 @@ class FuncRunner(ast.NodeVisitor):
         return False
 
     def _handle_call(self, node: ast.Call):
-        # print(ast.dump(node, indent=4))
         frame = self._get_current_frame()
         local_env = self._get_current_local_env()
         env = self._get_current_env()
@@ -566,7 +554,6 @@ class FuncRunner(ast.NodeVisitor):
             if self._is_super_init(node.func):
                 logger.warning("super.__init__() not supported yet for now")
 
-                # Hard code to assign config to self.config
                 if "config" in local_env:
                     self_value.value["config"] = local_env["config"]
 
@@ -624,7 +611,6 @@ class FuncRunner(ast.NodeVisitor):
                             return args[0]
 
                     self_value = func
-                    # if it has forward, call forward, else report error and return symbol
                     if "forward" in func.value:
                         func = func.value["forward"]
                     else:
@@ -739,7 +725,6 @@ class FuncRunner(ast.NodeVisitor):
                         func.def_at, self_value=self_value, args=args, kwargs=kwargs
                     )
 
-            # like simply xxx(), node.func.id is xxx
             if node.func.id == "super":
                 logger.warning("super() not supported yet for now")
                 return new_symbol(def_at=node)
@@ -880,7 +865,6 @@ class FuncRunner(ast.NodeVisitor):
                     used_init_kwargs.add(arg.arg)
                     print(f"local_env {arg.arg} = {local_env[arg.arg]}")
 
-        # after known argument assignment, assign rest of passed kwargs to kwargs(if function declared )
         if node.kwarg is not None:
             local_env[node.kwarg.arg] = {}
             for key, value in init_kwargs.items():
@@ -920,7 +904,6 @@ class FuncRunner(ast.NodeVisitor):
                         logger.debug(f"update symbolic arg {arg.arg} to {ty.ty}")
 
     def _handle_compare(self, node: ast.Compare):
-        # super().generic_visit(node)
         frame = self._get_current_frame()
         assert len(node.ops) == 1
         assert len(node.comparators) == 1

@@ -211,108 +211,6 @@ def _list(args, kwargs):
         return [None]
     return list(obj)
 
-
-# def _iter(args, kwargs):
-#     if len(args) != 1:
-#         raise ValueError("iter only support 1 arg")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("iter return")
-#     try:
-#         return iter(obj)
-#     except Exception:
-#         return new_symbol("iter return")
-
-
-# def _next(args, kwargs):
-#     if len(args) < 1 or len(args) > 2:
-#         raise ValueError("next only support 1 or 2 args")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("next return")
-#     try:
-#         if len(args) == 2:
-#             return next(obj, args[1])
-#         return next(obj)
-#     except Exception:
-#         return new_symbol("next return")
-
-
-# def _field(args, kwargs):
-#     return new_symbol("field return")
-
-
-# def _bool(args, kwargs):
-#     if len(args) != 1:
-#         raise ValueError("bool only support 1 arg")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("bool return")
-#     return bool(obj)
-
-
-# def _str(args, kwargs):
-#     if len(args) != 1:
-#         raise ValueError("str only support 1 arg")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("str return")
-#     return str(obj)
-
-
-# def _cycle(args, kwargs):
-#     if len(args) != 1:
-#         raise ValueError("cycle only support 1 arg")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("cycle return")
-#     try:
-#         import itertools
-
-#         return list(itertools.islice(itertools.cycle(obj), 1))
-#     except Exception:
-#         return new_symbol("cycle return")
-
-
-# def _min(args, kwargs):
-#     if len(args) == 0:
-#         raise ValueError("min only support at least 1 arg")
-#     if len(args) == 1:
-#         if isinstance(args[0], Value) and args[0].is_symbol():
-#             return new_symbol("min return")
-#         return min(args[0])
-#     if any(isinstance(arg, Value) and arg.is_symbol() for arg in args):
-#         return new_symbol("min return")
-#     return min(args)
-
-
-# def _max(args, kwargs):
-#     if len(args) == 0:
-#         raise ValueError("max only support at least 1 arg")
-#     if len(args) == 1:
-#         if isinstance(args[0], Value) and args[0].is_symbol():
-#             return new_symbol("max return")
-#         return max(args[0])
-#     if any(isinstance(arg, Value) and arg.is_symbol() for arg in args):
-#         return new_symbol("max return")
-#     return max(args)
-
-
-# def _next_power_of_2(args, kwargs):
-#     if len(args) != 1:
-#         raise ValueError("next_power_of_2 only support 1 arg")
-#     obj = args[0]
-#     if isinstance(obj, Value) and obj.is_symbol():
-#         return new_symbol("next_power_of_2 return")
-#     try:
-#         n = int(obj)
-#     except Exception:
-#         return new_symbol("next_power_of_2 return")
-#     if n <= 0:
-#         return 1
-#     return 1 << (n - 1).bit_length()
-
-
 def _vllm_distributed_utils_get_pp_indices(args, kwargs):
     return (0, 1)
 
@@ -341,15 +239,6 @@ global_func_map = {
     "set": _set,
     "edict": _dict,
     "list": _list,
-    # "min": _min,
-    # "max": _max,
-    # "vllm.triton_utils.triton.next_power_of_2": _next_power_of_2,
-    # "iter": _iter,
-    # "next": _next,
-    # "field": _field,
-    # "bool": _bool,
-    # "str": _str,
-    # "cycle": _cycle,
     # vllm specific functions
     "vllm.distributed.utils.get_pp_indices": _vllm_distributed_utils_get_pp_indices,
     "maybe_offload_to_cpu": _maybe_offload_to_cpu,

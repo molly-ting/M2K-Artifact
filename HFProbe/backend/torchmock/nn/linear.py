@@ -51,9 +51,5 @@ def pure_linear_mock(x, weight, bias=None):
 
 
 mock_dict = {
-    # torch.nn.modules.linear.Identity: None,
-    # torch.nn.modules.linear.Linear: LinearModuleMock,
     torch.nn.functional.linear: pure_linear_mock,
-    # torch.nn.modules.linear.Bilinear,
-    # torch.nn.modules.linear.LazyLinear,
 }

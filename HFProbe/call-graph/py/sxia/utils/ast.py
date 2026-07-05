@@ -329,8 +329,6 @@ def resolve_type_annotation(annotation: ast.expr) -> str:
         return annotation.id
     elif isinstance(annotation, ast.Subscript):
         base = resolve_type_annotation(annotation.value)
-        # index = resolve_type_annotation(annotation.slice)
-        # return f"{base}[{index}]"
         return base
     elif isinstance(annotation, ast.BinOp) and isinstance(annotation.op, ast.BitOr):
         left = resolve_type_annotation(annotation.left)

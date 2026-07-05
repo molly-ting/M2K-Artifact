@@ -1,7 +1,9 @@
 import logging
 import argparse
 import os
-
+from time import time
+from sxia.hf import vllm_test, indirect_fill, transformers_test
+from sxia.op import collect_ops
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +78,6 @@ def main():
         type=str,
         required=False,
         help="Directory for vllm, default is vllm installed by pip",
-        # default=".venv/lib/python3.10/site-packages/vllm",
         default="/opt/anaconda3/envs/vllm-env/lib/python3.10/site-packages/vllm"
     )
     scan_parser.set_defaults(func=_handle_scan_args)
@@ -111,11 +112,44 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    from sxia.hf import vllm_test, indirect_fill, transformers_test
-    # transformers_test("/Users/molly/Projects/CUDA/_models/chinoll_chatsakura-3b-int4")
-    # transformers_test("/Users/molly/Projects/CUDA/_models/Qwen_Qwen-7B")
-    vllm_test()
-    indirect_targers = ["/Users/molly/Workspace/pyanalyzer/cgout/Qwen3MoeForCausalLM_forward.json", "/Users/molly/Workspace/pyanalyzer/cgout/LinearMethodBase/AWQMarlinLinearMethod_apply.json", "/Users/molly/Workspace/pyanalyzer/cgout/LinearMethodBase/CompressedTensorsLinearMethod_apply.json", "/Users/molly/Workspace/pyanalyzer/cgout/LinearMethodBase/QuarkLinearMethod_apply.json", "/Users/molly/Workspace/pyanalyzer/cgout/scheme/QuarkW8A8Int8_apply_weights.json"]
-    for target_file in indirect_targers:
-        indirect_fill(target_file=target_file)
+    parser = argparse.ArgumentParser(prog="./x")
+    subparsers = parser.add_subparsers(dest="command")
+    scan_parser = subparsers.add_parser("scan", help="Scan a directory for python files")
+    scan_parser.add_argument(
+        "--out", type=str, required=False, help="Output directory for scan"
+    )
+    scan_parser.add_argument(
+        "--transformers-model-dir",
+        type=str,
+        required=False,
+        help="Directory for transformers models",
+    )
+    scan_parser.add_argument(
+        "--vllm-dir",
+        type=str,
+        required=False,
+        help="Directory for vllm"
+    )
+    args = parser.parse_args()
+
+    current_path_string = os.path.abspath(__file__)
+    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(current_path_string)))
+    if args.command == "scan":
+        if args.vllm_dir:
+            start_time = time.time()
+            callgraph_dir = os.path.join(root_dir, "cgout")
+            vllm_test(args.vllm_dir, callgraph_dir)
+            indirect_targets = [os.path.join(callgraph_dir, "Qwen3MoeForCausalLM_forward.json"), os.path.join(callgraph_dir, "LinearMethodBase", "AWQMarlinLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "CompressedTensorsLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "QuarkLinearMethod_apply.json"), os.path.join(callgraph_dir, "scheme", "QuarkW8A8Int8_apply_weights.json")]
+            for target_file in indirect_targets:
+                indirect_fill(target_file=target_file)
+            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
+            end_time = time.time()
+            logger.info(f"total time cost: {end_time - start_time} seconds.")
+
+        elif args.transformers_model_dir:
+            start_time = time.time()
+            callgraph_dir = os.path.join(root_dir, "cgout-models")
+            transformers_test(args.transformers_model_dir, callgraph_dir)
+            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
+            end_time = time.time()
+            logger.info(f"total time cost: {end_time - start_time} seconds.")

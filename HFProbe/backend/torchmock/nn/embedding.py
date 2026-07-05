@@ -34,8 +34,6 @@ class EmbeddingMock:
 
     def _fill_padding_idx_with_zero(self) -> None:
         pass
-        # if self.padding_idx is not None:
-        #     self.weight[self.padding_idx].fill_(0)
     
     def __call__(self, *args, **kwargs):
         return self.forward(*args, **kwargs)
@@ -60,7 +58,6 @@ def embedding_bag_mock(input, weight, offsets, max_norm=None, norm_type=2.0,
 
 mock_dict = {
     torch.nn.modules.sparse.Embedding: EmbeddingMock,
-    # torch.nn.modules.sparse.EmbeddingBag: None,
     torch.nn.functional.embedding: embedding_mock,
     torch.nn.functional.embedding_bag: embedding_bag_mock
 }

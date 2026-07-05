@@ -10,14 +10,13 @@ import jsonpickle
 
 from vllm import LLM, SamplingParams
 from vllm.config import LoadFormat
-from transformers import AutoModel, AutoTokenizer, AutoModelForCausalLM, AutoConfig
 
-from huggingface_hub import snapshot_download, list_repo_files
+from huggingface_hub import snapshot_download
 
 
-CUTOFF_DATE = datetime(2025, 6, 1, tzinfo=timezone.utc)
+current_path_string = os.path.abspath(__file__)
+result_dir = os.path.join(os.path.dirname(os.path.dirname(current_path_string)), "result")
 
-X_COUNT = 3
 GB = 1024 ** 3
 soft, hard = resource.getrlimit(resource.RLIMIT_AS)
 new_soft = min(4 * GB, hard)
@@ -36,12 +35,11 @@ def clean(modelId):
     except Exception as e:
         print(f"[{modelId}] Cache cleanup error:", e)
   
-def handleVLLMModel(modelId, configs={}, suffix=None, outdir="./vllmout", loadDir="./vllm-load", dataDir="./data", is_op_suffix=False):
+def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-out", loadDir=result_dir+"/vllm-load", dataDir=result_dir+"/vllm-data", is_op_suffix=False):
     global batch_size_configs
     global seq_lens_configs
     global failed_models, oom_models
     
-    # outdir = "./vllmout"
     os.makedirs(outdir, exist_ok=True)
     if not is_op_suffix:
         outPath = outdir+"/"+modelId.replace('/', '_')
@@ -73,7 +71,6 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir="./vllmout", loadDi
     if "enable_chunked_prefill" not in configs:
         configs["enable_chunked_prefill"] = False
     
-    # loadOutDir = "./vllm-load"
     os.makedirs(loadDir, exist_ok=True)
     if not is_op_suffix:
         loadOutPath = loadDir+"/"+modelId.replace('/', '_')
@@ -86,7 +83,6 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir="./vllmout", loadDi
         loadOutPath = os.path.join(loadDir, suffix+".json")
     
     try:
-        # quantization="gptq", max_model_len, max_num_seq, 
         with framework.fast_dummy_init(mode=os.getenv("BOS_FAST_DUMMY_INIT", "empty")):
             with framework.kv_probe("init"):
                 with framework.enable_thin_kv():
@@ -230,7 +226,6 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
     
     framework.tensor_calls.clear()
     framework.calls_map.clear()
-    # data = []
     total_calls_map = {}
     
     with framework.kv_probe("gen"):
@@ -245,12 +240,13 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
                 tokens = tokenizer(single_prompt)["input_ids"]
                 seq_len_real = len(tokens)
                 if seq_len_real != seq_len:
-                    # print(f"Warning: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}) even after adjustment.")
+                    print(f"Error: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}) even after adjustment.")
                     return -2
             else:
-                # print(f"Warning: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}).")
+                print(f"Error: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}).")
                 return -2
-        print(f"batch_size={batch_size}, seq_len={seq_len_real} ...")
+            
+        print("Running model ", modelId, "...", f"batch_size={batch_size}, seq_len={seq_len_real} ...")
     
         with framework.enable_thin_kv():
             with framework.torch.inference_mode():

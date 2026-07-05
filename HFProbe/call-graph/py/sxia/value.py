@@ -204,14 +204,11 @@ class ModuleInstanceValue(ModuleValue):
     def from_file(file_path: str) -> "ModuleInstanceValue":
         with open(file_path, "r", encoding="utf-8") as f:
             tree = ast.parse(f.read(), filename=file_path)
-        # if "activation.py" in file_path:
-        #     print("@")
         mod_inst = ModuleInstanceValue.from_ast_module(tree)
         mod_inst.file_path = file_path
         return mod_inst
 
     def add_import_from(self, node: ast.ImportFrom):
-        # from module import submodule
         # submodule will be mapped to module.submodule
         for alias in node.names:
             import_value = ImportValue(
@@ -264,7 +261,6 @@ def _top_level_init(inst_value, stmts: list[ast.stmt]):
         elif isinstance(stmt, ast.ImportFrom):
             inst_value.add_import_from(stmt)
         elif isinstance(stmt, ast.Import):
-            # import module
             # module will be mapped to module.module
             for alias in stmt.names:
                 keyName = alias.asname or alias.name

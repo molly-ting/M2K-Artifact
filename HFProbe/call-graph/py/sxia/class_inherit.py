@@ -61,7 +61,6 @@ class ClassInheritanceGraph(ast.NodeVisitor):
                 self.graph.add_node(base_class)
             self.graph.add_edge(class_name, base_class)
         
-        # Continue walking for nested classes, etc.
         self.generic_visit(node)
         
     @classmethod

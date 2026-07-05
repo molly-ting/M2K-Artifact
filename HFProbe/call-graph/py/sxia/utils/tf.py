@@ -9,45 +9,6 @@ from sxia.value import ClassValue, ModuleInstanceValue
 logger = logging.getLogger(__name__)
 
 
-# def analyze(dir: Optional[str] = None, out: Optional[str] = None):
-#     """
-#     Analyze the transformers models
-#     """
-#     try:
-#         dir = dir or _get_transformers_dir()
-#     except ImportError:
-#         pass
-#     if not dir:
-#         raise ValueError(
-#             "transformers directory not found, please either install transformers through pip or specify the directory"
-#         )
-#     if not os.path.exists(dir):
-#         raise ValueError(f"{dir} does not exist")
-#     if not os.path.isdir(dir):
-#         raise ValueError(f"{dir} is not a directory")
-#     logger.info(f"transformers dir: {dir}")
-#     # find the models directory
-#     model_dirs_parent = os.path.join(dir, "models")
-#     model_dirs = [
-#         os.path.join(model_dirs_parent, d)
-#         for d in os.listdir(model_dirs_parent)
-#         if not d.endswith(".py")
-#     ]
-#     logger.info(f"Found {len(model_dirs)} models")
-#     for md in model_dirs:
-#         if not os.path.isdir(md):
-#             logger.error(f"{md} is not a directory")
-#             continue
-#         configs, models = _list_config_and_model(md)
-#         logger.info(f"Found {len(configs)} configs and {len(models)} models in {md}")
-#         if len(models) == 0:
-#             logger.error(f"Skip since no entrypoint model found in {md}")
-#             continue
-
-#         for model in models:
-#             logger.info(f"Model: {model.def_at.name}")
-
-
 def get_transformers_dir() -> str:
     """
     Get the transformers directory

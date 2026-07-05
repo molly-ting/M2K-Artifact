@@ -10,34 +10,6 @@ from sxia.value import ClassInstanceValue
 logger = logging.getLogger(__name__)
 
 
-# def analyze_if_any_vllm(dir: Optional[str] = None) -> VllmAnalysis:
-#     """
-#     Analyze the vllm models
-#     """
-#     try:
-#         dir = dir or _get_vllm_dir()
-#     except ImportError:
-#         pass
-#     if not dir:
-#         raise ValueError(
-#             "vllm directory not found, please either install transformers through pip or specify the directory"
-#         )
-#     if not os.path.exists(dir):
-#         raise ValueError(f"{dir} does not exist")
-#     if not os.path.isdir(dir):
-#         raise ValueError(f"{dir} is not a directory")
-
-#     # find the models directory
-#     registry_py = os.path.join(dir, "model_executor/models/registry.py")
-#     model2path = _extract_path_model_pairs(registry_py)
-
-#     # for m in models:
-#     #     if not os.path.isdir(m):
-#     #         logger.error(f"{m} is not a directory")
-#     #         continue
-#     #     _analyze_vllm_model(m)
-
-
 def _get_vllm_dir() -> str:
     """
     Get the transformers directory
@@ -184,9 +156,6 @@ def analyze_vllm_model(
         cls_name,
         vllm_config,
         func_name or "forward",
-        # "forward_cuda",
-        # "generate",
-        # "apply",
         [],
         resolve_import_dirs=[os.path.dirname(vllm_dir)],
         out_path=out_path

@@ -1,7 +1,7 @@
 import json
 import os
 from sxia.analysis_types import PyCppBinding, TorchCall
-from sxia.value import ModuleInstanceValue, Value
+from sxia.value import ClassInstanceValue, ModuleInstanceValue, Value
 
 
 def get_torch_calls_from_file(
@@ -12,9 +12,8 @@ def get_torch_calls_from_file(
     auto_config_cls: str = None,
     auto_config_cls_py_path: str = None,
     entry_func="forward",
+    out_path: str = None
 ) -> list[TorchCall]:
-    model_name = repo_path.split("/")[-1]
-    out_path=os.path.join("/Users/molly/Workspace/pyanalyzer/cgout-models", model_name+".json")
     if os.path.exists(out_path):
         return []
     
@@ -82,6 +81,21 @@ def get_torch_calls_from_file(
         Value(None, def_at=None),
         entry_func,
         bindings,
+        resolve_import_dirs=[repo_path],
+        out_path=out_path
+    )
+
+def analyze_transformers_model(
+    repo_path: str, entry_cls: str, entry_cls_py_path: str, func_name: str = None, out_path: str = None
+):
+    hf_config = ClassInstanceValue(None)
+
+    return TorchCallVisitor.starts_from(
+        entry_cls_py_path,
+        entry_cls,
+        hf_config,
+        func_name or "forward",
+        [],
         resolve_import_dirs=[repo_path],
         out_path=out_path
     )

@@ -138,7 +138,6 @@ class TypeInfoCollector(NodeVisitor):
         <function name>: {
             <arg name>: <type>
         }
-        // class's properties (self.yyy = zzz in __init__)
         <property name>: <type>
     }
     """
@@ -166,15 +165,6 @@ class TypeInfoCollector(NodeVisitor):
         self._ns_stack.append(node)
         self.generic_visit(node)
         self._ns_stack.pop()
-
-    # def visit_arguments(self, node):
-    #     if len(self._ns_stack) < 2:
-    #         return
-    #     print("current context is", self._ns_stack[-1].name, type(self._ns_stack[-1]))
-    #     print("visit_arguments", dump(node, indent=4))
-    #     func_name = self._ns_stack[-1].name
-    #     cls_name = self._ns_stack[-2].name
-
     def visit_arg(self, node):
         if len(self._ns_stack) != 2:
             return
@@ -301,7 +291,6 @@ class TypeInfoCollector(NodeVisitor):
                     arg0 = node.iter.args[0]
                     arg0_ty = self._resolve_expr_type(arg0)
                     if isinstance(node.target, ast.Tuple):
-                        # for i, (x, y) in enumerate(...)
                         fn_ty[node.target.elts[0].id] = TypeInfo("int")
                         if isinstance(node.target.elts[1], ast.Tuple):
                             for i, el in enumerate(node.target.elts[1].elts):
