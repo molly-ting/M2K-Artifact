@@ -856,10 +856,6 @@ Z3ASTHandle Z3Builder::constructActualForInt(ref<Expr> e, int *width_out, bool i
             int tmpWidth = intArrNames[array->name] * 8;
             if (tmpWidth > 8 && tmpWidth < elementWidth) {
             }
-            if (tmpWidth != elementWidth) {
-              llvm::outs() << "Z3Builder: intArrNames[array->name] * 8 != e->getWidth() " << e << "\n";
-              llvm::outs() << array->name << " esize " << tmpWidth << " expr width " << elementWidth << "\n";          
-            }
           }
           Z3ASTHandle indexAST = Z3ASTHandle(Z3_mk_div(ctx, tmpAST, uintConst32(elementWidth/8)), ctx);  
           Z3ASTHandle readAST = readExpr(getInitialIntArray(array, ce->getWidth()), indexAST);

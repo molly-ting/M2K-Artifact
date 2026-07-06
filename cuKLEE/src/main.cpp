@@ -421,7 +421,7 @@ void runOptCommand(const std::string &inputFilePath, const std::string &outputFi
 
 void runKLEECommand(const std::string &functionName, const std::string &functionType, const std::string &jsonFile, const std::string &filePath, int i, const std::string &outputDir="") {
     // Run KLEE command with callerFunctionName as entry-point
-    std::string command = "klee --disable-verify --single-object-resolution=true --external-calls=over-approx --use-merge --max-depth=1024 --debug-print-instructions=all:file --entry-point=" + functionName + " --cuda-type=" + functionType + " --func-config=" + jsonFile  + " --jindex=" + llvm::utostr(i);
+    std::string command = "klee --disable-verify --warnings-only-to-file --single-object-resolution=true --external-calls=over-approx --use-merge --max-depth=1024 --debug-print-instructions=all:file --entry-point=" + functionName + " --cuda-type=" + functionType + " --func-config=" + jsonFile  + " --jindex=" + llvm::utostr(i);
     if (!outputDir.empty()) {
         command += " --output-dir="+outputDir;
     }
@@ -476,7 +476,7 @@ void runKLEECommand(const std::string &functionName, const std::string &function
 
 void runKLEECommand(const std::string &functionName, const std::string &functionType, const std::string &filePath, const std::string &outputDir="") {
     // Run KLEE command with callerFunctionName as entry-point
-    std::string command = "klee --disable-verify --single-object-resolution=true --external-calls=over-approx --use-merge --max-depth=1024 --debug-print-instructions=all:file --entry-point=" + functionName + " --cuda-type=" + functionType;
+    std::string command = "klee --disable-verify --warnings-only-to-file --single-object-resolution=true --external-calls=over-approx --use-merge --max-depth=1024 --debug-print-instructions=all:file --entry-point=" + functionName + " --cuda-type=" + functionType;
     if (!outputDir.empty()) {
         command += " --output-dir="+outputDir;
     }
@@ -640,7 +640,6 @@ int main(int argc, char **argv) {
                                     if (const llvm::ValueAsMetadata *valueMeta = llvm::dyn_cast<llvm::ValueAsMetadata>(md)) {
                                         if (const llvm::Function *func = llvm::dyn_cast<llvm::Function>(valueMeta->getValue())) {
                                             kernelFunctionNames.emplace_back(func->getName());
-                                            llvm::outs() << "Function with 'kernel' metadata: " << func->getName() << "\n";
                                         }
                                     }
                                 }

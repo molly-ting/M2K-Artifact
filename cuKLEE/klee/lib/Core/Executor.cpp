@@ -13229,7 +13229,6 @@ void Executor::validateKernelConfig(ExecutionState &state, ref<Expr> config, ref
     }
   }
 
-
   ref<Expr> con = SgeExpr::create(config, ConstantExpr::create(0, config->getWidth()));
   con = AndExpr::create(con, UleExpr::create(config, maxValueExpr));
   StatePair branches = fork(state, con, true, BranchType::Conditional);
@@ -14931,7 +14930,6 @@ MemoryObject* Executor::loadTensorConfig(ExecutionState *state, ParameterValue p
   symmo->dimensionSize = dimensionSize;
   symmo->strides = strides;
   state->symbolicArrayMap[symName] = symmo;
-  llvm::outs() << mo->address << " " << symName << " dim " << pval.dim << "\n";
 
   if (pval.elementType.empty()){
     std::string elementSizeName = symName + ".item_size";
@@ -14968,15 +14966,12 @@ MemoryObject* Executor::loadTensorConfig(ExecutionState *state, ParameterValue p
 
   if (pval.maxVal < INT32_MAX) {
     symmo->maxVal = ConstantExpr::create(pval.maxVal, Expr::Int32, true);
-    llvm::outs() << symName << " max " << symmo->maxVal << "\n";
   }
   if (pval.minVal > INT32_MIN) {
     uint64_t uval = static_cast<uint32_t>(pval.minVal); 
     symmo->minVal = ConstantExpr::create(uval, Expr::Int32, true);
-    llvm::outs() << symName << " min " << symmo->minVal << "\n";
   }
   symmo->hasDuplicateVal = pval.hasDuplicateVal;
-  llvm::outs() << symName << " hasDuplicateVal " << symmo->hasDuplicateVal << "\n";
   return mo;
 }
 
@@ -15059,7 +15054,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
         } else if (structType && structType->getName().find("c10::Scalar")!=std::string::npos){
           argSize = kmodule->targetData->getTypeAllocSize(argType);
           isScalar = true;
-          llvm::outs() << structType->getName() << " size " << argSize << "\n";
         } else if (structType && structType->getName().find("c10::ArrayRef")!=std::string::npos){
           isArrayRef = true;
         }
@@ -15248,7 +15242,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             symmo = new SymArrayMemoryObject(mo->address, array, pair.first, pair.second);
           }
           state->symbolicArrayMap[symName] = symmo;
-          llvm::outs() << mo->address << " " << symName << " " << symmo->size << "\n";
 
           if (pval.elementType.find("tensor")!=std::string::npos || pval.elementType.find("Tensor")!=std::string::npos) {
             int i = 0;
@@ -15264,14 +15257,11 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
 
           if (pval.maxVal < INT32_MAX) {
             symmo->maxVal = ConstantExpr::create(pval.maxVal, Expr::Int32, true);
-            llvm::outs() << symName << " max " << symmo->maxVal << "\n";
           }
           if (pval.minVal > INT32_MIN) {
             symmo->minVal = ConstantExpr::create(pval.minVal, Expr::Int32, true);
-            llvm::outs() << symName << " min " << symmo->minVal << "\n";
           }
           symmo->hasDuplicateVal = pval.hasDuplicateVal;
-          llvm::outs() << symName << " hasDuplicateVal " << symmo->hasDuplicateVal << "\n";
 
           ref<Expr> parExpr = mo->getBaseExpr();
           arguments.push_back(parExpr);
@@ -15399,12 +15389,10 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
           }
 
           state->inputIterator = iterator;
-          llvm::outs() << mo->address << " " << symName << "\n";
         } else {
           auto pair = createSizeSymbol(*state, symName + ".size", true);
           SymArrayMemoryObject *symmo = new SymArrayMemoryObject(mo->address, array, pair.first, pair.second);
           state->symbolicArrayMap[symName] = symmo;
-          llvm::outs() << mo->address << " " << symName << "\n";
 
           std::string dimName = symName + ".dim";
           auto dimpair = createSizeSymbol(*state, dimName);
@@ -15625,8 +15613,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
       }
     }
 
-    if (expr)
-      llvm::outs() << expr << "\n";
     std::vector<std::tuple<int, int, int>> equals = pcon.second;
     if (!symRangeCons.empty() && symRangeCons.find(mathExpr) != symRangeCons.end()) {
       int firstIndex = std::get<0>(equals[0]);
@@ -15638,8 +15624,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
         ref<Expr> maxExpr = SleExpr::create(left, ConstantExpr::create(symMax, left->getWidth()));
         addConstraint(*state, minExpr);
         addConstraint(*state, maxExpr);
-        llvm::outs() << minExpr << "\n";
-        llvm::outs() << maxExpr << "\n";
       }
     }
 
@@ -15657,10 +15641,8 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             SymArrayMemoryObject *symmo = state->symbolicArrayMap[arrayName];
             if (firstIndex == -1) {
               symmo->maxVal = expr;
-              llvm::outs() << "arg" << secondIndex << " max " << expr << "\n";
             } else if (firstIndex == -2) {
               symmo->minVal = expr;
-              llvm::outs() << "arg" << secondIndex << " min " << expr << "\n";
             } 
           } else {
             klee_warning("max/min value for invalid array");
@@ -15668,7 +15650,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
         } else {
           ref<Expr> left = getParByIndex(equals[i], state, arguments);
           addConstraint(*state, EqExpr::create(left, ZExtExpr::create(expr, left->getWidth())));
-          llvm::outs() << EqExpr::create(left, ZExtExpr::create(expr, left->getWidth())) << "\n";
         }
       }
     } else {
@@ -15696,10 +15677,8 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             SymArrayMemoryObject *symmo = state->symbolicArrayMap[arrayName];
             if (firstIndex == -1) {
               symmo->maxVal = left;
-              llvm::outs() << "arg" << secondIndex << " max " << left << "\n";
             } else if (firstIndex == -2) {
               symmo->minVal = left;
-              llvm::outs() << "arg" << secondIndex << " min " << left << "\n";
             } 
           } else {
             klee_warning("max/min value for invalid array");
@@ -15708,7 +15687,6 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
           ref<Expr> right = getParByIndex(equals[i], state, arguments);
           if (!isa<ConstantExpr>(left) && !isa<ConstantExpr>(right)) {
             addConstraint(*state, EqExpr::create(left, ZExtExpr::create(right, left->getWidth())));
-            llvm::outs() << EqExpr::create(left, ZExtExpr::create(right, left->getWidth())) << "\n";
           }
         }
       }
@@ -15726,10 +15704,8 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
             SymArrayMemoryObject *symmo = state->symbolicArrayMap[arrayName];
             if (firstIndex == -1) {
               symmo->maxVal = left;
-              llvm::outs() << "arg" << secondIndex << " max " << left << "\n";
             } else if (firstIndex == -2) {
               symmo->minVal = left;
-              llvm::outs() << "arg" << secondIndex << " min " << left << "\n";
             } 
           } else {
             klee_warning("max/min value for invalid array");
@@ -15739,12 +15715,10 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
     }
   }
 
-
   if (pathWriter) 
     state->pathOS = pathWriter->open();
   if (symPathWriter) 
     state->symPathOS = symPathWriter->open();
-
 
   if (statsTracker)
     statsTracker->framePushed(*state, 0);

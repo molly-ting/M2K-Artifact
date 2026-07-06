@@ -392,13 +392,6 @@ KleeHandler::KleeHandler(int argc, char **argv, const std::string functionName)
     llvm::sys::path::append(directory, m_functionName);
   }
 
-  // if (dir_given) {
-    // OutputDir
-    // if (mkdir(directory.c_str(), 0775) < 0)
-    //   klee_error("cannot create \"%s\": %s", directory.c_str(), strerror(errno));
-
-  //   m_outputDirectory = directory;
-  // } else {
     if (!m_functionName.empty() && !llvm::sys::fs::exists(directory.c_str())) {
       if (mkdir(directory.c_str(), 0775) < 0)
         klee_error("cannot create \"%s\": %s", directory.c_str(), strerror(errno));
@@ -415,9 +408,6 @@ KleeHandler::KleeHandler(int argc, char **argv, const std::string functionName)
       raw_svector_ostream ds(d);
       ds << i;
       // SmallString is always up-to-date, no need to flush. See Support/raw_ostream.h
-
-      // llvm::outs() << "d: " << d.c_str() << "\n";
-      // llvm::outs() << "m_outputDirectory: " << m_outputDirectory.c_str() << "\n";
 
       // create directory and try to link klee-last
       if (mkdir(d.c_str(), 0775) == 0) {
@@ -449,7 +439,6 @@ KleeHandler::KleeHandler(int argc, char **argv, const std::string functionName)
     }
     if (i == INT_MAX && m_outputDirectory.str().equals(""))
         klee_error("cannot create output directory: index out of range");
-  // }
 
   klee_message("output directory is \"%s\"", m_outputDirectory.c_str());
 
@@ -476,8 +465,6 @@ KleeHandler::~KleeHandler() {
     
   fclose(klee_warning_file);
   fclose(klee_message_file);
-  // klee::klee_warning_file = NULL;
-  // klee::klee_message_file = NULL;
 }
 
 void KleeHandler::setInterpreter(Interpreter *i) {
@@ -1286,13 +1273,10 @@ int main(int argc, char **argv, char **envp) {
         if (node->getNumOperands() > 1) {
           if (const llvm::MDString *tag = llvm::dyn_cast<llvm::MDString>(node->getOperand(1))) {
             if (tag->getString() == "kernel") {
-              // llvm::outs() << "Found 'kernel' metadata!\n";
-
               if (const llvm::Metadata *md = node->getOperand(0).get()) {
                 if (const llvm::ValueAsMetadata *valueMeta = llvm::dyn_cast<llvm::ValueAsMetadata>(md)) {
                   if (const llvm::Function *func = llvm::dyn_cast<llvm::Function>(valueMeta->getValue())) {
                     kernelFunctionNames.emplace_back(func->getName());
-                    llvm::outs() << "Function with 'kernel' metadata: " << func->getName() << "\n";
                   }
                 }
               }
@@ -1530,7 +1514,6 @@ int main(int argc, char **argv, char **envp) {
           if (value.is_number()) {
             unsigned limit = value.get<unsigned>();
             promptCons.insert({"batch_size", limit});
-            llvm::outs() << "batch_size max " << limit << "\n";
           }
         }
         if (call.contains("seq_len")) {
@@ -1538,7 +1521,6 @@ int main(int argc, char **argv, char **envp) {
           if (value.is_number()) {
             unsigned limit = value.get<unsigned>();
             promptCons.insert({"seq_len", limit});
-            llvm::outs() << "seq_len max " << limit << "\n";
           }
         }
         if (call.contains("num_token")) {
@@ -1546,7 +1528,6 @@ int main(int argc, char **argv, char **envp) {
           if (value.is_number()) {
             unsigned limit = value.get<unsigned>();
             promptCons.insert({"num_token", limit});
-            llvm::outs() << "num_token max " << limit << "\n";
           }
         }
         interpreter->setPromptCons(promptCons);
@@ -1555,7 +1536,6 @@ int main(int argc, char **argv, char **envp) {
           for (size_t i = 0; i < call["args"].size(); ++i) {
             const auto& arg = call["args"][i];
             int argIndex = isFirstSRet ? i+1 : i;
-            llvm::outs() << "args[" << argIndex << "]:\n";
 
             std::string type = arg["type"];
 
@@ -1568,7 +1548,6 @@ int main(int argc, char **argv, char **envp) {
               
               std::vector<Interpreter::ParameterValue> content;
               for (int m = 0; m < len; ++m) {
-                llvm::outs() << "index " << m << "\n";
                 auto item = arg["value"][m];
                 std::string elType = item["type"];
                 std::string elDtype = "";
@@ -1582,11 +1561,9 @@ int main(int argc, char **argv, char **envp) {
                   const auto& dim = item["shape"][j];
                   if (dim.is_number()) {
                     shape[j] = dim.get<int>();
-                    llvm::outs() << "shape[" << j << "]= " << shape[j] << "\n";
                   } else if (dim.is_string()) {
                     std::string expr = dim.get<std::string>();
                     equals[expr].emplace_back(std::make_tuple(argIndex, m, j));
-                    llvm::outs() << expr << ": " << argIndex << " " << m << " " << j << "\n";
                   } 
                 }
 
@@ -1599,10 +1576,8 @@ int main(int argc, char **argv, char **envp) {
                       int symMin_tmp = std::min(symMin, symRanges[expr].first);
                       int symMax_tmp = std::max(symMax, symRanges[expr].second);
                       symRanges[expr] = std::make_pair(symMin_tmp, symMax_tmp);
-                      llvm::outs() << expr << ": (" << symMin_tmp << ", " << symMax_tmp << ")\n";
                     } else {
                       symRanges[expr] = std::make_pair(symMin, symMax);
-                      llvm::outs() << expr << ": (" << symMin << ", " << symMax << ")\n";
                     }
                   }
                 }
@@ -1616,7 +1591,6 @@ int main(int argc, char **argv, char **envp) {
                   } else {
                     std::string expr = item["maxV"];
                     equals[expr].emplace_back(std::make_tuple(-1, argIndex, m));
-                    llvm::outs() << expr << ": " << argIndex << " " << m << " maxV\n";
                   }
                 }
                 if (item.contains("minV")) {
@@ -1625,7 +1599,6 @@ int main(int argc, char **argv, char **envp) {
                   } else {
                     std::string expr = item["minV"];
                     equals[expr].emplace_back(std::make_tuple(-2, argIndex, m));
-                    llvm::outs() << expr << ": " << argIndex << " " << m << " minV\n";
                   }
                 }
                 if (maxVal == minVal && maxVal == 0) {
@@ -1640,7 +1613,6 @@ int main(int argc, char **argv, char **envp) {
               }
               Interpreter::ParameterValue p(type, "", len, dtype);
               p.content = content;
-              llvm::outs() << type << " " << dtype << " " << len << "\n";
               argumentValues.insert({argIndex, p});
             } else if (arg.contains("shape") && arg["shape"].is_array()) {
               std::string dtype = "";
@@ -1653,11 +1625,9 @@ int main(int argc, char **argv, char **envp) {
                 const auto& dim = arg["shape"][j];
                 if (dim.is_number()) {
                   shape[j] = dim.get<int>();
-                  llvm::outs() << "shape[" << j << "]= " << shape[j] << "\n";
                 } else if (dim.is_string()) {
                   std::string expr = dim.get<std::string>();
                   equals[expr].emplace_back(std::make_tuple(argIndex, j, -1));
-                  llvm::outs() << expr << ": " << argIndex << " " << j << "\n";
                 } 
               }
 
@@ -1670,10 +1640,8 @@ int main(int argc, char **argv, char **envp) {
                     int symMin_tmp = std::min(symMin, symRanges[expr].first);
                     int symMax_tmp = std::max(symMax, symRanges[expr].second);
                     symRanges[expr] = std::make_pair(symMin_tmp, symMax_tmp);
-                    llvm::outs() << expr << ": (" << symMin_tmp << ", " << symMax_tmp << ")\n";
                   } else {
                     symRanges[expr] = std::make_pair(symMin, symMax);
-                    llvm::outs() << expr << ": (" << symMin << ", " << symMax << ")\n";
                   }
                 }
               }
@@ -1684,21 +1652,17 @@ int main(int argc, char **argv, char **envp) {
               if (arg.contains("maxV")) {
                 if (arg["maxV"].is_number()) {
                   maxVal = arg["maxV"].get<int>();
-                  llvm::outs() << "max: " << maxVal << " ";
                 } else {
                   std::string expr = arg["maxV"];
                   equals[expr].emplace_back(std::make_tuple(-1, argIndex, -1));
-                  llvm::outs() << expr << ": " << argIndex << " maxV\n";
                 }
               }
               if (arg.contains("minV")) {
                 if (arg["minV"].is_number()) {
                   minVal = arg["minV"].get<int>();
-                  llvm::outs() << "min: " << minVal << " ";
                 } else {
                   std::string expr = arg["minV"];
                   equals[expr].emplace_back(std::make_tuple(-2, argIndex, -2));
-                  llvm::outs() << expr << ": " << argIndex << " minV\n";
                 }
               }
               if (maxVal == minVal && maxVal == 0) {
@@ -1709,7 +1673,6 @@ int main(int argc, char **argv, char **envp) {
               }
               Interpreter::ParameterValue p(type, "", shapeSize, dtype, maxVal, minVal, hasDuplicateVal);
               p.shape = shape;
-              llvm::outs() << type << " " << dtype << " " << shapeSize << "\n";
               argumentValues.insert({argIndex, p});
             } else if (arg.contains("value")) {
               std::string value_str;
@@ -1717,7 +1680,6 @@ int main(int argc, char **argv, char **envp) {
                 value_str = arg["value"];
                 if (type.find("str") == std::string::npos || type.find("dtype") == std::string::npos){
                   equals[value_str].emplace_back(std::make_tuple(argIndex, -1, -1));
-                  llvm::outs() << value_str << ": " << argIndex << " value\n";
                 }
               } else {
                 value_str = arg["value"].dump();
@@ -1731,15 +1693,12 @@ int main(int argc, char **argv, char **envp) {
                     int symMin_tmp = std::min(symMin, symRanges[expr].first);
                     int symMax_tmp = std::max(symMax, symRanges[expr].second);
                     symRanges[expr] = std::make_pair(symMin_tmp, symMax_tmp);
-                    llvm::outs() << expr << ": (" << symMin_tmp << ", " << symMax_tmp << ")\n";
                   } else {
                     symRanges[expr] = std::make_pair(symMin, symMax);
-                    llvm::outs() << expr << ": (" << symMin << ", " << symMax << ")\n";
                   }
                 }
               }
               Interpreter::ParameterValue p(type, value_str, 0, "");
-              llvm::outs() << type << " " << value_str << "\n";
               argumentValues.insert({argIndex, p});
             }
           }
@@ -1748,156 +1707,8 @@ int main(int argc, char **argv, char **envp) {
         interpreter->setArgumentCons(equals);
         interpreter->setVRangeCons(symRanges);
       }
-
-      // if (j.contains("torch_calls")) {
-      //   j = j["torch_calls"];
-      // }
-
-      // if (j.is_array()) {
-      //   auto& call = j[JsonIndex];
-
-      //   if (call.contains("args") && call["args"].is_array()) {
-      //     for (size_t i = 0; i < call["args"].size(); ++i) {
-      //       const auto& arg = call["args"][i];
-      //       llvm::outs() << "args[" << i << "]:\n";
-            
-      //       if (arg.contains("value")) {
-      //         const auto& argObj = arg["value"];
-
-      //         std::string type = "";
-      //         std::string value = "";
-      //         int shapeSize = 0;
-      //         std::map<int, int64_t> shape;
-              
-      //         if (argObj.contains("shape") && argObj["shape"].is_array()) {
-      //           type = "tensor";
-      //           shapeSize = argObj["shape"].size();
-      //           for (int j = 0; j < shapeSize; ++j) {
-      //             const auto& dim = argObj["shape"][j];
-      //             if (dim.is_number()) {
-      //               shape[j] = dim.get<int>();
-      //               llvm::outs() << "shape[" << j << "]= " << shape[j] << "\n";
-      //             } else if (dim.contains("sym_name")) {
-      //               std::string symbol = dim["sym_name"].get<std::string>();
-      //               equals[symbol].emplace_back(std::make_pair(i, j));
-      //               llvm::outs() << symbol << ": " << i << " " << j << "\n";
-      //             }
-      //           }
-      //         } else if (!argObj.is_null() && argObj.is_string()) {
-      //           value = arg["value"];
-      //           type = "string";
-      //         } else if (!argObj.is_null() && argObj.is_number_integer()) {
-      //           value = std::to_string(arg["value"].get<int>());
-      //           type = "int";
-      //         } else if (!argObj.is_null() && argObj.is_number_float()) {
-      //           value = std::to_string(arg["value"].get<double>());
-      //           type = "float";
-      //         } else if (argObj.is_null() && arg.contains("sym_name")) {
-      //           std::string symbol = arg["sym_name"].get<std::string>();
-      //           equals[symbol].emplace_back(std::make_pair(i, 0));
-      //         }
-      //         Interpreter::ParameterValue p(type, value, shapeSize, 0);
-      //         p.shape = shape;
-      //         llvm::outs() << type << " " << value << " " << shapeSize << "\n";
-      //         argumentValues.insert({i, p});
-      //       } else if (arg.contains("sym_name")) {
-      //         std::string symbol = arg["sym_name"].get<std::string>();
-      //         equals[symbol].emplace_back(std::make_pair(i, 0));
-      //       } else if (!arg.is_null() && (arg.is_number_integer() || arg.is_number_unsigned())) {
-      //         std::string type = "int";
-      //         std::string value = std::to_string(arg.get<int>());
-      //         Interpreter::ParameterValue p(type, value, 0, 0);
-      //         llvm::outs() << type << " " << value << "\n";
-      //         argumentValues.insert({i, p});
-      //       } else if (!arg.is_null() && arg.is_number_float()) {
-      //         std::string type = "float";
-      //         std::string value = std::to_string(arg.get<double>());
-      //         Interpreter::ParameterValue p(type, value, 0, 0);
-      //         llvm::outs() << type << " " << value << "\n";
-      //         argumentValues.insert({i, p});
-      //       }
-      //     }
-      //   }
-      //   interpreter->setArgumentValues(argumentValues);
-      //   interpreter->setArgumentCons(equals);
-      // }
     }
   }
-
-  // std::map<unsigned, Interpreter::ParameterValue> argumentValues;
-  // std::map<int, int64_t> shape;
-  // shape[0] = 102400;
-  // shape[1] = 7168;
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 2, shape, 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("int64_t", "0", 0, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 1, std::map<int, int64_t>(), 0)});
-
-  // argumentValues.insert({0, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({4, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-
-  // std::map<int, int64_t> shape0;
-  // shape0[-1] = 7168;
-  // argumentValues.insert({0, Interpreter::ParameterValue("tensor", "", 0, shape0, 0)});
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 0, shape0, 0)});
-  // std::map<int, int64_t> shape1;
-  // shape1[0] = 7168;
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 1, shape1, 0)});
-
-  // std::map<int, int64_t> shape0;
-  // shape0[1] = 32;
-  // shape0[3] = 128;
-  // argumentValues.insert({0, Interpreter::ParameterValue("tensor", "", 4, shape0, 0)});
-  // std::map<int, int64_t> shape1;
-  // shape1[1] = 32;
-  // shape1[2] = 128;
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 4, shape1, 0)});
-  // std::map<int, int64_t> shape2;
-  // shape2[1] = 32;
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 4, shape2, 0)});
-  // std::map<int, int64_t> shape3;
-  // shape3[1] = 32;
-  // shape3[3] = 1;
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 4, shape3, 0)});
-  // argumentValues.insert({4, Interpreter::ParameterValue("tensor", "", 4, shape3, 0)});
-
-  // std::map<int, int64_t> shape0;
-  // shape0[1] = 32;
-  // argumentValues.insert({0, Interpreter::ParameterValue("tensor", "", 4, shape0, 0)});
-  // std::map<int, int64_t> shape1;
-  // shape1[1] = 32;
-  // shape1[3] = 128;
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 4, shape1, 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 4, shape1, 0)});
-  // std::map<int, int64_t> shape3;
-  // shape3[1] = 32;
-  // shape3[3] = 1;
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 4, shape3, 0)});
-  // argumentValues.insert({4, Interpreter::ParameterValue("tensor", "", 4, shape3, 0)});
-
-  // std::map<int, int64_t> shape1;
-  // shape1[0] = 2;
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 2, shape1, 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 1, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 1, std::map<int, int64_t>(), 0)});
-  // std::map<int, int64_t> shape4;
-  // shape4[0] = 4;
-  // argumentValues.insert({4, Interpreter::ParameterValue("tensor", "", 2, shape4, 0)});
-  // argumentValues.insert({5, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-
-  // argumentValues.insert({0, Interpreter::ParameterValue("tensor", "", 1, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 1, std::map<int, int64_t>(), 0)});
-  // std::map<int, int64_t> shape1;
-  // shape1[1] = 1;
-  // argumentValues.insert({3, Interpreter::ParameterValue("tensor", "", 2, shape1, 0)});
-  // argumentValues.insert({4, Interpreter::ParameterValue("tensor", "", 2, shape1, 0)});
-
-  // argumentValues.insert({1, Interpreter::ParameterValue("tensor", "", 4, std::map<int, int64_t>(), 0)});
-  // argumentValues.insert({2, Interpreter::ParameterValue("tensor", "", 2, std::map<int, int64_t>(), 0)});
-  // interpreter->setArgumentValues(argumentValues);
 
   std::vector<bool> replayPath;
   if (!ReplayPathFile.empty()) {
