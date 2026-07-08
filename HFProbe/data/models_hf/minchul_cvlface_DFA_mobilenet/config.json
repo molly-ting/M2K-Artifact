@@ -1,0 +1,23 @@
+{
+  "architectures": [
+    "CVLFaceAlignmentModel"
+  ],
+  "auto_map": {
+    "AutoConfig": "wrapper.ModelConfig",
+    "AutoModel": "wrapper.CVLFaceAlignmentModel"
+  },
+  "conf": {
+    "arch": "mobile0.25",
+    "color_space": "RGB",
+    "freeze": true,
+    "input_padding_ratio": 0,
+    "input_padding_val": "zero",
+    "input_size": 160,
+    "name": "differentiable_face_aligner",
+    "output_size": 112,
+    "start_from": "",
+    "yaml_path": "aligners/configs/dfa.yaml"
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.33.0"
+}

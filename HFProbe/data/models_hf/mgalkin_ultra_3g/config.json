@@ -1,0 +1,42 @@
+{
+  "architectures": [
+    "UltraForKnowledgeGraphReasoning"
+  ],
+  "auto_map": {
+    "AutoConfig": "modeling.UltraConfig",
+    "AutoModel": "modeling.UltraForKnowledgeGraphReasoning"
+  },
+  "entity_model_cfg": {
+    "aggregate_func": "sum",
+    "hidden_dims": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64
+    ],
+    "input_dim": 64,
+    "layer_norm": true,
+    "message_func": "distmult",
+    "short_cut": true
+  },
+  "model_type": "ultra",
+  "relation_model_cfg": {
+    "aggregate_func": "sum",
+    "hidden_dims": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64
+    ],
+    "input_dim": 64,
+    "layer_norm": true,
+    "message_func": "distmult",
+    "short_cut": true
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.35.2"
+}

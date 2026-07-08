@@ -1,0 +1,35 @@
+{
+  "architectures": [
+    "CVLFaceRecognitionModel"
+  ],
+  "auto_map": {
+    "AutoConfig": "wrapper.ModelConfig",
+    "AutoModel": "wrapper.CVLFaceRecognitionModel"
+  },
+  "conf": {
+    "color_space": "RGB",
+    "freeze": false,
+    "input_size": [
+      3,
+      112,
+      112
+    ],
+    "mask_ratio": 0.0,
+    "name": "base",
+    "output_dim": 512,
+    "rpe_config": {
+      "ctx_type": "rel_keypoint_splithead_unshared",
+      "method": "product",
+      "mode": "ctx",
+      "name": "KPRPE_shared",
+      "num_keypoints": 5,
+      "ratio": 1.9,
+      "rpe_on": "k",
+      "shared_head": true
+    },
+    "start_from": "",
+    "yaml_path": "models/vit_kprpe/configs/v1_base_kprpe_splithead_unshared.yaml"
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.33.0"
+}
