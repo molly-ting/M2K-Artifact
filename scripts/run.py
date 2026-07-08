@@ -1,3 +1,4 @@
+import argparse
 import os
 import subprocess
 import logging
@@ -139,8 +140,36 @@ def main_single(directory, logDir, outputdir, isJson=True, useDirName=False):
 
 
 if __name__ == "__main__":
-    directory_path = "/home/mvh6224/CUDA-BOSolver/HFProbe/vllm-exp/input" 
-    output_directory = "/home/mvh6224/CUDA-BOSolver/scripts/tmp_output"
-    log_directory = "/home/mvh6224/CUDA-BOSolver/scripts/vllm_log"
-    os.makedirs(output_directory, exist_ok=True)
-    main(directory_path, log_directory, output_directory, True, 5) 
+    parser = argparse.ArgumentParser(
+        description="run cuKLEE"
+    )
+
+    parser.add_argument(
+        "--input-dir", type=str, required=True, help="Input directory containing .json files or .bc files"
+    )
+    parser.add_argument(
+        "--out-dir", type=str, required=False, help="Output directory"
+    )
+    parser.add_argument(
+        "--log-dir", type=str, required=False, help="Log directory"
+    )
+    parser.add_argument(
+        "--is-json", type=bool, required=True, default=True, help="Whether the input files are JSON"
+    )
+    parser.add_argument(
+        "--threads", type=int, required=False, default=5, help="Number of threads to use"
+    )
+    args = parser.parse_args()
+
+    if args.input_dir:
+        if not os.path.exists(args.input_dir):
+            print(f"Input directory {args.input_dir} does not exist.")
+            exit(1)
+        
+        current_dirpath = os.path.dirname(os.path.abspath(__file__))
+        output_directory = args.out_dir or os.path.join(current_dirpath, "output")
+        log_directory = args.log_dir or os.path.join(current_dirpath, "vllm_log")
+        os.makedirs(output_directory, exist_ok=True)
+        isJson = args.is_json if args.is_json is not None else True
+        threads = args.threads if args.threads is not None else 5
+        main(args.input_dir, log_directory, output_directory, isJson, threads) 

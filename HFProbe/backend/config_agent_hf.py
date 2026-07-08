@@ -374,8 +374,5 @@ def main_transformers():
     
     for item in model_list:
         model_id = item.replace("_", "/", 1)
-        handle_one_model_hf(model_id)
- 
-# handle_one_model_hf("Qwen/Qwen-1_8B-Chat")
-# main_transformers()    
+        handle_one_model_hf(model_id)  
 

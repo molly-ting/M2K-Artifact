@@ -9,8 +9,6 @@ import traceback
 import time
 from pathlib import Path
 
-BACKEND_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = BACKEND_DIR.parent
 
 MODEL_PRICING = {
     "gpt-4o":       {"input": 0.0025,  "output": 0.01},   # per 1K tokens
@@ -101,6 +99,7 @@ class MyCustomSession(Session):
 
 resCon = {}
 out_path = ""
+HFPROBE_PATH = Path(__file__).resolve().parent.parent
 
 @function_tool
 def saveRes(config: str):
@@ -155,9 +154,9 @@ def runAgent(prompt):
 def generate_transformer(model_id, op_name, framework_repo):
     global out_path
     if "pv-tuning" in framework_repo:
-        out_dir = f"./rs-exp/config/AQLM"
+        out_dir = f"{HFPROBE_PATH}/results/research_paper/config/AQLM"
     else:
-        out_dir = f"./rs-exp/config/{framework_repo.split('/')[-1].split('.')[0]}"
+        out_dir = f"{HFPROBE_PATH}/results/research_paper/config/{framework_repo.split('/')[-1].split('.')[0]}"
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, op_name+".json")
     if os.path.exists(out_path):
@@ -170,7 +169,7 @@ def generate_transformer(model_id, op_name, framework_repo):
     return runAgent(prompt_huggingface)
 
 def find_model_ops(framework_name, repo_path):
-    mapping_path = PROJECT_ROOT / "kernel_map" / f"kernel_map_{framework_name}.json"
+    mapping_path = HFPROBE_PATH / "kernel_map" / f"kernel_map_{framework_name}.json"
     if not os.path.exists(mapping_path):
         print("kernel map not exist!")
         return None, None
@@ -191,11 +190,11 @@ def find_model_ops(framework_name, repo_path):
 
 def find_triggered_ops_hf(framework_name, op_name=None):    
     triggered_ops = set()
-    outPath = "./rs-exp/out/"+framework_name.replace('/', '_')
+    outPath = f"{HFPROBE_PATH}/results/research_paper/out/{framework_name.replace('/', '_')}"
     if op_name:
         outPath += "/" + op_name
-    outPath+=".json"
-    
+    outPath += ".json"
+
     if not os.path.exists(outPath):
         return None
     
@@ -217,29 +216,34 @@ def find_triggered_ops_hf(framework_name, op_name=None):
 
 def run_model(framework_name, config_data, op_name):
     if framework_name == "ShiftAddLLM":
-        run_rs_models.testShiftAdd(override_configs=config_data, out_dir="./rs-exp/out", op_name=op_name)
+        run_rs_models.testShiftAdd(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", op_name=op_name)
     elif framework_name == "Mixture-Compressor-MoE":
-        run_rs_models.testMCM(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testMCM(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
     elif framework_name == "AQLM":
-        run_rs_models.testAqlmManual(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testAqlmManual(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
     elif framework_name == "any-precision-llm":
-        run_rs_models.testAnyPrecision(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testAnyPrecision(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
 
-repo_url_map = {"ShiftAddLLM": "https://github.com/GATECH-EIC/ShiftAddLLM", "QuaRot": "https://github.com/spcl/QuaRot", "AQLM": "https://github.com/Vahe1994/AQLM/tree/pv-tuning",
+repo_url_map = {"ShiftAddLLM": "https://github.com/GATECH-EIC/ShiftAddLLM", "AQLM": "https://github.com/Vahe1994/AQLM/tree/pv-tuning",
                  "any-precision-llm": "https://github.com/SNU-ARC/any-precision-llm", "Mixture-Compressor-MoE": "https://github.com/Aaronhuang-778/Mixture-Compressor-MoE"}
-model_map = {"ShiftAddLLM": "facebook/opt-125m", "QuaRot": "", "AQLM": "meta-llama/Llama-2-7b-hf",
+model_map = {"ShiftAddLLM": "facebook/opt-125m", "AQLM": "meta-llama/Llama-2-7b-hf",
              "any-precision-llm": "meta-llama/Llama-2-7b-chat-hf", "Mixture-Compressor-MoE": "meta-llama/Llama-2-7b-hf"}
 
 def handle_one_model_hf(model_id, framework_name, repo_url):
     print(f"Processing framework: {framework_name}")
-    config_out_dir = f"./rs-exp/config/{framework_name}"
+    config_out_dir = f"{HFPROBE_PATH}/results/research_paper/config/{framework_name}"
     os.makedirs(config_out_dir, exist_ok=True)
+    final_res_path = os.path.join(config_out_dir, "result.json")   
+    if os.path.exists(final_res_path):
+        return
+    
     cost_path = os.path.join(config_out_dir, "cost.json")
     cost_map = {}
     if os.path.exists(cost_path):
-        return
+        with open(cost_path) as cf:
+            cost_map = json.load(cf)
             
-    repo_path = BACKEND_DIR / "models_rs" / framework_name
+    repo_path = HFPROBE_PATH / "data" / "research_paper" / framework_name
     all_ops, used_ops = find_model_ops(framework_name, repo_path)
     print(f"used ops for framework {framework_name}: {used_ops}")
     print(f"all ops for framework {framework_name}: {all_ops}")
@@ -262,9 +266,8 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     if os.path.exists(cannot_tri_path):
         with open(cannot_tri_path) as nf:
             cannot_tri = json.load(nf)
-    print("ops cannot be triggered:", cannot_tri)
+        print("ops cannot be triggered:", cannot_tri)
     
-    final_res_path = os.path.join(config_out_dir, "result.json")   
     if not triggered_ops:
         triggered_ops = set()
     initial_trigger = triggered_ops.copy()
@@ -283,7 +286,7 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
             print(op_name, "can not be triggered.")
             continue
         
-        agg_path = f"./rs-exp/out/{framework_name}/{op_name}.json"
+        agg_path = f"{HFPROBE_PATH}/results/research_paper/out/{framework_name}/{op_name}.json"
         if os.path.exists(agg_path):
             print(op_name, "has been handled.")
             continue
@@ -295,10 +298,13 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
         time1 = time.time()
         if token_usage:
             cost_map[op_name] = {"input_token": token_usage["input"], "output_token": token_usage["output"], "money_cost": token_usage["cost"], "gpt_time_cost": time1 - time0}
-            print("cost record", cost_map[op_name])
+            with open(cost_path, "w") as nwf:
+                json.dump(cost_map, nwf)
         
         if output and (output.startswith("No") or output.startswith("no")):
             cannot_tri.append(op_name)
+            with open(cannot_tri_path, "w") as nwf:
+                json.dump(cannot_tri, nwf)
             continue
         
         config_data = {}
@@ -319,6 +325,8 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
         if op_name not in cost_map:
             cost_map[op_name] = {}
         cost_map[op_name]["execute_time"] = time1 - time0
+        with open(cost_path, "w") as nwf:
+            json.dump(cost_map, nwf)
         
         new_triggered = find_triggered_ops_hf(framework_name, op_name)
         if new_triggered:
@@ -334,65 +342,10 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     with open(cost_path, "w") as nwf:
         json.dump(cost_map, nwf)   
     
-    solved = len(triggered_ops) - len(initial_trigger)
-    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "new": list(triggered_ops-initial_trigger), "inre_len": solved}
-    with open(final_res_path, "w") as resf:
-        json.dump(final_result, resf)
-        
-    print(f"Total ops: {len(target_ops)}, Solved: {solved}")
-    print(f"total input token: {input_token_num}, total output token: {out_token_num}, total cost: ${money_cost}")
-
-def fix():
-    cost_path = "./rs-exp/config/AQLM/cost.json"
-    cost_map = {}
-    with open(cost_path) as f:
-        cost_map = json.load(f)
-
-    triggered_ops = find_triggered_ops_hf("AQLM")
-    final_res_path = "./rs-exp/config/AQLM/result.json"
-    if not triggered_ops:
-        triggered_ops = set()
-    initial_trigger = triggered_ops.copy()
-
-    start_time = time.time()
-    for file in os.listdir("./rs-exp/config/AQLM"):
-        if file.endswith(".json"):
-            if "cost" in file or "result" in file or "no_trigger" in file:
-                continue
-
-            filepath = os.path.join("./rs-exp/config/AQLM", file)
-            with open(filepath) as f:
-                config_data = json.load(f)
-            
-            op_name = file.split(".")[0]
-            time0 = time.time()
-            try:
-                run_model("AQLM", config_data, op_name)
-            except:
-                traceback.print_exc()
-                pass
-
-            time1 = time.time()
-            if op_name not in cost_map:
-                cost_map[op_name] = {}
-            cost_map[op_name]["execute_time"] = time1 - time0
-            
-            new_triggered = find_triggered_ops_hf("AQLM", op_name)
-            if new_triggered:
-                triggered_ops.update(new_triggered)
-                if op_name in new_triggered:
-                    print(f"{op_name} is succesfully triggered!")
-    
-    end_time = time.time()
-    cost_map["total"]["time_cost"] += end_time-start_time
-    with open(cost_path, "w") as nwf:
-        json.dump(cost_map, nwf)   
-    
-    solved = len(triggered_ops) - len(initial_trigger)
-    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "new": list(triggered_ops-initial_trigger), "inre_len": solved}
+    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
  
-# fix() 
-framework_name = "any-precision-llm"        
-handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])
+def run_all_models():
+    for framework_name in model_map:
+        handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])

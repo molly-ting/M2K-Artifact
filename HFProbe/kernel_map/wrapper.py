@@ -1,7 +1,6 @@
+import argparse
 import re, json, os
 from pathlib import Path
-from collections import defaultdict
-import yaml
 
 
 # Match macro calls (later matched dynamically based on known macros)
@@ -22,10 +21,6 @@ def parse_macros(content):
     macros = {}
     for macro_name, param_str, func_line, func_template in macro_func_pattern.findall(content):
         params = [p.strip() for p in param_str.split(',')]
-        # print(macro_name, params)
-        # print("Params:", params)
-        # print(func_line)
-        # print("Function template:", func_template)
         macros[macro_name] = {"params": params, "func": func_template}
     return macros
 
@@ -251,7 +246,8 @@ def find_kernel_rel(dir):
     
     origin_data = None
     model_name = dir.split("/")[-1]
-    out_path = f"./kernel_map_{model_name}.json"
+    current_dirpath = os.path.dirname(os.path.abspath(__file__))
+    out_path = os.path.join(current_dirpath, f"kernel_map_{model_name}.json")
     if os.path.exists(out_path):
         with open(out_path, "r") as f:
             origin_data = json.load(f)
@@ -261,21 +257,14 @@ def find_kernel_rel(dir):
         
     with open(out_path, "w") as f:
         json.dump(b_to_cu_path, f, indent=4)
-        
+                
 
-# find_kernel_rel("/home/mvh6224/vllm")
-# find_kernel_rel("home/mvh6224/pytorch")   
-# find_kernel_rel("/data/szx5097/hfplayground/test_models/Qwen_Qwen-7B") 
-# find_kernel_rel("/data/szx5097/hfplayground/test_models/chinoll_chatsakura-3b-int4")
-
-# with open("/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfmodels0.json") as f:
-#     model_list = json.load(f)
-    
-# for model_id in model_list:
-#     repo_path = f"/data/szx5097/hfplayground/_models/{model_id.replace('/', '_')}"
-#     find_kernel_rel(repo_path)
-
-# for framework_name in os.listdir("/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs"):
-#     find_kernel_rel(os.path.join("/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs", framework_name))
-
-# find_kernel_rel("/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/ShiftAddLLM")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="generate maps for CUDA kernels and Python operators."
+    )
+    parser.add_argument(
+        "--input-dir", type=str, required=True, help="Input directory of vLLM or model repository"
+    )
+    args = parser.parse_args()
+    find_kernel_rel(args.input_dir)

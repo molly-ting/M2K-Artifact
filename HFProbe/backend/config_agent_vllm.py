@@ -1,3 +1,4 @@
+
 from agents import Agent, Runner, function_tool, WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
@@ -344,12 +345,7 @@ def main_vllm():
         structure_model_map.update(other_structure_model_map)
 
     for model_id in structure_model_map:
-        structure = structure_model_map[model_id]
-        if model_id in ["Snowflake/snowflake-arctic-instruct", "facebook/cwm", "MiniMaxAI/MiniMax-M2", "MiniMaxAI/MiniMax-Text-01", "MiniMaxAI/MiniMax-Text-01-hf", "sarvamai/sarvam-105b", "XiaomiMiMo/MiMo-V2-Flash"]:
-            continue
-        if "52B" in model_id or "32B" in model_id or "35B" in model_id or "236B" in model_id or "675B" in model_id or "718B" in model_id:
-            continue     
-        
+        structure = structure_model_map[model_id]         
         structure_configs = []
         structure = structure_model_map[model_id]
 
@@ -618,5 +614,3 @@ def test_one(model_id, structure, opout_path=None):
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
-
-# main_vllm()
