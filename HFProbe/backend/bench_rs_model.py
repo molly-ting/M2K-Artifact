@@ -2,23 +2,23 @@
 use the following command format to run the script:
 BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python run_rs_model.py
 """
-import os, glob, torch, sys, inspect
+import os, torch, sys, inspect
 from pathlib import Path
 import shutil, subprocess, json
-from datetime import datetime
-from collections import Counter
 import types
-import torch.nn.functional as F
 from huggingface_hub import snapshot_download, list_repo_files
 import io, contextlib
 from utils import computeSymbolicArgsWithMap
 from collections import defaultdict
 import traceback
 
+ROOT_DIR = Path(__file__).resolve().parent
+
 tensor_calls = []
 CPP_SEARCH_DIRS = []
 _CPP_LOAD_SEEN = False
-# pytree: 优先用 torch 自带实现，失败则降级为简易递归
+
+# pytree: Prefer PyTorch's built-in implementation; fall back to simple recursion on failure.
 try:
     from torch.utils import _pytree as pytree
 except Exception:
@@ -33,56 +33,28 @@ except Exception:
             return fn(x)
     pytree = _MiniPytree
 
-# === 防重入（线程本地） ===
+# === Reentrancy guard (thread-local) ===
 import threading
 _BOS_TLS = threading.local()
 
 def _enter_guard() -> bool:
-    """进入包装器前的重入门槛；已在包装器内则返回 False。"""
+    """
+    Reentrancy gate used before entering a wrapper; return False if already inside one.
+    """
     if getattr(_BOS_TLS, "busy", False):
         return False
     _BOS_TLS.busy = True
     return True
 
 def _exit_guard():
-    """包装器退出时务必调用（建议放 try/finally 里）。"""
+    """
+    Always call this when leaving a wrapper (preferably from a try/finally block).
+    """
     _BOS_TLS.busy = False
 
-# === 通用工具 ===
-def _collect_args_meta(*args, **kwargs):
-    """
-    收集 *args/**kwargs 的轻量元信息（shape/dtype/device/基础类型）。
-    返回: (has_tensor: bool, meta: dict)
-    """
-    has_tensor = False
-
-    def _brief(x):
-        nonlocal has_tensor
-        try:
-            if torch.is_tensor(x):
-                has_tensor = True
-                return {
-                    "type": "torch.Tensor",
-                    "shape": tuple(x.shape),
-                    "dtype": str(x.dtype),
-                }
-            if isinstance(x, (int, float, bool, str)):
-                return {"type": type(x).__name__, "value": x}
-            if isinstance(x, (torch.dtype, torch.device)):
-                return {"type": type(x).__name__, "value": str(x)}
-            if x is None:
-                return {"type": "NoneType", "value": None}
-            # 其他对象：只记录类型名
-            return {"type": type(x).__name__, "value": None}
-        except Exception:
-            return {"type": "Exception", "value": None}
-
-    args_meta = pytree.tree_map(_brief, args)
-    kwargs_meta = pytree.tree_map(_brief, kwargs)
-    return has_tensor, {"args": args_meta, "kwargs": kwargs_meta}
+# === General utilities ===
 
 def collect_tensor_args(*args, method = None):
-    # print(method)
     argCons = []
     hasTensor = False
     for i, arg in enumerate(args):
@@ -90,7 +62,6 @@ def collect_tensor_args(*args, method = None):
             hasTensor = True
             tmp = {"shape": list(arg.shape), "dtype": str(arg.dtype), "type": "torch.Tensor"}
             if arg.dtype in (torch.int32, torch.int64, torch.int16, torch.int8):  # check integer type
-                # if (arg.numel() == 1 and arg.item() == 0) or not torch.all(arg == 0):  # check not all zero
                 max_val = torch.max(arg).item()
                 tmp["maxV"] = max_val
                 min_val = torch.min(arg).item()
@@ -108,7 +79,6 @@ def collect_tensor_args(*args, method = None):
                 for item in arg:
                     tmp = {"shape": list(item.shape), "dtype": str(item.dtype), "type": "torch.Tensor"}
                     if item.dtype in (torch.int32, torch.int64, torch.int16, torch.int8):  # check integer type
-                        # if (item.numel() == 1 and item.item() == 0) or not torch.all(item == 0):  # check not all zero
                         max_val = torch.max(item).item()
                         tmp["maxV"] = max_val
                         min_val = torch.min(item).item()
@@ -121,7 +91,6 @@ def collect_tensor_args(*args, method = None):
             else:
                 tmp = {"shape": [len(arg)], "dtype": type(arg[0]).__name__, "type": "list"}
                 if type(arg[0]).__name__ == "int":
-                    # if (len(arg) == 1 and arg[0] == 0) or not all(x == 0 for x in arg):
                     max_val = max(arg)
                     tmp["maxV"] = max_val
                     min_val = min(arg)
@@ -140,8 +109,8 @@ torch.empty = torch.zeros
 
 class NvccPatch:
     """
-    进入: 伪造 CUDA_HOME 与 nvcc -V 输出（Transformers/JIT 常会探测）
-    退出: 完整还原环境
+    Enter: Fake CUDA_HOME and nvcc -V output (often probed by Transformers/JIT).
+    Exit: Fully restore the environment.
     """
     def __enter__(self):
         import torch.utils.cpp_extension as ce
@@ -149,11 +118,11 @@ class NvccPatch:
         self._old_ce_cuda_home = getattr(ce, "CUDA_HOME", None)
         self._old_check_output = subprocess.check_output
 
-        # 伪造 CUDA_HOME
+        # Fake CUDA_HOME.
         os.environ["CUDA_HOME"] = "/usr/local/cuda"
         ce.CUDA_HOME = "/usr/local/cuda"
 
-        # 伪造 nvcc -V 输出（兼容 text=True / universal_newlines=True）
+        # Fake nvcc -V output (compatible with text=True / universal_newlines=True).
         def _fake_check_output(cmd, *a, **k):
             seq = cmd if isinstance(cmd, (list, tuple)) else [cmd]
             try:
@@ -169,60 +138,16 @@ class NvccPatch:
 
     def __exit__(self, exc_type, exc, tb):
         import torch.utils.cpp_extension as ce
-        # 还原 check_output
+        # Restore check_output.
         subprocess.check_output = self._old_check_output
-        # 还原 CUDA_HOME
+        # Restore CUDA_HOME.
         if self._old_env_cuda_home is None:
             os.environ.pop("CUDA_HOME", None)
         else:
             os.environ["CUDA_HOME"] = self._old_env_cuda_home
         ce.CUDA_HOME = self._old_ce_cuda_home
 
-from collections import Counter, defaultdict
-
-# def save_raw_and_summary(model_id: str, mode: str, outdir: str = "./hfout"):
-#     os.makedirs(outdir, exist_ok=True)
-#     safe_name = model_id.replace("/", "_")
-#     ts = datetime.now().isoformat()
-
-#     raw = {
-#         "modelId": model_id,
-#         "mode": mode,
-#         "timestamp": ts,
-#         "cpp_extension_load_called": bool(_CPP_LOAD_SEEN),
-#         "n_calls_total": len(tensor_calls),
-#         "calls": tensor_calls,
-#     }
-#     raw_path = os.path.join(outdir, f"{safe_name}_{mode}.json")
-#     with open(raw_path, "w", encoding="utf-8") as f:
-#         json.dump(raw, f, ensure_ascii=False, indent=2)
-
-#     # 全量 & 按 ns 统计
-#     ctr_all = Counter(c.get("name", "") for c in tensor_calls)
-#     by_ns = defaultdict(Counter)
-#     for c in tensor_calls:
-#         ns = c.get("ns", "unknown")
-#         by_ns[ns][c.get("name", "")] += 1
-
-#     summary = {
-#         "modelId": model_id,
-#         "mode": mode,
-#         "timestamp": ts,
-#         "cpp_extension_load_called": bool(_CPP_LOAD_SEEN),
-#         "counts_all": [{"name": k, "count": v} for k, v in ctr_all.most_common()],
-#         "counts_by_ns": {
-#             ns: [{"name": k, "count": v} for k, v in ctr.most_common()]
-#             for ns, ctr in by_ns.items()
-#         },
-#     }
-#     sum_path = os.path.join(outdir, f"{safe_name}_{mode}.summary.json")
-#     with open(sum_path, "w", encoding="utf-8") as f:
-#         json.dump(summary, f, ensure_ascii=False, indent=2)
-
-#     print("\n[OK] Saved logs:")
-#     print("  Raw trace ->", raw_path)
-#     print("  Summary   ->", sum_path)
-#     return raw_path, sum_path
+from collections import defaultdict
 
 def retrieve_stack(stack):
     call_stack = []
@@ -249,155 +174,9 @@ def _on_called(method, *args, **kwargs):
     to_add = {"name": method, "args": argCons, "stack": call_stack}
     if to_add not in tensor_calls:
         tensor_calls.append(to_add)
-
-    # if method not in calls_map:
-    #     calls_map[method] = {}
-    # if call_stack not in calls_map[method]:
-    #     calls_map[method][call_stack] = []
-    # if argCons not in calls_map[method][call_stack]:
-    #     calls_map[method][call_stack].append(argCons)
-    #     argChanged = True
-        # print(method, argCons)
     
 cpp_mock = LoadedCppExtensionMock(_on_called)
 mock_torch_utils_cpp_extension(cpp_mock)
-
-# --- 导入并应用补丁 ---
-import cuda_patches 
-def patch_torch_cpp_extension():
-    """拦截 JIT 扩展加载，返回带日志的包装器；不执行真实 CUDA。"""
-    print("[INFO] Patching torch.utils.cpp_extension for custom kernel capture...")
-    import torch.utils.cpp_extension as ce
-
-    CPP_EXEC_ENABLED = (os.getenv("CPP_EXEC_ENABLED", "0") == "1")
-    _orig_load = ce.load
-    _orig_inline = getattr(ce, "load_inline", None)
-
-    def _get_ce_mode():
-        # "bypass" 默认不编译；想试编译再 export BOS_CE_MODE=attempt
-        return os.getenv("BOS_CE_MODE", "bypass").lower()
-
-    def _fake_return(kernel_name, *kargs, **kkwargs):
-        # 1) 优先返回 out/output/result/dst
-        for key in ("out", "output", "result", "dst"):
-            t = kkwargs.get(key, None)
-            if isinstance(t, torch.Tensor):
-                return t
-        # 2) 简单 matmul 形状推断
-        tins = [x for x in kargs if isinstance(x, torch.Tensor)]
-        tins += [v for v in kkwargs.values() if isinstance(v, torch.Tensor)]
-        twos = [t for t in tins if t.dim() == 2]
-        if len(twos) >= 2 and twos[0].shape[1] == twos[1].shape[0]:
-            A, B = twos[0], twos[1]
-            return torch.zeros((A.shape[0], B.shape[1]), dtype=A.dtype, device="cpu")
-        # 3) 回退：zeros_like 第一个张量
-        if tins:
-            return torch.zeros_like(tins[0], device="cpu")
-        return None
-
-    class CppKernelWrapper:
-        def __init__(self, module_name, real_mod=None):
-            self.__name__ = module_name
-            self.__real_mod = real_mod
-            self._method_cache = {}
-
-        def __getattr__(self, kernel_name):
-            if kernel_name in self._method_cache:
-                return self._method_cache[kernel_name]
-
-            def proxy(*kernel_args, **kernel_kwargs):
-                if not _enter_guard():
-                    return _fake_return(kernel_name, *kernel_args, **kernel_kwargs)
-                try:
-                    full = f"custom_cpp::{self.__name__}::{kernel_name}"
-                    # has_t, params_meta = _collect_args_meta(*kernel_args, **kernel_kwargs)
-                    # tensor_calls.append({
-                    #     "name": full,
-                    #     "params": params_meta,
-                    #     "executed": bool(CPP_EXEC_ENABLED),
-                    #     "ns": "custom_cpp",
-                    # })
-
-                    call_stack = retrieve_stack(inspect.stack())
-                    
-                    hasTensor, argCons = collect_tensor_args(*kernel_args, method=full)
-                    if hasTensor:
-                        to_add = {"name": full, "args": argCons, "stack": call_stack}
-
-                        if to_add not in tensor_calls:
-                            tensor_calls.append(to_add)
-
-                    # 如需真执行（会失败），放开下面逻辑
-                    if CPP_EXEC_ENABLED and self.__real_mod is not None:
-                        try:
-                            real_fn = getattr(self.__real_mod, kernel_name)
-                            return real_fn(*kernel_args, **kernel_kwargs)
-                        except Exception:
-                            pass
-                    return _fake_return(kernel_name, *kernel_args, **kernel_kwargs)
-                finally:
-                    _exit_guard()
-
-            proxy.__name__ = kernel_name
-            proxy.__qualname__ = f"{self.__name__}.{kernel_name}"
-            self._method_cache[kernel_name] = proxy
-            return proxy
-
-        def __dir__(self):
-            base = set(super().__dir__())
-            try:
-                base |= set(dir(self.__real_mod)) if self.__real_mod is not None else set()
-            except Exception:
-                pass
-            base |= set(self._method_cache.keys())
-            return sorted(base)
-
-    def _fix_sources(sources):
-        srcs = sources if isinstance(sources, (list, tuple)) else [sources]
-        fixed = []
-        for s in srcs:
-            if isinstance(s, str) and not os.path.isabs(s):
-                base = os.path.basename(s)
-                hit = None
-                for d in CPP_SEARCH_DIRS:
-                    cand = os.path.join(d, base)
-                    if os.path.exists(cand):
-                        hit = cand
-                        break
-                fixed.append(hit or s)
-            else:
-                fixed.append(s)
-        return fixed
-
-    def _wrap_load(fn, name, *args, **kwargs):
-        try:
-            real_mod = fn(name, *args, **kwargs)
-            print(f"[PATCH] Loaded real C++ extension '{name}', returning logging wrapper.")
-            return CppKernelWrapper(name, real_mod=real_mod)
-        except Exception as e:
-            print(f"[PATCH] Compile/load failed for '{name}'. Return stub wrapper. Err={e}")
-            return CppKernelWrapper(name, real_mod=None)
-
-    def patched_load(name, sources, *args, **kwargs):
-        global _CPP_LOAD_SEEN; _CPP_LOAD_SEEN = True
-        if _get_ce_mode() != "attempt":
-            print(f"[PATCH] Bypass compilation for '{name}'. Returning stub wrapper.")
-            return CppKernelWrapper(name, real_mod=None)
-        # 真要尝试编译才走原逻辑
-        return _wrap_load(_orig_load, name, _fix_sources(sources), *args, **kwargs)
-
-    ce.load = patched_load
-
-    if _orig_inline is not None:
-        def patched_inline(name, cpp_sources=None, cuda_sources=None, functions=None, *args, **kwargs):
-            global _CPP_LOAD_SEEN; _CPP_LOAD_SEEN = True
-            if _get_ce_mode() != "attempt":
-                print(f"[PATCH] Bypass compilation for inline '{name}'. Returning stub wrapper.")
-                return CppKernelWrapper(name, real_mod=None)
-            if cpp_sources is not None:  cpp_sources = _fix_sources(cpp_sources)
-            if cuda_sources is not None: cuda_sources = _fix_sources(cuda_sources)
-            return _wrap_load(_orig_inline, name, cpp_sources, cuda_sources, functions, *args, **kwargs)
-        ce.load_inline = patched_inline
 
 import sys, importlib, importlib.abc, importlib.machinery, types
 
@@ -413,16 +192,9 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
             def make_wrapper(fn, qname):
                 def wrapper(*args, **kwargs):
                     if not _enter_guard():
-                        # 占位返回也可以；这里选择调用原函数以减少破坏性
+                        # A placeholder would work; call the original function to minimize disruption.
                         return fn(*args, **kwargs)
                     try:
-                        # has_t, meta = _collect_args_meta(*args, **kwargs)
-                        # tensor_calls.append({
-                        #     "name": f"custom_bin::{qname}",
-                        #     "params": meta,
-                        #     "executed": False,
-                        #     "ns": "custom_bin",
-                        # })
 
                         call_stack = retrieve_stack(inspect.stack())
                         
@@ -433,7 +205,7 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
                             if to_add not in tensor_calls:
                                 tensor_calls.append(to_add)
 
-                        # 占位返回：优先 out→zeros_like→None
+                        # Placeholder return order: out, then zeros_like, then None.
                         for k in ("out","output","result","dst"):
                             t = kwargs.get(k)
                             if isinstance(t, torch.Tensor): return t
@@ -477,7 +249,7 @@ class _WrappingFinder(importlib.abc.MetaPathFinder):
         spec = importlib.machinery.PathFinder.find_spec(fullname, path)
         if spec is None or spec.loader is None:
             return None
-        # 名称命中白名单 + 必须是二进制扩展（.so/.pyd）
+        # The name must be allowlisted and the module must be a binary extension (.so/.pyd).
         if not self.wrap_pred(fullname):
             return None
         if not isinstance(spec.loader, importlib.machinery.ExtensionFileLoader):
@@ -508,265 +280,7 @@ def patch_binary_imports(name_patterns=(
     sys.meta_path.insert(0, _WrappingFinder(_pred))
     print("[INFO] Binary import hook installed for:", pats)
 
-import torch as _torch
-import torch.nn.functional as _F
-
-# ---- helpers for "null" mode ----
-def _zeros_like_linear_out(x, w, b=None):
-    out_features = w.shape[0]; *prefix, _ = x.shape
-    return _torch.zeros(*prefix, out_features, dtype=x.dtype, device="cpu")
-
-def _zeros_like_matmul(a, b):
-    if a.dim()==2 and b.dim()==2:
-        return _torch.zeros(a.shape[0], b.shape[1], dtype=a.dtype, device="cpu")
-    if a.dim()==3 and b.dim()==3:
-        return _torch.zeros(a.shape[0], a.shape[1], b.shape[2], dtype=a.dtype, device="cpu")
-    return _torch.zeros((), device="cpu")
-
-def _reduce_shape(shape, dim, keepdim=False):
-    if dim is None:
-        return () if not keepdim else tuple(1 for _ in shape)
-    if isinstance(dim, int): dims = [dim]
-    else: dims = list(dim)
-    rank = len(shape)
-    dims = [d if d >= 0 else d + rank for d in dims]
-    out = list(shape)
-    for d in sorted(set(dims)):
-        out[d] = 1 if keepdim else None
-    return tuple(s for s in out if s is not None)
-
-def _zeros_like_where(args, kwargs):
-    # where(cond, x, y) → 使用 x 作为基准
-    if len(args) >= 3 and isinstance(args[1], _torch.Tensor):
-        return _torch.zeros_like(args[1])
-    x = kwargs.get("input") or kwargs.get("x")
-    return _torch.zeros_like(x) if isinstance(x, _torch.Tensor) else None
-
-def _zeros_like_sort(inp):
-    vals = _torch.zeros_like(inp)
-    idxs = _torch.zeros_like(inp, dtype=_torch.long)
-    return vals, idxs
-
-def _zeros_like_topk(inp, k, dim=None):
-    dim = (-1 if dim is None else dim)
-    dim = dim if dim >= 0 else (inp.dim()+dim)
-    shape = list(inp.shape); shape[dim] = int(k)
-    vals = _torch.zeros(shape, dtype=inp.dtype, device="cpu")
-    idxs = _torch.zeros(shape, dtype=_torch.long, device="cpu")
-    return vals, idxs
-
-def _zeros_like_multinomial(inp, num_samples):
-    shape = tuple(list(inp.shape[:-1]) + [int(num_samples)])
-    return _torch.zeros(shape, dtype=_torch.long, device="cpu")
-
-def _zeros_like_addmm(mat1, mat2):
-    if mat1.dim()==2 and mat2.dim()==2 and mat1.shape[1]==mat2.shape[0]:
-        return _torch.zeros((mat1.shape[0], mat2.shape[1]), dtype=mat1.dtype, device="cpu")
-    return _torch.zeros((), device="cpu")
-
-# ---- generic wrapper ----
-def _wrap_highlevel(ns_obj, ns_name: str, fn_name: str, mode: str):
-    if not hasattr(ns_obj, fn_name): return
-    orig = getattr(ns_obj, fn_name)
-    if not callable(orig) or getattr(orig, "__bos_wrapped__", False): return
-
-    def wrapper(*args, **kwargs):
-        if not _enter_guard():
-            return orig(*args, **kwargs)
-        try:
-            # has_t, meta = _collect_args_meta(*args, **kwargs)
-            # tensor_calls.append({
-            #     "name": f"{ns_name}.{fn_name}",
-            #     "params": meta,
-            #     "executed": (mode == "log"),
-            #     "ns": "torch" if ns_name == "torch" else "torch.nn.functional",
-            # })
-            if mode == "null":
-                if ns_name == "torch":
-                    if fn_name in ("matmul","mm","bmm"):   return _zeros_like_matmul(args[0], args[1])
-                    if fn_name == "einsum":                return _torch.zeros_like(args[0])
-                    if fn_name in ("tril","triu","rsqrt","clamp","zeros_like","softmax"):
-                        base = args[0] if len(args)>0 else kwargs.get("input"); return _torch.zeros_like(base)
-                    if fn_name == "where":                return _zeros_like_where(args, kwargs)
-                    if fn_name in ("amax","amin"):
-                        x = args[0]; dim = kwargs.get("dim", None)
-                        if len(args)>1: dim = args[1]
-                        keepdim = bool(kwargs.get("keepdim", False))
-                        out_shape = _reduce_shape(tuple(x.shape), dim, keepdim)
-                        return _torch.zeros(out_shape, dtype=x.dtype, device="cpu")
-                    if fn_name == "sort":                 return _zeros_like_sort(args[0])
-                    if fn_name == "topk":
-                        x = args[0]; k = kwargs.get("k", None); 
-                        if k is None and len(args)>1: k = args[1]
-                        return _zeros_like_topk(x, k, kwargs.get("dim", None))
-                    if fn_name == "multinomial":
-                        x = args[0]; n = kwargs.get("num_samples", None)
-                        if n is None and len(args)>1: n = args[1]
-                        return _zeros_like_multinomial(x, n)
-                    if fn_name == "addmm":
-                        if len(args) >= 3:
-                            return _zeros_like_addmm(args[1], args[2])
-                        return _torch.zeros_like(args[0]) if len(args)>0 and isinstance(args[0], _torch.Tensor) else None
-                    if fn_name == "isin":
-                        base = args[0] if len(args)>0 else kwargs.get("elements")
-                        return _torch.zeros_like(base, dtype=_torch.bool) if _torch.is_tensor(base) else None
-                    if fn_name == "is_floating_point":
-                        x = args[0] if len(args)>0 else kwargs.get("input")
-                        # 返回标量 bool；这里只记录参数，不依赖输出形状
-                        return bool(getattr(x, "dtype", _torch.float32).is_floating_point) if hasattr(x, "dtype") else True
-                    if fn_name == "flatten":
-                        x = args[0] if len(args) > 0 else kwargs.get("input")
-                        if not _torch.is_tensor(x):
-                            return None
-                        start = kwargs.get("start_dim", 0)
-                        end   = kwargs.get("end_dim", -1)
-                        if len(args) > 1: start = args[1]
-                        if len(args) > 2: end   = args[2]
-                        rank = x.dim()
-                        # 归一化索引
-                        if start < 0: start += rank
-                        if end   < 0: end   += rank
-                        start = max(0, min(start, rank - 1))
-                        end   = max(start, min(end, rank - 1))
-                        # 计算新形状：pre + [product(mid)] + post
-                        pre  = list(x.shape[:start])
-                        mid  = 1
-                        for d in x.shape[start:end + 1]:
-                            mid *= int(d)
-                        post = list(x.shape[end + 1:])
-                        new_shape = pre + [mid] + post
-                        return _torch.zeros(new_shape, dtype=x.dtype, device="cpu")
-                    if fn_name == "cat":
-                        tensors = args[0] if len(args) > 0 else kwargs.get("tensors")
-                        dim = kwargs.get("dim", 0)
-                        if len(args) > 1: dim = args[1]
-                        if isinstance(tensors, (list, tuple)) and tensors and _torch.is_tensor(tensors[0]):
-                            ref = tensors[0]
-                            shape = list(ref.shape)
-                            D = dim if dim >= 0 else dim + ref.dim()
-                            shape[D] = sum(int(t.shape[D]) for t in tensors)
-                            return _torch.zeros(shape, dtype=ref.dtype, device="cpu")
-                        return None
-                    if fn_name == "sum":
-                        x = args[0] if len(args) > 0 else kwargs.get("input")
-                        if not _torch.is_tensor(x):
-                            return 0
-                        dim = kwargs.get("dim", None)
-                        if len(args) > 1:
-                            dim = args[1]
-                        keepdim = kwargs.get("keepdim", False)
-                        if len(args) > 2:
-                            keepdim = args[2]
-                        out_dtype = kwargs.get("dtype", getattr(x, "dtype", _torch.float32))
-                        out_shape = _reduce_shape(tuple(x.shape), dim, bool(keepdim))
-                        return _torch.zeros(out_shape, dtype=out_dtype, device="cpu")
-                else:  # torch.nn.functional
-                    if fn_name == "linear":
-                        return _zeros_like_linear_out(args[0], args[1], args[2] if len(args)>2 else kwargs.get("bias"))
-                    if fn_name in ("layer_norm","softmax","gelu","silu","dropout"):
-                        return _torch.zeros_like(args[0])
-                    if fn_name == "scaled_dot_product_attention":
-                        q = args[0]; return _torch.zeros_like(q)
-            # log: 真实执行；off: 未走到这里；null: 未命中分支则回退真实执行
-            return orig(*args, **kwargs)
-        finally:
-            _exit_guard()
-
-    wrapper.__bos_wrapped__ = True
-    setattr(ns_obj, fn_name, wrapper)
-
-def patch_highlevel_apis(mode: str = "off"):
-    assert mode in ("off","log","null")
-    if mode == "off":
-        print("[INFO] High-level API patch: off"); return
-    print(f"[INFO] High-level API patch: mode={mode}")
-
-    # 覆盖 torch.*
-    TORCH_FNS = [
-        "matmul","mm","bmm","einsum","addmm",
-        "tril","triu","where","clamp","amax","amin","rsqrt","zeros_like",
-        "softmax","sort","topk","multinomial",
-        "isin","is_floating_point","flatten","cat","sum",
-    ]
-    for fn in TORCH_FNS:
-        _wrap_highlevel(_torch, "torch", fn, mode)
-
-    # 覆盖 F.* 高层
-    F_FNS = [
-        "linear","layer_norm","softmax","gelu","silu","dropout",
-        "scaled_dot_product_attention",
-    ]
-    for fn in F_FNS:
-        _wrap_highlevel(_F, "torch.nn.functional", fn, mode)
-
-
 import types
-
-# Create a fake flash_attn module
-# flash_attn = types.SimpleNamespace()
-# flash_attn.bert_padding = types.SimpleNamespace()
-# flash_attn = types.ModuleType("flash_attn")
-# flash_attn.__spec__ = importlib.machinery.ModuleSpec("flash_attn", loader=None)
-
-# bert_padding = types.ModuleType("flash_attn.bert_padding")
-# bert_padding.__spec__ = importlib.machinery.ModuleSpec("flash_attn.bert_padding", loader=None)
-
-# # --- Fake flash_attn_func ---
-# def flash_attn_func(q, k, v, dropout_p=0.0, softmax_scale=None, causal=False):
-#     # q: [batch, seq_len, num_heads, head_dim]
-#     # return: [batch, seq_len, num_heads, head_dim]
-#     return torch.zeros_like(q)
-
-# # --- Fake flash_attn_varlen_func ---
-# def flash_attn_varlen_func(q, k, v, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k,
-#                            dropout_p=0.0, softmax_scale=None, causal=False):
-#     # q: [total_q, num_heads, head_dim]
-#     # Output should be same shape as q
-#     return torch.zeros_like(q)
-
-# # --- Fake index_first_axis ---
-# def index_first_axis(tensor, indices):
-#     # Typically returns tensor[indices]
-#     # Maintain the same shape logic
-#     out_shape = (indices.shape[0],) + tensor.shape[1:]
-#     return torch.zeros(out_shape, dtype=tensor.dtype, device=tensor.device)
-
-# # --- Fake pad_input ---
-# def pad_input(tensor, indices, total_len):
-#     # pad variable-length sequence to uniform shape
-#     # assume tensor: [sum(seq_lens), hidden]
-#     batch_size = indices.shape[0]
-#     hidden = tensor.shape[-1]
-#     return torch.zeros((batch_size, total_len, hidden), dtype=tensor.dtype, device=tensor.device)
-
-# # --- Fake unpad_input ---
-# def unpad_input(tensor, indices):
-#     # remove padding — return flat view
-#     # assume tensor: [batch, seq_len, hidden]
-#     batch, seq_len, hidden = tensor.shape
-#     return torch.zeros((batch * seq_len, hidden), dtype=tensor.dtype, device=tensor.device)
-
-# # Assign to fake namespaces
-# flash_attn.flash_attn_func = flash_attn_func
-# flash_attn.flash_attn_varlen_func = flash_attn_varlen_func
-# bert_padding.index_first_axis = index_first_axis
-# bert_padding.pad_input = pad_input
-# bert_padding.unpad_input = unpad_input
-
-# flash_attn.bert_padding = bert_padding
-# sys.modules["flash_attn"] = flash_attn
-# sys.modules["flash_attn.bert_padding"] = flash_attn.bert_padding
-
-# import importlib.metadata
-
-# # Patch importlib.metadata.version to handle "flash_attn"
-# _real_version = importlib.metadata.version
-# def _fake_version(name):
-#     if name == "flash_attn":
-#         return "2.1.0"  # or any dummy version string
-#     return _real_version(name)
-# importlib.metadata.version = _fake_version
-
 
 def createEmptyModelBin(modelId, cache_dir):
     files = list_repo_files(modelId)
@@ -786,15 +300,11 @@ def createEmptyModelBin(modelId, cache_dir):
         f.write(b"")
 
 def copy_config_to_modules_if_needed(cache_dir):
-    # id = os.path.basename(cache_dir)
-    # dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
-    # module_dir = "."
     module_dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
     hash_number = cache_dir.split("/")[-1]
     module_dir = os.path.join(module_dir, hash_number)
     for root, dirs, files in os.walk(cache_dir):
         for file in files:
-            # if file.endswith(".json") or file.endswith(".yaml"):
             if not os.path.exists(module_dir):
                 os.makedirs(module_dir)
             src = os.path.join(root, file)
@@ -806,8 +316,6 @@ def copy_config_to_modules_if_needed(cache_dir):
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
-            # else:
-            #     print(f"Config already exists at {dst}, skipping copy.")
 
 def prepare_snapshot_and_stage_sources(model_id: str,
                                        hf_token: str | None = None,
@@ -827,7 +335,6 @@ def prepare_snapshot_and_stage_sources(model_id: str,
         repo_id=model_id,
         token=hf_token or None,
         local_files_only=local_only,
-        # allow_patterns=allow_patterns,
         ignore_patterns=ignore_patterns
     )
 
@@ -835,41 +342,13 @@ def prepare_snapshot_and_stage_sources(model_id: str,
     copy_config_to_modules_if_needed(local_dir)
     return local_dir
 
-    # srcs = []
-    # for ext in ("*.cpp", "*.cu", "*.h", "*.cuh"):
-    #     srcs += glob.glob(os.path.join(local_dir, "**", ext), recursive=True)
-
-    # hash_str = Path(local_dir).name  # snapshots/<hash>
-    # mods_root = Path.home() / ".cache" / "huggingface" / "modules" / "transformers_modules"
-    # mods_dir1 = mods_root / hash_str
-    # mods_dir2 = mods_root / model_id / hash_str
-
-    # staged_dirs = []
-    # for target in (mods_dir1, mods_dir2):
-    #     target.mkdir(parents=True, exist_ok=True)
-    #     for s in srcs:
-    #         shutil.copy(s, target / Path(s).name)
-    #     staged_dirs.append(str(target))
-
-    # CPP_SEARCH_DIRS[:] = list(dict.fromkeys([str(mods_dir1), str(mods_dir2), str(local_dir)]))
-
-    # print(f"[STAGE] model={model_id}")
-    # print(f"        snapshot : {local_dir}")
-    # print(f"        sources  : {len(srcs)} files (cpp/cu/h/cuh)")
-    # if srcs[:3]: print(f"        e.g.    : {srcs[:3]}")
-    # print(f"        staged → : {staged_dirs}")
-    # print(f"        search   : {CPP_SEARCH_DIRS}")
-
-    # return local_dir, srcs, staged_dirs
 
 if os.getenv("BOS_FAKE_CUDA", "1") == "1":
     import cuda_patches
 
-# patch_torch_cpp_extension()
 from torchmock.torchmocks import *
 mock()
 
-# patch_highlevel_apis(mode=os.getenv("BOS_HIGHLEVEL", "off"))
 if os.getenv("BOS_BIN_HOOK", "1") == "1":
     patch_binary_imports()
 
@@ -901,10 +380,6 @@ def _dummy_load_pretrained_model(
             name: torch.zeros_like(param, device="cpu")
             for name, param in model.named_parameters()
         }
-        # dummy_dict = {
-        #     key: torch.zeros_like(value, device="cpu")
-        #     for key, value in model.state_dict().items()
-        # }
         state_dict = dummy_dict
         checkpoint_files = []
 
@@ -927,98 +402,17 @@ def _dummy_load_pretrained_model(
         weights_only=weights_only,
     )
 
-# only for KVQuant, QuaRot
-# @classmethod
-# def _dummy_load_pretrained_model(
-#         cls,
-#         model,
-#         state_dict,
-#         loaded_keys,
-#         resolved_archive_file,
-#         pretrained_model_name_or_path,
-#         ignore_mismatched_sizes=False,
-#         sharded_metadata=None,
-#         _fast_init=True,
-#         low_cpu_mem_usage=False,
-#         device_map=None,
-#         offload_folder=None,
-#         offload_state_dict=None,
-#         dtype=None,
-#         hf_quantizer=None,
-#         keep_in_fp32_modules=None,
-#     ):
-#     if state_dict is None:
-#         print("Generating dummy weights for", cls.__name__)
-#         dummy_dict = {
-#             name: torch.zeros_like(param, device="cpu")
-#             for name, param in model.named_parameters()
-#         }
-#         # dummy_dict = {
-#         #     key: torch.zeros_like(value, device="cpu")
-#         #     for key, value in model.state_dict().items()
-#         # }
-#         state_dict = dummy_dict
-#         # checkpoint_files = []
-
-#     return _real_load_pretrained_model(
-#         cls,
-#         model=model,
-#         state_dict=state_dict,
-#         loaded_keys=loaded_keys,
-#         resolved_archive_file=resolved_archive_file,
-#         pretrained_model_name_or_path=pretrained_model_name_or_path,
-#         ignore_mismatched_sizes=ignore_mismatched_sizes,
-#         sharded_metadata=sharded_metadata,
-#         _fast_init=_fast_init,
-#         low_cpu_mem_usage=low_cpu_mem_usage,
-#         device_map=device_map,
-#         offload_folder=offload_folder,
-#         offload_state_dict=offload_state_dict,
-#         dtype=dtype,
-#         hf_quantizer=hf_quantizer,
-#         keep_in_fp32_modules=keep_in_fp32_modules,
-#     )
 
 transformers.modeling_utils.PreTrainedModel._load_pretrained_model = _dummy_load_pretrained_model
 
-# === 在补丁启用完成后，再 import transformers ===
+# === Import transformers only after all patches are enabled ===
 from transformers import (
     TextStreamer,
     AutoTokenizer, AutoConfig,
-    AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoModel
+    AutoModelForCausalLM
 )
 
-# === 构建 config ===
-def build_config(local_dir: str):
-    cfg = AutoConfig.from_pretrained(local_dir, trust_remote_code=True)
-    # 只在字段存在时才打开，避免不同仓库报错
-    for k in ("use_cache_kernel", "use_cache_quantization", "use_flash_attn", "rope_backend"):
-        if hasattr(cfg, k):
-            try:
-                # 一般是 bool 开关；非 bool（如 rope_backend）保持原值
-                if isinstance(getattr(cfg, k), bool):
-                    setattr(cfg, k, True)
-            except Exception:
-                pass
-    return cfg
-
-# === 加载 tokenizer + 模型（自动判别 Seq2Seq / CausalLM；失败回退 AutoModel） ===
-def load_model_and_tokenizer(local_dir: str, cfg):
-    # tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True) # "qwen/Qwen-1_8B"
-    tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True, use_fast=True)
-    is_s2s = bool(getattr(cfg, "is_encoder_decoder", False))
-    ModelCls = AutoModelForSeq2SeqLM if is_s2s else AutoModelForCausalLM
-    model = ModelCls.from_pretrained(
-            local_dir,
-            config=cfg,
-            trust_remote_code=True,
-            low_cpu_mem_usage=True,
-            device_map="cpu",
-            # torch_dtype=torch.float32,
-        ).eval()
-    return model, tok
-
-# === 触发一次计算（优先 generate；否则最小 forward） ===
+# === Trigger one computation (prefer generate; otherwise use a minimal forward pass) ===
 def run_once(model, tok, cfg, prompts: list[str], new_tokens: int = 2):
     tensor_calls.clear()
     with torch.no_grad():
@@ -1032,129 +426,13 @@ def run_once(model, tok, cfg, prompts: list[str], new_tokens: int = 2):
                 inputs["input_ids"] = torch.randint(0, vocab, (1, len(prompts[0].split())))
             _ = model(**inputs)
 
-def _infer_list_dtype(lst):
-    if all(isinstance(v, (int, bool)) for v in lst): return "int"
-    if all(isinstance(v, float)      for v in lst): return "float"
-    if all(isinstance(v, str)        for v in lst): return "str"
-    return "unknown"
-
-def _to_arg_item(x):
-    if isinstance(x, dict) and x.get("type") == "torch.Tensor":
-        return x
-    if isinstance(x, bool):  return {"type":"bool",  "value": bool(x)}
-    if isinstance(x, int):   return {"type":"int",   "value": int(x)}
-    if isinstance(x, float): return {"type":"float", "value": float(x)}
-    if isinstance(x, str):   return {"type":"str",   "value": x}
-    if isinstance(x, (list, tuple)):
-        if x and all(isinstance(v, dict) and v.get("type") == "torch.Tensor" for v in x):
-            return {"type":"list","dtype":"torch.Tensor","shape":[len(x)],"value": list(x)}
-        return {"type":"list","dtype": _infer_list_dtype(list(x)),"shape":[len(x)]}
-    return {"type": type(x).__name__, "value": None}
-
-def _params_to_argCons(params_meta: dict):
-    args_meta   = list(params_meta.get("args", []))
-    kwargs_meta = dict(params_meta.get("kwargs", {}))
-    out = []
-    for a in args_meta: out.append(_to_arg_item(a))
-    for k in sorted(kwargs_meta.keys()): out.append(_to_arg_item(kwargs_meta[k]))
-    return out
-
-# === 主流程 ===
-# MODEL_ID       = os.getenv("MODEL_ID", "Qwen/Qwen-7B")
+# === Main flow ===
 HF_TOKEN       = os.getenv("HF_TOKEN")
 LOCAL_ONLY     = os.getenv("LOCAL_ONLY", "1") == "1"
 INCLUDE_WEIGHTS= os.getenv("INCLUDE_WEIGHTS", "1") == "1"
 NEW_TOKENS     = int(os.getenv("NEW_TOKENS", "2"))
 BATCH_SIZE_CONFIGS = [1, 3, 5]
 SEQ_LENS_CONFIGS = [1, 7, 17]
-
-def run(model_id):
-    output_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfout"
-    os.makedirs(output_dir, exist_ok=True)
-
-    filename = model_id.replace('/', '_')+".json"
-    agg_path = os.path.join(output_dir, filename)
-    if os.path.exists(agg_path):
-        return
-    
-    local_dir = prepare_snapshot_and_stage_sources(
-        model_id=model_id,
-        hf_token=HF_TOKEN or None,
-        local_only=False,
-        include_weights=False
-    )
-
-    total_calls_map = defaultdict(dict)
-    data = []
-
-    # 伪造 nvcc/CUDA 环境 → 加载 → 触发 → 落盘
-    with NvccPatch():
-        cfg = build_config(local_dir)
-        model, tok = load_model_and_tokenizer(local_dir, cfg)
-        
-        for batch_size in BATCH_SIZE_CONFIGS:
-            for seq_len in SEQ_LENS_CONFIGS:
-                print(f"\n--- 正在运行: batch_size={batch_size}, seq_len={seq_len} ---")
-                # 1. 准备批量输入
-                prompt_text = ("hi " * seq_len).strip()
-                prompts = [prompt_text] * batch_size
-            
-                # 2. 获取真实的token长度
-                real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"目标 seq_len={seq_len}, 实际 token 长度={real_seq_len}")
-
-                # 3. 调用修改后的 run_once
-                run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)
-
-                # 4. 收集并整理日志
-                for call in tensor_calls:
-                    func_name = call.get('name', 'unknown_function')
-                    argCons = call.get('args', [])
-                    call_stack = call.get('stack', ())
-                    # params = call.get('params', {})
-                    # argCons = _params_to_argCons(params)            
-                    run_key = (batch_size, real_seq_len)
-
-                    total_calls_map.setdefault(func_name, {}).setdefault(call_stack, {}).setdefault(run_key, []).append(argCons)
-                data.append({"batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()})
-
-    print("\n--- 所有推理运行完毕。开始符号化分析... ---")
-    
-    with open("/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfdata/"+filename, "w") as wf:
-        json.dump(data, wf)
-
-    buf = io.StringIO()  # 用于收集 computeSymbolicArgsWithMap 的所有 print
-
-    try:
-        # 静音 computeSymbolicArgsWithMap 的控制台输出
-        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
-            computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        # 把调试输出写入文件，避免刷屏
-        dbg_path = os.path.join(output_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
-
-        print(f"\n[成功] 已聚合的符号化日志已保存至: {agg_path}")
-        print(f"[信息] 详细调试输出已写入: {dbg_path}")
-        shutil.rmtree(local_dir)
-
-    except Exception as e:
-        dbg_path = os.path.join(output_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
-
-        print(f"\n[错误] 生成符号化日志失败: {e}")
-        # 如果失败，保存原始的 map 数据以供调试
-        fallback_path = os.path.join(output_dir, f"{model_id.replace('/', '_')}.raw_map.json")
-        # 为了能将 tuple 作为 key 序列化，进行转换
-        serializable_map = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in total_calls_map.items()}
-        with open(fallback_path, "w", encoding="utf-8") as f:
-            json.dump(serializable_map, f, indent=2, ensure_ascii=False)
-        print(f"[信息] 用于调试的原始采集数据已保存至: {fallback_path}")
-        print(f"[信息] 详细调试输出已写入: {dbg_path}")
-        shutil.rmtree(local_dir)
-
 
 def skip(*args, **kwargs):
     # This is a helper function to save time during the initialization! 
@@ -1180,11 +458,11 @@ torch.jit.script = fake_script
 
 def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsout"
+        out_dir = ROOT_DIR / "rsout"
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsdata"
+        data_dir = ROOT_DIR / "rsdata"
     os.makedirs(data_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "AQLM")
@@ -1198,7 +476,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
         agg_path = os.path.join(out_dir, "AQLM.json")
         rs_data_path = os.path.join(data_dir, "AQLM.json")
 
-    # --- 1. 基础设置 ---
+    # --- 1. Basic setup ---
     def skip(*args, **kwargs): pass
     torch.nn.init.kaiming_uniform_ = skip
     torch.nn.init.uniform_ = skip
@@ -1206,8 +484,8 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
 
     modelId = "meta-llama/Llama-2-7b-hf"
     
-    # --- 2. 修正后的路径引入 ---
-    repo_root = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/AQLM"
+    # --- 2. Import from the corrected path ---
+    repo_root = str(ROOT_DIR / "models_rs" / "AQLM")
     inference_lib_path = os.path.join(repo_root, "inference_lib", "src")
     
     if inference_lib_path not in sys.path:
@@ -1215,7 +493,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
     
     print(f"[INFO] Importing AQLM from {inference_lib_path}")
 
-    # --- 3. 在 NvccPatch 保护下导入核心类 ---
+    # --- 3. Import core classes under NvccPatch protection ---
     QuantizedLinear = None
     with NvccPatch():
         try:
@@ -1227,10 +505,10 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
             try:
                 from aqlm import QuantizedLinear
             except ImportError:
-                print("[FATAL] 无法找到 QuantizedLinear。请确认 inference_lib/src/aqlm/inference.py 中定义了该类。")
+                print("[FATAL] Unable to find QuantizedLinear. Please confirm that this class is defined in inference_lib/src/aqlm/inference.py.")
                 return
 
-    # --- 4. 准备标准模型 ---
+    # --- 4. Prepare the standard model ---
     local_dir = prepare_snapshot_and_stage_sources(
         model_id=modelId,
         hf_token=HF_TOKEN or None,
@@ -1255,7 +533,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     
-    # 加载标准模型
+    # Load the standard model.
     with NvccPatch():
         model = AutoModelForCausalLM.from_pretrained(
             local_dir,
@@ -1265,7 +543,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
             low_cpu_mem_usage=True
         ).eval()
 
-    # --- 5. 定义替换与 Mock 数据生成逻辑 ---
+    # --- 5. Define replacement and mock-data generation logic ---
     def replace_linear_with_aqlm(module):
         for name, child in module.named_children():
             if isinstance(child, torch.nn.Linear):
@@ -1278,21 +556,11 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                 dev = child.weight.device
                 dtype = child.weight.dtype 
                 
-                # AQLM 参数
+                # AQLM parameters.
                 nbits_per_codebook = 8
                 num_codebooks = 1 
                 in_group_size = 8 
                 out_group_size = 1
-                # # --- 配置 A: Target code1x16 ---
-                # nbits_per_codebook = 8
-                # num_codebooks = 1       # 1个码本
-                # in_group_size = 16      # 组大小 16
-                # out_group_size = 1
-                # # --- 配置 B: Target code2x8 ---
-                # nbits_per_codebook = 8
-                # num_codebooks = 2       # 2个码本
-                # in_group_size = 8       # 组大小 8
-                # out_group_size = 1
                 
                 try:
                     new_layer = QuantizedLinear(
@@ -1307,9 +575,9 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                         dtype=dtype
                     )
                     
-                    # --- 数据填充修正版 ---
+                    # --- Corrected data-population version ---
                     
-                    # codes: 使用 random_() 避免 int8 范围溢出错误
+                    # codes: Use random_() to avoid int8 range-overflow errors.
                     if hasattr(new_layer, 'codes'):
                         new_layer.codes.data.random_()
                     
@@ -1328,24 +596,25 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                     setattr(module, name, new_layer)
                     
                 except TypeError as e:
-                    print(f"\n[替换失败] {name}: {e}")
+                    print(f"\n[Replacement Failed] {name}: {e}")
                     import inspect
-                    print(f"  -> 期望参数: {inspect.signature(QuantizedLinear.__init__)}")
+                    print(f"  -> Expected parameters: {inspect.signature(QuantizedLinear.__init__)}")
                 except Exception as e:
-                    print(f"[错误] Creating AQLM layer for {name}: {e}")
+                    print(f"[Error] Creating AQLM layer for {name}: {e}")
             else:
                 replace_linear_with_aqlm(child)
 
-    print("开始替换 Linear 层...")
+    print("Starting to replace Linear layers...")
     with NvccPatch():
         replace_linear_with_aqlm(model)
-    print("层替换完成。")
+    print("Layer replacement complete.")
 
-    # --- 6. 循环推理 ---  
+
+    # --- 6. Inference loop ---
     total_calls_map = defaultdict(dict)
     data = []
 
-    # 再次使用 NvccPatch 确保 forward 过程中的 kernel 调用被拦截
+    # Reapply NvccPatch so kernel calls during forward are intercepted.
     with NvccPatch():
         for batch_size in BATCH_SIZE_CONFIGS:
             for seq_len in SEQ_LENS_CONFIGS:
@@ -1356,7 +625,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                 inputs = tokenizer(prompts, return_tensors="pt", padding=True)
                 real_seq_len = inputs["input_ids"].shape[1]
                 
-                tensor_calls.clear() # 清空旧日志
+                tensor_calls.clear() # Clear old logs.
 
                 try:
                     run_once(model, tokenizer, config, prompts, new_tokens=NEW_TOKENS)
@@ -1378,67 +647,41 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                     })
                 except Exception as e:
                     print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    # import traceback; traceback.print_exc()
 
-    # --- 7. 保存与分析 ---
-    print("\n--- 符号化分析... ---")
+    # --- 7. Save and analyze ---
+    print("\n--- Symbolization analysis... ---")
     
-    # 保存原始时序数据 (data)
+    # Save the raw time-series data.
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf)
 
-    # 准备捕获输出
+    # Prepare to capture output.
     buf = io.StringIO()
 
     try:
-        # 静音 computeSymbolicArgsWithMap 的控制台输出
+        # Suppress computeSymbolicArgsWithMap console output.
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
 
-        # 把调试输出写入文件，避免刷屏
-        # dbg_path = os.path.join(output_dir, "AQLM_symbolic_debug.log")
-        # with open(dbg_path, "w", encoding="utf-8") as f:
-        #     f.write(buf.getvalue())
-
-        print(f"\n[成功] 已聚合的符号化日志已保存至: {agg_path}")
-        # print(f"[信息] 详细调试输出已写入: {dbg_path}")
+        print(f"\n[Success] Aggregated symbolized log has been saved to: {agg_path}")
         
         if os.path.exists(local_dir):
             shutil.rmtree(local_dir)
 
     except Exception as e:
-        # 发生错误时，也要保存日志以便排查
-        # dbg_path = os.path.join(output_dir, "AQLM_symbolic_debug.log")
-        # with open(dbg_path, "w", encoding="utf-8") as f:
-        #     f.write(buf.getvalue())
-
-        print(f"\n[错误] 生成符号化日志失败: {e}")
+        print(f"\n[Error] Failed to generate symbolized log: {e}")
         traceback.print_exc()
-        
-        # 如果失败，保存原始的 map 数据以供调试
-        # safe_model_id = modelId.replace('/', '_')
-        # fallback_path = os.path.join(output_dir, f"{safe_model_id}_AQLM.raw_map.json")
-        
-        # # 为了能将 tuple 作为 key 序列化，进行转换
-        # serializable_map = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in total_calls_map.items()}
-        
-        # with open(fallback_path, "w", encoding="utf-8") as f:
-        #     json.dump(serializable_map, f, indent=2, ensure_ascii=False)
-            
-        # print(f"[信息] 用于调试的原始采集数据已保存至: {fallback_path}")
-        # print(f"[信息] 详细调试输出已写入: {dbg_path}")
-        
         if os.path.exists(local_dir):
             shutil.rmtree(local_dir)
 
 
 def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsout"
+        out_dir = ROOT_DIR / "rsout"
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsdata"
+        data_dir = ROOT_DIR / "rsdata"
     os.makedirs(data_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "Mixture-Compressor-MoE")
@@ -1452,7 +695,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
         agg_path = os.path.join(out_dir, "Mixture-Compressor-MoE.json")
         rs_data_path = os.path.join(data_dir, "Mixture-Compressor-MoE.json")
 
-    # --- 1. 基础设置 ---
+    # --- 1. Basic setup ---
     def skip(*args, **kwargs): pass
     torch.nn.init.kaiming_uniform_ = skip
     torch.nn.init.uniform_ = skip
@@ -1460,33 +703,33 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
 
     modelId = "meta-llama/Llama-2-7b-hf"
     
-    # --- 2. 注入仓库路径 ---
-    repo_root = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/Mixture-Compressor-MoE"
+    # --- 2. Add the repository path ---
+    repo_root = str(ROOT_DIR / "models_rs" / "Mixture-Compressor-MoE")
     if repo_root not in sys.path:
         sys.path.insert(0, repo_root)
     print(f"[INFO] Importing MCM from {repo_root}")
 
-    # [FIX] 屏蔽 torch.compile
+    # [FIX] Disable torch.compile.
     if hasattr(torch, "compile"):
         def fake_compile(model=None, *args, **kwargs):
             if model is None: return lambda x: x
             return model
         torch.compile = fake_compile
 
-    # --- 3. [核心] Mock hqq_aten 以解决 Backend 不可用问题 ---
+    # --- 3. [Core] Mock hqq_aten to handle an unavailable backend ---
     import types
     fake_hqq_aten = types.ModuleType("hqq_aten")
     
-    # 定义底层的 Mock C++ 函数
+    # Define the low-level mock C++ function.
     def mock_dequantize_kernel(W_q, scale, zero, shape, group_size, nbits, axis, packing):
-        # 模拟 C++ 层的分发逻辑，决定内核名字
-        kernel_name = f"dequantize_{nbits}bit_kernel" # 默认
+        # Simulate C++ dispatch logic to select the kernel name.
+        kernel_name = f"dequantize_{nbits}bit_kernel" # Default kernel.
         if nbits == 4: kernel_name = "dequantize_4bit_u8_kernel"
         elif nbits == 3: kernel_name = "dequantize_3bit_32_kernel"
         elif nbits == 2: kernel_name = "dequantize_2bit_u8_kernel"
         elif nbits == 8: kernel_name = "dequantize_8bit_u8_kernel"
 
-        # 记录 Trace
+        # Record the trace.
         call_stack = retrieve_stack(inspect.stack())
         hasTensor, argCons = collect_tensor_args(W_q, scale, zero, shape, group_size, nbits, axis, packing, method=kernel_name)
         
@@ -1498,7 +741,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
         if to_add not in tensor_calls:
             tensor_calls.append(to_add)
 
-        # 返回 Dummy 输出
+        # Return dummy output.
         out_shape = list(shape)
         return torch.zeros(out_shape, dtype=scale.dtype, device=W_q.device)
 
@@ -1506,7 +749,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     sys.modules["hqq_aten"] = fake_hqq_aten
     print("[INFO] Injected Mock hqq_aten module.")
 
-    # --- 4. 导入核心类并实施 Monkey Patch ---
+    # --- 4. Import core classes and apply monkey patches ---
     QLinear = None
     BaseQuantizeConfig = None
     HQQBackend = None
@@ -1520,20 +763,20 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
             import quant.QLinear as QLinearModule
             from quant.QLinear import QLinear, BaseQuantizeConfig, HQQBackend
             
-            # 1. 覆盖 available 标志
+            # 1. Override the available flag.
             QLinearModule.hqq_aten = fake_hqq_aten
             QLinearModule.hqq_aten_is_available = True
             QLinear.backend = HQQBackend.ATEN 
             
-            # 2. 直接替换 QLinear 类的 dequantize_aten 方法
+            # 2. Replace QLinear.dequantize_aten directly.
             def mock_dequantize_aten_method(self):
-                # 这里只保留源码的核心逻辑，去掉 Assert
+                # Retain only the source's core logic and remove the assertion.
                 W_q, meta = self.W_q, self.meta
                 device = W_q.device
                 
                 return fake_hqq_aten.dequantize(
                     W_q,
-                    meta.get("scale", torch.ones(1)), #由于是Mock，如果取不到就给个默认
+                    meta.get("scale", torch.ones(1)), # This is a mock, so use a default when the value is unavailable.
                     meta.get("zero", torch.zeros(1)),
                     meta["shape"],
                     meta.get("group_size", -1),
@@ -1549,7 +792,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
             print(f"[FATAL] Import failed: {e}")
             return
 
-    # --- 5. 准备标准模型 ---
+    # --- 5. Prepare the standard model ---
     local_dir = prepare_snapshot_and_stage_sources(
         model_id=modelId,
         hf_token=HF_TOKEN or None,
@@ -1577,7 +820,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
             device_map="cpu", low_cpu_mem_usage=True
         ).eval()
 
-    # --- 6. 核心替换逻辑 ---
+    # --- 6. Core replacement logic ---
     def replace_linear_with_mcm(module):
         for name, child in module.named_children():
             if isinstance(child, torch.nn.Linear):
@@ -1599,7 +842,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                         device="cpu"
                     )
                     
-                    # 初始化 Mock 权重
+                    # Initialize mock weights.
                     dummy_weight = torch.randn(
                         child.out_features, child.in_features, 
                         dtype=torch.float16, device="cpu"
@@ -1624,16 +867,16 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                     setattr(module, name, new_layer)
                     
                 except Exception as e:
-                    print(f"[替换失败] {name}: {e}")
+                    print(f"[Replacement Failed] {name}: {e}")
             else:
                 replace_linear_with_mcm(child)
 
-    print(f"开始替换 Linear 层 (MCM, bits={4})...")
+    print(f"Starting to replace Linear layers (MCM, bits={4})...")
     with NvccPatch():
         replace_linear_with_mcm(model)
-    print("层替换完成。")
+    print("Layer replacement complete.")
 
-    # --- 7. 循环推理 ---
+    # --- 7. Inference loop ---
     total_calls_map = defaultdict(dict)
     data = []
 
@@ -1677,8 +920,8 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                     print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
                     traceback.print_exc()
 
-    # --- 8. 保存与分析 ---
-    print("\n--- 符号化分析... ---")
+    # --- 8. Save and analyze ---
+    print("\n--- Symbolization analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf, indent=4)
 
@@ -1687,27 +930,21 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
 
-        # dbg_path = os.path.join(output_dir, "MCM_symbolic_debug.log")
-        # with open(dbg_path, "w", encoding="utf-8") as f:
-        #     f.write(buf.getvalue())
-
-        print(f"\n[成功] 已聚合的符号化日志已保存至: {agg_path}")
+        print(f"\n[Success] Aggregated symbolized log has been saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[错误] 生成符号化日志失败: {e}")
+        print(f"\n[Error] Failed to generate symbolized log: {e}")
         traceback.print_exc()
-        # with open(os.path.join(output_dir, "MCM_symbolic_debug.log"), "w") as f:
-        #     f.write(buf.getvalue())
         shutil.rmtree(local_dir)
 
 def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsout"
+        out_dir = ROOT_DIR / "rsout"
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/rsdata"
+        data_dir = ROOT_DIR / "rsdata"
     os.makedirs(data_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "any-precision-llm")
@@ -1721,7 +958,7 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
         agg_path = os.path.join(out_dir, "any-precision-llm.json")
         rs_data_path = os.path.join(data_dir, "any-precision-llm.json")
     
-    model_path = '/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/any-precision-llm'
+    model_path = str(ROOT_DIR / "models_rs" / "any-precision-llm")
     model_id = 'meta-llama/Llama-2-7b-chat-hf'
     if model_path not in sys.path:
         sys.path.insert(0, model_path)
@@ -1737,26 +974,11 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
         local_only=False,
         include_weights=False
     )
-    # config = AutoConfig.from_pretrained(local_dir, trust_remote_code=True)
-    # if override_configs:
-    #     if "architectures" in override_configs:
-    #         override_configs.pop("architectures")
-        
-    #     for k in override_configs:
-    #         if hasattr(config, k):
-    #             try:
-    #                 setattr(config, k, override_configs[k])
-    #             except Exception:
-    #                 pass
                 
     tokenizer = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True, use_fast=True)
     streamer = TextStreamer(tokenizer)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    
-    # precision_dir = os.path.join(model_path, "any_precision")
-    # if precision_dir not in sys.path:
-    #     sys.path.insert(0, precision_dir)
 
     from any_precision import AnyPrecisionForCausalLM
     model = AnyPrecisionForCausalLM.from_quantized(local_dir, precisions=[4,8])
@@ -1773,14 +995,6 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
                 except Exception:
                     pass
     model.config = config
-    
-    # with NvccPatch():
-    #     model = AnyPrecisionForCausalLM.from_pretrained(
-    #         local_dir, config=config, 
-    #         precisions = [4, 8],
-    #         # torch_dtype=torch.float16, 
-    #         device_map="cpu", low_cpu_mem_usage=True
-    #     ).eval().cuda()
 
     # Warm up CUDA cache for stable performance
     print("~~~~~~~ Warming up CUDA cache ~~~~~~~")
@@ -1838,8 +1052,8 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
                     print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
                     traceback.print_exc()
 
-    # --- 8. 保存与分析 ---
-    print("\n--- 符号化分析... ---")
+    # --- 8. Save and analyze ---
+    print("\n--- Symbolization analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf, indent=4)
 
@@ -1848,14 +1062,15 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
 
-        print(f"\n[成功] 已聚合的符号化日志已保存至: {agg_path}")
+        print(f"\n[Success] Aggregated symbolized log has been saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[错误] 生成符号化日志失败: {e}")
+        print(f"\n[Error] Failed to generate symbolized log: {e}")
         traceback.print_exc()
         shutil.rmtree(local_dir)
 
-# testMCM()
-# testAqlmManual()
-testAnyPrecision()
+if __name__ == "__main__":
+    testAqlmManual()
+    testMCM()
+    testAnyPrecision()
