@@ -4,10 +4,11 @@ import torch
 
 
 class LoadedCppExtensionMock:
-    def __init__(self, on_called=None):
+    def __init__(self, on_called=None, enable_quantized_ops=False):
         """
         Mock class to simulate a loaded C++ extension.
         :param on_called: Optional callback function to call when a method is invoked.
+        :param enable_quantized_ops: Enable shape-aware mocks for research quantization kernels.
         This can be used for additional logging or assertions in tests.
         Example usage:
         def my_callback(method_name, args, kwargs):
@@ -15,6 +16,7 @@ class LoadedCppExtensionMock:
         loaded_extension = LoadedCppExtensionMock(on_called=my_callback)
         """
         self._on_called = on_called
+        self._enable_quantized_ops = enable_quantized_ops
 
     def __getattr__(self, item):
         def _mocked_method(*args, **kwargs):
@@ -31,7 +33,6 @@ class LoadedCppExtensionMock:
                 return None
             
             if item.startswith("rspmm") and item.endswith("forward_cuda"):
-                # num_row, dim = args[-1].shape
                 num_row = args[-1].size(0)
                 dim = args[-1].size(1)
                 output = torch.zeros((num_row, dim), dtype=args[-1].dtype, device=args[-1].device)
@@ -67,9 +68,75 @@ class LoadedCppExtensionMock:
                 return q
             
             if item == "sym_dequant":
-                q = torch.zeros_like(args[0])
-                q.dtype = torch.half
-                return q
+                return torch.zeros_like(args[0], dtype=torch.half)
+
+            if self._enable_quantized_ops and item == "dequantize":
+                try:
+                    target_shape = args[3]
+                    ref = args[1] if len(args) > 1 else args[0]
+                    return torch.zeros(target_shape, dtype=ref.dtype, device=ref.device)
+                except Exception:
+                    return torch.zeros((1,), device="cpu")
+
+            if self._enable_quantized_ops and item.startswith("code") and ("matmat" in item or "matvec" in item):
+                try:
+                    input_tensor = args[0]
+                    out_features = 1
+
+                    if len(args) > 3:
+                        scales = args[3]
+                        num_out_groups = scales.shape[0]
+                        out_group_size = 1
+
+                        if len(args) > 2:
+                            codebooks = args[2]
+                            if codebooks.dim() >= 3:
+                                out_group_size = codebooks.shape[2]
+
+                        out_features = num_out_groups * out_group_size
+
+                    output_shape = list(input_tensor.shape[:-1]) + [out_features]
+                    return torch.zeros(
+                        output_shape,
+                        dtype=input_tensor.dtype,
+                        device=input_tensor.device,
+                    )
+                except Exception:
+                    return args[0]
+
+            if self._enable_quantized_ops and item == "matmul_kbit":
+                try:
+                    input_tensor = args[0]
+                    weight_tensor = args[1]
+
+                    if torch.is_tensor(input_tensor) and torch.is_tensor(weight_tensor):
+                        if weight_tensor.dim() == 3:
+                            out_features = weight_tensor.shape[1]
+                        else:
+                            out_features = weight_tensor.shape[0]
+
+                        output_shape = input_tensor.shape[:-1] + (out_features,)
+                        return torch.zeros(
+                            output_shape,
+                            dtype=input_tensor.dtype,
+                            device=input_tensor.device,
+                        )
+                except Exception as e:
+                    print(f"[Mock Error] matmul_kbit failed: {e}")
+                    return args[0] if args else None
+
+            if self._enable_quantized_ops and item == "dequant_kbit":
+                if args and torch.is_tensor(args[0]):
+                    qweight = args[0]
+                    if qweight.dim() == 3:
+                        out_features = qweight.shape[1]
+                        in_features = qweight.shape[2] * 32
+                        return torch.zeros(
+                            (out_features, in_features),
+                            dtype=torch.float16,
+                            device=qweight.device,
+                        )
+                    return torch.zeros_like(qweight, dtype=torch.float16)
             
             # always return the first argument if available, otherwise None
             if len(args) > 0:
@@ -135,3 +202,13 @@ class MockCppExtensionTests(unittest.TestCase):
         )
         loaded_extension.some_method(1, 2, key='value')
 
+    def test_quantized_ops_are_opt_in(self):
+        input_tensor = torch.zeros((2, 4))
+        weight_tensor = torch.zeros((3, 4))
+
+        default_extension = LoadedCppExtensionMock()
+        self.assertIs(default_extension.matmul_kbit(input_tensor, weight_tensor), input_tensor)
+
+        quantized_extension = LoadedCppExtensionMock(enable_quantized_ops=True)
+        output = quantized_extension.matmul_kbit(input_tensor, weight_tensor)
+        self.assertEqual(output.shape, (2, 3))

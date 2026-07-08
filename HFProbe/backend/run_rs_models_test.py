@@ -236,7 +236,7 @@ def retrieve_stack(stack):
     return tuple(call_stack)
 
 # mock cpp extension load
-from cpp_load_test import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
+from cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
 
 def _on_called(method, *args, **kwargs):
     global tensor_calls
@@ -259,7 +259,7 @@ def _on_called(method, *args, **kwargs):
     #     argChanged = True
         # print(method, argCons)
     
-cpp_mock = LoadedCppExtensionMock(_on_called)
+cpp_mock = LoadedCppExtensionMock(_on_called, enable_quantized_ops=True)
 mock_torch_utils_cpp_extension(cpp_mock)
 
 # --- 导入并应用补丁 ---
