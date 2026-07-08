@@ -1,18 +1,17 @@
-from agents import Agent, Runner, ModelSettings, RunConfig, function_tool, set_default_openai_key, FileSearchTool, WebSearchTool
+from agents import Agent, Runner, function_tool, WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
-from pydantic import BaseModel, Field
-from openai import OpenAI
 import json, os
-from typing import Dict, Any, List, Optional
+from typing import Dict, List, Optional
 import run_rs_model
 import run_rs_models_test
 import tiktoken
 import traceback
-import re
-from datetime import datetime
 import time
+from pathlib import Path
 
+BACKEND_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BACKEND_DIR.parent
 
 MODEL_PRICING = {
     "gpt-4o":       {"input": 0.0025,  "output": 0.01},   # per 1K tokens
@@ -101,7 +100,6 @@ class MyCustomSession(Session):
         self.items.clear()
         self.token_usage = {"input": 0, "output": 0, "cost": 0.0}
 
-structure_configs = []
 resCon = {}
 out_path = ""
 
@@ -113,14 +111,11 @@ def saveRes(config: str):
     Args:
         config: The model config in JSON string format.
     """
-    # global structure_configs
     global resCon
     global out_path
     with open(out_path, "w") as f:
         resCon = json.loads(config)
         json.dump(resCon, f)
-        # if resCon not in structure_configs:
-        #     structure_configs.append(resCon)
     
 testAgent = Agent(
     name="LLMConfigAgent",
@@ -128,8 +123,6 @@ testAgent = Agent(
         "You are a precise LLM analyzer. You can search on the web to retrieve the model code, framework code and config.json. Then you can analyze the code and config. You check all the conditions in the call chain and match with config fields. Your task is to find the config values that are need to invoke the custom kernel. If this operator cannot be trigger with any config, answer 'No, it cannot be triggered.' If no new config is needed, answer 'No, current config is enough.' Otherwise, you should answer the new config.json and invoke saveRes tool to store the new config.\n"
     ),
     model="gpt-5",
-    # model_settings=ModelSettings(
-    #     temperature=0,),
     tools=[WebSearchTool(), saveRes],
 )
 
@@ -157,7 +150,6 @@ def runAgent(prompt):
             print("No partial result captured.")
 
     print(result.final_output)
-    # run_data = compute_agent_cost(prompt, result)
     print(f"input token: {session.token_usage['input']}, output token: {session.token_usage['output']}, cost: ${session.token_usage['cost']}")
     return result.final_output, session.token_usage
 
@@ -179,7 +171,7 @@ def generate_transformer(model_id, op_name, framework_repo):
     return runAgent(prompt_huggingface)
 
 def find_model_ops(framework_name, repo_path):
-    mapping_path = f"/home/mvh6224/CUDA-BOSolver/libanalyzer/rs_map/kernel_map_{framework_name}.json"
+    mapping_path = PROJECT_ROOT / "kernel_map" / f"kernel_map_{framework_name}.json"
     if not os.path.exists(mapping_path):
         print("kernel map not exist!")
         return None, None
@@ -248,7 +240,7 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     if os.path.exists(cost_path):
         return
             
-    repo_path = f"/home/mvh6224/CUDA-BOSolver/pyanalyzer/models_rs/{framework_name}"
+    repo_path = BACKEND_DIR / "models_rs" / framework_name
     all_ops, used_ops = find_model_ops(framework_name, repo_path)
     print(f"used ops for framework {framework_name}: {used_ops}")
     print(f"all ops for framework {framework_name}: {all_ops}")
@@ -265,8 +257,6 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     triggered_ops = find_triggered_ops_hf(framework_name)
     if triggered_ops is None:
         return
-    # else:
-    #     triggered_ops = set()
    
     cannot_tri_path = os.path.join(config_out_dir, "no_trigger.json")   
     cannot_tri = []
@@ -299,7 +289,6 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
             print(op_name, "has been handled.")
             continue
 
-        # os.makedirs(config_out_dir, exist_ok=True)
         config_out_path = os.path.join(config_out_dir, op_name+".json")
         print(f"Generating config for framework {framework_name} to trigger op {op_name}")
         time0 = time.time()
@@ -404,12 +393,7 @@ def fix():
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "new": list(triggered_ops-initial_trigger), "inre_len": solved}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
-            
-# fix()
-# main_transformers()   
-# framework_name = "Mixture-Compressor-MoE"
-framework_name = "any-precision-llm"
-# handle_one_model_hf("facebook/opt-125m", "ShiftAddLLM", repo_url_map["ShiftAddLLM"])           
+ 
+# fix() 
+framework_name = "any-precision-llm"        
 handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])   
-# framework_name = "AQLM"
-# handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])   
