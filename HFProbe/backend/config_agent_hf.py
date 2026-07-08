@@ -374,10 +374,6 @@ def main_transformers():
     
     for item in model_list:
         model_id = item.replace("_", "/", 1)
-        if model_id in ["L1-m1ng/qwen-7b-inf", "leesws/RoadSafety-GPT-14b-chat", "yzsydlc/qwen2", "ishishow/ishishow_safetensors", "BechirTrabelsi1/Falcon_OPT", "minchul/cvlface_adaface_vit_base_kprpe_webface4m"]:
-            continue
-        if "72B" in model_id:
-            continue
         handle_one_model_hf(model_id)
  
 # handle_one_model_hf("Qwen/Qwen-1_8B-Chat")

@@ -49,7 +49,6 @@ def run_command(command, cwd=None):
         print(result.stdout)
         return True
 
-
 def compile_cu_file(cu_file, root_path):
     print(f"Compiling {cu_file}...")
 
@@ -245,6 +244,19 @@ def compile_paper():
             ])
     os.chdir(original_dir)
 
+def _sanitize_cuda_source(cu_file, out_dir):
+    source_path = Path(cu_file)
+    source_text = source_path.read_text()
+    if "vec.type()" not in source_text:
+        return source_path
+
+    sanitized_root = Path(out_dir) / ".sanitized_sources"
+    sanitized_root.mkdir(parents=True, exist_ok=True)
+    sanitized_path = sanitized_root / source_path.name
+    sanitized_text = source_text.replace("vec.type()", "vec.scalar_type()")
+    sanitized_path.write_text(sanitized_text)
+    return sanitized_path
+
 def compile_hf():
     original_dir = os.getcwd()
     targetDir = os.path.join(project_path, "benchmark", "huggingface")
@@ -264,7 +276,8 @@ def compile_hf():
                 cuda_bc_file = f"{output_prefix}-cuda-nvptx64-nvidia-cuda-sm_80.bc"
                 combined_bc_file = f"{output_prefix}{COMBINED_SUFFIX}"
                 if not os.path.exists(cuda_bc_file) or not os.path.exists(host_bc_file):
-                    success = compile_cu_file(os.path.join(dir_path, file), root_path=dir_path)
+                    sanitized_file = _sanitize_cuda_source(os.path.join(dir_path, file), out_model_dir)
+                    success = compile_cu_file(str(sanitized_file), root_path=dir_path)
                     if not success:
                         print(f"Failed to compile {file} in {dir_path}")
                         continue
