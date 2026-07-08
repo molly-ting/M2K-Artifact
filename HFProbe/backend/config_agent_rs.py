@@ -3,8 +3,7 @@ from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
 import json, os
 from typing import Dict, List, Optional
-import run_rs_model
-import run_rs_models_test
+import run_rs_models
 import tiktoken
 import traceback
 import time
@@ -218,13 +217,13 @@ def find_triggered_ops_hf(framework_name, op_name=None):
 
 def run_model(framework_name, config_data, op_name):
     if framework_name == "ShiftAddLLM":
-        run_rs_model.testShiftAdd(override_configs=config_data, out_dir="./rs-exp/out", op_name=op_name)
+        run_rs_models.testShiftAdd(override_configs=config_data, out_dir="./rs-exp/out", op_name=op_name)
     elif framework_name == "Mixture-Compressor-MoE":
-        run_rs_models_test.testMCM(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testMCM(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
     elif framework_name == "AQLM":
-        run_rs_models_test.testAqlmManual(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testAqlmManual(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
     elif framework_name == "any-precision-llm":
-        run_rs_models_test.testAnyPrecision(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
+        run_rs_models.testAnyPrecision(override_configs=config_data, out_dir="./rs-exp/out", data_dir="./rs-exp/data", op_name=op_name)
 
 repo_url_map = {"ShiftAddLLM": "https://github.com/GATECH-EIC/ShiftAddLLM", "QuaRot": "https://github.com/spcl/QuaRot", "AQLM": "https://github.com/Vahe1994/AQLM/tree/pv-tuning",
                  "any-precision-llm": "https://github.com/SNU-ARC/any-precision-llm", "Mixture-Compressor-MoE": "https://github.com/Aaronhuang-778/Mixture-Compressor-MoE"}
@@ -396,4 +395,4 @@ def fix():
  
 # fix() 
 framework_name = "any-precision-llm"        
-handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])   
+handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])
