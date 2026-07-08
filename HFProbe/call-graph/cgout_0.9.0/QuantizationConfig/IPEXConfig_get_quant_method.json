@@ -1,0 +1,93 @@
+{
+    "ipex_quant-IPEXConfig-__init__": {
+        "class": "IPEXConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            30,
+            54
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXConfig-get_quant_method": {
+        "class": "IPEXConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            113,
+            122
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_layer_skipped_awq",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "line": 117
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 118
+            },
+            {
+                "class": "IPEXAWQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 119
+            },
+            {
+                "class": "IPEXGPTQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 121
+            }
+        ],
+        "unknown": []
+    },
+    "awq-is_layer_skipped_awq": {
+        "class": null,
+        "function": "is_layer_skipped_awq",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "loc": [
+            85,
+            86
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXAWQLinearMethod-__init__": {
+        "class": "IPEXAWQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            191,
+            192
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXGPTQLinearMethod-__init__": {
+        "class": "IPEXGPTQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            129,
+            130
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

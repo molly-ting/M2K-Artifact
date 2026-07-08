@@ -1,17 +1,3 @@
-; RUN: %S/ConcreteTest.py --klee='%klee' --lli=%lli %s
-
-declare void @print_i32(i32)
-
-define i32 @main() {
-	%a = or i32 12345678, 87654321
-	%b = and i32 %a, 87654321
-	%check = xor i32 %b, 87654321
-	%test = icmp eq i32 %check, 0
-	br i1 %test, label %exitTrue, label %exitFalse
-exitTrue:
-	call void @print_i32(i32 1)
-	ret i32 0
-exitFalse:
-	call void @print_i32(i32 0)
-	ret i32 0
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c3444b94387b445d9cdad5c77ab2f04eb00102c2378c8092b41d1c8aa18c711
+size 379

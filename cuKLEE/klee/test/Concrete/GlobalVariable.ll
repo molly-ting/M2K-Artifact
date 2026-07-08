@@ -1,11 +1,3 @@
-; RUN: %S/ConcreteTest.py --klee='%klee' --lli=%lli %s
-
-declare void @print_i32(i32)
-
-@anInt = global i32 1
-@aRef = global i32* @anInt
-
-define i32 @main() {
-        call void @print_i32(i32 0)
-	ret i32 0
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5129220d3eafdfbda1cbfce22a9c7bda43dd10aa0b32ad427941d360e75d53b6
+size 206

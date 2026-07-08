@@ -1,0 +1,53 @@
+{
+    "compressed_tensors-CompressedTensorsKVCacheMethod-__init__": {
+        "class": "CompressedTensorsKVCacheMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py",
+        "loc": [
+            609,
+            611
+        ],
+        "callees": [
+            {
+                "class": "CompressedTensorsKVCacheMethod",
+                "function": "validate_kv_cache_scheme",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py",
+                "line": 610
+            }
+        ],
+        "unknown": []
+    },
+    "compressed_tensors-CompressedTensorsKVCacheMethod-validate_kv_cache_scheme": {
+        "class": "CompressedTensorsKVCacheMethod",
+        "function": "validate_kv_cache_scheme",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py",
+        "loc": [
+            614,
+            644
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "kv_cache-BaseKVCacheMethod-__init__": {
+        "class": "BaseKVCacheMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kv_cache.py",
+        "loc": [
+            24,
+            25
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "compressed_tensors-CompressedTensorsKVCacheMethod-create_weights": {
+        "class": "CompressedTensorsKVCacheMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py",
+        "loc": [
+            27,
+            43
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

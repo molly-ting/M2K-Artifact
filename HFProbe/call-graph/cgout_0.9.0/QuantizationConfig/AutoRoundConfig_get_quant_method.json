@@ -1,0 +1,546 @@
+{
+    "auto_round-AutoRoundConfig-__init__": {
+        "class": "AutoRoundConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            33,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-get_quant_method": {
+        "class": "AutoRoundConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            301,
+            308
+        ],
+        "callees": [
+            {
+                "class": "AutoRoundConfig",
+                "function": "apply_ipex_quant_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 304
+            },
+            {
+                "class": "AutoRoundConfig",
+                "function": "apply_gptq_quant_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 306
+            },
+            {
+                "class": "AutoRoundConfig",
+                "function": "apply_awq_quant_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 308
+            }
+        ],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-apply_ipex_quant_layer": {
+        "class": "AutoRoundConfig",
+        "function": "apply_ipex_quant_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            274,
+            299
+        ],
+        "callees": [
+            {
+                "class": "AutoRoundConfig",
+                "function": "get_layer_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 275
+            },
+            {
+                "class": "AutoRoundConfig",
+                "function": "check_quantized",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 276
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 278
+            },
+            {
+                "class": "IPEXConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 285
+            },
+            {
+                "class": "IPEXAWQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 288
+            },
+            {
+                "class": "IPEXConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 290
+            },
+            {
+                "class": "IPEXGPTQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+                "line": 293
+            }
+        ],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-get_layer_config": {
+        "class": "AutoRoundConfig",
+        "function": "get_layer_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            110,
+            125
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-check_quantized": {
+        "class": "AutoRoundConfig",
+        "function": "check_quantized",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            127,
+            128
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXConfig-__init__": {
+        "class": "IPEXConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            30,
+            54
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXAWQLinearMethod-__init__": {
+        "class": "IPEXAWQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            191,
+            192
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ipex_quant-IPEXGPTQLinearMethod-__init__": {
+        "class": "IPEXGPTQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/ipex_quant.py",
+        "loc": [
+            129,
+            130
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-apply_gptq_quant_layer": {
+        "class": "AutoRoundConfig",
+        "function": "apply_gptq_quant_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            200,
+            272
+        ],
+        "callees": [
+            {
+                "class": "AutoRoundConfig",
+                "function": "get_layer_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 207
+            },
+            {
+                "class": "AutoRoundConfig",
+                "function": "check_quantized",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 208
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 210
+            },
+            {
+                "class": null,
+                "function": "check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 223
+            },
+            {
+                "class": null,
+                "function": "check_moe_marlin_supports_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 228
+            },
+            {
+                "class": "GPTQMarlinConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "line": 235
+            },
+            {
+                "class": "GPTQConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+                "line": 245
+            },
+            {
+                "class": "GPTQMarlinLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "line": 268
+            },
+            {
+                "class": "GPTQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+                "line": 270
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-check_marlin_supported": {
+        "class": null,
+        "function": "check_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            96,
+            102
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 100
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-_check_marlin_supported": {
+        "class": null,
+        "function": "_check_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            69,
+            93
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "query_marlin_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 80
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-query_marlin_supported_quant_types": {
+        "class": null,
+        "function": "query_marlin_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            35,
+            66
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 41
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-check_moe_marlin_supports_layer": {
+        "class": null,
+        "function": "check_moe_marlin_supports_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            170,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin-GPTQMarlinConfig-__init__": {
+        "class": "GPTQMarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            46,
+            94
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq-GPTQConfig-__init__": {
+        "class": "GPTQConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            31,
+            73
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin-GPTQMarlinLinearMethod-__init__": {
+        "class": "GPTQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            204,
+            209
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 208
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-verify_marlin_supported": {
+        "class": null,
+        "function": "verify_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            105,
+            111
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 108
+            }
+        ],
+        "unknown": []
+    },
+    "gptq-GPTQLinearMethod-__init__": {
+        "class": "GPTQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            131,
+            132
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "auto_round-AutoRoundConfig-apply_awq_quant_layer": {
+        "class": "AutoRoundConfig",
+        "function": "apply_awq_quant_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            130,
+            198
+        ],
+        "callees": [
+            {
+                "class": "AutoRoundConfig",
+                "function": "get_layer_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 135
+            },
+            {
+                "class": "AutoRoundConfig",
+                "function": "check_quantized",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 136
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 138
+            },
+            {
+                "class": null,
+                "function": "check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 151
+            },
+            {
+                "class": null,
+                "function": "check_moe_marlin_supports_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 155
+            },
+            {
+                "class": "AWQMarlinConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 163
+            },
+            {
+                "class": "AWQConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "line": 172
+            },
+            {
+                "class": "AWQMoEMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 180
+            },
+            {
+                "class": null,
+                "function": "get_quant_method",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+                "line": 190
+            },
+            {
+                "class": "AWQMarlinLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 195
+            },
+            {
+                "class": "AWQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "line": 197
+            }
+        ],
+        "unknown": []
+    },
+    "awq_marlin-AWQMarlinConfig-__init__": {
+        "class": "AWQMarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            47,
+            68
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 66
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.TYPE_MAP.keys",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 62
+            }
+        ]
+    },
+    "awq-AWQConfig-__init__": {
+        "class": "AWQConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "loc": [
+            23,
+            40
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq_marlin-AWQMoEMethod-__init__": {
+        "class": "AWQMoEMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            323,
+            327
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "auto_round-get_quant_method": {
+        "class": null,
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/auto_round.py",
+        "loc": [
+            301,
+            308
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq_marlin-AWQMarlinLinearMethod-__init__": {
+        "class": "AWQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            185,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq-AWQLinearMethod-__init__": {
+        "class": "AWQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "loc": [
+            96,
+            97
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

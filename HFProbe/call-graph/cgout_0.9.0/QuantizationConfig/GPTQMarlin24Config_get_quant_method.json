@@ -1,0 +1,53 @@
+{
+    "gptq_marlin_24-GPTQMarlin24Config-__init__": {
+        "class": "GPTQMarlin24Config",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            37,
+            82
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin_24-GPTQMarlin24Config-get_quant_method": {
+        "class": "GPTQMarlin24Config",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            128,
+            132
+        ],
+        "callees": [
+            {
+                "class": "GPTQMarlin24LinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+                "line": 131
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_marlin_24-GPTQMarlin24LinearMethod-__init__": {
+        "class": "GPTQMarlin24LinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            142,
+            143
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

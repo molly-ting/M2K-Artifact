@@ -1,0 +1,38 @@
+{
+    "exllama-ExllamaLinearKernel-apply_weights": {
+        "class": "ExllamaLinearKernel",
+        "function": "apply_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/exllama.py",
+        "loc": [
+            124,
+            142
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "gptq_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 137
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-gptq_gemm": {
+        "class": null,
+        "function": "gptq_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            359,
+            364
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.gptq_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 363
+            }
+        ],
+        "unknown": []
+    }
+}

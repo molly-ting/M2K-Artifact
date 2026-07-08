@@ -1,0 +1,84 @@
+{
+    "hqq_marlin-HQQMarlinConfig-__init__": {
+        "class": "HQQMarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "loc": [
+            31,
+            47
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "hqq_marlin-HQQMarlinConfig-get_quant_method": {
+        "class": "HQQMarlinConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "loc": [
+            85,
+            91
+        ],
+        "callees": [
+            {
+                "class": "HQQMarlinConfig",
+                "function": "is_layer_skipped",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+                "line": 88
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 89
+            },
+            {
+                "class": "HQQMarlinMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+                "line": 90
+            }
+        ],
+        "unknown": []
+    },
+    "hqq_marlin-HQQMarlinConfig-is_layer_skipped": {
+        "class": "HQQMarlinConfig",
+        "function": "is_layer_skipped",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "loc": [
+            77,
+            83
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "prefix.split",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+                "line": 79
+            }
+        ]
+    },
+    "hqq_marlin-HQQMarlinMethod-__init__": {
+        "class": "HQQMarlinMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "loc": [
+            185,
+            189
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

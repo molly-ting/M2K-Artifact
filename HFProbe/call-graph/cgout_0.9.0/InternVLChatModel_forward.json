@@ -1,0 +1,921 @@
+{
+    "internvl-InternVLChatModel-__init__": {
+        "class": "InternVLChatModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1019,
+            1060
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "_patch_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1028
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1044
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_init_vision_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1040
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1050
+            },
+            {
+                "class": null,
+                "function": "init_vllm_registered_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1047
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_init_mlp1",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1053
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_patch_quant_config": {
+        "class": "InternVLChatModel",
+        "function": "_patch_quant_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1062,
+            1072
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_init_vision_model": {
+        "class": "InternVLChatModel",
+        "function": "_init_vision_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1074,
+            1097
+        ],
+        "callees": [
+            {
+                "class": "InternVisionModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 1090
+            },
+            {
+                "class": "InternVisionPatchModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 1097
+            }
+        ],
+        "unknown": []
+    },
+    "intern_vit-InternVisionModel-__init__": {
+        "class": "InternVisionModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            418,
+            438
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 431
+            },
+            {
+                "class": "InternVisionEncoder",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 432
+            }
+        ],
+        "unknown": []
+    },
+    "intern_vit-InternVisionEmbeddings-__init__": {
+        "class": "InternVisionEmbeddings",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            39,
+            57
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "intern_vit-InternVisionEncoder-__init__": {
+        "class": "InternVisionEncoder",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            381,
+            405
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "intern_vit-InternVisionPatchModel-__init__": {
+        "class": "InternVisionPatchModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            100,
+            103
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 103
+            }
+        ],
+        "unknown": []
+    },
+    "utils-init_vllm_registered_model": {
+        "class": null,
+        "function": "init_vllm_registered_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            281,
+            302
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "initialize_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 302
+            }
+        ],
+        "unknown": []
+    },
+    "utils-initialize_model": {
+        "class": null,
+        "function": "initialize_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            40,
+            89
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_model_architecture",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 51
+            },
+            {
+                "class": null,
+                "function": "configure_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 54
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 60
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 88
+            }
+        ],
+        "unknown": []
+    },
+    "utils-get_model_architecture": {
+        "class": null,
+        "function": "get_model_architecture",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            218,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "resolve_transformers_arch",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 233
+            },
+            {
+                "class": null,
+                "function": "as_embedding_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 241
+            },
+            {
+                "class": null,
+                "function": "as_classification_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 243
+            },
+            {
+                "class": null,
+                "function": "as_reward_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-resolve_transformers_arch": {
+        "class": null,
+        "function": "resolve_transformers_arch",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            164,
+            215
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-as_embedding_model": {
+        "class": null,
+        "function": "as_embedding_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            117,
+            144
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 135
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 142
+            }
+        ],
+        "unknown": []
+    },
+    "interfaces_base-is_pooling_model": {
+        "class": null,
+        "function": "is_pooling_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "loc": [
+            145,
+            146
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_create_pooling_model_cls": {
+        "class": null,
+        "function": "_create_pooling_model_cls",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            33,
+            114
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_get_pooling_model_name": {
+        "class": null,
+        "function": "_get_pooling_model_name",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            24,
+            30
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "model_name.removesuffix",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 28
+            }
+        ]
+    },
+    "adapters-as_classification_model": {
+        "class": null,
+        "function": "as_classification_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            147,
+            217
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 160
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 215
+            }
+        ],
+        "unknown": []
+    },
+    "adapters-as_reward_model": {
+        "class": null,
+        "function": "as_reward_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            220,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 231
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 237
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-configure_quant_config": {
+        "class": null,
+        "function": "configure_quant_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            284,
+            301
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "config-set_current_vllm_config": {
+        "class": null,
+        "function": "set_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4513,
+            4549
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_init_mlp1": {
+        "class": "InternVLChatModel",
+        "function": "_init_mlp1",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1099,
+            1109
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-forward": {
+        "class": "InternVLChatModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1350,
+            1385
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "get_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1366
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "get_input_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1367
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.language_model.model",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1384
+            }
+        ]
+    },
+    "internvl-InternVLChatModel-get_multimodal_embeddings": {
+        "class": "InternVLChatModel",
+        "function": "get_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1303,
+            1326
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "_parse_and_validate_multimodal_inputs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1306
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_process_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1319
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_process_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1323
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_parse_and_validate_multimodal_inputs": {
+        "class": "InternVLChatModel",
+        "function": "_parse_and_validate_multimodal_inputs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1275,
+            1290
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "_parse_and_validate_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1283
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_parse_and_validate_video_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1287
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_parse_and_validate_image_input": {
+        "class": "InternVLChatModel",
+        "function": "_parse_and_validate_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1158,
+            1200
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1174
+            },
+            {
+                "class": "InternVLImageEmbeddingInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1172
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1190
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1191
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_validate_pixel_values",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1195
+            },
+            {
+                "class": "InternVLImagePixelInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1193
+            }
+        ],
+        "unknown": []
+    },
+    "utils-flatten_bn": {
+        "class": null,
+        "function": "flatten_bn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            306,
+            307
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_validate_pixel_values": {
+        "class": "InternVLChatModel",
+        "function": "_validate_pixel_values",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1138,
+            1156
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_validate_shape",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1154
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-_validate_shape": {
+        "class": null,
+        "function": "_validate_shape",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1143,
+            1151
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_parse_and_validate_video_input": {
+        "class": "InternVLChatModel",
+        "function": "_parse_and_validate_video_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1202,
+            1245
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1218
+            },
+            {
+                "class": "InternVLImageEmbeddingInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1216
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1234
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1236
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "_validate_pixel_values",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1240
+            },
+            {
+                "class": "InternVLVideoPixelInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1238
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-_process_image_input": {
+        "class": "InternVLChatModel",
+        "function": "_process_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1247,
+            1273
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "extract_feature",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1256
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-extract_feature": {
+        "class": "InternVLChatModel",
+        "function": "extract_feature",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1125,
+            1136
+        ],
+        "callees": [
+            {
+                "class": "InternVisionModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 1126
+            },
+            {
+                "class": "InternVisionPatchModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 1126
+            },
+            {
+                "class": "InternVLChatModel",
+                "function": "pixel_shuffle",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1131
+            }
+        ],
+        "unknown": []
+    },
+    "intern_vit-InternVisionModel-forward": {
+        "class": "InternVisionModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            443,
+            463
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 456
+            },
+            {
+                "class": "InternVisionEncoder",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 461
+            }
+        ],
+        "unknown": []
+    },
+    "intern_vit-InternVisionEmbeddings-forward": {
+        "class": "InternVisionEmbeddings",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            84,
+            95
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "_get_position_embedding",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 93
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.class_embedding.expand",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 90
+            }
+        ]
+    },
+    "intern_vit-InternVisionEmbeddings-_get_position_embedding": {
+        "class": "InternVisionEmbeddings",
+        "function": "_get_position_embedding",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            71,
+            82
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "_get_pos_embed",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 79
+            }
+        ],
+        "unknown": []
+    },
+    "intern_vit-InternVisionEmbeddings-_get_pos_embed": {
+        "class": "InternVisionEmbeddings",
+        "function": "_get_pos_embed",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            59,
+            69
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "intern_vit-InternVisionEncoder-forward": {
+        "class": "InternVisionEncoder",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            407,
+            413
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "intern_vit-InternVisionPatchModel-forward": {
+        "class": "InternVisionPatchModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "loc": [
+            108,
+            126
+        ],
+        "callees": [
+            {
+                "class": "InternVisionEmbeddings",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "line": 121
+            }
+        ],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-pixel_shuffle": {
+        "class": "InternVLChatModel",
+        "function": "pixel_shuffle",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1111,
+            1123
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "internvl-InternVLChatModel-get_input_embeddings": {
+        "class": "InternVLChatModel",
+        "function": "get_input_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1328,
+            1348
+        ],
+        "callees": [
+            {
+                "class": "InternVLChatModel",
+                "function": "_set_visual_token_mask",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1341
+            },
+            {
+                "class": null,
+                "function": "merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 1342
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.language_model.get_input_embeddings",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+                "line": 1333
+            }
+        ]
+    },
+    "internvl-InternVLChatModel-_set_visual_token_mask": {
+        "class": "InternVLChatModel",
+        "function": "_set_visual_token_mask",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/internvl.py",
+        "loc": [
+            1292,
+            1298
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-merge_multimodal_embeddings": {
+        "class": null,
+        "function": "merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            457,
+            501
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 497
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_merge_multimodal_embeddings": {
+        "class": null,
+        "function": "_merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            394,
+            418
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_flatten_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 410
+            },
+            {
+                "class": null,
+                "function": "_embedding_count_expression",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 412
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_flatten_embeddings": {
+        "class": null,
+        "function": "_flatten_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            352,
+            362
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-_embedding_count_expression": {
+        "class": null,
+        "function": "_embedding_count_expression",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            365,
+            375
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

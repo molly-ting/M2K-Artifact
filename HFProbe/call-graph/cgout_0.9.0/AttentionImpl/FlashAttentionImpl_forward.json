@@ -1,0 +1,287 @@
+{
+    "flash_attn-FlashAttentionImpl-__init__": {
+        "class": "FlashAttentionImpl",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+        "loc": [
+            608,
+            661
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_flash_attn_version",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 639
+            },
+            {
+                "class": null,
+                "function": "is_quantized_kv_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+                "line": 641
+            },
+            {
+                "class": null,
+                "function": "flash_attn_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 643
+            },
+            {
+                "class": null,
+                "function": "flash_attn_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 647
+            },
+            {
+                "class": null,
+                "function": "get_supported_head_sizes",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 656
+            }
+        ],
+        "unknown": []
+    },
+    "fa_utils-get_flash_attn_version": {
+        "class": null,
+        "function": "get_flash_attn_version",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+        "loc": [
+            10,
+            48
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 16
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "abstract-is_quantized_kv_cache": {
+        "class": null,
+        "function": "is_quantized_kv_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+        "loc": [
+            305,
+            306
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "fa_utils-flash_attn_supports_fp8": {
+        "class": null,
+        "function": "flash_attn_supports_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+        "loc": [
+            51,
+            54
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_flash_attn_version",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 53
+            },
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 54
+            }
+        ],
+        "unknown": []
+    },
+    "flash_attn-get_supported_head_sizes": {
+        "class": null,
+        "function": "get_supported_head_sizes",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+        "loc": [
+            45,
+            46
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "flash_attn-FlashAttentionImpl-forward": {
+        "class": "FlashAttentionImpl",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+        "loc": [
+            663,
+            916
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flash_attn_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 692
+            },
+            {
+                "class": null,
+                "function": "flash_attn_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 716
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C_cache_ops.reshape_and_cache_flash",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 743
+            },
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 761
+            },
+            {
+                "class": null,
+                "function": "get_num_prefill_decode_query_kv_tokens",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+                "line": 769
+            },
+            {
+                "class": null,
+                "function": "_get_query_key_seq_metadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 786
+            },
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 794
+            },
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 800
+            },
+            {
+                "class": null,
+                "function": "_get_causal_option",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 817
+            },
+            {
+                "class": null,
+                "function": "get_seq_len_block_table_args",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+                "line": 897
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "kv_cache_dtype.startswith",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 714
+            },
+            {
+                "class": null,
+                "function": "updated_slot_mapping.flatten",
+                "type": "attn_metadata.slot_mapping",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+                "line": 748
+            }
+        ]
+    },
+    "_custom_ops-scaled_fp8_quant": {
+        "class": null,
+        "function": "scaled_fp8_quant",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1139,
+            1193
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_per_token_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1187
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.static_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1191
+            }
+        ],
+        "unknown": []
+    },
+    "utils-get_num_prefill_decode_query_kv_tokens": {
+        "class": null,
+        "function": "get_num_prefill_decode_query_kv_tokens",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+        "loc": [
+            544,
+            588
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "flash_attn-_get_query_key_seq_metadata": {
+        "class": null,
+        "function": "_get_query_key_seq_metadata",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+        "loc": [
+            919,
+            981
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "flash_attn-_get_causal_option": {
+        "class": null,
+        "function": "_get_causal_option",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flash_attn.py",
+        "loc": [
+            984,
+            999
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-get_seq_len_block_table_args": {
+        "class": null,
+        "function": "get_seq_len_block_table_args",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+        "loc": [
+            492,
+            541
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "deepspeedfp-DeepSpeedFPConfig-__init__": {
+        "class": "DeepSpeedFPConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+        "loc": [
+            24,
+            38
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "deepspeedfp-DeepSpeedFPConfig-get_quant_method": {
+        "class": "DeepSpeedFPConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+        "loc": [
+            73,
+            77
+        ],
+        "callees": [
+            {
+                "class": "DeepSpeedFPLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+                "line": 76
+            }
+        ],
+        "unknown": []
+    },
+    "deepspeedfp-DeepSpeedFPLinearMethod-__init__": {
+        "class": "DeepSpeedFPLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+        "loc": [
+            87,
+            89
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

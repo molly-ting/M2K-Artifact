@@ -1,0 +1,306 @@
+{
+    "xformers-XFormersImpl-__init__": {
+        "class": "XFormersImpl",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            380,
+            423
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_supported_head_sizes",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 417
+            }
+        ],
+        "unknown": []
+    },
+    "paged_attn-get_supported_head_sizes": {
+        "class": null,
+        "function": "get_supported_head_sizes",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "loc": [
+            38,
+            39
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "xformers-XFormersImpl-forward": {
+        "class": "XFormersImpl",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            425,
+            623
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "split_kv_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 520
+            },
+            {
+                "class": null,
+                "function": "write_to_paged_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 538
+            },
+            {
+                "class": null,
+                "function": "get_num_prefill_decode_query_kv_tokens",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+                "line": 543
+            },
+            {
+                "class": "XFormersImpl",
+                "function": "_run_memory_efficient_xformers_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+                "line": 563
+            },
+            {
+                "class": null,
+                "function": "forward_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 578
+            },
+            {
+                "class": null,
+                "function": "get_seq_len_block_table_args",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+                "line": 605
+            },
+            {
+                "class": null,
+                "function": "forward_decode",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 607
+            }
+        ],
+        "unknown": []
+    },
+    "paged_attn-split_kv_cache": {
+        "class": null,
+        "function": "split_kv_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "loc": [
+            51,
+            64
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "paged_attn-write_to_paged_cache": {
+        "class": null,
+        "function": "write_to_paged_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "loc": [
+            67,
+            86
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "reshape_and_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 77
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-reshape_and_cache": {
+        "class": null,
+        "function": "reshape_and_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1539,
+            1551
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C_cache_ops.reshape_and_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1549
+            }
+        ],
+        "unknown": []
+    },
+    "utils-get_num_prefill_decode_query_kv_tokens": {
+        "class": null,
+        "function": "get_num_prefill_decode_query_kv_tokens",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+        "loc": [
+            544,
+            588
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "xformers-XFormersImpl-_run_memory_efficient_xformers_forward": {
+        "class": "XFormersImpl",
+        "function": "_run_memory_efficient_xformers_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            625,
+            764
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_get_attn_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+                "line": 669
+            },
+            {
+                "class": null,
+                "function": "_make_alibi_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+                "line": 722
+            },
+            {
+                "class": null,
+                "function": "_set_attn_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+                "line": 726
+            }
+        ],
+        "unknown": []
+    },
+    "xformers-_get_attn_bias": {
+        "class": null,
+        "function": "_get_attn_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            292,
+            318
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "xformers-_make_alibi_bias": {
+        "class": null,
+        "function": "_make_alibi_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            767,
+            798
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "xformers-_set_attn_bias": {
+        "class": null,
+        "function": "_set_attn_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/xformers.py",
+        "loc": [
+            321,
+            346
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "paged_attn-forward_prefix": {
+        "class": null,
+        "function": "forward_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "loc": [
+            195,
+            232
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "context_attention_fwd",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/prefix_prefill.py",
+                "line": 213
+            }
+        ],
+        "unknown": []
+    },
+    "prefix_prefill-context_attention_fwd": {
+        "class": null,
+        "function": "context_attention_fwd",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/prefix_prefill.py",
+        "loc": [
+            717,
+            901
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-get_seq_len_block_table_args": {
+        "class": null,
+        "function": "get_seq_len_block_table_args",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/utils.py",
+        "loc": [
+            492,
+            541
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "paged_attn-forward_decode": {
+        "class": null,
+        "function": "forward_decode",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "loc": [
+            89,
+            192
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "paged_attention_v1",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 133
+            },
+            {
+                "class": null,
+                "function": "paged_attention_v2",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 168
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-paged_attention_v1": {
+        "class": null,
+        "function": "paged_attention_v1",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            40,
+            66
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.paged_attention_v1",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 61
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-paged_attention_v2": {
+        "class": null,
+        "function": "paged_attention_v2",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            69,
+            98
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.paged_attention_v2",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 93
+            }
+        ],
+        "unknown": []
+    }
+}

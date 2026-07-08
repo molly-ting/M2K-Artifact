@@ -1,0 +1,49 @@
+{
+    "gptq-GPTQLinearMethod-__init__": {
+        "class": "GPTQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            131,
+            132
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq-GPTQLinearMethod-apply": {
+        "class": "GPTQLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            264,
+            277
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "gptq_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 271
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-gptq_gemm": {
+        "class": null,
+        "function": "gptq_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            359,
+            364
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.gptq_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 363
+            }
+        ],
+        "unknown": []
+    }
+}

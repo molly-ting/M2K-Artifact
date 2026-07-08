@@ -1,0 +1,1615 @@
+{
+    "mamba-MambaForCausalLM-__init__": {
+        "class": "MambaForCausalLM",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            181,
+            218
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 194
+            },
+            {
+                "class": "MambaModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 193
+            },
+            {
+                "class": "ParallelLMHead",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 201
+            },
+            {
+                "class": "LogitsProcessor",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+                "line": 214
+            }
+        ],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba-MambaModel-__init__": {
+        "class": "MambaModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            83,
+            116
+        ],
+        "callees": [
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 98
+            },
+            {
+                "class": "MambaDecoderLayer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 106
+            },
+            {
+                "class": null,
+                "function": "make_layers",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 104
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 112
+            },
+            {
+                "class": null,
+                "function": "make_empty_intermediate_tensors_factory",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 115
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-__init__": {
+        "class": "VocabParallelEmbedding",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            200,
+            271
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_rank",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 211
+            },
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 212
+            },
+            {
+                "class": null,
+                "function": "pad_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 217
+            },
+            {
+                "class": null,
+                "function": "pad_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 219
+            },
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "_get_indices",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 224
+            },
+            {
+                "class": "UnquantizedEmbeddingMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 235
+            },
+            {
+                "class": null,
+                "function": "method_has_implemented_embedding",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 241
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 254
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "quant_config.get_quant_method",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 233
+            },
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "QuantizeMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 265
+            }
+        ]
+    },
+    "parallel_state-get_tensor_model_parallel_rank": {
+        "class": null,
+        "function": "get_tensor_model_parallel_rank",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            1154,
+            1156
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1156
+            }
+        ],
+        "unknown": []
+    },
+    "parallel_state-get_tp_group": {
+        "class": null,
+        "function": "get_tp_group",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            843,
+            845
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parallel_state-get_tensor_model_parallel_world_size": {
+        "class": null,
+        "function": "get_tensor_model_parallel_world_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            1149,
+            1151
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1151
+            },
+            {
+                "class": null,
+                "function": "get_tp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 1151
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-pad_vocab_size": {
+        "class": null,
+        "function": "pad_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            52,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-_get_indices": {
+        "class": "VocabParallelEmbedding",
+        "function": "_get_indices",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            274,
+            300
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "vocab_range_from_global_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 282
+            },
+            {
+                "class": null,
+                "function": "vocab_range_from_global_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 285
+            },
+            {
+                "class": "VocabParallelEmbeddingShardIndices",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 296
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-vocab_range_from_global_vocab_size": {
+        "class": null,
+        "function": "vocab_range_from_global_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            67,
+            74
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 71
+            },
+            {
+                "class": null,
+                "function": "vocab_range_from_per_partition_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 72
+            }
+        ],
+        "unknown": []
+    },
+    "utils-divide": {
+        "class": null,
+        "function": "divide",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "loc": [
+            54,
+            58
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "ensure_divisibility",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 57
+            }
+        ],
+        "unknown": []
+    },
+    "utils-ensure_divisibility": {
+        "class": null,
+        "function": "ensure_divisibility",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "loc": [
+            48,
+            51
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-vocab_range_from_per_partition_vocab_size": {
+        "class": null,
+        "function": "vocab_range_from_per_partition_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            58,
+            64
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-method_has_implemented_embedding": {
+        "class": null,
+        "function": "method_has_implemented_embedding",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            50,
+            62
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba-MambaDecoderLayer-__init__": {
+        "class": "MambaDecoderLayer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            39,
+            62
+        ],
+        "callees": [
+            {
+                "class": "MambaMixer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 49
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 62
+            }
+        ],
+        "unknown": []
+    },
+    "mamba_mixer-MambaMixer-__init__": {
+        "class": "MambaMixer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+        "loc": [
+            37,
+            131
+        ],
+        "callees": [
+            {
+                "class": "ColumnParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 57
+            },
+            {
+                "class": "MergedColumnParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 68
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 73
+            },
+            {
+                "class": "ColumnParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 81
+            },
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 96
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 105
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 106
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 108
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 115
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 121
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 127
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.conv1d.weight.data.unsqueeze",
+                "type": "LinearBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 66
+            }
+        ]
+    },
+    "custom_op-CustomOp-__init__": {
+        "class": "CustomOp",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            18,
+            20
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "dispatch_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 20
+            },
+            {
+                "class": "CustomOp",
+                "function": "dispatch_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 20
+            }
+        ],
+        "unknown": []
+    },
+    "mamba_mixer-CustomOp-dispatch_forward": {
+        "class": "CustomOp",
+        "function": "dispatch_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+        "loc": [
+            70,
+            99
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 74
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "compilation_config.enabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "compilation_config.disabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 78
+            }
+        ]
+    },
+    "mamba_mixer-CustomOp-enabled": {
+        "class": "CustomOp",
+        "function": "enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+        "loc": [
+            102,
+            118
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 111
+            },
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "custom_op-default_on": {
+        "class": null,
+        "function": "default_on",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            121,
+            132
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 127
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 130
+            }
+        ]
+    },
+    "config-get_current_vllm_config": {
+        "class": null,
+        "function": "get_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4552,
+            4560
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "VllmConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 4559
+            }
+        ],
+        "unknown": []
+    },
+    "linear-ColumnParallelLinear-__init__": {
+        "class": "ColumnParallelLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            370,
+            429
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 385
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 387
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 424
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 410
+            }
+        ]
+    },
+    "linear-LinearBase-__init__": {
+        "class": "LinearBase",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            218,
+            244
+        ],
+        "callees": [
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 240
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "quant_config.get_quant_method",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 242
+            }
+        ]
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "linear-MergedColumnParallelLinear-__init__": {
+        "class": "MergedColumnParallelLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            530,
+            554
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 544
+            }
+        ],
+        "unknown": []
+    },
+    "linear-RowParallelLinear-__init__": {
+        "class": "RowParallelLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            1166,
+            1221
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_rank",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1181
+            },
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1182
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 1216
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 1199
+            }
+        ]
+    },
+    "layernorm-RMSNorm-__init__": {
+        "class": "RMSNorm",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            96,
+            116
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "layernorm-CustomOp-dispatch_forward": {
+        "class": "CustomOp",
+        "function": "dispatch_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            70,
+            99
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 74
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "compilation_config.enabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "compilation_config.disabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 78
+            }
+        ]
+    },
+    "layernorm-CustomOp-enabled": {
+        "class": "CustomOp",
+        "function": "enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            102,
+            118
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 111
+            },
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "utils-make_layers": {
+        "class": null,
+        "function": "make_layers",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            611,
+            629
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_pp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 622
+            },
+            {
+                "class": null,
+                "function": "get_pp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 623
+            },
+            {
+                "class": "MambaDecoderLayer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 626
+            }
+        ],
+        "unknown": []
+    },
+    "parallel_state-get_pp_group": {
+        "class": null,
+        "function": "get_pp_group",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+        "loc": [
+            869,
+            872
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba-MambaDecoderLayer-forward": {
+        "class": "MambaDecoderLayer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            64,
+            78
+        ],
+        "callees": [
+            {
+                "class": "RMSNorm",
+                "function": "forward_cuda",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 75
+            },
+            {
+                "class": "MambaMixer",
+                "function": "forward_cuda",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 77
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-RMSNorm-forward_cuda": {
+        "class": "RMSNorm",
+        "function": "forward_cuda",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            156,
+            171
+        ],
+        "callees": [
+            {
+                "class": "RMSNorm",
+                "function": "forward_native",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 162
+            },
+            {
+                "class": null,
+                "function": "dispatch_cuda_rmsnorm_func",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 165
+            },
+            {
+                "class": null,
+                "function": "rocm_aiter_fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 168
+            },
+            {
+                "class": null,
+                "function": "fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 168
+            },
+            {
+                "class": null,
+                "function": "rocm_aiter_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 168
+            },
+            {
+                "class": null,
+                "function": "rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 168
+            },
+            {
+                "class": null,
+                "function": "rocm_aiter_fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "rocm_aiter_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 171
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-RMSNorm-forward_native": {
+        "class": "RMSNorm",
+        "function": "forward_native",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            118,
+            154
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "layernorm-dispatch_cuda_rmsnorm_func": {
+        "class": null,
+        "function": "dispatch_cuda_rmsnorm_func",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            77,
+            85
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_rocm_aiter_rmsnorm_enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 79
+            },
+            {
+                "class": null,
+                "function": "is_rocm_aiter_rmsnorm_enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 83
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-is_rocm_aiter_rmsnorm_enabled": {
+        "class": null,
+        "function": "is_rocm_aiter_rmsnorm_enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            13,
+            16
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "layernorm-rocm_aiter_fused_add_rms_norm": {
+        "class": null,
+        "function": "rocm_aiter_fused_add_rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            58,
+            74
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "layernorm-fused_add_rms_norm": {
+        "class": null,
+        "function": "fused_add_rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            32,
+            42
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 36
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-fused_add_rms_norm": {
+        "class": null,
+        "function": "fused_add_rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            279,
+            281
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.fused_add_rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 281
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-rocm_aiter_rms_norm": {
+        "class": null,
+        "function": "rocm_aiter_rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            45,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "layernorm-rms_norm": {
+        "class": null,
+        "function": "rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            19,
+            29
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 23
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-rms_norm": {
+        "class": null,
+        "function": "rms_norm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            272,
+            276
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.rms_norm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 276
+            }
+        ],
+        "unknown": []
+    },
+    "mamba_mixer-MambaMixer-forward_cuda": {
+        "class": "MambaMixer",
+        "function": "forward_cuda",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+        "loc": [
+            137,
+            244
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_forward_context",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/forward_context.py",
+                "line": 140
+            },
+            {
+                "class": null,
+                "function": "causal_conv1d_fn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/causal_conv1d.py",
+                "line": 158
+            },
+            {
+                "class": null,
+                "function": "causal_conv1d_update",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/causal_conv1d.py",
+                "line": 168
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 182
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 185
+            },
+            {
+                "class": null,
+                "function": "selective_scan_fn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/mamba_ssm.py",
+                "line": 207
+            },
+            {
+                "class": null,
+                "function": "selective_state_update",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/mamba_ssm.py",
+                "line": 222
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 239
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 242
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.conv1d.weight.size",
+                "type": "LinearBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 147
+            },
+            {
+                "class": null,
+                "function": "self.conv1d.weight.size",
+                "type": "LinearBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 148
+            },
+            {
+                "class": null,
+                "function": "self.conv1d.weight.view",
+                "type": "LinearBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 147
+            },
+            {
+                "class": null,
+                "function": "self.dt_proj.bias.float",
+                "type": "LinearBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 202
+            },
+            {
+                "class": null,
+                "function": "self.D.float",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/mamba_mixer.py",
+                "line": 214
+            }
+        ]
+    },
+    "forward_context-get_forward_context": {
+        "class": null,
+        "function": "get_forward_context",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/forward_context.py",
+        "loc": [
+            54,
+            59
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "causal_conv1d-causal_conv1d_fn": {
+        "class": null,
+        "function": "causal_conv1d_fn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/causal_conv1d.py",
+        "loc": [
+            14,
+            61
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "causal_conv1d_fwd",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 58
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-causal_conv1d_fwd": {
+        "class": null,
+        "function": "causal_conv1d_fwd",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1365,
+            1375
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.causal_conv1d_fwd",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1372
+            }
+        ],
+        "unknown": []
+    },
+    "causal_conv1d-causal_conv1d_update": {
+        "class": null,
+        "function": "causal_conv1d_update",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/causal_conv1d.py",
+        "loc": [
+            64,
+            104
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "causal_conv1d_update",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 100
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-causal_conv1d_update": {
+        "class": null,
+        "function": "causal_conv1d_update",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1378,
+            1386
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.causal_conv1d_update",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1384
+            }
+        ],
+        "unknown": []
+    },
+    "linear-RowParallelLinear-forward": {
+        "class": "RowParallelLinear",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            1272,
+            1300
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_rank",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1278
+            },
+            {
+                "class": null,
+                "function": "split_tensor_along_last_dim",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 1279
+            },
+            {
+                "class": null,
+                "function": "tensor_model_parallel_all_reduce",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "line": 1292
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.apply",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 1288
+            }
+        ]
+    },
+    "utils-split_tensor_along_last_dim": {
+        "class": null,
+        "function": "split_tensor_along_last_dim",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "loc": [
+            61,
+            86
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 79
+            }
+        ],
+        "unknown": []
+    },
+    "communication_op-tensor_model_parallel_all_reduce": {
+        "class": null,
+        "function": "tensor_model_parallel_all_reduce",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "loc": [
+            11,
+            13
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba_ssm-selective_scan_fn": {
+        "class": null,
+        "function": "selective_scan_fn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/mamba_ssm.py",
+        "loc": [
+            335,
+            413
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "selective_scan_fwd",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 406
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-selective_scan_fwd": {
+        "class": null,
+        "function": "selective_scan_fwd",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1389,
+            1401
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.selective_scan_fwd",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1398
+            }
+        ],
+        "unknown": []
+    },
+    "mamba_ssm-selective_state_update": {
+        "class": null,
+        "function": "selective_state_update",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/mamba/ops/mamba_ssm.py",
+        "loc": [
+            196,
+            332
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-make_empty_intermediate_tensors_factory": {
+        "class": null,
+        "function": "make_empty_intermediate_tensors_factory",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            664,
+            677
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-ParallelLMHead-__init__": {
+        "class": "ParallelLMHead",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            451,
+            473
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 468
+            }
+        ],
+        "unknown": []
+    },
+    "logits_processor-LogitsProcessor-__init__": {
+        "class": "LogitsProcessor",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+        "loc": [
+            33,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba-MambaForCausalLM-forward": {
+        "class": "MambaForCausalLM",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            223,
+            241
+        ],
+        "callees": [
+            {
+                "class": "MambaCacheManager",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+                "line": 232
+            },
+            {
+                "class": "MambaCacheManager",
+                "function": "current_run_tensors",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+                "line": 236
+            },
+            {
+                "class": "MambaModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 238
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.model_config.get_num_layers_by_block_type",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 230
+            }
+        ]
+    },
+    "mamba_cache-MambaCacheManager-__init__": {
+        "class": "MambaCacheManager",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+        "loc": [
+            26,
+            47
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "vllm_config.pad_for_cudagraph",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+                "line": 33
+            }
+        ],
+        "unknown": []
+    },
+    "constant_size_cache-ConstantSizeCache-__init__": {
+        "class": "ConstantSizeCache",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/constant_size_cache.py",
+        "loc": [
+            16,
+            20
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "mamba_cache-MambaCacheManager-current_run_tensors": {
+        "class": "MambaCacheManager",
+        "function": "current_run_tensors",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+        "loc": [
+            58,
+            65
+        ],
+        "callees": [
+            {
+                "class": "MambaCacheParams",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba_cache.py",
+                "line": 64
+            }
+        ],
+        "unknown": []
+    },
+    "mamba-MambaModel-forward": {
+        "class": "MambaModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            121,
+            155
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_pp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 129
+            },
+            {
+                "class": "MambaModel",
+                "function": "get_input_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+                "line": 133
+            },
+            {
+                "class": null,
+                "function": "get_pp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "line": 148
+            },
+            {
+                "class": "IntermediateTensors",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/sequence.py",
+                "line": 149
+            },
+            {
+                "class": "RMSNorm",
+                "function": "forward_cuda",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 153
+            }
+        ],
+        "unknown": []
+    },
+    "mamba-MambaModel-get_input_embeddings": {
+        "class": "MambaModel",
+        "function": "get_input_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/mamba.py",
+        "loc": [
+            118,
+            119
+        ],
+        "callees": [
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 119
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-forward": {
+        "class": "VocabParallelEmbedding",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            405,
+            424
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_masked_input_and_mask",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 408
+            },
+            {
+                "class": null,
+                "function": "tensor_model_parallel_all_reduce",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "line": 423
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.embedding",
+                "type": "QuantizeMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 417
+            }
+        ]
+    },
+    "vocab_parallel_embedding-get_masked_input_and_mask": {
+        "class": null,
+        "function": "get_masked_input_and_mask",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            141,
+            158
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "sequence-IntermediateTensors-__init__": {
+        "class": "IntermediateTensors",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/sequence.py",
+        "loc": [
+            1204,
+            1209
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

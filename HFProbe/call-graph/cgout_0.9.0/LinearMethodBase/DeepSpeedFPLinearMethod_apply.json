@@ -1,0 +1,32 @@
+{
+    "deepspeedfp-DeepSpeedFPLinearMethod-__init__": {
+        "class": "DeepSpeedFPLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+        "loc": [
+            87,
+            89
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "deepspeedfp-DeepSpeedFPLinearMethod-apply": {
+        "class": "DeepSpeedFPLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+        "loc": [
+            127,
+            133
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "weight.ds_dequantize",
+                "type": "layer.weight",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/deepspeedfp.py",
+                "line": 132
+            }
+        ]
+    }
+}

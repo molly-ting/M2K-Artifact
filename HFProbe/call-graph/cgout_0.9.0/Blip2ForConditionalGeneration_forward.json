@@ -1,0 +1,1235 @@
+{
+    "blip2-Blip2ForConditionalGeneration-__init__": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            507,
+            542
+        ],
+        "callees": [
+            {
+                "class": "BlipVisionModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 518
+            },
+            {
+                "class": "Blip2QFormerModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 524
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 538
+            },
+            {
+                "class": null,
+                "function": "init_vllm_registered_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 535
+            }
+        ],
+        "unknown": []
+    },
+    "blip-BlipVisionModel-__init__": {
+        "class": "BlipVisionModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            254,
+            289
+        ],
+        "callees": [
+            {
+                "class": "BlipVisionEmbeddings",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 266
+            },
+            {
+                "class": "BlipEncoder",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 267
+            }
+        ],
+        "unknown": []
+    },
+    "blip-BlipVisionEmbeddings-__init__": {
+        "class": "BlipVisionEmbeddings",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            37,
+            59
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_blip_num_patches",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 54
+            }
+        ],
+        "unknown": []
+    },
+    "blip-get_blip_num_patches": {
+        "class": null,
+        "function": "get_blip_num_patches",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            28,
+            31
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_blip_patch_grid_length",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 29
+            }
+        ],
+        "unknown": []
+    },
+    "blip-get_blip_patch_grid_length": {
+        "class": null,
+        "function": "get_blip_patch_grid_length",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            23,
+            25
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip-BlipEncoder-__init__": {
+        "class": "BlipEncoder",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            218,
+            239
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerModel-__init__": {
+        "class": "Blip2QFormerModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            372,
+            391
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerEncoder",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 388
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerEncoder-__init__": {
+        "class": "Blip2QFormerEncoder",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            330,
+            349
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerLayer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 343
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerLayer-__init__": {
+        "class": "Blip2QFormerLayer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            236,
+            270
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerAttention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 249
+            },
+            {
+                "class": "Blip2QFormerAttention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 257
+            },
+            {
+                "class": "Blip2QFormerIntermediate",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 267
+            },
+            {
+                "class": "Blip2QFormerOutput",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 269
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerAttention-__init__": {
+        "class": "Blip2QFormerAttention",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            164,
+            183
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 175
+            },
+            {
+                "class": "Blip2QFormerSelfOutput",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 183
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerMultiHeadAttention-__init__": {
+        "class": "Blip2QFormerMultiHeadAttention",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            56,
+            96
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerSelfOutput-__init__": {
+        "class": "Blip2QFormerSelfOutput",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            143,
+            149
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerIntermediate-__init__": {
+        "class": "Blip2QFormerIntermediate",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            201,
+            205
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_act_fn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 205
+            }
+        ],
+        "unknown": []
+    },
+    "activation-get_act_fn": {
+        "class": null,
+        "function": "get_act_fn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            344,
+            351
+        ],
+        "callees": [
+            {
+                "class": "FastGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 328
+            },
+            {
+                "class": "NewGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 330
+            },
+            {
+                "class": "ReLUSquaredActivation",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 336
+            },
+            {
+                "class": "QuickGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 340
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "act_fn_name.lower",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 346
+            }
+        ]
+    },
+    "activation-FastGELU-__init__": {
+        "class": "FastGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            217,
+            223
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "custom_op-CustomOp-__init__": {
+        "class": "CustomOp",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            18,
+            20
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "dispatch_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 20
+            }
+        ],
+        "unknown": []
+    },
+    "activation-CustomOp-dispatch_forward": {
+        "class": "CustomOp",
+        "function": "dispatch_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            70,
+            99
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 74
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "compilation_config.enabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "compilation_config.disabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 78
+            }
+        ]
+    },
+    "activation-CustomOp-enabled": {
+        "class": "CustomOp",
+        "function": "enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            102,
+            118
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 111
+            },
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "custom_op-default_on": {
+        "class": null,
+        "function": "default_on",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            121,
+            132
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 127
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 130
+            }
+        ]
+    },
+    "config-get_current_vllm_config": {
+        "class": null,
+        "function": "get_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4552,
+            4560
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "VllmConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 4559
+            }
+        ],
+        "unknown": []
+    },
+    "activation-NewGELU-__init__": {
+        "class": "NewGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            191,
+            197
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "activation-QuickGELU-__init__": {
+        "class": "QuickGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            242,
+            248
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerOutput-__init__": {
+        "class": "Blip2QFormerOutput",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            215,
+            221
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-init_vllm_registered_model": {
+        "class": null,
+        "function": "init_vllm_registered_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            281,
+            302
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "initialize_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 302
+            }
+        ],
+        "unknown": []
+    },
+    "utils-initialize_model": {
+        "class": null,
+        "function": "initialize_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            40,
+            89
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_model_architecture",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 51
+            },
+            {
+                "class": null,
+                "function": "configure_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 54
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 60
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 88
+            }
+        ],
+        "unknown": []
+    },
+    "utils-get_model_architecture": {
+        "class": null,
+        "function": "get_model_architecture",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            218,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "resolve_transformers_arch",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 233
+            },
+            {
+                "class": null,
+                "function": "as_embedding_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 241
+            },
+            {
+                "class": null,
+                "function": "as_classification_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 243
+            },
+            {
+                "class": null,
+                "function": "as_reward_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-resolve_transformers_arch": {
+        "class": null,
+        "function": "resolve_transformers_arch",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            164,
+            215
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-as_embedding_model": {
+        "class": null,
+        "function": "as_embedding_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            117,
+            144
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 135
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 142
+            }
+        ],
+        "unknown": []
+    },
+    "interfaces_base-is_pooling_model": {
+        "class": null,
+        "function": "is_pooling_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "loc": [
+            145,
+            146
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_create_pooling_model_cls": {
+        "class": null,
+        "function": "_create_pooling_model_cls",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            33,
+            114
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_get_pooling_model_name": {
+        "class": null,
+        "function": "_get_pooling_model_name",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            24,
+            30
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "model_name.removesuffix",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 28
+            }
+        ]
+    },
+    "adapters-as_classification_model": {
+        "class": null,
+        "function": "as_classification_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            147,
+            217
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 160
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 215
+            }
+        ],
+        "unknown": []
+    },
+    "adapters-as_reward_model": {
+        "class": null,
+        "function": "as_reward_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            220,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 231
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 237
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-configure_quant_config": {
+        "class": null,
+        "function": "configure_quant_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            284,
+            301
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "config-set_current_vllm_config": {
+        "class": null,
+        "function": "set_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4513,
+            4549
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-forward": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            649,
+            704
+        ],
+        "callees": [
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "get_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 694
+            },
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "get_input_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 695
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.language_model.model",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 699
+            }
+        ]
+    },
+    "blip2-Blip2ForConditionalGeneration-get_multimodal_embeddings": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "get_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            629,
+            635
+        ],
+        "callees": [
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "_parse_and_validate_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 631
+            },
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "_process_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 634
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-_parse_and_validate_image_input": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "_parse_and_validate_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            557,
+            589
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 570
+            },
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "_validate_pixel_values",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 574
+            },
+            {
+                "class": "Blip2ImagePixelInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 572
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 582
+            },
+            {
+                "class": "Blip2ImageEmbeddingInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 584
+            }
+        ],
+        "unknown": []
+    },
+    "utils-flatten_bn": {
+        "class": null,
+        "function": "flatten_bn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            306,
+            307
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-_validate_pixel_values": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "_validate_pixel_values",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            544,
+            555
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-_process_image_input": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "_process_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            608,
+            624
+        ],
+        "callees": [
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "_process_image_pixels",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 615
+            },
+            {
+                "class": "Blip2QFormerModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 619
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.query_tokens.expand",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 617
+            }
+        ]
+    },
+    "blip2-Blip2ForConditionalGeneration-_process_image_pixels": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "_process_image_pixels",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            600,
+            606
+        ],
+        "callees": [
+            {
+                "class": "Blip2ForConditionalGeneration",
+                "function": "_image_pixels_to_features",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 606
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-_image_pixels_to_features": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "_image_pixels_to_features",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            591,
+            598
+        ],
+        "callees": [
+            {
+                "class": "BlipVisionModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 596
+            }
+        ],
+        "unknown": []
+    },
+    "blip-BlipVisionModel-forward": {
+        "class": "BlipVisionModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            291,
+            298
+        ],
+        "callees": [
+            {
+                "class": "BlipVisionEmbeddings",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 292
+            },
+            {
+                "class": "BlipEncoder",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 293
+            }
+        ],
+        "unknown": []
+    },
+    "blip-BlipVisionEmbeddings-forward": {
+        "class": "BlipVisionEmbeddings",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            61,
+            74
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.class_embedding.expand",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 68
+            },
+            {
+                "class": null,
+                "function": "self.position_embedding.to",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 71
+            },
+            {
+                "class": null,
+                "function": "embeddings.size",
+                "type": "torch.Tensor",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+                "line": 72
+            }
+        ]
+    },
+    "blip-BlipEncoder-forward": {
+        "class": "BlipEncoder",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./blip.py",
+        "loc": [
+            241,
+            246
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerModel-forward": {
+        "class": "Blip2QFormerModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            393,
+            409
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerEncoder",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 403
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerEncoder-forward": {
+        "class": "Blip2QFormerEncoder",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            351,
+            366
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerLayer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 360
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerLayer-forward": {
+        "class": "Blip2QFormerLayer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            272,
+            313
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerAttention",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 278
+            },
+            {
+                "class": "Blip2QFormerAttention",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 284
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerAttention-forward": {
+        "class": "Blip2QFormerAttention",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            185,
+            196
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 190
+            },
+            {
+                "class": "Blip2QFormerSelfOutput",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 194
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerMultiHeadAttention-forward": {
+        "class": "Blip2QFormerMultiHeadAttention",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            103,
+            138
+        ],
+        "callees": [
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "transpose_for_scores",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 111
+            },
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "transpose_for_scores",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 113
+            },
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "transpose_for_scores",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 116
+            },
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "transpose_for_scores",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 117
+            },
+            {
+                "class": "Blip2QFormerMultiHeadAttention",
+                "function": "transpose_for_scores",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 121
+            }
+        ],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerMultiHeadAttention-transpose_for_scores": {
+        "class": "Blip2QFormerMultiHeadAttention",
+        "function": "transpose_for_scores",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            98,
+            101
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2QFormerSelfOutput-forward": {
+        "class": "Blip2QFormerSelfOutput",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            151,
+            159
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "blip2-Blip2ForConditionalGeneration-get_input_embeddings": {
+        "class": "Blip2ForConditionalGeneration",
+        "function": "get_input_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+        "loc": [
+            637,
+            647
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 644
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.language_model.get_input_embeddings",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/blip2.py",
+                "line": 642
+            }
+        ]
+    },
+    "utils-merge_multimodal_embeddings": {
+        "class": null,
+        "function": "merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            457,
+            501
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 491
+            },
+            {
+                "class": null,
+                "function": "_merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 497
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_merge_multimodal_embeddings": {
+        "class": null,
+        "function": "_merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            394,
+            418
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_flatten_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 410
+            },
+            {
+                "class": null,
+                "function": "_embedding_count_expression",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 412
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_flatten_embeddings": {
+        "class": null,
+        "function": "_flatten_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            352,
+            362
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-_embedding_count_expression": {
+        "class": null,
+        "function": "_embedding_count_expression",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            365,
+            375
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

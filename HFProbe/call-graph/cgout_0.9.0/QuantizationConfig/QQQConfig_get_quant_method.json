@@ -1,0 +1,53 @@
+{
+    "qqq-QQQConfig-__init__": {
+        "class": "QQQConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+        "loc": [
+            37,
+            81
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "qqq-QQQConfig-get_quant_method": {
+        "class": "QQQConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+        "loc": [
+            113,
+            117
+        ],
+        "callees": [
+            {
+                "class": "QQQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+                "line": 116
+            }
+        ],
+        "unknown": []
+    },
+    "qqq-QQQLinearMethod-__init__": {
+        "class": "QQQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+        "loc": [
+            127,
+            128
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

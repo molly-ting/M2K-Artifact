@@ -1,0 +1,117 @@
+{
+    "gptq_marlin-GPTQMarlinLinearMethod-__init__": {
+        "class": "GPTQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            204,
+            209
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 208
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-verify_marlin_supported": {
+        "class": null,
+        "function": "verify_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            105,
+            111
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 108
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-_check_marlin_supported": {
+        "class": null,
+        "function": "_check_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            69,
+            93
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "query_marlin_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 80
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-query_marlin_supported_quant_types": {
+        "class": null,
+        "function": "query_marlin_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            35,
+            66
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 41
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_marlin-GPTQMarlinLinearMethod-apply": {
+        "class": "GPTQMarlinLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            339,
+            345
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.kernel.apply_weights",
+                "type": "MPLinearKernel",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "line": 345
+            }
+        ]
+    }
+}

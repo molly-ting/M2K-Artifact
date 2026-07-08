@@ -1,0 +1,256 @@
+{
+    "awq_marlin-AWQMarlinConfig-__init__": {
+        "class": "AWQMarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            47,
+            68
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 66
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.TYPE_MAP.keys",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 62
+            }
+        ]
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin_utils-verify_marlin_supported": {
+        "class": null,
+        "function": "verify_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            105,
+            111
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 108
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-_check_marlin_supported": {
+        "class": null,
+        "function": "_check_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            69,
+            93
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "query_marlin_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 80
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-query_marlin_supported_quant_types": {
+        "class": null,
+        "function": "query_marlin_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            35,
+            66
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 41
+            }
+        ],
+        "unknown": []
+    },
+    "awq_marlin-AWQMarlinConfig-get_quant_method": {
+        "class": "AWQMarlinConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            125,
+            150
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_layer_skipped_awq",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "line": 129
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 130
+            },
+            {
+                "class": null,
+                "function": "check_marlin_supports_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 132
+            },
+            {
+                "class": "AWQMarlinLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 139
+            },
+            {
+                "class": null,
+                "function": "check_moe_marlin_supports_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 143
+            },
+            {
+                "class": "AWQMoEMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+                "line": 149
+            }
+        ],
+        "unknown": []
+    },
+    "awq-is_layer_skipped_awq": {
+        "class": null,
+        "function": "is_layer_skipped_awq",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "loc": [
+            85,
+            86
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin_utils-check_marlin_supports_layer": {
+        "class": null,
+        "function": "check_marlin_supports_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            156,
+            167
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "check_marlin_supports_shape",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 163
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-check_marlin_supports_shape": {
+        "class": null,
+        "function": "check_marlin_supports_shape",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            143,
+            153
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supports_shape",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 148
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-verify_marlin_supports_shape": {
+        "class": null,
+        "function": "verify_marlin_supports_shape",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            114,
+            140
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq_marlin-AWQMarlinLinearMethod-__init__": {
+        "class": "AWQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            185,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin_utils-check_moe_marlin_supports_layer": {
+        "class": null,
+        "function": "check_moe_marlin_supports_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            170,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq_marlin-AWQMoEMethod-__init__": {
+        "class": "AWQMoEMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            323,
+            327
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

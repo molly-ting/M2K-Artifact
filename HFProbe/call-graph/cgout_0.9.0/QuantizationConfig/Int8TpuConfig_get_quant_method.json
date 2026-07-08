@@ -1,0 +1,53 @@
+{
+    "tpu_int8-Int8TpuConfig-__init__": {
+        "class": "Int8TpuConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/tpu_int8.py",
+        "loc": [
+            21,
+            29
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "tpu_int8-Int8TpuConfig-get_quant_method": {
+        "class": "Int8TpuConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/tpu_int8.py",
+        "loc": [
+            51,
+            55
+        ],
+        "callees": [
+            {
+                "class": "TPUInt8LinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/tpu_int8.py",
+                "line": 54
+            }
+        ],
+        "unknown": []
+    },
+    "tpu_int8-TPUInt8LinearMethod-__init__": {
+        "class": "TPUInt8LinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/tpu_int8.py",
+        "loc": [
+            61,
+            62
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

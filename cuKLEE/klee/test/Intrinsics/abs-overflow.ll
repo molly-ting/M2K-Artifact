@@ -1,12 +1,3 @@
-; REQUIRES: geq-llvm-12.0
-; RUN: rm -rf %t.klee-out
-; RUN: %klee --output-dir=%t.klee-out --optimize=false %s 2> %t.stderr.log
-; RUN: FileCheck %s < %t.stderr.log
-
-define i32 @main() {
-  %1 = call i32 @llvm.abs.i32(i32 -2147483648, i1 true)
-  ; CHECK: llvm.abs called with poison and INT_MIN
-  ret i32 0
-}
-
-declare i32 @llvm.abs.i32(i32, i1 immarg)
+version https://git-lfs.github.com/spec/v1
+oid sha256:20f148cc4cfdf7908242e3d4015a009787b8829f5a3ce065c4c42aa60f219109
+size 349

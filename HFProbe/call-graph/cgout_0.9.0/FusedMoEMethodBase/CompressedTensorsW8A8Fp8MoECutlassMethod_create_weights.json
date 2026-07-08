@@ -1,0 +1,102 @@
+{
+    "compressed_tensors_moe-CompressedTensorsW8A8Fp8MoECutlassMethod-__init__": {
+        "class": "CompressedTensorsW8A8Fp8MoECutlassMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe.py",
+        "loc": [
+            395,
+            421
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "compressed_tensors_moe-CompressedTensorsW8A8Fp8MoECutlassMethod-create_weights": {
+        "class": "CompressedTensorsW8A8Fp8MoECutlassMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe.py",
+        "loc": [
+            423,
+            518
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 437
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 446
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 463
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 464
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 481
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 482
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 490
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 496
+            }
+        ],
+        "unknown": []
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

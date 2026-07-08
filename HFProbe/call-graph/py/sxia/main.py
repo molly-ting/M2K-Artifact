@@ -2,8 +2,9 @@ import logging
 import argparse
 import os
 from time import time
-from sxia.hf import vllm_test, indirect_fill, transformers_test
+from sxia.hf import vllm_test, indirect_fill, transformers_test, vllm_test_one
 from sxia.op import collect_ops
+from sxia.utils.vllm import _get_vllm_dir
 
 logger = logging.getLogger(__name__)
 
@@ -116,13 +117,7 @@ if __name__ == "__main__":
     subparsers = parser.add_subparsers(dest="command")
     scan_parser = subparsers.add_parser("scan", help="Scan a directory for python files")
     scan_parser.add_argument(
-        "--out", type=str, required=False, help="Output directory for scan"
-    )
-    scan_parser.add_argument(
-        "--transformers-model-dir",
-        type=str,
-        required=False,
-        help="Directory for transformers models",
+        "--out", type=str, required=False, help="Output directory"
     )
     scan_parser.add_argument(
         "--vllm-dir",
@@ -130,11 +125,26 @@ if __name__ == "__main__":
         required=False,
         help="Directory for vllm"
     )
+    scan_parser.add_argument(
+        "--vllm-model-arch",
+        type=str,
+        required=False,
+        help="vllm model architecture"
+    )
     args = parser.parse_args()
 
     current_path_string = os.path.abspath(__file__)
     root_dir = os.path.dirname(os.path.dirname(os.path.dirname(current_path_string)))
     if args.command == "scan":
+        if args.vllm_model_arch:
+            start_time = time.time()
+            callgraph_dir = os.path.join(root_dir, "cgout")
+            vllm_dir = args.vllm_dir if args.vllm_dir else _get_vllm_dir()
+            vllm_test_one(vllm_dir, args.vllm_model_arch, callgraph_dir)
+            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
+            end_time = time.time()
+            logger.info(f"total time cost: {end_time - start_time} seconds.")
+
         if args.vllm_dir:
             start_time = time.time()
             callgraph_dir = os.path.join(root_dir, "cgout")
@@ -142,14 +152,6 @@ if __name__ == "__main__":
             indirect_targets = [os.path.join(callgraph_dir, "Qwen3MoeForCausalLM_forward.json"), os.path.join(callgraph_dir, "LinearMethodBase", "AWQMarlinLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "CompressedTensorsLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "QuarkLinearMethod_apply.json"), os.path.join(callgraph_dir, "scheme", "QuarkW8A8Int8_apply_weights.json")]
             for target_file in indirect_targets:
                 indirect_fill(target_file=target_file)
-            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
-            end_time = time.time()
-            logger.info(f"total time cost: {end_time - start_time} seconds.")
-
-        elif args.transformers_model_dir:
-            start_time = time.time()
-            callgraph_dir = os.path.join(root_dir, "cgout-models")
-            transformers_test(args.transformers_model_dir, callgraph_dir)
             collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
             end_time = time.time()
             logger.info(f"total time cost: {end_time - start_time} seconds.")

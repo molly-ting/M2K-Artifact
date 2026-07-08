@@ -1,0 +1,119 @@
+{
+    "awq_marlin-AWQMarlinLinearMethod-__init__": {
+        "class": "AWQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            185,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "awq_marlin-AWQMarlinLinearMethod-apply": {
+        "class": "AWQMarlinLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_marlin.py",
+        "loc": [
+            301,
+            318
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "apply_awq_marlin_linear",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 307
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-apply_awq_marlin_linear": {
+        "class": null,
+        "function": "apply_awq_marlin_linear",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            433,
+            475
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "should_use_atomic_add_reduce",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 449
+            },
+            {
+                "class": null,
+                "function": "gptq_marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 455
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-should_use_atomic_add_reduce": {
+        "class": null,
+        "function": "should_use_atomic_add_reduce",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            363,
+            383
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_warn_marlin_atomic_add_env",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 374
+            },
+            {
+                "class": null,
+                "function": "maybe_warn_marlin_atomic_add",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 380
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-maybe_warn_marlin_atomic_add_env": {
+        "class": null,
+        "function": "maybe_warn_marlin_atomic_add_env",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            351,
+            360
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin_utils-maybe_warn_marlin_atomic_add": {
+        "class": null,
+        "function": "maybe_warn_marlin_atomic_add",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            340,
+            348
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "_custom_ops-gptq_marlin_gemm": {
+        "class": null,
+        "function": "gptq_marlin_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            948,
+            970
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.gptq_marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 965
+            }
+        ],
+        "unknown": []
+    }
+}

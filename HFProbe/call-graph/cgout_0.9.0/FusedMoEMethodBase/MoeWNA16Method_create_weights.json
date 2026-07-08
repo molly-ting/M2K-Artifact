@@ -1,0 +1,113 @@
+{
+    "moe_wna16-MoeWNA16Method-__init__": {
+        "class": "MoeWNA16Method",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/moe_wna16.py",
+        "loc": [
+            177,
+            178
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "moe_wna16-MoeWNA16Method-create_weights": {
+        "class": "MoeWNA16Method",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/moe_wna16.py",
+        "loc": [
+            180,
+            280
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/moe_wna16.py",
+                "line": 208
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 220
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 230
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 239
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 248
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 258
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 267
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 280
+            }
+        ],
+        "unknown": []
+    },
+    "moe_wna16-get_weight_loader": {
+        "class": null,
+        "function": "get_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/moe_wna16.py",
+        "loc": [
+            336,
+            448
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

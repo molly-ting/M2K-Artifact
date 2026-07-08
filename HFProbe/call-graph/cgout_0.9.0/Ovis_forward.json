@@ -1,0 +1,2025 @@
+{
+    "ovis-Ovis-__init__": {
+        "class": "Ovis",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            400,
+            422
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+                "line": 408
+            },
+            {
+                "class": null,
+                "function": "init_vllm_registered_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+                "line": 406
+            },
+            {
+                "class": "VisualTokenizer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 411
+            },
+            {
+                "class": "VisualEmbedding",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 417
+            }
+        ],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-init_vllm_registered_model": {
+        "class": null,
+        "function": "init_vllm_registered_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+        "loc": [
+            281,
+            302
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "initialize_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 302
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "vllm_config.with_hf_config",
+                "type": "VllmConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 299
+            }
+        ]
+    },
+    "utils-initialize_model": {
+        "class": null,
+        "function": "initialize_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            40,
+            89
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_model_architecture",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 51
+            },
+            {
+                "class": null,
+                "function": "configure_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 54
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 60
+            },
+            {
+                "class": null,
+                "function": "set_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 88
+            }
+        ],
+        "unknown": []
+    },
+    "utils-get_model_architecture": {
+        "class": null,
+        "function": "get_model_architecture",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            218,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "resolve_transformers_arch",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "line": 233
+            },
+            {
+                "class": null,
+                "function": "as_embedding_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 241
+            },
+            {
+                "class": null,
+                "function": "as_classification_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 243
+            },
+            {
+                "class": null,
+                "function": "as_reward_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-resolve_transformers_arch": {
+        "class": null,
+        "function": "resolve_transformers_arch",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            164,
+            215
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-as_embedding_model": {
+        "class": null,
+        "function": "as_embedding_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            117,
+            144
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 135
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 142
+            }
+        ],
+        "unknown": []
+    },
+    "interfaces_base-is_pooling_model": {
+        "class": null,
+        "function": "is_pooling_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "loc": [
+            145,
+            146
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_create_pooling_model_cls": {
+        "class": null,
+        "function": "_create_pooling_model_cls",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            33,
+            114
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "adapters-_get_pooling_model_name": {
+        "class": null,
+        "function": "_get_pooling_model_name",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            24,
+            30
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "model_name.removesuffix",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 28
+            }
+        ]
+    },
+    "adapters-as_classification_model": {
+        "class": null,
+        "function": "as_classification_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            147,
+            217
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 160
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 171
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 215
+            }
+        ],
+        "unknown": []
+    },
+    "adapters-as_reward_model": {
+        "class": null,
+        "function": "as_reward_model",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "loc": [
+            220,
+            247
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_pooling_model",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "line": 231
+            },
+            {
+                "class": null,
+                "function": "_create_pooling_model_cls",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 237
+            },
+            {
+                "class": null,
+                "function": "_get_pooling_model_name",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "line": 245
+            }
+        ],
+        "unknown": []
+    },
+    "utils-configure_quant_config": {
+        "class": null,
+        "function": "configure_quant_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "loc": [
+            284,
+            301
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "config-set_current_vllm_config": {
+        "class": null,
+        "function": "set_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4513,
+            4549
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-VisualTokenizer-__init__": {
+        "class": "VisualTokenizer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            80,
+            102
+        ],
+        "callees": [
+            {
+                "class": "VisualTokenizer",
+                "function": "_init_backbone",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 88
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 96
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-VisualTokenizer-_init_backbone": {
+        "class": "VisualTokenizer",
+        "function": "_init_backbone",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            104,
+            124
+        ],
+        "callees": [
+            {
+                "class": "AIMv2Model",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 112
+            },
+            {
+                "class": "SiglipVisionModel",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Model-__init__": {
+        "class": "AIMv2Model",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            180,
+            188
+        ],
+        "callees": [
+            {
+                "class": "AIMv2ViTPreprocessor",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 185
+            },
+            {
+                "class": "AIMv2Transformer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 186
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2ViTPreprocessor-__init__": {
+        "class": "AIMv2ViTPreprocessor",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            72,
+            78
+        ],
+        "callees": [
+            {
+                "class": "AIMv2PatchEmbed",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 76
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2PatchEmbed-__init__": {
+        "class": "AIMv2PatchEmbed",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            54,
+            62
+        ],
+        "callees": [
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 62
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-RMSNorm-__init__": {
+        "class": "RMSNorm",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            96,
+            116
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "custom_op-CustomOp-__init__": {
+        "class": "CustomOp",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            18,
+            20
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "dispatch_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 20
+            },
+            {
+                "class": "CustomOp",
+                "function": "dispatch_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 20
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-CustomOp-dispatch_forward": {
+        "class": "CustomOp",
+        "function": "dispatch_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            70,
+            99
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 74
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "compilation_config.enabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "compilation_config.disabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 78
+            }
+        ]
+    },
+    "layernorm-CustomOp-enabled": {
+        "class": "CustomOp",
+        "function": "enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            102,
+            118
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 111
+            },
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "custom_op-default_on": {
+        "class": null,
+        "function": "default_on",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "loc": [
+            121,
+            132
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 127
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 129
+            },
+            {
+                "class": null,
+                "function": "custom_ops.count",
+                "type": "compilation_config.custom_ops",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 130
+            }
+        ]
+    },
+    "config-get_current_vllm_config": {
+        "class": null,
+        "function": "get_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4552,
+            4560
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "VllmConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 4559
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Transformer-__init__": {
+        "class": "AIMv2Transformer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            154,
+            163
+        ],
+        "callees": [
+            {
+                "class": "AIMv2Block",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 159
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 162
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Block-__init__": {
+        "class": "AIMv2Block",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            132,
+            142
+        ],
+        "callees": [
+            {
+                "class": "AIMv2Attention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 135
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 138
+            },
+            {
+                "class": "AIMv2SwiGLUFFN",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 139
+            },
+            {
+                "class": "RMSNorm",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 142
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Attention-__init__": {
+        "class": "AIMv2Attention",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            90,
+            105
+        ],
+        "callees": [
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 97
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 105
+            }
+        ],
+        "unknown": []
+    },
+    "linear-ReplicatedLinear-__init__": {
+        "class": "ReplicatedLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            267,
+            304
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 299
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 289
+            }
+        ]
+    },
+    "linear-LinearBase-__init__": {
+        "class": "LinearBase",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            218,
+            244
+        ],
+        "callees": [
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 240
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "quant_config.get_quant_method",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 242
+            }
+        ]
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "aimv2-AIMv2SwiGLUFFN-__init__": {
+        "class": "AIMv2SwiGLUFFN",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            20,
+            42
+        ],
+        "callees": [
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 28
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 33
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 38
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionModel-__init__": {
+        "class": "SiglipVisionModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            450,
+            467
+        ],
+        "callees": [
+            {
+                "class": "SiglipVisionTransformer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 461
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionTransformer-__init__": {
+        "class": "SiglipVisionTransformer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            364,
+            411
+        ],
+        "callees": [
+            {
+                "class": "SiglipVisionEmbeddings",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 378
+            },
+            {
+                "class": "SiglipEncoder",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 380
+            },
+            {
+                "class": "SiglipMultiheadAttentionPoolingHead",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 407
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionEmbeddings-__init__": {
+        "class": "SiglipVisionEmbeddings",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            51,
+            75
+        ],
+        "callees": [
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 68
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-__init__": {
+        "class": "VocabParallelEmbedding",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            200,
+            271
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_rank",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 211
+            },
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 212
+            },
+            {
+                "class": null,
+                "function": "pad_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 217
+            },
+            {
+                "class": null,
+                "function": "pad_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 219
+            },
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "_get_indices",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 224
+            },
+            {
+                "class": "UnquantizedEmbeddingMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 235
+            },
+            {
+                "class": null,
+                "function": "method_has_implemented_embedding",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 241
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 254
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "quant_config.get_quant_method",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 233
+            },
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "QuantizeMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 265
+            }
+        ]
+    },
+    "parallel_state-get_tensor_model_parallel_rank": {
+        "class": null,
+        "function": "get_tensor_model_parallel_rank",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            1154,
+            1156
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1156
+            }
+        ],
+        "unknown": []
+    },
+    "parallel_state-get_tp_group": {
+        "class": null,
+        "function": "get_tp_group",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            843,
+            845
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parallel_state-get_tensor_model_parallel_world_size": {
+        "class": null,
+        "function": "get_tensor_model_parallel_world_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "loc": [
+            1149,
+            1151
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tp_group",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1151
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-pad_vocab_size": {
+        "class": null,
+        "function": "pad_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            52,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-_get_indices": {
+        "class": "VocabParallelEmbedding",
+        "function": "_get_indices",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            274,
+            300
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "vocab_range_from_global_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 282
+            },
+            {
+                "class": null,
+                "function": "vocab_range_from_global_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 285
+            },
+            {
+                "class": "VocabParallelEmbeddingShardIndices",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 296
+            }
+        ],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-vocab_range_from_global_vocab_size": {
+        "class": null,
+        "function": "vocab_range_from_global_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            67,
+            74
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 71
+            },
+            {
+                "class": null,
+                "function": "vocab_range_from_per_partition_vocab_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 72
+            }
+        ],
+        "unknown": []
+    },
+    "utils-divide": {
+        "class": null,
+        "function": "divide",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "loc": [
+            54,
+            58
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "ensure_divisibility",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 57
+            }
+        ],
+        "unknown": []
+    },
+    "utils-ensure_divisibility": {
+        "class": null,
+        "function": "ensure_divisibility",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "loc": [
+            48,
+            51
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vocab_parallel_embedding-vocab_range_from_per_partition_vocab_size": {
+        "class": null,
+        "function": "vocab_range_from_per_partition_vocab_size",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            58,
+            64
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-method_has_implemented_embedding": {
+        "class": null,
+        "function": "method_has_implemented_embedding",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            50,
+            62
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "siglip-SiglipEncoder-__init__": {
+        "class": "SiglipEncoder",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            286,
+            307
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "siglip-SiglipMultiheadAttentionPoolingHead-__init__": {
+        "class": "SiglipMultiheadAttentionPoolingHead",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            331,
+            347
+        ],
+        "callees": [
+            {
+                "class": "SiglipMLP",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 345
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipMLP-__init__": {
+        "class": "SiglipMLP",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            199,
+            230
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_act_fn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 208
+            },
+            {
+                "class": "ColumnParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 219
+            },
+            {
+                "class": "RowParallelLinear",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 225
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "quant_config.get_name",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 210
+            }
+        ]
+    },
+    "activation-get_act_fn": {
+        "class": null,
+        "function": "get_act_fn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            344,
+            351
+        ],
+        "callees": [
+            {
+                "class": "FastGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 328
+            },
+            {
+                "class": "NewGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 330
+            },
+            {
+                "class": "ReLUSquaredActivation",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 336
+            },
+            {
+                "class": "QuickGELU",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 340
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "act_fn_name.lower",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 346
+            }
+        ]
+    },
+    "activation-FastGELU-__init__": {
+        "class": "FastGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            217,
+            223
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "activation-CustomOp-dispatch_forward": {
+        "class": "CustomOp",
+        "function": "dispatch_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            70,
+            99
+        ],
+        "callees": [
+            {
+                "class": "CustomOp",
+                "function": "enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 74
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "compilation_config.enabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "compilation_config.disabled_custom_ops.update",
+                "type": "compilation_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "line": 78
+            }
+        ]
+    },
+    "activation-CustomOp-enabled": {
+        "class": "CustomOp",
+        "function": "enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            102,
+            118
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 111
+            },
+            {
+                "class": null,
+                "function": "default_on",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "line": 118
+            }
+        ],
+        "unknown": []
+    },
+    "activation-NewGELU-__init__": {
+        "class": "NewGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            191,
+            197
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "activation-QuickGELU-__init__": {
+        "class": "QuickGELU",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "loc": [
+            242,
+            248
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "linear-ColumnParallelLinear-__init__": {
+        "class": "ColumnParallelLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            370,
+            429
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 385
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 387
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 424
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 410
+            }
+        ]
+    },
+    "linear-RowParallelLinear-__init__": {
+        "class": "RowParallelLinear",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            1166,
+            1221
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_rank",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1181
+            },
+            {
+                "class": null,
+                "function": "get_tensor_model_parallel_world_size",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "line": 1182
+            },
+            {
+                "class": null,
+                "function": "divide",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 1216
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.create_weights",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 1199
+            }
+        ]
+    },
+    "ovis-VisualEmbedding-__init__": {
+        "class": "VisualEmbedding",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            223,
+            224
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-Ovis-forward": {
+        "class": "Ovis",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            511,
+            538
+        ],
+        "callees": [
+            {
+                "class": "Ovis",
+                "function": "get_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 525
+            },
+            {
+                "class": "Ovis",
+                "function": "get_input_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 526
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-Ovis-get_multimodal_embeddings": {
+        "class": "Ovis",
+        "function": "get_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            489,
+            497
+        ],
+        "callees": [
+            {
+                "class": "Ovis",
+                "function": "_parse_and_validate_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 491
+            },
+            {
+                "class": "Ovis",
+                "function": "_process_image_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 495
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-Ovis-_parse_and_validate_image_input": {
+        "class": "Ovis",
+        "function": "_parse_and_validate_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            428,
+            455
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+                "line": 447
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+                "line": 451
+            },
+            {
+                "class": "OvisImagePatchInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 445
+            }
+        ],
+        "unknown": []
+    },
+    "utils-flatten_bn": {
+        "class": null,
+        "function": "flatten_bn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/utils.py",
+        "loc": [
+            306,
+            307
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-Ovis-_process_image_input": {
+        "class": "Ovis",
+        "function": "_process_image_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            457,
+            487
+        ],
+        "callees": [
+            {
+                "class": "VisualTokenizer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 467
+            },
+            {
+                "class": "VisualEmbedding",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 469
+            },
+            {
+                "class": "VisualEmbedding",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 471
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-VisualTokenizer-forward": {
+        "class": "VisualTokenizer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            183,
+            197
+        ],
+        "callees": [
+            {
+                "class": "VisualTokenizer",
+                "function": "encode",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 185
+            },
+            {
+                "class": "VisualTokenizer",
+                "function": "tokenize",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 187
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-VisualTokenizer-encode": {
+        "class": "VisualTokenizer",
+        "function": "encode",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            147,
+            181
+        ],
+        "callees": [
+            {
+                "class": "AIMv2Model",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 148
+            },
+            {
+                "class": "SiglipVisionModel",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 148
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Model-forward": {
+        "class": "AIMv2Model",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            190,
+            199
+        ],
+        "callees": [
+            {
+                "class": "AIMv2ViTPreprocessor",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 196
+            },
+            {
+                "class": "AIMv2Transformer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 197
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2ViTPreprocessor-forward": {
+        "class": "AIMv2ViTPreprocessor",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            80,
+            85
+        ],
+        "callees": [
+            {
+                "class": "AIMv2PatchEmbed",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 81
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.pos_embed.to",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 83
+            }
+        ]
+    },
+    "aimv2-AIMv2PatchEmbed-forward": {
+        "class": "AIMv2PatchEmbed",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            64,
+            67
+        ],
+        "callees": [
+            {
+                "class": "RMSNorm",
+                "function": "forward_native",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 66
+            }
+        ],
+        "unknown": []
+    },
+    "layernorm-RMSNorm-forward_native": {
+        "class": "RMSNorm",
+        "function": "forward_native",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "loc": [
+            118,
+            154
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "aimv2-AIMv2Transformer-forward": {
+        "class": "AIMv2Transformer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            165,
+            175
+        ],
+        "callees": [
+            {
+                "class": "AIMv2Block",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 172
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Block-forward": {
+        "class": "AIMv2Block",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            144,
+            149
+        ],
+        "callees": [
+            {
+                "class": "RMSNorm",
+                "function": "forward_native",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 147
+            },
+            {
+                "class": "AIMv2Attention",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 147
+            },
+            {
+                "class": "RMSNorm",
+                "function": "forward_native",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "line": 148
+            },
+            {
+                "class": "AIMv2SwiGLUFFN",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+                "line": 148
+            }
+        ],
+        "unknown": []
+    },
+    "aimv2-AIMv2Attention-forward": {
+        "class": "AIMv2Attention",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            112,
+            127
+        ],
+        "callees": [
+            {
+                "class": "ReplicatedLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 117
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 126
+            }
+        ],
+        "unknown": []
+    },
+    "linear-ReplicatedLinear-forward": {
+        "class": "ReplicatedLinear",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "loc": [
+            328,
+            337
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.apply",
+                "type": "LinearMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 333
+            }
+        ]
+    },
+    "aimv2-AIMv2SwiGLUFFN-forward": {
+        "class": "AIMv2SwiGLUFFN",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/aimv2.py",
+        "loc": [
+            44,
+            49
+        ],
+        "callees": [
+            {
+                "class": "ReplicatedLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 45
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 46
+            },
+            {
+                "class": "ReplicatedLinear",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 48
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionModel-forward": {
+        "class": "SiglipVisionModel",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            472,
+            482
+        ],
+        "callees": [
+            {
+                "class": "SiglipVisionTransformer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 478
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionTransformer-forward": {
+        "class": "SiglipVisionTransformer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            413,
+            443
+        ],
+        "callees": [
+            {
+                "class": "SiglipVisionEmbeddings",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 420
+            },
+            {
+                "class": "SiglipEncoder",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 429
+            },
+            {
+                "class": null,
+                "function": "resolve_visual_encoder_outputs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./vision.py",
+                "line": 435
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionEmbeddings-forward": {
+        "class": "SiglipVisionEmbeddings",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            123,
+            138
+        ],
+        "callees": [
+            {
+                "class": "SiglipVisionEmbeddings",
+                "function": "interpolate_pos_encoding",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 133
+            },
+            {
+                "class": "VocabParallelEmbedding",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 136
+            }
+        ],
+        "unknown": []
+    },
+    "siglip-SiglipVisionEmbeddings-interpolate_pos_encoding": {
+        "class": "SiglipVisionEmbeddings",
+        "function": "interpolate_pos_encoding",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            77,
+            121
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.position_embedding.weight.unsqueeze",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+                "line": 88
+            }
+        ]
+    },
+    "vocab_parallel_embedding-VocabParallelEmbedding-forward": {
+        "class": "VocabParallelEmbedding",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            405,
+            424
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_masked_input_and_mask",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 408
+            },
+            {
+                "class": null,
+                "function": "tensor_model_parallel_all_reduce",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "line": 423
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.quant_method.embedding",
+                "type": "QuantizeMethodBase",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 417
+            }
+        ]
+    },
+    "vocab_parallel_embedding-get_masked_input_and_mask": {
+        "class": null,
+        "function": "get_masked_input_and_mask",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "loc": [
+            141,
+            158
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "communication_op-tensor_model_parallel_all_reduce": {
+        "class": null,
+        "function": "tensor_model_parallel_all_reduce",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "loc": [
+            11,
+            13
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "siglip-SiglipEncoder-forward": {
+        "class": "SiglipEncoder",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/siglip.py",
+        "loc": [
+            309,
+            325
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "vision-resolve_visual_encoder_outputs": {
+        "class": null,
+        "function": "resolve_visual_encoder_outputs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./vision.py",
+        "loc": [
+            105,
+            146
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-VisualTokenizer-tokenize": {
+        "class": "VisualTokenizer",
+        "function": "tokenize",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            134,
+            145
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "st_argmax",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 140
+            }
+        ],
+        "unknown": []
+    },
+    "ovis-st_argmax": {
+        "class": null,
+        "function": "st_argmax",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            70,
+            75
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-VisualEmbedding-forward": {
+        "class": "VisualEmbedding",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            226,
+            231
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "ovis-Ovis-get_input_embeddings": {
+        "class": "Ovis",
+        "function": "get_input_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+        "loc": [
+            499,
+            509
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 506
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.llm.get_input_embeddings",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/ovis.py",
+                "line": 504
+            }
+        ]
+    },
+    "utils-merge_multimodal_embeddings": {
+        "class": null,
+        "function": "merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            457,
+            501
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_merge_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 497
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_merge_multimodal_embeddings": {
+        "class": null,
+        "function": "_merge_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            394,
+            418
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_flatten_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 410
+            },
+            {
+                "class": null,
+                "function": "_embedding_count_expression",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 412
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_flatten_embeddings": {
+        "class": null,
+        "function": "_flatten_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            352,
+            362
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-_embedding_count_expression": {
+        "class": null,
+        "function": "_embedding_count_expression",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            365,
+            375
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

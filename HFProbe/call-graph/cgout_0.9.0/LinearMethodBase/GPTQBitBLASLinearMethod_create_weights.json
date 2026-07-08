@@ -1,0 +1,274 @@
+{
+    "gptq_bitblas-GPTQBitBLASLinearMethod-__init__": {
+        "class": "GPTQBitBLASLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+        "loc": [
+            229,
+            233
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_bitblas_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 232
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-verify_bitblas_supported": {
+        "class": null,
+        "function": "verify_bitblas_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            95,
+            101
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_bitblas_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 98
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-_check_bitblas_supported": {
+        "class": null,
+        "function": "_check_bitblas_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            50,
+            83
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 57
+            },
+            {
+                "class": null,
+                "function": "query_bitblas_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 61
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-query_bitblas_supported_quant_types": {
+        "class": null,
+        "function": "query_bitblas_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            29,
+            47
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 33
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_bitblas-GPTQBitBLASLinearMethod-create_weights": {
+        "class": "GPTQBitBLASLinearMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+        "loc": [
+            235,
+            430
+        ],
+        "callees": [
+            {
+                "class": "MPLinearLayerConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "line": 291
+            },
+            {
+                "class": null,
+                "function": "bitblas_repeat_scales_on_all_ranks",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 314
+            },
+            {
+                "class": "PackedvLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 329
+            },
+            {
+                "class": "RowvLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 343
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 359
+            },
+            {
+                "class": "ChannelQuantScaleParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 391
+            },
+            {
+                "class": "PackedColumnParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 393
+            },
+            {
+                "class": "GroupQuantScaleParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 400
+            },
+            {
+                "class": "PackedvLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 403
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self._kernel_backends_being_used.add",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+                "line": 305
+            },
+            {
+                "class": null,
+                "function": "self.kernel.configure_bitblas_matmul",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+                "line": 425
+            }
+        ]
+    },
+    "bitblas_utils-bitblas_repeat_scales_on_all_ranks": {
+        "class": null,
+        "function": "bitblas_repeat_scales_on_all_ranks",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            150,
+            155
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-PackedvLLMParameter-__init__": {
+        "class": "PackedvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            329,
+            339
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-RowvLLMParameter-__init__": {
+        "class": "RowvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            166,
+            168
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-BasevLLMParameter-__init__": {
+        "class": "BasevLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            33,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-_ColumnvLLMParameter-__init__": {
+        "class": "_ColumnvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            95,
+            97
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-PackedColumnParameter-__init__": {
+        "class": "PackedColumnParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            281,
+            291
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

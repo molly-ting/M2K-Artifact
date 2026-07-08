@@ -1,0 +1,276 @@
+{
+    "gptq_marlin-GPTQMarlinConfig-__init__": {
+        "class": "GPTQMarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            46,
+            94
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin-GPTQMarlinConfig-get_quant_method": {
+        "class": "GPTQMarlinConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            154,
+            167
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "check_moe_marlin_supports_layer",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 159
+            },
+            {
+                "class": "GPTQMarlinMoEMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "line": 165
+            },
+            {
+                "class": null,
+                "function": "get_linear_quant_method",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 166
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-check_moe_marlin_supports_layer": {
+        "class": null,
+        "function": "check_moe_marlin_supports_layer",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            170,
+            186
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin-GPTQMarlinMoEMethod-__init__": {
+        "class": "GPTQMarlinMoEMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            351,
+            359
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_utils-get_linear_quant_method": {
+        "class": null,
+        "function": "get_linear_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            71,
+            94
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 82
+            },
+            {
+                "class": "UnquantizedEmbeddingMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 86
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 87
+            },
+            {
+                "class": null,
+                "function": "override_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 91
+            },
+            {
+                "class": "GPTQMarlinLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "line": 93
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_utils-get_dynamic_override": {
+        "class": null,
+        "function": "get_dynamic_override",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            50,
+            68
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_utils-override_config": {
+        "class": null,
+        "function": "override_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            17,
+            47
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 18
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 22
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 26
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 33
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "config.get_name",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 32
+            },
+            {
+                "class": null,
+                "function": "config.get_name",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 43
+            }
+        ]
+    },
+    "gptq_marlin-GPTQMarlinLinearMethod-__init__": {
+        "class": "GPTQMarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "loc": [
+            204,
+            209
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 208
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-verify_marlin_supported": {
+        "class": null,
+        "function": "verify_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            105,
+            111
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_marlin_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 108
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-_check_marlin_supported": {
+        "class": null,
+        "function": "_check_marlin_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            69,
+            93
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 76
+            },
+            {
+                "class": null,
+                "function": "query_marlin_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 80
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-query_marlin_supported_quant_types": {
+        "class": null,
+        "function": "query_marlin_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            35,
+            66
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 41
+            }
+        ],
+        "unknown": []
+    }
+}

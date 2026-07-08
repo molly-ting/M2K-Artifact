@@ -1,0 +1,501 @@
+{
+    "common-MLACommonImpl-__init__": {
+        "class": "MLACommonImpl",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            990,
+            1042
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_flash_attn_version",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+                "line": 1030
+            },
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 1042
+            }
+        ],
+        "unknown": []
+    },
+    "fa_utils-get_flash_attn_version": {
+        "class": null,
+        "function": "get_flash_attn_version",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/utils/fa_utils.py",
+        "loc": [
+            10,
+            48
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 16
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "common-MLACommonImpl-forward": {
+        "class": "MLACommonImpl",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            1309,
+            1381
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "concat_and_cache_mla",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1349
+            },
+            {
+                "class": "MLACommonImpl",
+                "function": "_forward_prefill",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1364
+            },
+            {
+                "class": "MLACommonImpl",
+                "function": "_forward_decode",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1378
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-concat_and_cache_mla": {
+        "class": null,
+        "function": "concat_and_cache_mla",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1570,
+            1580
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C_cache_ops.concat_and_cache_mla",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1578
+            }
+        ],
+        "unknown": []
+    },
+    "common-MLACommonImpl-_forward_prefill": {
+        "class": "MLACommonImpl",
+        "function": "_forward_prefill",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            1243,
+            1297
+        ],
+        "callees": [
+            {
+                "class": "MLACommonImpl",
+                "function": "_flash_attn_varlen_diff_headdims",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1265
+            },
+            {
+                "class": "MLACommonImpl",
+                "function": "_compute_prefill_context",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1281
+            },
+            {
+                "class": null,
+                "function": "merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+                "line": 1285
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "prefill_metadata.context_lens_tensor.max",
+                "type": "attn_metadata.prefill_metadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1256
+            }
+        ]
+    },
+    "common-MLACommonImpl-_flash_attn_varlen_diff_headdims": {
+        "class": "MLACommonImpl",
+        "function": "_flash_attn_varlen_diff_headdims",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            1044,
+            1101
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "triton_attention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1053
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-triton_attention": {
+        "class": null,
+        "function": "triton_attention",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1337,
+            1374
+        ],
+        "callees": [
+            {
+                "class": "MetaData",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1357
+            },
+            {
+                "class": null,
+                "function": "check_and_maybe_quantize_qkv",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1372
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-__init__": {
+        "class": "MetaData",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            90,
+            138
+        ],
+        "callees": [
+            {
+                "class": "MetaData",
+                "function": "set_varlen_params",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 127
+            },
+            {
+                "class": "MetaData",
+                "function": "set_eight_bit_params",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 131
+            },
+            {
+                "class": "MetaData",
+                "function": "need_alibi",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 136
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-set_varlen_params": {
+        "class": "MetaData",
+        "function": "set_varlen_params",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            140,
+            155
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-set_eight_bit_params": {
+        "class": "MetaData",
+        "function": "set_eight_bit_params",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            157,
+            170
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-need_alibi": {
+        "class": "MetaData",
+        "function": "need_alibi",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            180,
+            185
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-check_and_maybe_quantize_qkv": {
+        "class": null,
+        "function": "check_and_maybe_quantize_qkv",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1323,
+            1330
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1326
+            },
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1327
+            },
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1328
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-maybe_quantize_fp8": {
+        "class": null,
+        "function": "maybe_quantize_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1316,
+            1320
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "scale_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1319
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-scale_fp8": {
+        "class": null,
+        "function": "scale_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1310,
+            1313
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1311
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-scaled_fp8_quant": {
+        "class": null,
+        "function": "scaled_fp8_quant",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1139,
+            1193
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_per_token_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1187
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.static_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1191
+            }
+        ],
+        "unknown": []
+    },
+    "common-MLACommonImpl-_compute_prefill_context": {
+        "class": "MLACommonImpl",
+        "function": "_compute_prefill_context",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            1162,
+            1241
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "gather_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1188
+            },
+            {
+                "class": "MLACommonImpl",
+                "function": "_flash_attn_varlen_diff_headdims",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+                "line": 1211
+            },
+            {
+                "class": null,
+                "function": "merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+                "line": 1230
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-gather_cache": {
+        "class": null,
+        "function": "gather_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1606,
+            1613
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C_cache_ops.gather_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1612
+            }
+        ],
+        "unknown": []
+    },
+    "merge_attn_states-merge_attn_states": {
+        "class": null,
+        "function": "merge_attn_states",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+        "loc": [
+            9,
+            42
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "supported_dtypes",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+                "line": 33
+            },
+            {
+                "class": null,
+                "function": "supported_headdim",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+                "line": 34
+            },
+            {
+                "class": null,
+                "function": "merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 36
+            },
+            {
+                "class": null,
+                "function": "merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 41
+            },
+            {
+                "class": null,
+                "function": "merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_merge_attn_states.py",
+                "line": 41
+            }
+        ],
+        "unknown": []
+    },
+    "merge_attn_states-supported_dtypes": {
+        "class": null,
+        "function": "supported_dtypes",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+        "loc": [
+            20,
+            21
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "merge_attn_states-supported_headdim": {
+        "class": null,
+        "function": "supported_headdim",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/merge_attn_states.py",
+        "loc": [
+            27,
+            31
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "_custom_ops-merge_attn_states": {
+        "class": null,
+        "function": "merge_attn_states",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            143,
+            150
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.merge_attn_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 149
+            }
+        ],
+        "unknown": []
+    },
+    "triton_merge_attn_states-merge_attn_states": {
+        "class": null,
+        "function": "merge_attn_states",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_merge_attn_states.py",
+        "loc": [
+            11,
+            35
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "common-MLACommonImpl-_forward_decode": {
+        "class": "MLACommonImpl",
+        "function": "_forward_decode",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/mla/common.py",
+        "loc": [
+            1300,
+            1307
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

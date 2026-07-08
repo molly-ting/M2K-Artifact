@@ -1,0 +1,541 @@
+{
+    "minicpmo-MiniCPMO-__init__": {
+        "class": "MiniCPMO",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            511,
+            516
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 514
+            },
+            {
+                "class": "MiniCPMO",
+                "function": "init_audio_module",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 513
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmv-MiniCPMV2_6-__init__": {
+        "class": "MiniCPMV2_6",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./minicpmv.py",
+        "loc": [
+            1169,
+            1171
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmv-MiniCPMVBaseModel-__init__": {
+        "class": "MiniCPMVBaseModel",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./minicpmv.py",
+        "loc": [
+            727,
+            757
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_version_by_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./minicpmv.py",
+                "line": 739
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././utils.py",
+                "line": 741
+            },
+            {
+                "class": "MiniCPMVBaseModel",
+                "function": "init_llm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 740
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././utils.py",
+                "line": 744
+            },
+            {
+                "class": "MiniCPMVBaseModel",
+                "function": "init_vision_module",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 742
+            },
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././utils.py",
+                "line": 752
+            },
+            {
+                "class": "MiniCPMVBaseModel",
+                "function": "init_resampler",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 749
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmv-get_version_by_config": {
+        "class": null,
+        "function": "get_version_by_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./minicpmv.py",
+        "loc": [
+            205,
+            215
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMVBaseModel-init_llm": {
+        "class": "MiniCPMVBaseModel",
+        "function": "init_llm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            1173,
+            1178
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMVBaseModel-init_vision_module": {
+        "class": "MiniCPMVBaseModel",
+        "function": "init_vision_module",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            526,
+            534
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMVBaseModel",
+                "function": "_maybe_ignore_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 533
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMVBaseModel-_maybe_ignore_quant_config": {
+        "class": "MiniCPMVBaseModel",
+        "function": "_maybe_ignore_quant_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            518,
+            524
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMVBaseModel-init_resampler": {
+        "class": "MiniCPMVBaseModel",
+        "function": "init_resampler",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            536,
+            546
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMVBaseModel",
+                "function": "_maybe_ignore_quant_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 544
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-init_audio_module": {
+        "class": "MiniCPMO",
+        "function": "init_audio_module",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            548,
+            559
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMWhisperEncoder",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 551
+            },
+            {
+                "class": "MultiModalProjector",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 557
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMWhisperEncoder-__init__": {
+        "class": "MiniCPMWhisperEncoder",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            434,
+            439
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMWhisperEncoderLayer",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 437
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMWhisperEncoderLayer-__init__": {
+        "class": "MiniCPMWhisperEncoderLayer",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            375,
+            392
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MultiModalProjector-__init__": {
+        "class": "MultiModalProjector",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            357,
+            365
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-forward": {
+        "class": "MiniCPMO",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            904,
+            931
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "get_multimodal_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 919
+            },
+            {
+                "class": "MiniCPMO",
+                "function": "get_input_embeddings",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 921
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.llm.model",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 925
+            }
+        ]
+    },
+    "minicpmo-MiniCPMO-get_multimodal_embeddings": {
+        "class": "MiniCPMO",
+        "function": "get_multimodal_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            880,
+            886
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "_parse_and_validate_multimodal_inputs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 882
+            },
+            {
+                "class": "MiniCPMO",
+                "function": "_process_multimodal_inputs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 886
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-_parse_and_validate_multimodal_inputs": {
+        "class": "MiniCPMO",
+        "function": "_parse_and_validate_multimodal_inputs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            727,
+            738
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "_parse_and_validate_audio_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 735
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-_parse_and_validate_audio_input": {
+        "class": "MiniCPMO",
+        "function": "_parse_and_validate_audio_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            684,
+            725
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 702
+            },
+            {
+                "class": "MiniCPMOAudioEmbeddingInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 704
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 718
+            },
+            {
+                "class": null,
+                "function": "flatten_bn",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 719
+            },
+            {
+                "class": "MiniCPMOAudioFeatureInputs",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 721
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.mm_token_ids.add",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 695
+            }
+        ]
+    },
+    "utils-flatten_bn": {
+        "class": null,
+        "function": "flatten_bn",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            306,
+            307
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-_process_multimodal_inputs": {
+        "class": "MiniCPMO",
+        "function": "_process_multimodal_inputs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            749,
+            758
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "_process_audio_input",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 755
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-_process_audio_input": {
+        "class": "MiniCPMO",
+        "function": "_process_audio_input",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            740,
+            747
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "get_audio_hidden_states",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 747
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-get_audio_hidden_states": {
+        "class": "MiniCPMO",
+        "function": "get_audio_hidden_states",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            597,
+            682
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMO",
+                "function": "subsequent_chunk_mask",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 647
+            },
+            {
+                "class": "MiniCPMWhisperEncoder",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 657
+            },
+            {
+                "class": "MultiModalProjector",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 660
+            },
+            {
+                "class": "MiniCPMO",
+                "function": "_get_feat_extract_output_lengths",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 667
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-subsequent_chunk_mask": {
+        "class": "MiniCPMO",
+        "function": "subsequent_chunk_mask",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            566,
+            584
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMWhisperEncoder-forward": {
+        "class": "MiniCPMWhisperEncoder",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            441,
+            491
+        ],
+        "callees": [
+            {
+                "class": "MiniCPMWhisperEncoderLayer",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 478
+            }
+        ],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMWhisperEncoderLayer-forward": {
+        "class": "MiniCPMWhisperEncoderLayer",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            394,
+            429
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "cast_overflow_tensors",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 425
+            }
+        ],
+        "unknown": []
+    },
+    "utils-cast_overflow_tensors": {
+        "class": null,
+        "function": "cast_overflow_tensors",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            714,
+            721
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MultiModalProjector-forward": {
+        "class": "MultiModalProjector",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            367,
+            370
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-_get_feat_extract_output_lengths": {
+        "class": "MiniCPMO",
+        "function": "_get_feat_extract_output_lengths",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            586,
+            595
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "minicpmo-MiniCPMO-get_input_embeddings": {
+        "class": "MiniCPMO",
+        "function": "get_input_embeddings",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+        "loc": [
+            888,
+            902
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.llm.get_input_embeddings",
+                "type": null,
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/minicpmo.py",
+                "line": 893
+            }
+        ]
+    }
+}

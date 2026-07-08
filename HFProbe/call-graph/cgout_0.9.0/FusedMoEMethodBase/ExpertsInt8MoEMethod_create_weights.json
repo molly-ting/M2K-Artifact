@@ -1,0 +1,83 @@
+{
+    "experts_int8-ExpertsInt8MoEMethod-__init__": {
+        "class": "ExpertsInt8MoEMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/experts_int8.py",
+        "loc": [
+            54,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "experts_int8-ExpertsInt8MoEMethod-create_weights": {
+        "class": "ExpertsInt8MoEMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/experts_int8.py",
+        "loc": [
+            57,
+            100
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "quantizing_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/experts_int8.py",
+                "line": 65
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 77
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 87
+            }
+        ],
+        "unknown": []
+    },
+    "experts_int8-quantizing_weight_loader": {
+        "class": null,
+        "function": "quantizing_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/experts_int8.py",
+        "loc": [
+            150,
+            184
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

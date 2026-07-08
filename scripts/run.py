@@ -7,8 +7,6 @@ TIMEOUT_LIMIT = 6*60*60
 MAX_ENTRIES = 4
 
 def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
-    if "cutlass" in json_file:
-        return False
     one_timeout = 3600
     try:
         # Ensure output directory exists

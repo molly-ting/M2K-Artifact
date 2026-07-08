@@ -1,0 +1,59 @@
+{
+    "bitsandbytes-BitsAndBytesLinearMethod-__init__": {
+        "class": "BitsAndBytesLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            157,
+            168
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "bitsandbytes-BitsAndBytesLinearMethod-apply": {
+        "class": "BitsAndBytesLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            231,
+            239
+        ],
+        "callees": [
+            {
+                "class": "BitsAndBytesLinearMethod",
+                "function": "_apply_8bit_weight",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "line": 237
+            },
+            {
+                "class": "BitsAndBytesLinearMethod",
+                "function": "_apply_4bit_weight",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "line": 239
+            }
+        ],
+        "unknown": []
+    },
+    "bitsandbytes-BitsAndBytesLinearMethod-_apply_8bit_weight": {
+        "class": "BitsAndBytesLinearMethod",
+        "function": "_apply_8bit_weight",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            241,
+            318
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "bitsandbytes-BitsAndBytesLinearMethod-_apply_4bit_weight": {
+        "class": "BitsAndBytesLinearMethod",
+        "function": "_apply_4bit_weight",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            320,
+            354
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

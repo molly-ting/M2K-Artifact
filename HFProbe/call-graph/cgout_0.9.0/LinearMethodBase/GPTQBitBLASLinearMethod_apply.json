@@ -1,0 +1,109 @@
+{
+    "gptq_bitblas-GPTQBitBLASLinearMethod-__init__": {
+        "class": "GPTQBitBLASLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+        "loc": [
+            229,
+            233
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "verify_bitblas_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 232
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-verify_bitblas_supported": {
+        "class": null,
+        "function": "verify_bitblas_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            95,
+            101
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_check_bitblas_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 98
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-_check_bitblas_supported": {
+        "class": null,
+        "function": "_check_bitblas_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            50,
+            83
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 57
+            },
+            {
+                "class": null,
+                "function": "query_bitblas_supported_quant_types",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "line": 61
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas_utils-query_bitblas_supported_quant_types": {
+        "class": null,
+        "function": "query_bitblas_supported_quant_types",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "loc": [
+            29,
+            47
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 33
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_bitblas-GPTQBitBLASLinearMethod-apply": {
+        "class": "GPTQBitBLASLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_bitblas.py",
+        "loc": [
+            435,
+            444
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

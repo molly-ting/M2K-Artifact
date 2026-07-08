@@ -551,6 +551,19 @@ def vllm_test(vllm_dir, out_dir=None):
             traceback.print_exc()
             continue
 
+def vllm_test_one(vllm_dir, architecture, out_dir=None):
+    if not os.path.exists(vllm_dir):
+        print(f"vLLM directory {vllm_dir} does not exist.")
+        return
+    
+    vllm_model2path = extract_path_model_pairs(vllm_dir)
+    if not out_dir:
+        out_dir = os.path.join(root_dir, "cgout")
+    os.makedirs(out_dir, exist_ok=True)
+    
+    out_path = os.path.join(out_dir, architecture+"_forward.json")
+    analyze_vllm_model(architecture, vllm_model2path[architecture], vllm_dir, None, None, out_path)
+
 def indirect_fill(vllm_dir, target_file, out_dir=None):
     if not os.path.exists(vllm_dir):
         print(f"vLLM directory {vllm_dir} does not exist.")

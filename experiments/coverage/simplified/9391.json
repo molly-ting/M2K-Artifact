@@ -1,0 +1,32 @@
+[
+    {
+        "py_function": "static_scaled_int8_quant",
+        "cuda_function": "static_scaled_int8_quant",
+        "input_file_path": "experiments/coverage/simplified/vllm9391_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    131072,
+                    17920
+                ],
+                "dtype": "torch.int8",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    131072,
+                    17920
+                ],
+                "dtype": "torch.bfloat16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ]
+    }
+]

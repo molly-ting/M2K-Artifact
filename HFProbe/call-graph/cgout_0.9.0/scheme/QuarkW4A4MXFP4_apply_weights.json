@@ -1,0 +1,42 @@
+{
+    "quark_w4a4_mxfp4-QuarkW4A4MXFP4-__init__": {
+        "class": "QuarkW4A4MXFP4",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/quark_w4a4_mxfp4.py",
+        "loc": [
+            21,
+            27
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "quark_w4a4_mxfp4-QuarkW4A4MXFP4-apply_weights": {
+        "class": "QuarkW4A4MXFP4",
+        "function": "apply_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/quark_w4a4_mxfp4.py",
+        "loc": [
+            112,
+            125
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "per_token_group_quant_mxfp4",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/mxfp4_utils.py",
+                "line": 122
+            }
+        ],
+        "unknown": []
+    },
+    "mxfp4_utils-per_token_group_quant_mxfp4": {
+        "class": null,
+        "function": "per_token_group_quant_mxfp4",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/mxfp4_utils.py",
+        "loc": [
+            8,
+            44
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

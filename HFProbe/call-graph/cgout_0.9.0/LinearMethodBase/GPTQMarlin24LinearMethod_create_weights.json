@@ -1,0 +1,88 @@
+{
+    "gptq_marlin_24-GPTQMarlin24LinearMethod-__init__": {
+        "class": "GPTQMarlin24LinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            142,
+            143
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin_24-GPTQMarlin24LinearMethod-create_weights": {
+        "class": "GPTQMarlin24LinearMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            145,
+            260
+        ],
+        "callees": [
+            {
+                "class": "PackedvLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 194
+            },
+            {
+                "class": "PackedvLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 210
+            },
+            {
+                "class": "ChannelQuantScaleParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 240
+            },
+            {
+                "class": "GroupQuantScaleParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 243
+            },
+            {
+                "class": "BasevLLMParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 252
+            }
+        ],
+        "unknown": []
+    },
+    "parameter-PackedvLLMParameter-__init__": {
+        "class": "PackedvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            329,
+            339
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-_ColumnvLLMParameter-__init__": {
+        "class": "_ColumnvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            95,
+            97
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-BasevLLMParameter-__init__": {
+        "class": "BasevLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            33,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

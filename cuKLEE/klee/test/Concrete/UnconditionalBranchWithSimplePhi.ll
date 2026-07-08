@@ -1,16 +1,3 @@
-; RUN: %S/ConcreteTest.py --klee='%klee' --lli=%lli %s
-
-declare void @print_i32(i32)
-
-define i32 @main() {
-entry:
-	%a = add i32 0, 1
-	br label %exit
-unused:
-	%b = add i32 1, 2
-	br label %exit
-exit:
-	%c = phi i32 [%a, %entry], [%b, %unused]
-	call void @print_i32(i32 %c)
-	ret i32 0
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:df005efbd6acfbc78470843e010a8ee923dfe53604978e8a147b446eb4bc20ad
+size 283

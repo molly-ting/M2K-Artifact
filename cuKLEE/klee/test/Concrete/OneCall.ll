@@ -1,14 +1,3 @@
-; RUN: %S/ConcreteTest.py --klee='%klee' --lli=%lli %s
-
-declare void @print_i32(i32)
-
-define i32 @sum(i32 %a, i32 %b) {
-	%c = sub i32 %a, %b
-	ret i32 %c
-}
-
-define i32 @main() {
-	%a = call i32 @sum(i32 54, i32 2)
-	call void @print_i32(i32 %a)
-	ret i32 0
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:eb03730bdfb90e42b393e999663f715bbd792ca3e7c1b4105c584f2882f35063
+size 255

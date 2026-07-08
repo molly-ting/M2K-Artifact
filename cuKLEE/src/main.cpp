@@ -550,6 +550,7 @@ int main(int argc, char **argv) {
 
         fs::path filePath(arg1);
         fs::path parentPath = filePath.parent_path();
+        fs::path projectPath = fs::absolute(fs::path(__FILE__)).parent_path().parent_path().parent_path();
 
         if(j.is_array()) {
             for (unsigned i = 0; i < j.size(); i++) {
@@ -560,6 +561,9 @@ int main(int argc, char **argv) {
                 auto& c = j[i];
                 std::string function = c.value("cuda_function", "");
                 std::string inputFilePath = c.value("input_file_path", "");
+                if (!inputFilePath.empty() && inputFilePath.front() != '/') {
+                    inputFilePath = (projectPath / inputFilePath).string();
+                }
 
                 std::string modifiedFilePath = getModifiedFilePath(inputFilePath);
                 runOptCommand(inputFilePath, modifiedFilePath);

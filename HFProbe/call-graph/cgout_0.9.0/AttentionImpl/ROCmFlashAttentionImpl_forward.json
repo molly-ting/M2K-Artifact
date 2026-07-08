@@ -1,0 +1,414 @@
+{
+    "rocm_flash_attn-ROCmFlashAttentionImpl-__init__": {
+        "class": "ROCmFlashAttentionImpl",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            484,
+            582
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_get_paged_attn_module",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 529
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "self.paged_attn_module.get_supported_head_sizes",
+                "type": "PagedAttention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 530
+            }
+        ]
+    },
+    "rocm_flash_attn-_get_paged_attn_module": {
+        "class": null,
+        "function": "_get_paged_attn_module",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            37,
+            53
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_rocm_aiter_paged_attn_enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 48
+            },
+            {
+                "class": "AITERPagedAttention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/rocm_aiter_paged_attn.py",
+                "line": 52
+            },
+            {
+                "class": "PagedAttention",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "line": 53
+            }
+        ],
+        "unknown": []
+    },
+    "rocm_flash_attn-is_rocm_aiter_paged_attn_enabled": {
+        "class": null,
+        "function": "is_rocm_aiter_paged_attn_enabled",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            31,
+            33
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "rocm_flash_attn-ROCmFlashAttentionImpl-forward": {
+        "class": "ROCmFlashAttentionImpl",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            592,
+            935
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_rocm_aiter_paged_attn_enabled",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 669
+            },
+            {
+                "class": null,
+                "function": "_get_seq_len_block_table_args",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 754
+            },
+            {
+                "class": null,
+                "function": "_make_alibi_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 764
+            },
+            {
+                "class": null,
+                "function": "triton_attention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 775
+            },
+            {
+                "class": "ROCmFlashAttentionImpl",
+                "function": "repeat_kv",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 793
+            },
+            {
+                "class": "ROCmFlashAttentionImpl",
+                "function": "repeat_kv",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 794
+            },
+            {
+                "class": null,
+                "function": "_make_alibi_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 796
+            },
+            {
+                "class": "ROCmFlashAttentionImpl",
+                "function": "_sdpa_attention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+                "line": 805
+            },
+            {
+                "class": null,
+                "function": "use_rocm_custom_paged_attention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/rocm.py",
+                "line": 862
+            },
+            {
+                "class": null,
+                "function": "paged_attention_rocm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 888
+            }
+        ],
+        "unknown": []
+    },
+    "rocm_flash_attn-_get_seq_len_block_table_args": {
+        "class": null,
+        "function": "_get_seq_len_block_table_args",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            362,
+            455
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "rocm_flash_attn-_make_alibi_bias": {
+        "class": null,
+        "function": "_make_alibi_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            331,
+            359
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-triton_attention": {
+        "class": null,
+        "function": "triton_attention",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1337,
+            1374
+        ],
+        "callees": [
+            {
+                "class": "MetaData",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1357
+            },
+            {
+                "class": null,
+                "function": "check_and_maybe_quantize_qkv",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1372
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-__init__": {
+        "class": "MetaData",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            90,
+            138
+        ],
+        "callees": [
+            {
+                "class": "MetaData",
+                "function": "set_varlen_params",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 127
+            },
+            {
+                "class": "MetaData",
+                "function": "set_eight_bit_params",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 131
+            },
+            {
+                "class": "MetaData",
+                "function": "need_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 134
+            },
+            {
+                "class": "MetaData",
+                "function": "need_alibi",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 136
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-set_varlen_params": {
+        "class": "MetaData",
+        "function": "set_varlen_params",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            140,
+            155
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-set_eight_bit_params": {
+        "class": "MetaData",
+        "function": "set_eight_bit_params",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            157,
+            170
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-need_bias": {
+        "class": "MetaData",
+        "function": "need_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            172,
+            178
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-MetaData-need_alibi": {
+        "class": "MetaData",
+        "function": "need_alibi",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            180,
+            185
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "triton_flash_attention-check_and_maybe_quantize_qkv": {
+        "class": null,
+        "function": "check_and_maybe_quantize_qkv",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1323,
+            1330
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1326
+            },
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1327
+            },
+            {
+                "class": null,
+                "function": "maybe_quantize_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1328
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-maybe_quantize_fp8": {
+        "class": null,
+        "function": "maybe_quantize_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1316,
+            1320
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "scale_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+                "line": 1319
+            }
+        ],
+        "unknown": []
+    },
+    "triton_flash_attention-scale_fp8": {
+        "class": null,
+        "function": "scale_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/triton_flash_attention.py",
+        "loc": [
+            1310,
+            1313
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1311
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-scaled_fp8_quant": {
+        "class": null,
+        "function": "scaled_fp8_quant",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1139,
+            1193
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_per_token_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1187
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.static_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1191
+            }
+        ],
+        "unknown": []
+    },
+    "rocm_flash_attn-ROCmFlashAttentionImpl-repeat_kv": {
+        "class": "ROCmFlashAttentionImpl",
+        "function": "repeat_kv",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            584,
+            590
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "rocm_flash_attn-ROCmFlashAttentionImpl-_sdpa_attention": {
+        "class": "ROCmFlashAttentionImpl",
+        "function": "_sdpa_attention",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/rocm_flash_attn.py",
+        "loc": [
+            938,
+            970
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "rocm-use_rocm_custom_paged_attention": {
+        "class": null,
+        "function": "use_rocm_custom_paged_attention",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/rocm.py",
+        "loc": [
+            105,
+            140
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "_custom_ops-paged_attention_rocm": {
+        "class": null,
+        "function": "paged_attention_rocm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            101,
+            127
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._rocm_C.paged_attention",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 122
+            }
+        ],
+        "unknown": []
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "marlin-MarlinConfig-__init__": {
+        "class": "MarlinConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+        "loc": [
+            29,
+            60
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin-MarlinConfig-get_quant_method": {
+        "class": "MarlinConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+        "loc": [
+            109,
+            114
+        ],
+        "callees": [
+            {
+                "class": "MarlinLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+                "line": 113
+            }
+        ],
+        "unknown": []
+    },
+    "marlin-MarlinLinearMethod-__init__": {
+        "class": "MarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+        "loc": [
+            124,
+            125
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

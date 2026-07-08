@@ -1,0 +1,157 @@
+{
+    "gptq-GPTQConfig-__init__": {
+        "class": "GPTQConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            31,
+            73
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq-GPTQConfig-get_quant_method": {
+        "class": "GPTQConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            112,
+            114
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_linear_quant_method",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 114
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_utils-get_linear_quant_method": {
+        "class": null,
+        "function": "get_linear_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            71,
+            94
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 82
+            },
+            {
+                "class": "UnquantizedEmbeddingMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "line": 86
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 87
+            },
+            {
+                "class": null,
+                "function": "override_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 91
+            },
+            {
+                "class": "GPTQLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+                "line": 93
+            }
+        ],
+        "unknown": []
+    },
+    "gptq_utils-get_dynamic_override": {
+        "class": null,
+        "function": "get_dynamic_override",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            50,
+            68
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_utils-override_config": {
+        "class": null,
+        "function": "override_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "loc": [
+            17,
+            47
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 18
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 22
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 26
+            },
+            {
+                "class": null,
+                "function": "get_dynamic_override",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "line": 33
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "config.get_name",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 32
+            },
+            {
+                "class": null,
+                "function": "config.get_name",
+                "type": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 43
+            }
+        ]
+    },
+    "gptq-GPTQLinearMethod-__init__": {
+        "class": "GPTQLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq.py",
+        "loc": [
+            131,
+            132
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

@@ -1,0 +1,119 @@
+{
+    "compressed_tensors_w8a16_fp8-CompressedTensorsW8A16Fp8-__init__": {
+        "class": "CompressedTensorsW8A16Fp8",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a16_fp8.py",
+        "loc": [
+            27,
+            29
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "compressed_tensors_w8a16_fp8-CompressedTensorsW8A16Fp8-apply_weights": {
+        "class": "CompressedTensorsW8A16Fp8",
+        "function": "apply_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a16_fp8.py",
+        "loc": [
+            109,
+            120
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "apply_fp8_marlin_linear",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp8.py",
+                "line": 114
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils_fp8-apply_fp8_marlin_linear": {
+        "class": null,
+        "function": "apply_fp8_marlin_linear",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp8.py",
+        "loc": [
+            36,
+            76
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "should_use_atomic_add_reduce",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 51
+            },
+            {
+                "class": null,
+                "function": "gptq_marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 57
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-should_use_atomic_add_reduce": {
+        "class": null,
+        "function": "should_use_atomic_add_reduce",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            363,
+            383
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_warn_marlin_atomic_add_env",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 374
+            },
+            {
+                "class": null,
+                "function": "maybe_warn_marlin_atomic_add",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "line": 380
+            }
+        ],
+        "unknown": []
+    },
+    "marlin_utils-maybe_warn_marlin_atomic_add_env": {
+        "class": null,
+        "function": "maybe_warn_marlin_atomic_add_env",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            351,
+            360
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin_utils-maybe_warn_marlin_atomic_add": {
+        "class": null,
+        "function": "maybe_warn_marlin_atomic_add",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "loc": [
+            340,
+            348
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "_custom_ops-gptq_marlin_gemm": {
+        "class": null,
+        "function": "gptq_marlin_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            948,
+            970
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.gptq_marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 965
+            }
+        ],
+        "unknown": []
+    }
+}

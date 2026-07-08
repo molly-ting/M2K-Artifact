@@ -23,16 +23,8 @@
   #define MARLIN_NAMESPACE_NAME marlin_moe_wna16
 #endif
 
-// #include "kernel_bf16_kfe2m1f.cu"
-// #include "kernel_bf16_kfe4m3fn.cu"
-// #include "kernel_bf16_ku4.cu"
+
 #include "kernel_bf16_ku4b8.cu"
-// #include "kernel_bf16_ku8b128.cu"
-// #include "kernel_fp16_kfe2m1f.cu"
-// #include "kernel_fp16_kfe4m3fn.cu"
-// #include "kernel_fp16_ku4.cu"
-// #include "kernel_fp16_ku4b8.cu"
-// #include "kernel_fp16_ku8b128.cu"
 #include "core/registration.h"
 
 #define STATIC_ASSERT_SCALAR_TYPE_VALID(scalar_t)               \

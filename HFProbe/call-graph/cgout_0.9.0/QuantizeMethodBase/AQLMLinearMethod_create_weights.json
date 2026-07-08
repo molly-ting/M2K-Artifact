@@ -1,0 +1,107 @@
+{
+    "aqlm-AQLMLinearMethod-__init__": {
+        "class": "AQLMLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "loc": [
+            228,
+            229
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "aqlm-AQLMLinearMethod-create_weights": {
+        "class": "AQLMLinearMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "loc": [
+            231,
+            324
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_int_dtype",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "line": 263
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 268
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 288
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 310
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 320
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 322
+            },
+            {
+                "class": null,
+                "function": "set_weight_attrs",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 324
+            }
+        ],
+        "unknown": []
+    },
+    "aqlm-get_int_dtype": {
+        "class": null,
+        "function": "get_int_dtype",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "loc": [
+            21,
+            30
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "utils-set_weight_attrs": {
+        "class": null,
+        "function": "set_weight_attrs",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            13,
+            44
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_synced_weight_loader",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "line": 43
+            }
+        ],
+        "unknown": []
+    },
+    "utils-_make_synced_weight_loader": {
+        "class": null,
+        "function": "_make_synced_weight_loader",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "loc": [
+            47,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

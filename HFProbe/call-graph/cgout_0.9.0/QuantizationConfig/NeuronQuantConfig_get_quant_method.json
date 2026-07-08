@@ -1,0 +1,60 @@
+{
+    "neuron_quant-NeuronQuantConfig-__init__": {
+        "class": "NeuronQuantConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/neuron_quant.py",
+        "loc": [
+            19,
+            32
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "neuron_quant-NeuronQuantConfig-get_quant_method": {
+        "class": "NeuronQuantConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/neuron_quant.py",
+        "loc": [
+            56,
+            62
+        ],
+        "callees": [
+            {
+                "class": "NeuronQuantConfig",
+                "function": "get_quantization_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/neuron_quant.py",
+                "line": 58
+            }
+        ],
+        "unknown": []
+    },
+    "neuron_quant-NeuronQuantConfig-get_quantization_config": {
+        "class": "NeuronQuantConfig",
+        "function": "get_quantization_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/neuron_quant.py",
+        "loc": [
+            64,
+            68
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "QuantizationConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "line": 66
+            }
+        ],
+        "unknown": []
+    }
+}

@@ -1,0 +1,121 @@
+{
+    "compressed_tensors_24-CompressedTensors24-__init__": {
+        "class": "CompressedTensors24",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_24.py",
+        "loc": [
+            29,
+            45
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "compressed_tensors_24-CompressedTensors24-apply_weights": {
+        "class": "CompressedTensors24",
+        "function": "apply_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_24.py",
+        "loc": [
+            216,
+            266
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "scaled_int8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 239
+            },
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 245
+            },
+            {
+                "class": null,
+                "function": "scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 247
+            },
+            {
+                "class": null,
+                "function": "cutlass_scaled_sparse_mm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 255
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-scaled_int8_quant": {
+        "class": null,
+        "function": "scaled_int8_quant",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1258,
+            1295
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.static_scaled_int8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1284
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_scaled_int8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1293
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-scaled_fp8_quant": {
+        "class": null,
+        "function": "scaled_fp8_quant",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            1139,
+            1193
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_per_token_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1183
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.dynamic_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1187
+            },
+            {
+                "class": null,
+                "function": "torch.ops._C.static_scaled_fp8_quant",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 1191
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-cutlass_scaled_sparse_mm": {
+        "class": null,
+        "function": "cutlass_scaled_sparse_mm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            762,
+            805
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.cutlass_scaled_sparse_mm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 802
+            }
+        ],
+        "unknown": []
+    }
+}

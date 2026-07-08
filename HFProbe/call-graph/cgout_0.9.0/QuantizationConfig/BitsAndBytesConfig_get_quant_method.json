@@ -1,0 +1,84 @@
+{
+    "bitsandbytes-BitsAndBytesConfig-__init__": {
+        "class": "BitsAndBytesConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            22,
+            49
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "bitsandbytes-BitsAndBytesConfig-get_quant_method": {
+        "class": "BitsAndBytesConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            124,
+            130
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_layer_skipped_bnb",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "line": 127
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 128
+            },
+            {
+                "class": "BitsAndBytesLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "line": 129
+            }
+        ],
+        "unknown": []
+    },
+    "bitsandbytes-is_layer_skipped_bnb": {
+        "class": null,
+        "function": "is_layer_skipped_bnb",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            133,
+            147
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "prefix.split",
+                "type": "str",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "line": 135
+            }
+        ]
+    },
+    "bitsandbytes-BitsAndBytesLinearMethod-__init__": {
+        "class": "BitsAndBytesLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "loc": [
+            157,
+            168
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

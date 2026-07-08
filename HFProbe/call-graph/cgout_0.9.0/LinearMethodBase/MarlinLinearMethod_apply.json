@@ -1,0 +1,49 @@
+{
+    "marlin-MarlinLinearMethod-__init__": {
+        "class": "MarlinLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+        "loc": [
+            124,
+            125
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "marlin-MarlinLinearMethod-apply": {
+        "class": "MarlinLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/marlin.py",
+        "loc": [
+            236,
+            260
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 252
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-marlin_gemm": {
+        "class": null,
+        "function": "marlin_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            385,
+            389
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.marlin_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 388
+            }
+        ],
+        "unknown": []
+    }
+}

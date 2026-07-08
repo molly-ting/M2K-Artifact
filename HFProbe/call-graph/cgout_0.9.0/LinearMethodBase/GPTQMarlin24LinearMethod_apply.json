@@ -1,0 +1,49 @@
+{
+    "gptq_marlin_24-GPTQMarlin24LinearMethod-__init__": {
+        "class": "GPTQMarlin24LinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            142,
+            143
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gptq_marlin_24-GPTQMarlin24LinearMethod-apply": {
+        "class": "GPTQMarlin24LinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin_24.py",
+        "loc": [
+            269,
+            296
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "gptq_marlin_24_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 286
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-gptq_marlin_24_gemm": {
+        "class": null,
+        "function": "gptq_marlin_24_gemm",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            393,
+            399
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.gptq_marlin_24_gemm",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 397
+            }
+        ],
+        "unknown": []
+    }
+}

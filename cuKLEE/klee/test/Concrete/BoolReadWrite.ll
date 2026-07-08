@@ -1,15 +1,3 @@
-; RUN: %S/ConcreteTest.py --klee='%klee' --lli=%lli %s
-
-declare void @print_i1(i1)
-
-define i32 @main() {
-        %mem = alloca i1
-        store i1 1, i1* %mem
-        %v = load i1, i1* %mem
-        br i1 %v, label %ok, label %exit
-ok:
-	call void @print_i1(i1 %v)
-        br label %exit
-exit:
-	ret i32 0
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:327c6a73641fb5789f139aa7530cfba102bceca455445131d69c61bf15d9e9c2
+size 305

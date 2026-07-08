@@ -1,0 +1,53 @@
+{
+    "gguf-GGUFConfig-__init__": {
+        "class": "GGUFConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gguf.py",
+        "loc": [
+            29,
+            30
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "base_config-QuantizationConfig-__init__": {
+        "class": "QuantizationConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "loc": [
+            68,
+            71
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "gguf-GGUFConfig-get_quant_method": {
+        "class": "GGUFConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gguf.py",
+        "loc": [
+            53,
+            61
+        ],
+        "callees": [
+            {
+                "class": "GGUFLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gguf.py",
+                "line": 56
+            }
+        ],
+        "unknown": []
+    },
+    "gguf-GGUFLinearMethod-__init__": {
+        "class": "GGUFLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gguf.py",
+        "loc": [
+            322,
+            323
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

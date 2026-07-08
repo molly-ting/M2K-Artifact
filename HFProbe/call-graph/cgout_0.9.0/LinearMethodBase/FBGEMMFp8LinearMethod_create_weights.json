@@ -1,0 +1,185 @@
+{
+    "fbgemm_fp8-FBGEMMFp8LinearMethod-__init__": {
+        "class": "FBGEMMFp8LinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/fbgemm_fp8.py",
+        "loc": [
+            76,
+            79
+        ],
+        "callees": [
+            {
+                "class": "Fp8LinearOp",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "line": 78
+            }
+        ],
+        "unknown": []
+    },
+    "w8a8_utils-Fp8LinearOp-__init__": {
+        "class": "Fp8LinearOp",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "loc": [
+            300,
+            316
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "cutlass_fp8_supported",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "line": 301
+            },
+            {
+                "class": null,
+                "function": "get_current_vllm_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 313
+            }
+        ],
+        "unknown": []
+    },
+    "w8a8_utils-cutlass_fp8_supported": {
+        "class": null,
+        "function": "cutlass_fp8_supported",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "loc": [
+            35,
+            42
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "get_device_capability",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "line": 39
+            },
+            {
+                "class": null,
+                "function": "cutlass_scaled_mm_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 42
+            }
+        ],
+        "unknown": []
+    },
+    "cuda-get_device_capability": {
+        "class": null,
+        "function": "get_device_capability",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "loc": [
+            424,
+            426
+        ],
+        "callees": [
+            {
+                "class": "DeviceCapability",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "line": 426
+            }
+        ],
+        "unknown": []
+    },
+    "_custom_ops-cutlass_scaled_mm_supports_fp8": {
+        "class": null,
+        "function": "cutlass_scaled_mm_supports_fp8",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "loc": [
+            623,
+            624
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "torch.ops._C.cutlass_scaled_mm_supports_fp8",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "line": 624
+            }
+        ],
+        "unknown": []
+    },
+    "config-get_current_vllm_config": {
+        "class": null,
+        "function": "get_current_vllm_config",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "loc": [
+            4552,
+            4560
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "VllmConfig",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "line": 4559
+            }
+        ],
+        "unknown": []
+    },
+    "fbgemm_fp8-FBGEMMFp8LinearMethod-create_weights": {
+        "class": "FBGEMMFp8LinearMethod",
+        "function": "create_weights",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/fbgemm_fp8.py",
+        "loc": [
+            81,
+            124
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_create_device_identity",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "line": 91
+            },
+            {
+                "class": "ModelWeightParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 103
+            },
+            {
+                "class": "ChannelQuantScaleParameter",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "line": 113
+            }
+        ],
+        "unknown": []
+    },
+    "w8a8_utils-maybe_create_device_identity": {
+        "class": null,
+        "function": "maybe_create_device_identity",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "loc": [
+            129,
+            133
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-_ColumnvLLMParameter-__init__": {
+        "class": "_ColumnvLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            95,
+            97
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "parameter-BasevLLMParameter-__init__": {
+        "class": "BasevLLMParameter",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "loc": [
+            33,
+            55
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

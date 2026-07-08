@@ -1,0 +1,95 @@
+{
+    "deepseek_mtp-DeepSeekMTP-__init__": {
+        "class": "DeepSeekMTP",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+        "loc": [
+            151,
+            156
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "maybe_prefix",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "line": 155
+            },
+            {
+                "class": "DeepSeekMultiTokenPredictor",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+                "line": 154
+            }
+        ],
+        "unknown": []
+    },
+    "utils-maybe_prefix": {
+        "class": null,
+        "function": "maybe_prefix",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "loc": [
+            680,
+            690
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "deepseek_mtp-DeepSeekMultiTokenPredictor-__init__": {
+        "class": "DeepSeekMultiTokenPredictor",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+        "loc": [
+            96,
+            115
+        ],
+        "callees": [
+            {
+                "class": "LogitsProcessor",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+                "line": 115
+            }
+        ],
+        "unknown": []
+    },
+    "logits_processor-LogitsProcessor-__init__": {
+        "class": "LogitsProcessor",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+        "loc": [
+            33,
+            53
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "deepseek_mtp-DeepSeekMTP-forward": {
+        "class": "DeepSeekMTP",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+        "loc": [
+            158,
+            170
+        ],
+        "callees": [
+            {
+                "class": "DeepSeekMultiTokenPredictor",
+                "function": "forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+                "line": 167
+            }
+        ],
+        "unknown": []
+    },
+    "deepseek_mtp-DeepSeekMultiTokenPredictor-forward": {
+        "class": "DeepSeekMultiTokenPredictor",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_mtp.py",
+        "loc": [
+            117,
+            132
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

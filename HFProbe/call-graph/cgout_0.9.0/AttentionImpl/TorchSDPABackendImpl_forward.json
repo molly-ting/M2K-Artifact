@@ -1,0 +1,124 @@
+{
+    "torch_sdpa-TorchSDPABackendImpl-__init__": {
+        "class": "TorchSDPABackendImpl",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+        "loc": [
+            395,
+            444
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "is_quantized_kv_cache",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+                "line": 440
+            }
+        ],
+        "unknown": []
+    },
+    "abstract-is_quantized_kv_cache": {
+        "class": null,
+        "function": "is_quantized_kv_cache",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+        "loc": [
+            305,
+            306
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "torch_sdpa-TorchSDPABackendImpl-forward": {
+        "class": "TorchSDPABackendImpl",
+        "function": "forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+        "loc": [
+            446,
+            591
+        ],
+        "callees": [
+            {
+                "class": "TorchSDPABackendImpl",
+                "function": "_run_sdpa_forward",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 538
+            }
+        ],
+        "unknown": []
+    },
+    "torch_sdpa-TorchSDPABackendImpl-_run_sdpa_forward": {
+        "class": "TorchSDPABackendImpl",
+        "function": "_run_sdpa_forward",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+        "loc": [
+            593,
+            643
+        ],
+        "callees": [
+            {
+                "class": null,
+                "function": "_make_alibi_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 609
+            },
+            {
+                "class": null,
+                "function": "_make_sliding_window_bias",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 614
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "attn_metadata.get_attn_bias",
+                "type": "TorchSDPAMetadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 606
+            },
+            {
+                "class": null,
+                "function": "attn_metadata.get_seq_lens",
+                "type": "TorchSDPAMetadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 618
+            },
+            {
+                "class": null,
+                "function": "attn_metadata.set_attn_bias",
+                "type": "TorchSDPAMetadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 620
+            },
+            {
+                "class": null,
+                "function": "attn_metadata.get_seq_lens",
+                "type": "TorchSDPAMetadata",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+                "line": 628
+            }
+        ]
+    },
+    "torch_sdpa-_make_alibi_bias": {
+        "class": null,
+        "function": "_make_alibi_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+        "loc": [
+            646,
+            669
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "torch_sdpa-_make_sliding_window_bias": {
+        "class": null,
+        "function": "_make_sliding_window_bias",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/torch_sdpa.py",
+        "loc": [
+            672,
+            691
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

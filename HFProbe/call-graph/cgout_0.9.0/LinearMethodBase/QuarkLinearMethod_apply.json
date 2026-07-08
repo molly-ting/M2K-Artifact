@@ -1,0 +1,32 @@
+{
+    "quark-QuarkLinearMethod-__init__": {
+        "class": "QuarkLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "loc": [
+            368,
+            369
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "quark-QuarkLinearMethod-apply": {
+        "class": "QuarkLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "loc": [
+            394,
+            407
+        ],
+        "callees": [],
+        "unknown": [
+            {
+                "class": null,
+                "function": "scheme.apply_weights",
+                "type": "layer.scheme",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "line": 407
+            }
+        ]
+    }
+}

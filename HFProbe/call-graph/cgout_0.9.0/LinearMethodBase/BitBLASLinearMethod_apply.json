@@ -1,0 +1,42 @@
+{
+    "bitblas-BitBLASLinearMethod-__init__": {
+        "class": "BitBLASLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitblas.py",
+        "loc": [
+            189,
+            190
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "bitblas-BitBLASLinearMethod-apply": {
+        "class": "BitBLASLinearMethod",
+        "function": "apply",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitblas.py",
+        "loc": [
+            451,
+            460
+        ],
+        "callees": [
+            {
+                "class": "BitBLASLinearMethod",
+                "function": "apply_gptq",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitblas.py",
+                "line": 457
+            }
+        ],
+        "unknown": []
+    },
+    "bitblas-BitBLASLinearMethod-apply_gptq": {
+        "class": "BitBLASLinearMethod",
+        "function": "apply_gptq",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitblas.py",
+        "loc": [
+            427,
+            449
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

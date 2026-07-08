@@ -1,0 +1,75 @@
+{
+    "torchao-TorchAOConfig-__init__": {
+        "class": "TorchAOConfig",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+        "loc": [
+            19,
+            20
+        ],
+        "callees": [],
+        "unknown": []
+    },
+    "torchao-TorchAOConfig-get_quant_method": {
+        "class": "TorchAOConfig",
+        "function": "get_quant_method",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+        "loc": [
+            58,
+            76
+        ],
+        "callees": [
+            {
+                "class": "TorchAOConfig",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+                "line": 71
+            },
+            {
+                "class": "TorchAOLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+                "line": 72
+            },
+            {
+                "class": "UnquantizedLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "line": 74
+            },
+            {
+                "class": "TorchAOLinearMethod",
+                "function": "__init__",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+                "line": 76
+            }
+        ],
+        "unknown": [
+            {
+                "class": null,
+                "function": "module_fqn_to_config.get",
+                "type": "self.torchao_config.module_fqn_to_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+                "line": 68
+            },
+            {
+                "class": null,
+                "function": "module_fqn_to_config.get",
+                "type": "self.torchao_config.module_fqn_to_config",
+                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+                "line": 69
+            }
+        ]
+    },
+    "torchao-TorchAOLinearMethod-__init__": {
+        "class": "TorchAOLinearMethod",
+        "function": "__init__",
+        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/torchao.py",
+        "loc": [
+            108,
+            109
+        ],
+        "callees": [],
+        "unknown": []
+    }
+}

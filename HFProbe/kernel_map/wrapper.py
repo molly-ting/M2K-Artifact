@@ -211,35 +211,6 @@ def find_kernel_rel(dir):
     )
     
     op_to_impl = {}  # A -> B
-    
-    # with open("/home/mvh6224/pytorch/aten/src/ATen/native/native_functions.yaml") as nf:
-    #     dispatch_content = yaml.safe_load(nf)
-    
-    # for entry in dispatch_content:
-    #     if not isinstance(entry, dict):
-    #         continue
-
-    #     func_sig = entry.get("func")
-    #     if not func_sig:
-    #         continue
-    #     func_name = func_sig.split("(", 1)[0].strip()
-
-    #     # Default values
-    #     cuda_impl = None
-    #     structured = entry.get("structured", False)
-
-    #     dispatch = entry.get("dispatch", {})
-    #     if isinstance(dispatch, dict):
-    #         for key, value in dispatch.items():
-    #             # Handle "CPU, CUDA": "impl_name"
-    #             backends = [k.strip() for k in key.split(",")]
-    #             if "CUDA" in backends:
-    #                 cuda_impl = value
-    #             elif key == "CUDA":  # Also handles exact match
-    #                 cuda_impl = value
-                    
-    #     if cuda_impl:
-    #         op_to_impl[func_name] = "structured_"+cuda_impl if structured else cuda_impl
 
     for filepath in cpp_files+cu_files:
         content = filepath.read_text()
@@ -271,7 +242,6 @@ def find_kernel_rel(dir):
                 B = B.split("::")[-1]
                 op_to_impl[A] = B
 
-    # print(op_to_impl)
     # Step 2: Find where each B is implemented
     b_to_cu_path = locate_cuda(op_to_impl.copy(), cu_files, cpp_files)    
 
