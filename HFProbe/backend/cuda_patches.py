@@ -1,21 +1,21 @@
 import os, sys, types, functools
 from contextlib import contextmanager
 
-# 关闭 Dynamo（双保险；即便 torchao 未被 stub 进来也尽量不触发它）
+# Disable Dynamo as a safeguard, even if torchao is not stubbed successfully.
 os.environ.setdefault("TORCHDYNAMO_DISABLE", "1")
 os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
 
 import torch
 import importlib.machinery as _machinery
 
-# ---- 幂等保护,再次 import 时不二次打补丁 ------------------------------
+# ---- Idempotency guard: do not apply patches twice on repeated imports ------
 if getattr(torch, "_FAKE_CUDA_PATCHED", False):
-    # 已安装，无需重复直接返回即可
+    # Patches are already installed; no further action is required.
     pass
 else:
     setattr(torch, "_FAKE_CUDA_PATCHED", True)
 
-    # ---- A) stub 掉 torchao，阻断其引入 torch._dynamo ---------------------
+    # ---- A) Stub torchao to prevent it from importing torch._dynamo ---------
     def _stub_pkg(name, is_package=True):
         if name in sys.modules and getattr(sys.modules[name], "__spec__", None):
             return sys.modules[name]
@@ -27,7 +27,7 @@ else:
         return mod
 
     def _ensure_torchao_stub():
-        torchao = _stub_pkg("torchao", is_package=True)
+        _stub_pkg("torchao", is_package=True)
         qa = _stub_pkg("torchao.quantization", is_package=True)
         class Int4WeightOnlyConfig:
             def __init__(self, *a, **k): pass
@@ -37,7 +37,7 @@ else:
 
     _ensure_torchao_stub()
 
-    # ---- B) 伪装“有 CUDA” + 设备属性（让上层选 CUDA 分支） ----------------
+    # ---- B) Pretend CUDA is available so upper layers select CUDA paths -----
     torch.cuda.is_available        = lambda: True
     torch.cuda.is_initialized      = lambda: True
     torch.cuda.device_count        = lambda: 1
@@ -86,14 +86,13 @@ else:
         return _props_cache[idx]
     torch.cuda.get_device_properties = _mock_get_props
 
-    # ---- C) 底层懒初始化灭活（防止触发 torch._C._cuda_init） --------------
+    # ---- C) Disable lazy initialization to avoid torch._C._cuda_init --------
     if hasattr(torch.cuda, "_lazy_init"):
-        _orig_lazy_init = torch.cuda._lazy_init
         def _patched_lazy_init(*a, **k):
             return None
         torch.cuda._lazy_init = _patched_lazy_init
 
-    # ---- D) 设备迁移重定向：.to/.cuda 一律改为 CPU ------------------------
+    # ---- D) Redirect .to/.cuda device transfers to CPU ----------------------
     def _is_cuda_dev(d):
         return (isinstance(d, str) and d.startswith("cuda")) or \
                (isinstance(d, torch.device) and getattr(d, "type", "") == "cuda")
@@ -103,7 +102,6 @@ else:
         if str(self.device) == "meta":
             return self
         dev = kwargs.get("device", args[0] if (args and isinstance(args[0], (str, torch.device, int))) else None)
-        # if _is_cuda_dev(dev):
         if dev is not None:
             if args and isinstance(args[0], (str, torch.device, int)):
                 args = ("cpu",) + args[1:]
@@ -125,7 +123,7 @@ else:
     torch.Tensor.cuda     = lambda self, *a, **k: _orig_tensor_to(self, "cpu")
     torch.nn.Module.cuda  = lambda self, *a, **k: _orig_module_to(self, "cpu")
 
-    # ---- E) 工厂函数消毒：device='cuda' → 'cpu' ----------------------------
+    # ---- E) Sanitize factory calls by replacing device='cuda' with 'cpu' ----
     def _sanitize_device_kw(func):
         @functools.wraps(func)
         def wrap(*args, **kwargs):
@@ -143,7 +141,7 @@ else:
         if hasattr(torch, _name):
             setattr(torch, _name, _sanitize_device_kw(getattr(torch, _name)))
 
-    # ---- F) 常用 CUDA API 存根：每个接口独立 no-op，避免“同一对象多别名”冲突 --
+    # ---- F) Stub common CUDA APIs with independent no-op functions ----------
     def _make_noop():
         def _f(*a, **k): return None
         return _f
@@ -157,7 +155,7 @@ else:
     for _n in ("set_device","synchronize","empty_cache","ipc_collect",
                "manual_seed","manual_seed_all","seed","seed_all"):
         if hasattr(torch.cuda, _n):
-            setattr(torch.cuda, _n, _make_noop())  # 每个属性一个新函数对象
+            setattr(torch.cuda, _n, _make_noop())  # Use a distinct function for each attribute.
 
     for _n, _factory in {
         "mem_get_info": _make_meminfo,
@@ -167,7 +165,7 @@ else:
         if hasattr(torch.cuda, _n):
             setattr(torch.cuda, _n, _factory())
 
-    # 流/事件/设备上下文
+    # Stream, event, and device contexts.
     class _Dummy:
         def __getattr__(self, name): 
             def _f(*a, **k): return None
@@ -182,18 +180,18 @@ else:
         yield
     torch.cuda.device = _fake_device_ctx
 
-    # RNG 状态
+    # RNG state.
     torch.cuda.get_rng_state = lambda device=None: torch.tensor([], dtype=torch.uint8)
     torch.cuda.set_rng_state = lambda *a, **k: None
 
-    # AMP autocast → 空上下文
+    # Replace AMP autocast with an empty context.
     if hasattr(torch.cuda, "amp"):
         @contextmanager
         def _fake_autocast(*a, **k): 
             yield
         torch.cuda.amp.autocast = _fake_autocast
 
-# ---- 自检 ------------------------------------------------------
+# ---- Self-check -------------------------------------------------------------
 if int(os.getenv("FAKE_CUDA_DEBUG", "1")):
     print("[FAKE-CUDA][check] is_available:", torch.cuda.is_available())
     print("[FAKE-CUDA][check] device_count:", torch.cuda.device_count())
