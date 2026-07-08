@@ -116,7 +116,7 @@ root_dir = os.path.dirname(os.path.dirname(current_path_string))
 
 structure_configs = []
 resCon = {}
-out_path = ""
+config_out_path = ""
 
 @function_tool
 def saveRes(config: str):
@@ -127,8 +127,8 @@ def saveRes(config: str):
         config: The model config in JSON string format.
     """
     global resCon
-    global out_path
-    with open(out_path, "w") as f:
+    global config_out_path
+    with open(config_out_path, "w") as f:
         resCon = json.loads(config)
         json.dump(resCon, f)
     
@@ -168,12 +168,12 @@ def runAgent(prompt):
     return result.final_output, session.token_usage              
 
 def generate_vllm(model_structure, op_name, config_example, framework_config=None, code_snippet=None, out_dir=None):
-    global out_path
+    global config_out_path
     if not out_dir:
-        out_dir = os.path.join(root_dir, f"results/vllm-exp/config/{model_structure}")
+        out_dir = os.path.join(root_dir, f"results/vllm/config/{model_structure}")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, f"{op_name}.json")
-    if os.path.exists(out_path):
+    config_out_path = os.path.join(out_dir, f"{op_name}.json")
+    if os.path.exists(config_out_path):
         return None, None
     
     prompt_vllm = f"For models using {model_structure}, analyze the python code in vllm. Generate model config to trigger operator {op_name}, so that I can use this config in vllm framework to test it. The repo url is https://github.com/vllm-project/vllm.git, use branch releases/v0.9.0."
@@ -218,14 +218,14 @@ def read_code_snippet(filePath, start_line, end_line):
 def findTriggeredOps(model_id, op_name=None, out_dir=None, load_dir=None):
     triggered_ops = set()
     if not out_dir:
-        out_dir = os.path.join(root_dir, f"results/vllm-exp/out")
+        out_dir = os.path.join(root_dir, f"results/vllm/out")
     outPath = os.path.join(out_dir, model_id.replace('/', '_'))
     if op_name:
         outPath += f"/{op_name}"
     outPath += ".json"
 
     if not load_dir:
-        load_dir = os.path.join(root_dir, f"results/vllm-exp/load")
+        load_dir = os.path.join(root_dir, f"results/vllm/load")
     loadPath = os.path.join(load_dir, model_id.replace('/', '_'))
     if op_name:
         loadPath += f"/{op_name}"
@@ -260,7 +260,7 @@ def save_diff_config(op, config, config_dir):
         return
     
     if not config_dir:
-        config_dir = os.path.join(root_dir, f"results/vllm-exp/config")
+        config_dir = os.path.join(root_dir, f"results/vllm/config")
     outFilePath = os.path.join(config_dir, "diff.json")
     data = {}
     if os.path.exists(outFilePath):
@@ -276,7 +276,10 @@ def save_diff_config(op, config, config_dir):
     with open(outFilePath, "w") as wf:
         json.dump(data, wf)
         
-def run_vllm_config(framework_config, model_config, model_id, op_name):
+def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+        
     env_old = os.environ.copy()
     config = {}
     if framework_config:
@@ -320,8 +323,8 @@ def run_vllm_config(framework_config, model_config, model_id, op_name):
     config["dtype"] = "float16"
     tmp_triggered_ops = None
     try:
-        run_vllm.handleVLLMModel(model_id, config, op_name, "./vllm-exp/out", "./vllm-exp/load", "./vllm-exp/data", True)
-        tmp_triggered_ops = findTriggeredOps(model_id, op_name)
+        run_vllm.handleVLLMModel(model_id, config, op_name, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data", True)
+        tmp_triggered_ops = findTriggeredOps(model_id, op_name, f"{out_dir}/out", f"{out_dir}/load")
     except:
         traceback.print_exc()
         pass
@@ -349,7 +352,7 @@ def main_vllm():
         structure_configs = []
         structure = structure_model_map[model_id]
 
-        if os.path.exists(f"{root_dir}/results/vllm-exp/config/{structure}/result.json"):
+        if os.path.exists(f"{root_dir}/results/vllm/config/{structure}/result.json"):
             continue
         if not os.path.exists(f"{root_dir}/data/vllm-configs-examples/{structure}.json"):
             continue
@@ -357,11 +360,14 @@ def main_vllm():
         opout_path = os.path.join(root_dir, "call-graph", "opout", structure+".json")
         test_one(model_id, structure, opout_path)
       
-def test_one(model_id, structure, opout_path=None):
-    global out_path
+def test_one(model_id, structure, opout_path=None, out_dir=None):
+    global config_out_path
     global structure_configs
     
-    final_res_path = f"{root_dir}/results/vllm-exp/config/{structure}/result.json"
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+    os.makedirs(out_dir, exist_ok=True)
+    final_res_path = f"{out_dir}/config/{structure}/result.json"
     if os.path.exists(final_res_path):
         return
     
@@ -369,12 +375,12 @@ def test_one(model_id, structure, opout_path=None):
     tmp_config = {"dtype": "float16"}
 
     try:
-        run_vllm.handleVLLMModel(model_id, tmp_config, None, f"{root_dir}/results/vllm-exp/out", f"{root_dir}/results/vllm-exp/load", f"{root_dir}/results/vllm-exp/data")
+        run_vllm.handleVLLMModel(model_id, tmp_config, None, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data")
     except:
         traceback.print_exc()
         return
     
-    triggered_ops = findTriggeredOps(model_id)
+    triggered_ops = findTriggeredOps(model_id, None, f"{out_dir}/out", f"{out_dir}/load")
     if not triggered_ops:
         return
     print("triggered_ops", triggered_ops)
@@ -395,26 +401,26 @@ def test_one(model_id, structure, opout_path=None):
     with open(config_example_path, "r") as f:
         config_example = json.load(f)
     
-    generated_configs_path = f"{root_dir}/results/vllm-exp/config/diff.json"
+    generated_configs_path = f"{out_dir}/config/diff.json"
     generated_configs = {}
     if os.path.exists(generated_configs_path):
         with open(generated_configs_path) as f:
             generated_configs = json.load(f)
     
-    cost_path = f"{root_dir}/results/vllm-exp/config/{structure}/cost.json"
+    cost_path = f"{out_dir}/config/{structure}/cost.json"
     cost_map = {}
     if os.path.exists(cost_path):
         with open(cost_path) as f:
             cost_map = json.load(f)
     
-    cannot_tri_path = f"{root_dir}/results/vllm-exp/config/{structure}/no_trigger.json"
+    cannot_tri_path = f"{out_dir}/config/{structure}/no_trigger.json"
     cannot_tri = []
     if os.path.exists(cannot_tri_path):
         with open(cannot_tri_path) as nf:
             cannot_tri = json.load(nf)
         print("ops cannot be triggered:", cannot_tri)
     
-    out_config_dir = f"{root_dir}/results/vllm-exp/config/{structure}"
+    out_config_dir = f"{out_dir}/config/{structure}"
     os.makedirs(out_config_dir, exist_ok=True)
     
     targets_ops = {"advance_step_flashattn", "advance_step_flashinfer", "swap_blocks", "copy_blocks", "copy_blocks_mla"}
@@ -434,7 +440,7 @@ def test_one(model_id, structure, opout_path=None):
         if "envs" not in framework_configs[op_name] and "vllmconfig" not in framework_configs[op_name]:
             continue
         
-        execute_res_path = f"{root_dir}/results/vllm-exp/out/{model_id.replace('/', '_')}/{op_name}.json"
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{op_name}.json"
         if os.path.exists(execute_res_path):
             print(f"Op name: {op_name} already handled.")
             continue
@@ -444,7 +450,7 @@ def test_one(model_id, structure, opout_path=None):
         fcon = framework_configs[op_name]  
 
         time0 = time.time()
-        triggered, tmp_triggered_ops = run_vllm_config(fcon, None, model_id, op_name)
+        triggered, tmp_triggered_ops = run_vllm_config(fcon, None, model_id, op_name, out_dir)
         time1 = time.time()
 
         if triggered:
@@ -474,7 +480,7 @@ def test_one(model_id, structure, opout_path=None):
             print(f"Op name: {op_name} can not be triggered.")
             continue
         
-        execute_res_path = f"{root_dir}/results/vllm-exp/out/{model_id.replace('/', '_')}/{op_name}.json"
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{op_name}.json"
         if os.path.exists(execute_res_path):
             print(f"Op name: {op_name} already handled.")
             continue
@@ -490,7 +496,7 @@ def test_one(model_id, structure, opout_path=None):
             with open(model_config_out_path) as of:
                 model_config = json.load(of)
             time0 = time.time()
-            triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name)
+            triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name, out_dir)
             time1 = time.time()
             if triggered:
                 cost_map[op_name] = {"execute_time": time1 - time0}
@@ -505,7 +511,7 @@ def test_one(model_id, structure, opout_path=None):
         if op_name in generated_configs:
             old_con = generated_configs[op_name][-1]
             time0 = time.time()
-            triggered, tmp_triggered_ops = run_vllm_config(fcon, old_con, model_id, op_name)
+            triggered, tmp_triggered_ops = run_vllm_config(fcon, old_con, model_id, op_name, out_dir)
             time1 = time.time()
             if triggered:
                 cost_map[op_name] = {"execute_time": time1 - time0}
@@ -524,7 +530,7 @@ def test_one(model_id, structure, opout_path=None):
         elif fcon:
             if "vllmconfig" in fcon or "envs" in fcon:
                 time0 = time.time()
-                triggered, tmp_triggered_ops = run_vllm_config(fcon, {}, model_id, op_name)
+                triggered, tmp_triggered_ops = run_vllm_config(fcon, {}, model_id, op_name, out_dir)
                 time1 = time.time()
                 if triggered:
                     cost_map[op_name] = {"execute_time": time1 - time0}
@@ -546,7 +552,7 @@ def test_one(model_id, structure, opout_path=None):
         code_sinppet = read_code_snippet(filePath, start_line, end_line)
         
         time0 = time.time()
-        output, token_usage = generate_vllm(structure, op_name, config_example, fcon, code_sinppet) 
+        output, token_usage = generate_vllm(structure, op_name, config_example, fcon, code_sinppet, out_dir=out_config_dir) 
         time1 = time.time()
         if not output:
             continue
@@ -580,7 +586,7 @@ def test_one(model_id, structure, opout_path=None):
         structure_configs.append(config_data)
         
         time0 = time.time()        
-        triggered, tmp_triggered_ops = run_vllm_config(fcon, config_data, model_id, op_name)
+        triggered, tmp_triggered_ops = run_vllm_config(fcon, config_data, model_id, op_name, out_dir)
         time1 = time.time()
         cost_map[op_name]["execute_time"] = time1 - time0
         with open(cost_path, "w") as nwf:
@@ -590,7 +596,7 @@ def test_one(model_id, structure, opout_path=None):
             for incre_op in tmp_triggered_ops:
                 if incre_op not in triggered_ops:
                     triggered_ops.add(incre_op)
-                    save_diff_config(incre_op, diff_con)
+                    save_diff_config(incre_op, diff_con, out_config_dir)
        
         if triggered:
             print(f"Op name: {op_name} is successfully triggered.")

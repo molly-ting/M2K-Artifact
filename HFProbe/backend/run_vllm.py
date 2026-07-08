@@ -15,7 +15,7 @@ from huggingface_hub import snapshot_download
 
 
 current_path_string = os.path.abspath(__file__)
-result_dir = os.path.join(os.path.dirname(os.path.dirname(current_path_string)), "result")
+result_dir = os.path.join(os.path.dirname(os.path.dirname(current_path_string)), "results")
 
 GB = 1024 ** 3
 soft, hard = resource.getrlimit(resource.RLIMIT_AS)
