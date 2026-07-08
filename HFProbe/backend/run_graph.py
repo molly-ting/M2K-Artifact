@@ -17,7 +17,7 @@ from collections import defaultdict
 tensor_calls = []
 CPP_SEARCH_DIRS = []
 _CPP_LOAD_SEEN = False
-# pytree: 优先用 torch 自带实现，失败则降级为简易递归
+# pytree: Prefer PyTorch's built-in implementation; fall back to simple recursion on failure.
 try:
     from torch.utils import _pytree as pytree
 except Exception:
@@ -32,26 +32,26 @@ except Exception:
             return fn(x)
     pytree = _MiniPytree
 
-# === 防重入（线程本地） ===
+# === Reentrancy guard (thread-local) ===
 import threading
 _BOS_TLS = threading.local()
 
 def _enter_guard() -> bool:
-    """进入包装器前的重入门槛；已在包装器内则返回 False。"""
+    """Enter a wrapper unless this thread is already inside one."""
     if getattr(_BOS_TLS, "busy", False):
         return False
     _BOS_TLS.busy = True
     return True
 
 def _exit_guard():
-    """包装器退出时务必调用（建议放 try/finally 里）。"""
+    """Call when leaving a wrapper, preferably from a try/finally block."""
     _BOS_TLS.busy = False
 
-# === 通用工具 ===
+# === General utilities ===
 def _collect_args_meta(*args, **kwargs):
     """
-    收集 *args/**kwargs 的轻量元信息（shape/dtype/device/基础类型）。
-    返回: (has_tensor: bool, meta: dict)
+    Collect lightweight metadata for *args/**kwargs (shape/dtype/device/basic types).
+    Returns: (has_tensor: bool, meta: dict)
     """
     has_tensor = False
 
@@ -71,7 +71,7 @@ def _collect_args_meta(*args, **kwargs):
                 return {"type": type(x).__name__, "value": str(x)}
             if x is None:
                 return {"type": "NoneType", "value": None}
-            # 其他对象：只记录类型名
+            # Other objects: record only the type name.
             return {"type": type(x).__name__, "value": None}
         except Exception:
             return {"type": "Exception", "value": None}
@@ -80,8 +80,6 @@ def _collect_args_meta(*args, **kwargs):
     kwargs_meta = pytree.tree_map(_brief, kwargs)
     return has_tensor, {"args": args_meta, "kwargs": kwargs_meta}
 
-# FILL_ZERO = True
-
 def collect_tensor_args(*args, method = None):
     argCons = []
     hasTensor = False
@@ -89,10 +87,7 @@ def collect_tensor_args(*args, method = None):
         if isinstance(arg, torch.Tensor):
             hasTensor = True
             tmp = {"shape": list(arg.shape), "dtype": str(arg.dtype), "type": "torch.Tensor"}
-            # print(method, i, str(arg.dtype), arg.dtype in (torch.int32, torch.int64), not torch.all(arg == 0))
             if arg.dtype in (torch.int32, torch.int64, torch.int16, torch.int8):  # check integer type
-                # print(arg)
-                # if (arg.numel() == 1 and arg.item() == 0) or not torch.all(arg == 0):  # check not all zero
                 max_val = torch.max(arg).item()
                 tmp["maxV"] = max_val
                 min_val = torch.min(arg).item()
@@ -110,7 +105,6 @@ def collect_tensor_args(*args, method = None):
                 for item in arg:
                     tmp = {"shape": list(item.shape), "dtype": str(item.dtype), "type": "torch.Tensor"}
                     if item.dtype in (torch.int32, torch.int64, torch.int16, torch.int8):  # check integer type
-                        # if (item.numel() == 1 and item.item() == 0) or not torch.all(item == 0):  # check not all zero
                         max_val = torch.max(item).item()
                         tmp["maxV"] = max_val
                         min_val = torch.min(item).item()
@@ -123,7 +117,6 @@ def collect_tensor_args(*args, method = None):
             else:
                 tmp = {"shape": [len(arg)], "dtype": type(arg[0]).__name__, "type": "list"}
                 if type(arg[0]).__name__ == "int":
-                    # if (len(arg) == 1 and arg[0] == 0) or not all(x == 0 for x in arg):
                     max_val = max(arg)
                     tmp["maxV"] = max_val
                     min_val = min(arg)
@@ -140,8 +133,8 @@ def collect_tensor_args(*args, method = None):
 
 class NvccPatch:
     """
-    进入: 伪造 CUDA_HOME 与 nvcc -V 输出（Transformers/JIT 常会探测）
-    退出: 完整还原环境
+    Enter: Fake CUDA_HOME and nvcc -V output, which Transformers/JIT often probe.
+    Exit: Fully restore the environment.
     """
     def __enter__(self):
         import torch.utils.cpp_extension as ce
@@ -149,11 +142,11 @@ class NvccPatch:
         self._old_ce_cuda_home = getattr(ce, "CUDA_HOME", None)
         self._old_check_output = subprocess.check_output
 
-        # 伪造 CUDA_HOME
+        # Fake CUDA_HOME.
         os.environ["CUDA_HOME"] = "/usr/local/cuda"
         ce.CUDA_HOME = "/usr/local/cuda"
 
-        # 伪造 nvcc -V 输出（兼容 text=True / universal_newlines=True）
+        # Fake nvcc -V output, including text-mode compatibility.
         def _fake_check_output(cmd, *a, **k):
             seq = cmd if isinstance(cmd, (list, tuple)) else [cmd]
             try:
@@ -169,9 +162,9 @@ class NvccPatch:
 
     def __exit__(self, exc_type, exc, tb):
         import torch.utils.cpp_extension as ce
-        # 还原 check_output
+        # Restore check_output.
         subprocess.check_output = self._old_check_output
-        # 还原 CUDA_HOME
+        # Restore CUDA_HOME.
         if self._old_env_cuda_home is None:
             os.environ.pop("CUDA_HOME", None)
         else:
@@ -207,22 +200,13 @@ def _on_called(method, *args, **kwargs):
     if to_add not in tensor_calls:
         tensor_calls.append(to_add)
 
-    # if method not in calls_map:
-    #     calls_map[method] = {}
-    # if call_stack not in calls_map[method]:
-    #     calls_map[method][call_stack] = []
-    # if argCons not in calls_map[method][call_stack]:
-    #     calls_map[method][call_stack].append(argCons)
-    #     argChanged = True
-        # print(method, argCons)
-    
 cpp_mock = LoadedCppExtensionMock(_on_called)
 mock_torch_utils_cpp_extension(cpp_mock)
 
-# --- 导入并应用补丁 ---
+# --- Import and apply patches ---
 import cuda_patches 
 def patch_torch_cpp_extension():
-    """拦截 JIT 扩展加载，返回带日志的包装器；不执行真实 CUDA。"""
+    """Intercept JIT extension loading and return a logging wrapper without running CUDA."""
     print("[INFO] Patching torch.utils.cpp_extension for custom kernel capture...")
     import torch.utils.cpp_extension as ce
 
@@ -231,7 +215,7 @@ def patch_torch_cpp_extension():
     _orig_inline = getattr(ce, "load_inline", None)
 
     def _get_ce_mode():
-        # "bypass" 默认不编译；想试编译再 export BOS_CE_MODE=attempt
+        # "bypass" skips compilation; export BOS_CE_MODE=attempt to try compiling.
         return os.getenv("BOS_CE_MODE", "bypass").lower()
 
     def _fake_return(kernel_name, *kargs, **kkwargs):
@@ -249,19 +233,19 @@ def patch_torch_cpp_extension():
             input_grad = torch.zeros_like(kargs[4])
             return (weight_grad, relation_grad, input_grad)
         
-        # 1) 优先返回 out/output/result/dst
+        # 1) Prefer returning out/output/result/dst.
         for key in ("out", "output", "result", "dst"):
             t = kkwargs.get(key, None)
             if isinstance(t, torch.Tensor):
                 return t
-        # 2) 简单 matmul 形状推断
+        # 2) Perform basic matmul shape inference.
         tins = [x for x in kargs if isinstance(x, torch.Tensor)]
         tins += [v for v in kkwargs.values() if isinstance(v, torch.Tensor)]
         twos = [t for t in tins if t.dim() == 2]
         if len(twos) >= 2 and twos[0].shape[1] == twos[1].shape[0]:
             A, B = twos[0], twos[1]
             return torch.zeros((A.shape[0], B.shape[1]), dtype=A.dtype, device="cpu")
-        # 3) 回退：zeros_like 第一个张量
+        # 3) Fall back to zeros_like on the first tensor.
         if tins:
             return torch.zeros_like(tins[0], device="cpu")
         return None
@@ -281,14 +265,6 @@ def patch_torch_cpp_extension():
                     return _fake_return(kernel_name, *kernel_args, **kernel_kwargs)
                 try:
                     full = f"custom_cpp::{self.__name__}::{kernel_name}"
-                    # has_t, params_meta = _collect_args_meta(*kernel_args, **kernel_kwargs)
-                    # tensor_calls.append({
-                    #     "name": full,
-                    #     "params": params_meta,
-                    #     "executed": bool(CPP_EXEC_ENABLED),
-                    #     "ns": "custom_cpp",
-                    # })
-
                     call_stack = retrieve_stack(inspect.stack())
                     
                     hasTensor, argCons = collect_tensor_args(*kernel_args, method=full)
@@ -299,7 +275,7 @@ def patch_torch_cpp_extension():
                         if to_add not in tensor_calls:
                             tensor_calls.append(to_add)
                     
-                    # 如需真执行（会失败），放开下面逻辑
+                    # Enable the logic below for real execution, which is expected to fail.
                     if CPP_EXEC_ENABLED and self.__real_mod is not None:
                         try:
                             real_fn = getattr(self.__real_mod, kernel_name)
@@ -355,7 +331,7 @@ def patch_torch_cpp_extension():
         if _get_ce_mode() != "attempt":
             print(f"[PATCH] Bypass compilation for '{name}'. Returning stub wrapper.")
             return CppKernelWrapper(name, real_mod=None)
-        # 真要尝试编译才走原逻辑
+        # Use the original path only when compilation is explicitly requested.
         return _wrap_load(_orig_load, name, _fix_sources(sources), *args, **kwargs)
 
     ce.load = patched_load
@@ -385,17 +361,9 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
             def make_wrapper(fn, qname):
                 def wrapper(*args, **kwargs):
                     if not _enter_guard():
-                        # 占位返回也可以；这里选择调用原函数以减少破坏性
+                        # Call the original function instead of a placeholder to minimize disruption.
                         return fn(*args, **kwargs)
                     try:
-                         # has_t, meta = _collect_args_meta(*args, **kwargs)
-                        # tensor_calls.append({
-                        #     "name": f"custom_bin::{qname}",
-                        #     "params": meta,
-                        #     "executed": False,
-                        #     "ns": "custom_bin",
-                        # })
-
                         call_stack = retrieve_stack(inspect.stack())
                         
                         hasTensor, argCons = collect_tensor_args(*args, method=qname)
@@ -405,7 +373,7 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
                             if to_add not in tensor_calls:
                                 tensor_calls.append(to_add)
 
-                        # 占位返回：优先 out→zeros_like→None
+                        # Placeholder return order: out, then zeros_like, then None.
                         for k in ("out","output","result","dst"):
                             t = kwargs.get(k)
                             if isinstance(t, torch.Tensor): return t
@@ -449,7 +417,7 @@ class _WrappingFinder(importlib.abc.MetaPathFinder):
         spec = importlib.machinery.PathFinder.find_spec(fullname, path)
         if spec is None or spec.loader is None:
             return None
-        # 名称命中白名单 + 必须是二进制扩展（.so/.pyd）
+        # The name must be allowlisted and the module must be a binary extension (.so/.pyd).
         if not self.wrap_pred(fullname):
             return None
         if not isinstance(spec.loader, importlib.machinery.ExtensionFileLoader):
@@ -475,15 +443,11 @@ def patch_binary_imports(name_patterns=(
     print("[INFO] Binary import hook installed for:", pats)
 
 def copy_config_to_modules_if_needed(cache_dir):
-    # id = os.path.basename(cache_dir)
-    # dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
-    # module_dir = "."
     module_dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
     hash_number = cache_dir.split("/")[-1]
     module_dir = os.path.join(module_dir, hash_number)
     for root, dirs, files in os.walk(cache_dir):
         for file in files:
-            # if file.endswith(".json") or file.endswith(".yaml"):
             if not os.path.exists(module_dir):
                 os.makedirs(module_dir)
             src = os.path.join(root, file)
@@ -495,8 +459,6 @@ def copy_config_to_modules_if_needed(cache_dir):
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
-            # else:
-            #     print(f"Config already exists at {dst}, skipping copy.")
     return module_dir
 
 def createEmptyModelBin(modelId, cache_dir):
@@ -533,7 +495,6 @@ def prepare_snapshot_and_stage_sources(model_id: str,
         repo_id=model_id,
         token=hf_token or None,
         local_files_only=local_only,
-        # allow_patterns=allow_patterns,
         ignore_patterns=ignore_patterns
     )
 
@@ -541,121 +502,38 @@ def prepare_snapshot_and_stage_sources(model_id: str,
     copy_config_to_modules_if_needed(local_dir)
     return local_dir
 
-    # srcs = []
-    # for ext in ("*.cpp", "*.cu", "*.h", "*.cuh"):
-    #     srcs += glob.glob(os.path.join(local_dir, "**", ext), recursive=True)
-
-    # hash_str = Path(local_dir).name  # snapshots/<hash>
-    # mods_root = Path.home() / ".cache" / "huggingface" / "modules" / "transformers_modules"
-    # mods_dir1 = mods_root / hash_str
-    # mods_dir2 = mods_root / model_id / hash_str
-
-    # staged_dirs = []
-    # for target in (mods_dir1, mods_dir2):
-    #     target.mkdir(parents=True, exist_ok=True)
-    #     for s in srcs:
-    #         shutil.copy(s, target / Path(s).name)
-    #     staged_dirs.append(str(target))
-
     # CPP_SEARCH_DIRS[:] = list(dict.fromkeys([str(mods_dir1), str(mods_dir2), str(local_dir)]))
-
-    # print(f"[STAGE] model={model_id}")
-    # print(f"        snapshot : {local_dir}")
-    # print(f"        sources  : {len(srcs)} files (cpp/cu/h/cuh)")
-    # if srcs[:3]: print(f"        e.g.    : {srcs[:3]}")
-    # print(f"        staged → : {staged_dirs}")
-    # print(f"        search   : {CPP_SEARCH_DIRS}")
-
-    # return local_dir, srcs, staged_dirs
 
 if os.getenv("BOS_FAKE_CUDA", "1") == "1":
     import cuda_patches
 
-# patch_torch_cpp_extension()
 from torchmock.torchmocks import *
 mock()
 if os.getenv("BOS_BIN_HOOK", "1") == "1":
     patch_binary_imports()
 
-# import transformers
-# _real_load_pretrained_model = transformers.modeling_utils.PreTrainedModel._load_pretrained_model.__func__
-
-# @classmethod
-# def _dummy_load_pretrained_model(
-#     cls,
-#     model,
-#     state_dict=None,
-#     checkpoint_files=None,
-#     pretrained_model_name_or_path=None,
-#     ignore_mismatched_sizes=False,
-#     sharded_metadata=None,
-#     device_map=None,
-#     disk_offload_folder=None,
-#     offload_state_dict=None,
-#     dtype=None,
-#     hf_quantizer=None,
-#     keep_in_fp32_regex=None,
-#     device_mesh=None,
-#     key_mapping=None,
-#     weights_only=True,
-# ):
-#     if state_dict is None:
-#         print("Generating dummy weights for", cls.__name__)
-#         dummy_dict = {
-#             name: torch.zeros_like(param, device="cpu")
-#             for name, param in model.named_parameters()
-#         }
-#         # dummy_dict = {
-#         #     key: torch.zeros_like(value, device="cpu")
-#         #     for key, value in model.state_dict().items()
-#         # }
-#         state_dict = dummy_dict
-#         checkpoint_files = []
-
-#     return _real_load_pretrained_model(
-#         cls,
-#         model=model,
-#         state_dict=state_dict,
-#         checkpoint_files=checkpoint_files,
-#         pretrained_model_name_or_path=pretrained_model_name_or_path,
-#         ignore_mismatched_sizes=ignore_mismatched_sizes,
-#         sharded_metadata=sharded_metadata,
-#         device_map=device_map,
-#         disk_offload_folder=disk_offload_folder,
-#         offload_state_dict=offload_state_dict,
-#         dtype=dtype,
-#         hf_quantizer=hf_quantizer,
-#         keep_in_fp32_regex=keep_in_fp32_regex,
-#         device_mesh=device_mesh,
-#         key_mapping=key_mapping,
-#         weights_only=weights_only,
-#     )
-
-# transformers.modeling_utils.PreTrainedModel._load_pretrained_model = _dummy_load_pretrained_model
-
-# === 在补丁启用完成后，再 import transformers ===
+# === Import transformers only after all patches are enabled ===
 from transformers import (
     AutoTokenizer, AutoConfig,
     AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoModel
 )
 
-# === 构建 config ===
+# === Build the config ===
 def build_config(local_dir: str):
     cfg = AutoConfig.from_pretrained(local_dir, trust_remote_code=True)
-    # 只在字段存在时才打开，避免不同仓库报错
+    # Enable a field only if it exists to avoid errors across repositories.
     for k in ("use_cache_kernel", "use_cache_quantization", "use_flash_attn", "rope_backend"):
         if hasattr(cfg, k):
             try:
-                # 一般是 bool 开关；非 bool（如 rope_backend）保持原值
+                # These are usually bool switches; preserve non-bool values such as rope_backend.
                 if isinstance(getattr(cfg, k), bool):
                     setattr(cfg, k, True)
             except Exception:
                 pass
     return cfg
 
-# === 加载 tokenizer + 模型（自动判别 Seq2Seq / CausalLM；失败回退 AutoModel） ===
+# === Load tokenizer and model, selecting Seq2SeqLM or CausalLM from the config ===
 def load_model_and_tokenizer(local_dir: str, cfg):
-    # tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True)
     tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True, use_fast=True)
     is_s2s = bool(getattr(cfg, "is_encoder_decoder", False))
     ModelCls = AutoModelForSeq2SeqLM if is_s2s else AutoModelForCausalLM
@@ -665,7 +543,6 @@ def load_model_and_tokenizer(local_dir: str, cfg):
             trust_remote_code=True,
             low_cpu_mem_usage=True,
             device_map="cpu",
-            # torch_dtype=torch.float32,
         ).eval()
     return model, tok
 
@@ -696,8 +573,7 @@ def _params_to_argCons(params_meta: dict):
     for k in sorted(kwargs_meta.keys()): out.append(_to_arg_item(kwargs_meta[k]))
     return out
 
-# === 主流程 ===
-# MODEL_ID       = os.getenv("MODEL_ID", "Qwen/Qwen-7B")
+# === Main flow ===
 HF_TOKEN       = os.getenv("HF_TOKEN")
 LOCAL_ONLY     = os.getenv("LOCAL_ONLY", "1") == "1"
 INCLUDE_WEIGHTS= os.getenv("INCLUDE_WEIGHTS", "1") == "1"
@@ -744,26 +620,17 @@ def run_ultra(model_id):
     
     local_dir = "models_hf/"+model_id.replace('/', '_')
     
-    # local_dir = prepare_snapshot_and_stage_sources(
-    #     model_id=model_id,
-    #     hf_token=HF_TOKEN or None,
-    #     local_only=False,
-    #     include_weights=True
-    # )
-
     module_dir = copy_config_to_modules_if_needed(local_dir)
     sys.path.append(module_dir)
-    # sys.path.append(local_dir)
 
     total_calls_map = defaultdict(dict)
     data = []
 
-    # 伪造 nvcc/CUDA 环境 → 加载 → 触发 → 落盘
+    # Fake the nvcc/CUDA environment, load, trigger, and persist results.
     with NvccPatch():
         cfg = build_config(module_dir)
         message_funcs = ["transe", "distmult"]
         aggregate_funcs = ["sum", "mean", "max", "pna"] 
-        # aggregate_funcs = ["pna"] 
         for mf in message_funcs:
             for af in aggregate_funcs:
                 cfg.relation_model_cfg["message_func"] = mf
@@ -775,22 +642,10 @@ def run_ultra(model_id):
                             module_dir,
                             config=cfg,
                             trust_remote_code=True,
-                            # low_cpu_mem_usage=True,
-                            # device_map="cpu",
                         ).eval()
                 except Exception as e:
                     traceback.print_exc()
                     continue
-                # from models_hf.mgalkin_ultra_3g.modeling import UltraForKnowledgeGraphReasoning
-                # model = UltraForKnowledgeGraphReasoning.from_pretrained(
-                #         model_id
-                #         # local_dir,
-                #         # config=cfg,
-                #         # trust_remote_code=True,
-                #         # low_cpu_mem_usage=True,
-                #         # device_map="cpu",
-                #     ).eval()
-
                 from models_hf.mgalkin_ultra_3g.ultra import datasets
                 for dName in TRANSDUCTIVE:
                     if dName == "WordNet18RR":
@@ -832,27 +687,11 @@ def run_ultra(model_id):
                         t_pred = model(test_data, t_batch)
                         h_pred = model(test_data, h_batch)
 
-                        # for call in tensor_calls:
-                        #     func_name = call.get('name', 'unknown_function')
-                        #     argCons = call.get('args', [])
-                        #     call_stack = call.get('stack', ())
-                        #     params = call.get('params', {})
-                        #     argCons = _params_to_argCons(params)            
-                        #     run_key = (batch_size, "CoDExSmall")
-                            
-                        #     if func_name not in total_calls_map:
-                        #         total_calls_map[func_name] = {}
-                        #     if run_key not in total_calls_map[func_name]:
-                        #         total_calls_map[func_name][run_key] = []
-                        #     if argCons not in total_calls_map[func_name][run_key]:
-                        #         total_calls_map[func_name][run_key].append(argCons)
-
-                            # total_calls_map.setdefault(func_name, {}).setdefault(run_key, []).append(argCons)
                         data.append({"batch_size": batch_size, "dataset": dName, "calls": tensor_calls.copy()})
                         tensor_calls.clear()
                         break
 
-    print("\n--- 所有推理运行完毕。开始符号化分析... ---")
+    print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
     with open("./hfdata/"+filename, "w") as wf:
         json.dump(data, wf)
@@ -888,21 +727,13 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
     
     local_dir = "models_hf/"+model_id.replace('/', '_')
     
-    # local_dir = prepare_snapshot_and_stage_sources(
-    #     model_id=model_id,
-    #     hf_token=HF_TOKEN or None,
-    #     local_only=False,
-    #     include_weights=True
-    # )
-
     module_dir = copy_config_to_modules_if_needed(local_dir)
     sys.path.append(module_dir)
-    # sys.path.append(local_dir)
 
     total_calls_map = defaultdict(dict)
     data = []
 
-    # 伪造 nvcc/CUDA 环境 → 加载 → 触发 → 落盘
+    # Fake the nvcc/CUDA environment, load, trigger, and persist results.
     with NvccPatch():
         cfg = build_config(module_dir)
         setConfig(cfg, override_configs)
@@ -911,7 +742,6 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
                     module_dir,
                     config=cfg,
                     trust_remote_code=True,
-                    # low_cpu_mem_usage=True,
                     device_map="cpu",
                 ).eval()
         except Exception as e:
@@ -963,27 +793,11 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
                     traceback.print_exc()
                     continue
 
-                # for call in tensor_calls:
-                #     func_name = call.get('name', 'unknown_function')
-                #     argCons = call.get('args', [])
-                #     call_stack = call.get('stack', ())
-                #     params = call.get('params', {})
-                #     argCons = _params_to_argCons(params)            
-                #     run_key = (batch_size, "CoDExSmall")
-                    
-                #     if func_name not in total_calls_map:
-                #         total_calls_map[func_name] = {}
-                #     if run_key not in total_calls_map[func_name]:
-                #         total_calls_map[func_name][run_key] = []
-                #     if argCons not in total_calls_map[func_name][run_key]:
-                #         total_calls_map[func_name][run_key].append(argCons)
-
-                    # total_calls_map.setdefault(func_name, {}).setdefault(run_key, []).append(argCons)
                 data.append({"batch_size": batch_size, "dataset": dName, "calls": tensor_calls.copy()})
                 tensor_calls.clear()
                 break
 
-    print("\n--- 所有推理运行完毕。开始符号化分析... ---")
+    print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
     with open(agg_path, "w") as wf:
         json.dump(data, wf, indent=4)
@@ -1009,28 +823,11 @@ def run_minchul(model_id):
     
     local_dir = "models_hf/"+model_id.replace('/', '_')
     
-    # local_dir = prepare_snapshot_and_stage_sources(
-    #     model_id=model_id,
-    #     hf_token=HF_TOKEN or None,
-    #     local_only=False,
-    #     include_weights=True
-    # )
-
-    # sys.path.append(local_dir)
-
     total_calls_map = defaultdict(dict)
     data = []
 
-    # 伪造 nvcc/CUDA 环境 → 加载 → 触发 → 落盘
+    # Fake the nvcc/CUDA environment, load, trigger, and persist results.
     with NvccPatch():
-        # cfg = build_config(local_dir)
-        # model = AutoModel.from_pretrained(
-        #         local_dir,
-        #         config=cfg,
-        #         trust_remote_code=True,
-        #         low_cpu_mem_usage=True,
-        #         # device_map="cpu",
-        #     ).eval()
         model = load_model_from_local_path(local_dir)
         
         # input is a rgb image normalized.
@@ -1047,31 +844,9 @@ def run_minchul(model_id):
         keypoints = orig_ldmks  # torch.randn(1, 5, 2)
         out = model(input, keypoints)
 
-        # for call in tensor_calls:
-        #     func_name = call.get('name', 'unknown_function')
-        #     argCons = call.get('args', [])
-        #     call_stack = call.get('stack', ())
-        #     # params = call.get('params', {})
-        #     # argCons = _params_to_argCons(params)            
-        #     run_key = img_path
-            
-            # if func_name not in total_calls_map:
-            #     total_calls_map[func_name] = {}
-            # if run_key not in total_calls_map[func_name]:
-            #     total_calls_map[func_name][run_key] = []
-            # if argCons not in total_calls_map[func_name][run_key]:
-            #     total_calls_map[func_name][run_key].append(argCons)
-
-            # total_calls_map.setdefault(func_name, {}).setdefault(run_key, []).append(argCons)
         data.append({"image": img_path, "calls": tensor_calls.copy()})
 
-    print("\n--- 所有推理运行完毕。开始符号化分析... ---")
+    print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
     with open("./hfdata/"+filename, "w") as wf:
         json.dump(data, wf)
-
-# shutil.rmtree("/home/mvh6224/.cache/huggingface/hub/models--mgalkin--ultra_3g")
-# run_ultra("mgalkin/ultra_3g")
-# run_ultra("mgalkin/ultra_4g")
-# run_ultra("mgalkin/ultra_50g")
-# run_minchul("minchul/cvlface_adaface_vit_base_kprpe_webface4m")
