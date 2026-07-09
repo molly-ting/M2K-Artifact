@@ -26,18 +26,18 @@ calls_map = {}
 max_model_len = None
 reduce_max_model_len = True
 
-# ===== KV-PROBE: 只记录，不改行为 =====
+# ===== KV-PROBE: record only, do not change behavior =====
 import sys, time, os, threading
 from contextlib import contextmanager
 
 _BOS_PROBE_KV = (os.getenv("BOS_PROBE_KV", "0") == "1")
-_BOS_PROBE_MIN_NUMEL = int(os.getenv("BOS_PROBE_KV_MIN_NUMEL", str(1_000_000)))  # 触发记录的最小元素量阈值
+_BOS_PROBE_MIN_NUMEL = int(os.getenv("BOS_PROBE_KV_MIN_NUMEL", str(1_000_000)))  # Minimum element count threshold for recording.
 _tls = threading.local()
 
 def _is_vllm_kv_file(fn: str) -> bool:
     if not fn: return False
     if "/vllm/" not in fn.replace("\\","/"): return False
-    # 常见涉及 KV/缓存/注意力的模块
+    # Common modules related to KV, cache, and attention.
     keys = ("kv_cache", "kvcache", "cache_engine", "paged_attention",
             "model_executor", "layers", "attention", "cache",
             "engine", "core", "block_manager", "memory_manager")
@@ -66,11 +66,11 @@ def _numel_from_size_tuple(size):
 class _KVProbeState:
     def __init__(self):
         self.enabled = _BOS_PROBE_KV
-        self.phase = "unknown"   # "init" / "gen" 等，由上下文设置
+        self.phase = "unknown"   # Values such as "init" or "gen", set by context.
         self.summary = {
-            "py_alloc_hits": 0,        # 命中 Python 侧分配（torch.empty/zeros/...）
-            "py_alloc_numel": 0,       # 统计命中元素量
-            "kv_method_calls": 0,      # 命中 vLLM 的 KV 分配/缓存方法
+            "py_alloc_hits": 0,        # Python-side allocation hits, such as torch.empty/zeros.
+            "py_alloc_numel": 0,       # Total element count for matched allocations.
+            "kv_method_calls": 0,      # vLLM KV allocation/cache method hits.
             "kv_method_names": set(),
         }
         self.saved_funcs = {}
@@ -84,7 +84,7 @@ def _probe_log(msg):
 
 def _wrap_alloc(fn_name, orig):
     def _inner(*args, **kwargs):
-        # 解析 size，仅做记录，不改行为
+        # Parse size for recording only; do not change behavior.
         size = None
         if fn_name in ("empty_like","zeros_like"):
             t0 = args[0] if args else None
@@ -100,7 +100,7 @@ def _wrap_alloc(fn_name, orig):
                 size = tuple(int(a) for a in args)
 
         t0 = time.perf_counter()
-        out = orig(*args, **kwargs)     # ← 真正的分配
+        out = orig(*args, **kwargs)     # Real allocation.
         t1 = time.perf_counter()
 
         hit_stack = _stack_has_vllm_kv()
@@ -149,7 +149,7 @@ def _wrap_kv_method(obj, meth_name):
     return orig
 
 def _patch_vllm_methods():
-    # 不同版本的两个常见入口：KVCache.allocate / CacheEngine._allocate_kv_cache
+    # Two common entry points across versions: KVCache.allocate / CacheEngine._allocate_kv_cache.
     try:
         from vllm.model_executor.layers.attention.kv_cache import KVCache
         if hasattr(KVCache, "allocate") and ("KVCache.allocate" not in state__kvprobe.saved_methods):
@@ -164,7 +164,7 @@ def _patch_vllm_methods():
         pass
 
 def _unpatch_vllm_methods():
-    # 恢复成原方法
+    # Restore original methods.
     try:
         from vllm.model_executor.layers.attention.kv_cache import KVCache
         if "KVCache.allocate" in state__kvprobe.saved_methods:
@@ -182,9 +182,10 @@ def _unpatch_vllm_methods():
 @contextmanager
 def kv_probe(phase: str):
     """
-    只做记录，不改返回值。
-    - 统计：在 vLLM KV 调用栈里的大张量 Python 分配次数与元素量；
-           以及 KV 分配相关方法（KVCache/CacheEngine）的被调次数。
+    Record only; do not change return values.
+    - Track Python-side large tensor allocation counts and element counts
+      in vLLM KV call stacks, plus calls to KV allocation methods such as
+      KVCache and CacheEngine.
     """
     if not state__kvprobe.enabled:
         yield
@@ -199,7 +200,7 @@ def kv_probe(phase: str):
         _unpatch_allocators()
         _unpatch_vllm_methods()
         state__kvprobe.phase = prev
-        # 每个阶段结束都打一条小结
+        # Print a summary at the end of each phase.
         _probe_log(f"SUMMARY phase={phase} py_alloc_hits={state__kvprobe.summary['py_alloc_hits']}, "
                    f"kv_methods={state__kvprobe.summary['kv_method_calls']}, "
                    f"kv_method_set={sorted(state__kvprobe.summary['kv_method_names'])}, "
@@ -207,16 +208,16 @@ def kv_probe(phase: str):
                    f"py_alloc_time_s={state__kvprobe.summary.get('py_alloc_time_s',0.0):.6f},")
 
 
-# ===== Thin-KV / Fake-KV: 针对 vLLM 的 KV 缓存“薄分配” =====
+# ===== Thin-KV / Fake-KV: thin allocation for vLLM KV cache =====
 import sys, inspect, math
 from contextlib import contextmanager
 
 def _stack_has_vllm_kv():
-    """只在 vLLM 的 KV 分配路径里启用（避免全局影响）。"""
+    """Enable only in vLLM KV allocation paths to avoid global impact."""
     f = sys._getframe()
     while f:
         fn = (f.f_code.co_filename or "")
-        # 任何一个命中即可：不同版本路径略有不同
+        # Any match is enough; paths differ slightly across versions.
         if ("/vllm/" in fn) and (
             "kv_cache" in fn or "kvcache" in fn or "cache_engine" in fn or "paged_attention" in fn
         ):
@@ -227,7 +228,7 @@ def _stack_has_vllm_kv():
 def _numel_of_size(size):
     n = 1
     for s in size:
-        # 允许 size 是 int 或 torch.Size
+        # Allow size entries from int or torch.Size.
         s = int(s)
         if s <= 0: 
             return 0
@@ -237,14 +238,15 @@ def _numel_of_size(size):
 class _ThinKVState:
     def __init__(self):
         self.enabled = (os.getenv("BOS_THIN_KV", "1") == "1")
-        # 只在“看起来很大”的分配上启用；阈值可调（默认：>= 64MB 元素量/按 fp16 估算相当）
+        # Enable only for allocations that look large. The threshold is configurable.
+        # Default is roughly equivalent to at least 64 MB when estimated as fp16 elements.
         self.min_numel_threshold = int(os.getenv("BOS_THIN_KV_MIN_NUMEL", str(64*1024*1024//2)))
-        # 物理块“最多”保留多少个（通常 1 就够）
+        # Maximum number of physical blocks to keep; usually 1 is enough.
         self.phys_block_cap = int(os.getenv("BOS_THIN_KV_BLOCKS", "1"))
-        # 跟踪是否已退回真实分配（发生写入时可能触发）
+        # Track whether real allocation fallback has been triggered, usually by writes.
         self.fallback_triggered = False
 
-        # 保存原始分配函数
+        # Save original allocation functions.
         self.saved = {}
 
     def should_thin(self, size, kwargs):
@@ -259,20 +261,22 @@ class _ThinKVState:
         return (numel >= self.min_numel_threshold)
 
     def make_thin_view(self, empty_fn, size, kwargs):
-        """只分配极小物理块，然后 expand 成目标 shape；dtype/device 与原请求一致。"""
-        # 目标 shape
+        """Allocate a tiny physical block, then expand it to the target shape."""
+        # Target shape.
         target_shape = tuple(int(s) for s in size)
         dtype  = kwargs.get("dtype", None)
         device = kwargs.get("device", None)
-        # 估计“块维度”在第 0 维（常见：num_blocks, block_size, num_heads, head_dim）
-        # 兼容性做法：把第 0 维缩到 phys_block_cap，其余维度保持不变。
+        # Assume the block dimension is dim 0, commonly:
+        # num_blocks, block_size, num_heads, head_dim.
+        # For compatibility, shrink dim 0 to phys_block_cap and keep other dims unchanged.
         base_shape = list(target_shape)
         if base_shape:
             base_shape[0] = min(max(1, base_shape[0]), self.phys_block_cap)
-        base = empty_fn(tuple(base_shape), **kwargs)   # 真实只分配很小
-        # 注意：expand 是只读视图；大多数 in-place 写会报错（这是我们需要的“写检测”）
+        base = empty_fn(tuple(base_shape), **kwargs)   # Physically allocate only a small tensor.
+        # Note: expand creates a read-only view for most in-place writes.
+        # Those write failures are used as write detection.
         thin = base.expand(target_shape)
-        # 给个小标记，方便排查
+        # Add a small marker for debugging.
         thin._bos_thin_kv = True  # noqa: attribute for debug
         return thin
 
@@ -281,19 +285,19 @@ state__thin_kv = _ThinKVState()
 @contextmanager
 def enable_thin_kv():
     """
-    仅在 vLLM 的 KV 分配调用栈里做“薄分配”，其余地方完全不变。
-    遇到写入需求会触发回退到真实分配（避免炸）。
+    Use thin allocation only in vLLM KV allocation call stacks.
+    All other paths remain unchanged. Writes trigger fallback to real allocation.
     """
     if not state__thin_kv.enabled:
         yield
         return
 
-    # 需要包裹的分配 API：empty / empty_like / zeros / zeros_like（覆盖常见分配）
+    # Allocation APIs to wrap: empty / empty_like / zeros / zeros_like.
     targets = [
         ("torch", "empty"), ("torch", "empty_like"),
         ("torch", "zeros"), ("torch", "zeros_like"),
     ]
-    # 备份
+    # Backup.
     for mod_name, fn_name in targets:
         mod = globals().get(mod_name)
         if mod and hasattr(mod, fn_name):
@@ -302,7 +306,7 @@ def enable_thin_kv():
     def _wrap_alloc(fn):
         def _inner(*args, **kwargs):
             try:
-                # 解析 size：empty(*size) / empty(size_tuple)
+                # Parse size: empty(*size) / empty(size_tuple).
                 if len(args) == 1 and isinstance(args[0], (tuple, list, torch.Size)):
                     size = tuple(int(s) for s in args[0])
                 else:
@@ -310,25 +314,25 @@ def enable_thin_kv():
             except Exception:
                 size = None
 
-            # 只在 vLLM 的 KV 路径 & 超过阈值时薄分配
+            # Use thin allocation only on vLLM KV paths and above the threshold.
             if size and state__thin_kv.should_thin(size, kwargs):
                 try:
                     return state__thin_kv.make_thin_view(state__thin_kv.saved[("torch","empty")], size, kwargs)
                 except Exception:
-                    # 如果薄分配失败，退回真实分配
+                    # If thin allocation fails, fall back to real allocation.
                     return fn(*args, **kwargs)
 
             return fn(*args, **kwargs)
         return _inner
 
-    # 安装薄分配
+    # Install thin allocation wrappers.
     for mod_name, fn_name in targets:
         mod = globals().get(mod_name)
         if mod and hasattr(mod, fn_name):
             setattr(mod, fn_name, _wrap_alloc(state__thin_kv.saved[(mod_name, fn_name)]))
 
-    # 保护：一旦检测到对“expand 视图”的写入需求，立刻回退到真实分配
-    # 这里通过拦截常见写入算子来探测（足够覆盖我们的 mock 之外的偶发路径）
+    # Protection: once a write to an expanded thin view is detected, fall back to real allocation.
+    # This intercepts common write ops, which is enough for incidental paths beyond the mock.
     write_ops = []
     for name in ["copy_", "scatter_", "scatter_add_", "index_put_", "masked_scatter_", "fill_"]:
         if hasattr(torch.Tensor, name):
@@ -337,14 +341,14 @@ def enable_thin_kv():
     saved_writes = {}
     def _wrap_write(fn):
         def _inner(self, *a, **k):
-            # 如果是我们“薄分配”的 expand 视图，切回真实分配模式
+            # If this is our thin-allocation expanded view, switch to real allocation mode.
             if getattr(self, "_bos_thin_kv", False):
                 state__thin_kv.fallback_triggered = True
-                # 恢复所有分配函数
+                # Restore all allocation functions.
                 for (mod_name, fn_name), orig in state__thin_kv.saved.items():
                     if mod_name == "torch":
                         setattr(globals()[mod_name], fn_name, orig)
-                # 再次调用写操作（这一次会用真实分配走下去）
+                # Call the write operation again; this time it proceeds with real allocation.
             return fn(self, *a, **k)
         return _inner
 
@@ -355,7 +359,7 @@ def enable_thin_kv():
     try:
         yield
     finally:
-        # 收尾：恢复所有分配函数与写入包装
+        # Cleanup: restore all allocation functions and write wrappers.
         for (mod_name, fn_name), orig in state__thin_kv.saved.items():
             if mod_name == "torch":
                 setattr(globals()[mod_name], fn_name, orig)
@@ -366,24 +370,24 @@ def enable_thin_kv():
 @contextlib.contextmanager
 def fast_dummy_init(mode: str = "empty"):
     """
-    加速 DUMMY 初始化：把 nn.init.* 和 torch.*_ 避免大规模随机填充
+    Speed up DUMMY initialization by avoiding large random fills in nn.init.* and torch.*_.
     mode:
-      - "empty": 只分配，不填充（最快）
-      - "zeros": 分配后填 0（比随机快很多，稍慢于 empty）
-    使用方法：
+      - "empty": allocate only, without filling. Fastest.
+      - "zeros": allocate and fill with zeros. Much faster than random fill, slightly slower than empty.
+    Usage:
       with fast_dummy_init("empty"):
           llm = LLM(..., load_format=LoadFormat.DUMMY, ...)
     """
     saved = {}
     def _noop_ret_(fn):
         def inner(t, *a, **k):
-            # 仅确保张量存在；按需填充
+            # Only ensure the tensor exists; fill only if needed.
             if mode == "zeros":
                 return t.zero_()
-            return t  # "empty"：什么都不做
+            return t  # "empty": do nothing.
         return inner
 
-    # 要劫持的初始化函数（覆盖常见路径；不存在就跳过）
+    # Initialization functions to intercept. Cover common paths and skip missing ones.
     hook_names = [
         "kaiming_uniform_", "kaiming_normal_",
         "xavier_uniform_", "xavier_normal_",
@@ -395,7 +399,7 @@ def fast_dummy_init(mode: str = "empty"):
             saved[("init", n)] = getattr(_init, n)
             setattr(_init, n, _noop_ret_(getattr(_init, n)))
 
-    # 还可以把 torch.Tensor 层面的随机也打掉（更稳妥）
+    # Also intercept random methods at the torch.Tensor level for extra safety.
     tensor_level = ["random_", "bernoulli_", "cauchy_", "exponential_", "log_normal_", "normal_", "uniform_"]
     for n in tensor_level:
         if hasattr(torch.Tensor, n):
@@ -405,7 +409,7 @@ def fast_dummy_init(mode: str = "empty"):
     try:
         yield
     finally:
-        # 还原
+        # Restore.
         for (kind, n), fn in saved.items():
             if kind == "init":
                 setattr(_init, n, fn)
@@ -477,10 +481,8 @@ def log_and_forward(name, func):
         # mock for vllm test
         device = kwargs.get('device', None)
         if device is not None and str(device).startswith('cuda'):
-            # print(f"[patched_empty] Redirect CUDA device {device} to CPU")
             kwargs['device'] = 'cpu'   
         if kwargs.get("pin_memory", False):
-            # print("[patched_tensor] disabling pin_memory due to missing CUDA")
             kwargs["pin_memory"] = False
         
         if name == "torch.max" or name == "torch.min" or name == "torch.all" or name == "torch.unique" or name == "torch.any" or name == "torch.topk" or name == "torch.zeros" or name == "torch.zeros_like" or name == "torch.cat":
@@ -717,7 +719,7 @@ def forwardFunc(name, *args, **kwargs):
         return varlen_fwd_mock(*args, **kwargs)
     if name == "fwd_kvcache":
         return fwd_kvcache_mock(*args, **kwargs)
-     # torch.ops._vllm_fa3_C
+    # torch.ops._vllm_fa3_C
     if name == "fwd":
         return fa3_fwd_mock(*args, **kwargs)
     
@@ -907,7 +909,6 @@ def patched_register_fake(self, op_name, fn, _stacklevel=1):
         return _orig_register_fake(self, op_name, fn, _stacklevel=1)
     except RuntimeError as e:
         if "does not exist" in str(e):
-            # print(f"[patch] Skipping fake registration: {op_name}")
             return  # skip registration
 
 def reset_peak_memory_stats_fake(device= None) -> None:
@@ -921,8 +922,6 @@ def _get_device_index_fake(
 torch.library.Library._register_fake = patched_register_fake
 torch.cuda.set_device = lambda device: print(f"[mock] set_device({device})")
 torch.cuda.current_device = lambda: 0
-# torch.cuda.get_device_capability = lambda device=0: (8, 0)
-# torch.cuda.get_device_capability = lambda device=0: (8, 9)
 torch.cuda.get_device_capability = lambda device=0: (9, 0)
 torch._C._cuda_resetPeakMemoryStats = lambda device: None
 torch.cuda.reset_peak_memory_stats = reset_peak_memory_stats_fake
@@ -937,10 +936,8 @@ class MockDeviceProperties:
     def __init__(self):
         self.multi_processor_count = 80  # a commonly used number, e.g., for an NVIDIA A100
         self.name = "NVIDIA H200"
-        # self.major = 8       # major compute capability (e.g., 9 for Hopper)
         self.major = 9
         self.minor = 0       # minor compute capability
-        # self.minor = 9
         self.regs_per_multiprocessor = 65536
         self.max_threads_per_multi_processor = 2048
         self.warp_size = 32
@@ -989,7 +986,6 @@ class FakeCudaDevice:
 torch.cuda.device = FakeCudaDevice
 
 def dummy_synchronize():
-    # print("[patch] torch.cuda.synchronize() called - skipping due to no GPU")
     return None
 
 torch.cuda.synchronize = dummy_synchronize
@@ -1314,11 +1310,8 @@ ps._TP = DummyGroup("tp")
 ps._DP = DummyGroup("dp")
 ps._EP = DummyGroup("ep")
 
-# _original_GraphCaptureContext = ps.GraphCaptureContext
-
 class DummyGraphCaptureContext:
     def __init__(self, *args, **kwargs):
-        # print("[patched] skipping GraphCaptureContext creation")
         self.stream = torch.cuda.current_stream() if torch.cuda.is_available() else None
     def __enter__(self):
         return self
@@ -1339,7 +1332,6 @@ class DummyCUDAGraph:
         print("[patch] torch.cuda.CUDAGraph mocked")
 
     def capture_begin(self, *args, **kwargs):
-        # print("[patch] capture_begin")
         pass
 
     def capture_end(self):
@@ -1417,11 +1409,9 @@ class DummyPlan:
 
 class DummyFunc:
     def __call__(self, *args, **kwargs):
-        # print("[dummy] called")
         return None
 
 def dummy_build_and_load(self, *args, **kwargs):
-    # print("[patch] skipping build_and_load")
     self.plan = DummyPlan()
     self.ragged_run = DummyFunc()
     self.paged_run = DummyFunc()
@@ -1526,7 +1516,6 @@ worker.raise_if_cache_size_invalid = patched_raise_if_cache_size_invalid
 import contextlib
 @contextlib.contextmanager
 def fake_device_loading_context(module, target_device):
-    # print(f"Fake loading context for device: {target_device}")
     yield  # no actual device move or CUDA calls
 
 import vllm.model_executor.model_loader.utils as utils
