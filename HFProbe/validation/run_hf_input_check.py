@@ -6,13 +6,28 @@ from pathlib import Path
 import run_transformers_check as rt
 
 
-ROOT = Path(__file__).resolve().parent
-HF_EXP = ROOT / "hf-exp"
-INPUT_CHECK_PATH = HF_EXP / "input_check.json"
-HF_MODELS_PATH = ROOT / "hfmodels0.json"
-OUT_DIR = HF_EXP / "out_check"
-DATA_DIR = HF_EXP / "data_check"
-LOCAL_MODELS_DIR = Path.home() / "data" / "models"
+root_dir = Path(__file__).resolve().parent.parent
+repo_root = root_dir.parent
+result_dir = root_dir / "results" / "huggingface"
+
+INPUT_CHECK_PATH = result_dir / "input_check.json"
+HF_MODELS_PATH = root_dir / "data" / "hfmodels0.json"
+OUT_DIR = result_dir / "out_check"
+DATA_DIR = result_dir / "data_check"
+LOCAL_MODELS_DIR = Path(os.getenv("HF_LOCAL_MODELS_DIR", root_dir / "data" / "models"))
+
+
+def resolve_repo_path(path):
+    path = Path(path)
+    if path.is_absolute():
+        return path
+    root_candidate = root_dir / path
+    if root_candidate.exists():
+        return root_candidate.resolve()
+    repo_candidate = repo_root / path
+    if repo_candidate.exists():
+        return repo_candidate.resolve()
+    return root_candidate.resolve()
 
 
 def load_model_map():
@@ -92,7 +107,7 @@ def concretize_args(args, batch_size, seq_len):
 
 
 def load_expected_entry(cuda_function_name, index):
-    path = HF_EXP / "input" / f"{cuda_function_name}.json"
+    path = result_dir / "input" / f"{cuda_function_name}.json"
     data = json.loads(path.read_text())
     return data[int(index)]
 
@@ -117,16 +132,16 @@ def shapes_match(expected_args, recorded_args):
 def normalize_config_path(config_path):
     if not config_path:
         return None
-    return str((ROOT / config_path).resolve())
+    return str(resolve_repo_path(config_path))
 
 
 def resolve_config_path(model_key, config_path):
     if not config_path:
         return None
-    direct = (ROOT / config_path).resolve()
+    direct = resolve_repo_path(config_path)
     if direct.exists():
         return direct
-    candidate = HF_EXP / "config" / model_key / Path(config_path).name
+    candidate = result_dir / "config" / model_key / Path(config_path).name
     if candidate.exists():
         return candidate.resolve()
     raise FileNotFoundError(f"Cannot resolve config path for {model_key}: {config_path}")
@@ -246,7 +261,7 @@ def main():
             bug_result["matches"] = [item for item in bug_result["attempts"] if item["matched"]]
             summary[cuda_function_name][bug_id] = bug_result
 
-    summary_path = HF_EXP / "input_check_results.json"
+    summary_path = result_dir / "input_check_results.json"
     summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False))
     print(f"[OK] wrote results to {summary_path}")
 

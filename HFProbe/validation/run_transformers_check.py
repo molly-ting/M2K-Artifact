@@ -17,7 +17,7 @@ from collections import defaultdict
 tensor_calls = []
 CPP_SEARCH_DIRS = []
 _CPP_LOAD_SEEN = False
-# pytree: 优先用 torch 自带实现，失败则降级为简易递归
+# pytree: prefer torch's implementation; fall back to simple recursion on failure
 try:
     from torch.utils import _pytree as pytree
 except Exception:
@@ -32,26 +32,26 @@ except Exception:
             return fn(x)
     pytree = _MiniPytree
 
-# === 防重入（线程本地） ===
+# === Re-entry guard (thread-local) ===
 import threading
 _BOS_TLS = threading.local()
 
 def _enter_guard() -> bool:
-    """进入包装器前的重入门槛；已在包装器内则返回 False。"""
+    """Enter the wrapper guard; return False if already inside a wrapper."""
     if getattr(_BOS_TLS, "busy", False):
         return False
     _BOS_TLS.busy = True
     return True
 
 def _exit_guard():
-    """包装器退出时务必调用（建议放 try/finally 里）。"""
+    """Must be called when leaving a wrapper, preferably in try/finally."""
     _BOS_TLS.busy = False
 
-# === 通用工具 ===
+# === Common utilities ===
 def _collect_args_meta(*args, **kwargs):
     """
-    收集 *args/**kwargs 的轻量元信息（shape/dtype/device/基础类型）。
-    返回: (has_tensor: bool, meta: dict)
+    Collect lightweight metadata for *args/**kwargs (shape/dtype/device/basic types).
+    Returns: (has_tensor: bool, meta: dict)
     """
     has_tensor = False
 
@@ -71,7 +71,7 @@ def _collect_args_meta(*args, **kwargs):
                 return {"type": type(x).__name__, "value": str(x)}
             if x is None:
                 return {"type": "NoneType", "value": None}
-            # 其他对象：只记录类型名
+            # Other objects: record only the type name
             return {"type": type(x).__name__, "value": None}
         except Exception:
             return {"type": "Exception", "value": None}
@@ -136,8 +136,8 @@ def collect_tensor_args(*args, method = None):
 
 class NvccPatch:
     """
-    进入: 伪造 CUDA_HOME 与 nvcc -V 输出（Transformers/JIT 常会探测）
-    退出: 完整还原环境
+    Enter: fake CUDA_HOME and nvcc -V output, which Transformers/JIT often probe.
+    Exit: fully restore the environment.
     """
     def __enter__(self):
         import torch.utils.cpp_extension as ce
@@ -145,11 +145,11 @@ class NvccPatch:
         self._old_ce_cuda_home = getattr(ce, "CUDA_HOME", None)
         self._old_check_output = subprocess.check_output
 
-        # 伪造 CUDA_HOME
+        # Fake CUDA_HOME
         os.environ["CUDA_HOME"] = "/usr/local/cuda"
         ce.CUDA_HOME = "/usr/local/cuda"
 
-        # 伪造 nvcc -V 输出（兼容 text=True / universal_newlines=True）
+        # Fake nvcc -V output, compatible with text=True / universal_newlines=True
         def _fake_check_output(cmd, *a, **k):
             seq = cmd if isinstance(cmd, (list, tuple)) else [cmd]
             try:
@@ -165,9 +165,9 @@ class NvccPatch:
 
     def __exit__(self, exc_type, exc, tb):
         import torch.utils.cpp_extension as ce
-        # 还原 check_output
+        # Restore check_output
         subprocess.check_output = self._old_check_output
-        # 还原 CUDA_HOME
+        # Restore CUDA_HOME
         if self._old_env_cuda_home is None:
             os.environ.pop("CUDA_HOME", None)
         else:
@@ -175,50 +175,6 @@ class NvccPatch:
         ce.CUDA_HOME = self._old_ce_cuda_home
 
 from collections import Counter, defaultdict
-
-# def save_raw_and_summary(model_id: str, mode: str, outdir: str = "./hfout"):
-#     os.makedirs(outdir, exist_ok=True)
-#     safe_name = model_id.replace("/", "_")
-#     ts = datetime.now().isoformat()
-
-#     raw = {
-#         "modelId": model_id,
-#         "mode": mode,
-#         "timestamp": ts,
-#         "cpp_extension_load_called": bool(_CPP_LOAD_SEEN),
-#         "n_calls_total": len(tensor_calls),
-#         "calls": tensor_calls,
-#     }
-#     raw_path = os.path.join(outdir, f"{safe_name}_{mode}.json")
-#     with open(raw_path, "w", encoding="utf-8") as f:
-#         json.dump(raw, f, ensure_ascii=False, indent=2)
-
-#     # 全量 & 按 ns 统计
-#     ctr_all = Counter(c.get("name", "") for c in tensor_calls)
-#     by_ns = defaultdict(Counter)
-#     for c in tensor_calls:
-#         ns = c.get("ns", "unknown")
-#         by_ns[ns][c.get("name", "")] += 1
-
-#     summary = {
-#         "modelId": model_id,
-#         "mode": mode,
-#         "timestamp": ts,
-#         "cpp_extension_load_called": bool(_CPP_LOAD_SEEN),
-#         "counts_all": [{"name": k, "count": v} for k, v in ctr_all.most_common()],
-#         "counts_by_ns": {
-#             ns: [{"name": k, "count": v} for k, v in ctr.most_common()]
-#             for ns, ctr in by_ns.items()
-#         },
-#     }
-#     sum_path = os.path.join(outdir, f"{safe_name}_{mode}.summary.json")
-#     with open(sum_path, "w", encoding="utf-8") as f:
-#         json.dump(summary, f, ensure_ascii=False, indent=2)
-
-#     print("\n[OK] Saved logs:")
-#     print("  Raw trace ->", raw_path)
-#     print("  Summary   ->", sum_path)
-#     return raw_path, sum_path
 
 def retrieve_stack(stack):
     call_stack = []
@@ -240,29 +196,19 @@ def _on_called(method, *args, **kwargs):
     global argChanged
 
     call_stack = retrieve_stack(inspect.stack())
-    # print(method)
     
     hasTensor, argCons = collect_tensor_args(*args[0], method=method) 
     to_add = {"name": method, "args": argCons, "stack": call_stack}
     if to_add not in tensor_calls:
         tensor_calls.append(to_add)
 
-    # if method not in calls_map:
-    #     calls_map[method] = {}
-    # if call_stack not in calls_map[method]:
-    #     calls_map[method][call_stack] = []
-    # if argCons not in calls_map[method][call_stack]:
-    #     calls_map[method][call_stack].append(argCons)
-    #     argChanged = True
-        # print(method, argCons)
-    
 cpp_mock = LoadedCppExtensionMock(_on_called)
 mock_torch_utils_cpp_extension(cpp_mock)
 
-# --- 导入并应用补丁 ---
+# --- Import and apply patches ---
 import cuda_patches 
 def patch_torch_cpp_extension():
-    """拦截 JIT 扩展加载，返回带日志的包装器；不执行真实 CUDA。"""
+    """Intercept JIT extension loading and return a logging wrapper without running real CUDA."""
     print("[INFO] Patching torch.utils.cpp_extension for custom kernel capture...")
     import torch.utils.cpp_extension as ce
 
@@ -271,23 +217,23 @@ def patch_torch_cpp_extension():
     _orig_inline = getattr(ce, "load_inline", None)
 
     def _get_ce_mode():
-        # "bypass" 默认不编译；想试编译再 export BOS_CE_MODE=attempt
+        # "bypass" skips compilation by default; export BOS_CE_MODE=attempt to try compiling.
         return os.getenv("BOS_CE_MODE", "bypass").lower()
 
     def _fake_return(kernel_name, *kargs, **kkwargs):
-        # 1) 优先返回 out/output/result/dst
+        # 1) Prefer returning out/output/result/dst
         for key in ("out", "output", "result", "dst"):
             t = kkwargs.get(key, None)
             if isinstance(t, torch.Tensor):
                 return t
-        # 2) 简单 matmul 形状推断
+        # 2) Simple matmul shape inference
         tins = [x for x in kargs if isinstance(x, torch.Tensor)]
         tins += [v for v in kkwargs.values() if isinstance(v, torch.Tensor)]
         twos = [t for t in tins if t.dim() == 2]
         if len(twos) >= 2 and twos[0].shape[1] == twos[1].shape[0]:
             A, B = twos[0], twos[1]
             return torch.zeros((A.shape[0], B.shape[1]), dtype=A.dtype, device="cpu")
-        # 3) 回退：zeros_like 第一个张量
+        # 3) Fallback: zeros_like the first tensor
         if tins:
             return torch.zeros_like(tins[0], device="cpu")
         return None
@@ -307,14 +253,6 @@ def patch_torch_cpp_extension():
                     return _fake_return(kernel_name, *kernel_args, **kernel_kwargs)
                 try:
                     full = f"custom_cpp::{self.__name__}::{kernel_name}"
-                    # has_t, params_meta = _collect_args_meta(*kernel_args, **kernel_kwargs)
-                    # tensor_calls.append({
-                    #     "name": full,
-                    #     "params": params_meta,
-                    #     "executed": bool(CPP_EXEC_ENABLED),
-                    #     "ns": "custom_cpp",
-                    # })
-
                     call_stack = retrieve_stack(inspect.stack())
                     
                     hasTensor, argCons = collect_tensor_args(*kernel_args, method=full)
@@ -324,7 +262,7 @@ def patch_torch_cpp_extension():
                         if to_add not in tensor_calls:
                             tensor_calls.append(to_add)
 
-                    # 如需真执行（会失败），放开下面逻辑
+                    # To actually execute it (likely to fail), enable the logic below.
                     if CPP_EXEC_ENABLED and self.__real_mod is not None:
                         try:
                             real_fn = getattr(self.__real_mod, kernel_name)
@@ -380,7 +318,7 @@ def patch_torch_cpp_extension():
         if _get_ce_mode() != "attempt":
             print(f"[PATCH] Bypass compilation for '{name}'. Returning stub wrapper.")
             return CppKernelWrapper(name, real_mod=None)
-        # 真要尝试编译才走原逻辑
+        # Use the original logic only when attempting compilation.
         return _wrap_load(_orig_load, name, _fix_sources(sources), *args, **kwargs)
 
     ce.load = patched_load
@@ -410,17 +348,9 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
             def make_wrapper(fn, qname):
                 def wrapper(*args, **kwargs):
                     if not _enter_guard():
-                        # 占位返回也可以；这里选择调用原函数以减少破坏性
+                        # A placeholder return would also work; call the original to reduce disruption.
                         return fn(*args, **kwargs)
                     try:
-                        # has_t, meta = _collect_args_meta(*args, **kwargs)
-                        # tensor_calls.append({
-                        #     "name": f"custom_bin::{qname}",
-                        #     "params": meta,
-                        #     "executed": False,
-                        #     "ns": "custom_bin",
-                        # })
-
                         call_stack = retrieve_stack(inspect.stack())
                         
                         hasTensor, argCons = collect_tensor_args(*args, method=qname)
@@ -430,7 +360,7 @@ def _wrap_module_functions(mod: types.ModuleType, modname: str):
                             if to_add not in tensor_calls:
                                 tensor_calls.append(to_add)
 
-                        # 占位返回：优先 out→zeros_like→None
+                        # Placeholder return: prefer out, then zeros_like, then None.
                         for k in ("out","output","result","dst"):
                             t = kwargs.get(k)
                             if isinstance(t, torch.Tensor): return t
@@ -474,7 +404,7 @@ class _WrappingFinder(importlib.abc.MetaPathFinder):
         spec = importlib.machinery.PathFinder.find_spec(fullname, path)
         if spec is None or spec.loader is None:
             return None
-        # 名称命中白名单 + 必须是二进制扩展（.so/.pyd）
+        # Name must match the allowlist and be a binary extension (.so/.pyd).
         if not self.wrap_pred(fullname):
             return None
         if not isinstance(spec.loader, importlib.machinery.ExtensionFileLoader):
@@ -532,7 +462,7 @@ def _reduce_shape(shape, dim, keepdim=False):
     return tuple(s for s in out if s is not None)
 
 def _zeros_like_where(args, kwargs):
-    # where(cond, x, y) → 使用 x 作为基准
+    # where(cond, x, y): use x as the reference.
     if len(args) >= 3 and isinstance(args[1], _torch.Tensor):
         return _torch.zeros_like(args[1])
     x = kwargs.get("input") or kwargs.get("x")
@@ -570,13 +500,6 @@ def _wrap_highlevel(ns_obj, ns_name: str, fn_name: str, mode: str):
         if not _enter_guard():
             return orig(*args, **kwargs)
         try:
-            # has_t, meta = _collect_args_meta(*args, **kwargs)
-            # tensor_calls.append({
-            #     "name": f"{ns_name}.{fn_name}",
-            #     "params": meta,
-            #     "executed": (mode == "log"),
-            #     "ns": "torch" if ns_name == "torch" else "torch.nn.functional",
-            # })
             if mode == "null":
                 if ns_name == "torch":
                     if fn_name in ("matmul","mm","bmm"):   return _zeros_like_matmul(args[0], args[1])
@@ -608,7 +531,7 @@ def _wrap_highlevel(ns_obj, ns_name: str, fn_name: str, mode: str):
                         return _torch.zeros_like(base, dtype=_torch.bool) if _torch.is_tensor(base) else None
                     if fn_name == "is_floating_point":
                         x = args[0] if len(args)>0 else kwargs.get("input")
-                        # 返回标量 bool；这里只记录参数，不依赖输出形状
+                        # Return a scalar bool; only record parameters here, independent of output shape.
                         return bool(getattr(x, "dtype", _torch.float32).is_floating_point) if hasattr(x, "dtype") else True
                     if fn_name == "flatten":
                         x = args[0] if len(args) > 0 else kwargs.get("input")
@@ -619,12 +542,12 @@ def _wrap_highlevel(ns_obj, ns_name: str, fn_name: str, mode: str):
                         if len(args) > 1: start = args[1]
                         if len(args) > 2: end   = args[2]
                         rank = x.dim()
-                        # 归一化索引
+                        # Normalize indices
                         if start < 0: start += rank
                         if end   < 0: end   += rank
                         start = max(0, min(start, rank - 1))
                         end   = max(start, min(end, rank - 1))
-                        # 计算新形状：pre + [product(mid)] + post
+                        # Compute new shape: pre + [product(mid)] + post
                         pre  = list(x.shape[:start])
                         mid  = 1
                         for d in x.shape[start:end + 1]:
@@ -663,7 +586,7 @@ def _wrap_highlevel(ns_obj, ns_name: str, fn_name: str, mode: str):
                         return _torch.zeros_like(args[0])
                     if fn_name == "scaled_dot_product_attention":
                         q = args[0]; return _torch.zeros_like(q)
-            # log: 真实执行；off: 未走到这里；null: 未命中分支则回退真实执行
+            # log: execute for real; off: should not reach here; null: unmatched branches fall back to real execution.
             return orig(*args, **kwargs)
         finally:
             _exit_guard()
@@ -677,7 +600,7 @@ def patch_highlevel_apis(mode: str = "off"):
         print("[INFO] High-level API patch: off"); return
     print(f"[INFO] High-level API patch: mode={mode}")
 
-    # 覆盖 torch.*
+    # Override torch.*
     TORCH_FNS = [
         "matmul","mm","bmm","einsum","addmm",
         "tril","triu","where","clamp","amax","amin","rsqrt","zeros_like",
@@ -687,7 +610,7 @@ def patch_highlevel_apis(mode: str = "off"):
     for fn in TORCH_FNS:
         _wrap_highlevel(_torch, "torch", fn, mode)
 
-    # 覆盖 F.* 高层
+    # Override high-level F.* APIs
     F_FNS = [
         "linear","layer_norm","softmax","gelu","silu","dropout",
         "scaled_dot_product_attention",
@@ -728,15 +651,11 @@ def createEmptyModelBin(modelId, cache_dir):
         f.write(b"")
 
 def copy_config_to_modules_if_needed(cache_dir, model_id):
-    # id = os.path.basename(cache_dir)
-    # dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
-    # module_dir = "."
     module_dir = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules")
     hash_number = cache_dir.split("/")[-1]
     module_dir = os.path.join(module_dir, hash_number)
     for root, dirs, files in os.walk(cache_dir):
         for file in files:
-            # if file.endswith(".json") or file.endswith(".yaml"):
             if not os.path.exists(module_dir):
                 os.makedirs(module_dir)
             src = os.path.join(root, file)
@@ -748,8 +667,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
-            # else:
-            #     print(f"Config already exists at {dst}, skipping copy.")
     
     if "Qwen--Qwen-1_8B" in cache_dir:
         module_dir_2 = os.path.expanduser("~/.cache/huggingface/modules/transformers_modules/Qwen/Qwen-1_8B")
@@ -758,7 +675,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
             os.makedirs(module_dir_2)
         for root, dirs, files in os.walk(cache_dir):
             for file in files:
-                # if file.endswith(".json") or file.endswith(".yaml"):
                 src = os.path.join(root, file)
                 relative_path = os.path.relpath(src, cache_dir)
                 dst = os.path.join(module_dir_2, relative_path)
@@ -768,8 +684,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                     if not os.path.exists(dst_dir):
                         os.makedirs(dst_dir)
                     shutil.copy(src, dst)
-                # else:
-                #     print(f"Config already exists at {dst}, skipping copy.")
         return
     
     if model_id:
@@ -779,7 +693,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
             return 
         for root, dirs, files in os.walk(cache_dir):
             for file in files:
-                # if file.endswith(".json") or file.endswith(".yaml"):
                 src = os.path.join(root, file)
                 relative_path = os.path.relpath(src, cache_dir)
                 dst = os.path.join(module_dir_2, relative_path)
@@ -809,7 +722,6 @@ def prepare_snapshot_and_stage_sources(model_id: str,
         repo_id=model_id,
         token=hf_token or None,
         local_files_only=local_only,
-        # allow_patterns=allow_patterns,
         ignore_patterns=ignore_patterns
     )
 
@@ -817,40 +729,11 @@ def prepare_snapshot_and_stage_sources(model_id: str,
     copy_config_to_modules_if_needed(local_dir, model_id)
     return local_dir
 
-    # srcs = []
-    # for ext in ("*.cpp", "*.cu", "*.h", "*.cuh"):
-    #     srcs += glob.glob(os.path.join(local_dir, "**", ext), recursive=True)
-
-    # hash_str = Path(local_dir).name  # snapshots/<hash>
-    # mods_root = Path.home() / ".cache" / "huggingface" / "modules" / "transformers_modules"
-    # mods_dir1 = mods_root / hash_str
-    # mods_dir2 = mods_root / model_id / hash_str
-
-    # staged_dirs = []
-    # for target in (mods_dir1, mods_dir2):
-    #     target.mkdir(parents=True, exist_ok=True)
-    #     for s in srcs:
-    #         shutil.copy(s, target / Path(s).name)
-    #     staged_dirs.append(str(target))
-
-    # CPP_SEARCH_DIRS[:] = list(dict.fromkeys([str(mods_dir1), str(mods_dir2), str(local_dir)]))
-
-    # print(f"[STAGE] model={model_id}")
-    # print(f"        snapshot : {local_dir}")
-    # print(f"        sources  : {len(srcs)} files (cpp/cu/h/cuh)")
-    # if srcs[:3]: print(f"        e.g.    : {srcs[:3]}")
-    # print(f"        staged → : {staged_dirs}")
-    # print(f"        search   : {CPP_SEARCH_DIRS}")
-
-    # return local_dir, srcs, staged_dirs
-
 if os.getenv("BOS_FAKE_CUDA", "1") == "1":
     import cuda_patches
 
-# patch_torch_cpp_extension()
 from torchmock.torchmocks import *
 mock()
-# patch_highlevel_apis(mode=os.getenv("BOS_HIGHLEVEL", "off"))
 if os.getenv("BOS_BIN_HOOK", "1") == "1":
     patch_binary_imports()
 
@@ -882,10 +765,6 @@ def _dummy_load_pretrained_model(
             name: torch.zeros_like(param, device="cpu")
             for name, param in model.named_parameters()
         }
-        # dummy_dict = {
-        #     key: torch.zeros_like(value, device="cpu")
-        #     for key, value in model.state_dict().items()
-        # }
         state_dict = dummy_dict
         checkpoint_files = []
 
@@ -910,13 +789,13 @@ def _dummy_load_pretrained_model(
 
 transformers.modeling_utils.PreTrainedModel._load_pretrained_model = _dummy_load_pretrained_model
 
-# === 在补丁启用完成后，再 import transformers ===
+# === Import transformers after patches have been enabled ===
 from transformers import (
     AutoTokenizer, AutoConfig,
     AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoModel
 )
 
-# === 构建 config ===
+# === Build config ===
 def build_config(local_dir: str, override_configs, strip_quantization: bool = False):
     cfg = AutoConfig.from_pretrained(local_dir, trust_remote_code=True)
     if override_configs:
@@ -947,20 +826,10 @@ def build_config(local_dir: str, override_configs, strip_quantization: bool = Fa
                         setattr(cfg, key, None)
                     except Exception:
                         pass
-    # # 只在字段存在时才打开，避免不同仓库报错
-    # for k in ("use_cache_kernel", "use_cache_quantization", "use_flash_attn", "rope_backend"):
-    #     if hasattr(cfg, k):
-    #         try:
-    #             # 一般是 bool 开关；非 bool（如 rope_backend）保持原值
-    #             if isinstance(getattr(cfg, k), bool):
-    #                 setattr(cfg, k, True)
-    #         except Exception:
-    #             pass
     return cfg
 
-# === 加载 tokenizer + 模型（自动判别 Seq2Seq / CausalLM；失败回退 AutoModel） ===
+# === Load tokenizer and model (auto-detect Seq2Seq/CausalLM; fall back to AutoModel on failure) ===
 def load_model_and_tokenizer(local_dir: str, cfg):
-    # tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True) # "Qwen/Qwen-1_8B"
     try:
         tok = AutoTokenizer.from_pretrained(local_dir, trust_remote_code=True, use_fast=True)
     except:
@@ -979,14 +848,12 @@ def load_model_and_tokenizer(local_dir: str, cfg):
             trust_remote_code=True,
             low_cpu_mem_usage=True,
             device_map="cpu",
-            # torch_dtype=torch.float32,
         ).eval()
     return model, tok
 
-# === 触发一次计算（优先 generate；否则最小 forward） ===
+# === Trigger one computation (prefer generate; otherwise minimal forward) ===
 def run_once(model, tok, cfg, prompts: list[str], new_tokens: int = 2):
     tensor_calls.clear()
-    # torch.set_default_dtype(torch.float32)
     with torch.no_grad():
         if hasattr(model, "generate"):
             inputs = tok(prompts, return_tensors="pt") 
@@ -1025,8 +892,7 @@ def _params_to_argCons(params_meta: dict):
     for k in sorted(kwargs_meta.keys()): out.append(_to_arg_item(kwargs_meta[k]))
     return out
 
-# === 主流程 ===
-# MODEL_ID       = os.getenv("MODEL_ID", "Qwen/Qwen-7B")
+# === Main flow ===
 HF_TOKEN       = os.getenv("HF_TOKEN")
 LOCAL_ONLY     = os.getenv("LOCAL_ONLY", "1") == "1"
 INCLUDE_WEIGHTS= os.getenv("INCLUDE_WEIGHTS", "1") == "1"
@@ -1034,8 +900,8 @@ NEW_TOKENS     = int(os.getenv("NEW_TOKENS", "2"))
 BATCH_SIZE_CONFIGS = [1, 3, 7]
 SEQ_LENS_CONFIGS = [9, 17, 33]
 
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_HF_EXP_DIR = os.path.join(_THIS_DIR, "hf-exp")
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+result_dir = os.path.join(root_dir, "results", "huggingface")
 
 def run(
     model_id,
@@ -1049,15 +915,15 @@ def run(
     record_only=False,
 ):
     if not output_dir:
-        output_dir = os.path.join(_HF_EXP_DIR, "out")
+        output_dir = os.path.join(result_dir, "out")
     os.makedirs(output_dir, exist_ok=True)
     
-    root_dir = os.path.dirname(output_dir)
+    output_root_dir = os.path.dirname(output_dir)
     if is_op_suffix:
-        log_dir = os.path.join(root_dir, "logs")
+        log_dir = os.path.join(output_root_dir, "logs")
         log_dir = os.path.join(log_dir, model_id.replace('/', '_'))
     else:
-        log_dir = os.path.join(root_dir, "hflogs")
+        log_dir = os.path.join(output_root_dir, "hflogs")
     os.makedirs(log_dir, exist_ok=True)
 
     if not is_op_suffix:
@@ -1072,9 +938,6 @@ def run(
         filename = suffix+".json"
         agg_path = os.path.join(output_dir, filename)
         
-    # if os.path.exists(agg_path):
-    #     return
-    
     local_dir = prepare_snapshot_and_stage_sources(
         model_id=model_id,
         hf_token=HF_TOKEN or None,
@@ -1085,7 +948,7 @@ def run(
     total_calls_map = defaultdict(dict)
     data = []
 
-    # 伪造 nvcc/CUDA 环境 → 加载 → 触发 → 落盘
+    # Fake the nvcc/CUDA environment, then load, trigger, and write outputs.
     with NvccPatch():
         cfg = build_config(local_dir, override_configs, strip_quantization=record_only)
         if hasattr(cfg, "auto_map"):
@@ -1100,94 +963,83 @@ def run(
                             include_weights=False
                         )
         model, tok = load_model_and_tokenizer(local_dir, cfg)
-        # model = model.to(torch.float32)
 
         batch_sizes = batch_size_configs if batch_size_configs is not None else BATCH_SIZE_CONFIGS
         seq_lens = seq_lens_configs if seq_lens_configs is not None else SEQ_LENS_CONFIGS
 
         for batch_size in batch_sizes:
             for seq_len in seq_lens:
-                print(f"\n--- 正在运行: batch_size={batch_size}, seq_len={seq_len} ---")
-                # 1. 准备批量输入
+                print(f"\n--- Running: batch_size={batch_size}, seq_len={seq_len} ---")
+                # 1. Prepare batched input
                 prompt_text = ("hi " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
             
-                # 2. 获取真实的token长度
+                # 2. Get the actual token length
                 real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"目标 seq_len={seq_len}, 实际 token 长度={real_seq_len}")
+                print(f"Target seq_len={seq_len}, actual token length={real_seq_len}")
 
-                # 3. 调用修改后的 run_once
+                # 3. Call the modified run_once
                 run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)
 
-                # 4. 收集并整理日志
+                # 4. Collect and organize logs
                 for call in tensor_calls:
                     func_name = call.get('name', 'unknown_function')
                     argCons = call.get('args', [])
                     call_stack = call.get('stack', ())
-                    # params = call.get('params', {})
-                    # argCons = _params_to_argCons(params)            
                     run_key = (batch_size, real_seq_len)
 
                     total_calls_map.setdefault(func_name, {}).setdefault(call_stack, {}).setdefault(run_key, []).append(argCons)
                 data.append({"batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()})
 
-    print("\n--- 所有推理运行完毕。开始符号化分析... ---")
+    print("\n--- All inference runs finished. Starting symbolic analysis... ---")
     
     if not data_dir:
-        data_dir = os.path.join(_HF_EXP_DIR, "data")
+        data_dir = os.path.join(result_dir, "data")
     os.makedirs(data_dir, exist_ok=True)
            
     with open(os.path.join(data_dir, filename), "w") as wf:
         json.dump(data, wf)
 
     if record_only:
-        print(f"\n[成功] 已保存记录数据至: {os.path.join(data_dir, filename)}")
+        print(f"\n[SUCCESS] Saved recorded data to: {os.path.join(data_dir, filename)}")
         return {"agg_path": agg_path, "data_path": os.path.join(data_dir, filename)}
 
-    buf = io.StringIO()  # 用于收集 computeSymbolicArgsWithMap 的所有 print
+    buf = io.StringIO()  # Collect all prints from computeSymbolicArgsWithMap.
 
     try:
-        # 静音 computeSymbolicArgsWithMap 的控制台输出
+        # Silence console output from computeSymbolicArgsWithMap.
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
 
-        # 把调试输出写入文件，避免刷屏
+        # Write debug output to a file to avoid flooding the console.
         dbg_path = os.path.join(log_dir, "symbolic_debug.log")
         with open(dbg_path, "w", encoding="utf-8") as f:
             f.write(buf.getvalue())
 
-        print(f"\n[成功] 已聚合的符号化日志已保存至: {agg_path}")
-        print(f"[信息] 详细调试输出已写入: {dbg_path}")
-        # shutil.rmtree(local_dir)
+        print(f"\n[SUCCESS] Saved aggregated symbolic logs to: {agg_path}")
+        print(f"[INFO] Detailed debug output written to: {dbg_path}")
 
     except Exception as e:
         dbg_path = os.path.join(log_dir, "symbolic_debug.log")
         with open(dbg_path, "w", encoding="utf-8") as f:
             f.write(buf.getvalue())
 
-        print(f"\n[错误] 生成符号化日志失败: {e}")
-        # 如果失败，保存原始的 map 数据以供调试
+        print(f"\n[ERROR] Failed to generate symbolic logs: {e}")
+        # On failure, save the raw map data for debugging.
         fallback_path = os.path.join(log_dir, f"{model_id.replace('/', '_')}.raw_map.json")
-        # 为了能将 tuple 作为 key 序列化，进行转换
+        # Convert tuple keys so they can be serialized.
         serializable_map = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in total_calls_map.items()}
         with open(fallback_path, "w", encoding="utf-8") as f:
             json.dump(serializable_map, f, indent=2, ensure_ascii=False)
-        print(f"[信息] 用于调试的原始采集数据已保存至: {fallback_path}")
-        print(f"[信息] 详细调试输出已写入: {dbg_path}")
-        # shutil.rmtree(local_dir)
-
-# shutil.rmtree("/home/mvh6224/.cache/huggingface/hub/models--Qwen--Qwen-7B")
-# run("Qwen/Qwen-7B")
-# run("Qwen/Qwen-1_8B-Chat-Int4")
-# run("ishishow/ishishow_safetensors")
-# run("chinoll/chatsakura-3b-int4")
-# run("TitanML/Qwen-72B-Chat")
-# run("reyvan/qwen7b-27")
+        print(f"[INFO] Saved raw collected data for debugging to: {fallback_path}")
+        print(f"[INFO] Detailed debug output written to: {dbg_path}")
 
 import traceback
 
-def testhf():
-    with open("/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfmodels0.json", "r") as f:
+def testhf(model_list_path=None):
+    if model_list_path is None:
+        model_list_path = os.path.join(root_dir, "data", "hfmodels0.json")
+    with open(model_list_path, "r") as f:
         model_list = json.load(f)
         
         from huggingface_hub import HfApi
@@ -1212,5 +1064,3 @@ def testhf():
                 except Exception as e:
                     traceback.print_exc()
                     print(f"  ⚠️ Error processing {new_s}: {e}")
-
-# testhf()
