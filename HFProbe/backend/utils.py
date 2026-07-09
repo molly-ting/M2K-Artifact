@@ -3,6 +3,8 @@ from sympy import symbols, Eq, solve
 import re, os
 from pathlib import Path
 
+current_path_string = os.path.abspath(__file__)
+root_dir = os.path.dirname(os.path.dirname(current_path_string))
 
 # dimension sizes usually are mutiples of batch_size or seq_len or multiplication of both
 def computeLinearRel(sizes, batches, seqLens): 
@@ -10,7 +12,6 @@ def computeLinearRel(sizes, batches, seqLens):
     a1, k1 = None, None
     a2, k2 = None, None
     a3, k3 = None, None
-    # print(sizes, batches, seqLens)
 
     for i in range(len(sizes)-1):
         if not isinstance(sizes[i], int) and not isinstance(sizes[i], float):
@@ -48,15 +49,12 @@ def computeLinearRel(sizes, batches, seqLens):
             break
         
         if is_blinear and a1*batches[i] + k1 != sizes[i]:
-            # print(i, batches[i], sizes[i], "not bLinear")
             is_blinear = False
         
         if is_sLinear and a2*seqLens[i] + k2 != sizes[i]:
-            # print(i, seqLens[i], sizes[i], "not sLinear")
             is_sLinear = False
         
         if is_mulLinear and a3*batches[i]*seqLens[i] + k3 != sizes[i]:
-            # print(i, batches[i], seqLens[i], sizes[i], "not mulLinear")
             is_mulLinear = False
     
     expr = ''
@@ -89,8 +87,7 @@ def computeLinearRel(sizes, batches, seqLens):
                 new_sizes.append(sizes[i])
                 new_batches.append(batches[i])
                 new_seqLens.append(seqLens[i])
-        
-        # print("sizes min removed", new_sizes, new_batches, new_seqLens)
+
         expr = computeExpr(new_sizes, new_batches, new_seqLens)
     return expr
 
@@ -98,11 +95,9 @@ def computeExpr(sizes, batches, seqLens):
     # Define variables
     a, b, c, d = symbols('a b c d')
 
-    # print("################")
     #data points (x, y, z) (batch, seqLen, size)
     points = []
     for i in range(len(sizes)):
-        # print(batches[i], seqLens[i], sizes[i])
         points.append((batches[i], seqLens[i], sizes[i]))
 
     # Create equations: z = axy + bx + cy + d, size = a*batch*seqLen + b*batch + c*seqLen + d
@@ -119,8 +114,7 @@ def computeExpr(sizes, batches, seqLens):
         if sym not in solution:
             equations.append(Eq(sym, 0))
             solution = solve(equations, (a, b, c, d))
-    
-    # print(solution)
+
     a_val = float(solution[a])
     b_val = float(solution[b])
     c_val = float(solution[c])
@@ -155,102 +149,7 @@ def computeExpr(sizes, batches, seqLens):
     print(expr)
     return expr
 
-    # expr = ''
-    # if a_val != 0:
-    #     expr += str(a_val) + " * b "
-    # if b_val != 0:
-    #     if expr:
-    #         expr += "+ "
-    #     expr += str(b_val) + " * s "
-    # if c_val != 0:
-    #     if expr:
-    #         expr += "+ "
-    #     expr += str(c_val)
-    # return expr
-
 def computeSymRanges(vals, batches, seqLens):   
-    # b0, s0, n0 = 1, 1, 1
-    # b1, s1, n1 = 2, 2, 2
-    # while True:
-    #     if vals[-1] >= b0*batches[-1]:
-    #         b0+=1
-    #     else:
-    #         b0-=1
-    #         break 
-
-    # while True:
-    #     if vals[-1] <= b1*batches[-1]:
-    #         b1-=1
-    #     else:
-    #         b1+=1
-    #         break 
-    
-    # while True:
-    #     if vals[-1] >= s0*seqLens[-1]:
-    #         s0+=1
-    #     else:
-    #         s0-=1
-    #         break 
-
-    # while True:
-    #     if vals[-1] <= s1*seqLens[-1]:
-    #         s1-=1
-    #     else:
-    #         s1+=1
-    #         break 
-    
-    # while True:
-    #     if vals[-1] >= n0*seqLens[-1]*batches[-1]:
-    #         n0+=1
-    #     else:
-    #         n0-=1
-    #         break 
-
-    # while True:
-    #     if vals[-1] <= n1*seqLens[-1]*batches[-1]:
-    #         n1-=1
-    #     else:
-    #         n1+=1
-    #         break 
-    
-    # kb = b0 and b1
-    # ks = s0 and s1
-    # kn = n0 and n1
-    
-    # if kn:
-    #     for i in range(len(vals)-1):
-    #         if vals[i] < n0*batches[i]*seqLens[i] or vals[i] > n1*batches[i]*seqLens[i]:
-    #             kn = False
-    #             break
-    
-    # if ks:
-    #     for i in range(len(vals)-1):
-    #         if vals[i] < s0*batches[i]*seqLens[i] or vals[i] > s1*batches[i]*seqLens[i]:
-    #             ks = False
-    #             break
-    
-    # if kb:
-    #     for i in range(len(vals)-1):
-    #         if vals[i] < b0*batches[i] or vals[i] > b1*batches[i]:
-    #             kb = False
-    #             break
-
-    # kb, ks, kn = True, True, True
-    # for i in range(len(vals)):
-    #     if vals[i] < 1*batches[i] or vals[i] > 2*batches[i]:
-    #         kb = False
-    #     if vals[i] < 1*seqLens[i] or vals[i] > 2*seqLens[i]:
-    #         ks = False
-    #     if vals[i] < 1*batches[i]*seqLens[i] or vals[i] > 2*batches[i]*seqLens[i]:
-    #         kn = False
-    
-    # if kn:
-    #     return ("1*b*s", "2*b*s")
-    # if ks:
-    #     return ("1*s", "2*s")
-    # if kb:
-    #     return ("1*b", "2*b")
-
     minV = min(vals)
     maxV = max(vals)
     return (minV, maxV)
@@ -266,15 +165,12 @@ def computeMaxMin(vals, batches, seqLens, isMax):
             break
         
         if is_blinear and batches[i] + k1 != vals[i]:
-            # print(i, batches[i], sizes[i], "not bLinear")
             is_blinear = False
         
         if is_sLinear and seqLens[i] + k2 != vals[i]:
-            # print(i, seqLens[i], sizes[i], "not sLinear")
             is_sLinear = False
         
         if is_mulLinear and batches[i]*seqLens[i] + k3 != vals[i]:
-            # print(i, batches[i], seqLens[i], sizes[i], "not mulLinear")
             is_mulLinear = False
     
     expr = ''
@@ -350,7 +246,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
         if func_name == "torch.zeros_like" or func_name == "torch.empty_like":
             continue
         final_cons[func_name] = []
-        # print(func_name)
 
         for call_stack in calls_map[func_name]:
             i = 0
@@ -364,7 +259,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                         batch_size, seq_len = ast.literal_eval(key)
                     else:
                         batch_size, seq_len = key
-                    # print(key, len(calls_map[func_name][call_stack][key]))
                     if i >= len(calls_map[func_name][call_stack][key]):
                         exceed_bound = True
                         break
@@ -386,7 +280,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                 for k in range(len(base_args)):
                     item0 = base_args[k]
                     if item0["type"] == "torch.Tensor":
-                        # final_shape = computeTensorShape(to_compared, item0, k, batches, seqLens, tmp_v, func_name)
                         different_dim = False
                         for j in range(len(to_compared)):
                             if "shape" not in to_compared[j][k] and func_name == "vllm.varlen_fwd" and item0["dtype"]=="torch.bool" and not item0["shape"]:
@@ -469,15 +362,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                         expr = tmp_v[maxVals_tuple]
                                     else:
                                         expr = computeMaxMin(maxVals, batches, seqLens, True)
-                                    # if not expr:
-                                    #     maxVals_tuple = tuple(maxVals)
-                                    #     if maxVals_tuple in tmp_v:
-                                    #         expr = tmp_v[maxVals_tuple]
-                                    #     else:
-                                    #         expr = "u" + str(symbol_index)
-                                    #         symbol_index+=1
-                                    #         tmp_v[maxVals_tuple] = expr
-                                    #     print(func_name, "maxV else", maxVals, batches, seqLens)
                                     to_add["maxV"] = expr
 
                                 if is_same_min:
@@ -488,15 +372,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                         expr = tmp_v[minVals_tuple]
                                     else:
                                         expr = computeMaxMin(minVals, batches, seqLens, False)
-                                    # if not expr:
-                                    #     minVals_tuple = tuple(minVals)
-                                    #     if minVals_tuple in tmp_v:
-                                    #         expr = tmp_v[minVals_tuple]
-                                    #     else:
-                                    #         expr = "u" + str(symbol_index)
-                                    #         symbol_index+=1
-                                    #         tmp_v[minVals_tuple] = expr
-                                    #     print(func_name, "minV else", minVals, batches, seqLens)
                                     to_add["minV"] = expr
 
                                 to_add["dupV"] = dupV
@@ -594,15 +469,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                                 expr = tmp_v[maxVals_tuple]
                                             else:
                                                 expr = computeMaxMin(maxVals, batches, seqLens, True)
-                                            # if not expr:
-                                            #     maxVals_tuple = tuple(maxVals)
-                                            #     if maxVals_tuple in tmp_v:
-                                            #         expr = tmp_v[maxVals_tuple]
-                                            #     else:
-                                            #         expr = "u" + str(symbol_index)
-                                            #         symbol_index+=1
-                                            #         tmp_v[maxVals_tuple] = expr
-                                            #     print(func_name, "maxV else", maxVals, batches, seqLens)
                                             to_add["maxV"] = expr
 
                                         if is_same_min:
@@ -613,15 +479,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                                 expr = tmp_v[minVals_tuple]
                                             else:
                                                 expr = computeMaxMin(minVals, batches, seqLens, False)
-                                            # if not expr:
-                                            #     minVals_tuple = tuple(minVals)
-                                            #     if minVals_tuple in tmp_v:
-                                            #         expr = tmp_v[minVals_tuple]
-                                            #     else:
-                                            #         expr = "u" + str(symbol_index)
-                                            #         symbol_index+=1
-                                            #         tmp_v[minVals_tuple] = expr
-                                            #     print(func_name, "minV else", minVals, batches, seqLens)
                                             to_add["minV"] = expr
 
                                         to_add["dupV"] = dupV
@@ -716,8 +573,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                         is_Same = True
                         j = 0
                         base_value = item0["value"]
-                        # if base_value and not isinstance(base_value, int) and not isinstance(base_value, float):
-                        #     print(func_name, "value not num", base_value)
                         values = [base_value]
                         while j < len(to_compared):
                             values.append(to_compared[j][k]["value"])
@@ -754,195 +609,19 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
     with open(outPath, "w") as wf:
         json.dump(final_cons, wf, indent=4)
 
-# def computeFinalSymbolicArgs(modelId, callsList1, callsList2, batches, seqLens, outdir): # callsList1: different seq_len, same batch_size, callsList2: different batch_size, same seq_len
-#     i = 0
-#     num_list1 = len(callsList1)
-#     while i < num_list1-1:
-#         if len(callsList1[i]) != len(callsList1[i+1]):
-#             print(modelId, i, len(callsList1[i]), i+1, len(callsList1[i+1]))
-#             return
-#         i+=1
-    
-#     final_cons = {}
-#     i = 0
-#     num_list2 = len(callsList2)
-#     indexList = [0]*num_list2
-#     while i < len(callsList1[0]):
-#         j = 0
-#         isDiff = False
-#         while j < num_list1-1:
-#             if callsList1[j][i]["name"] != callsList1[j+1][i]["name"]:    
-#                 print(j, i, callsList1[j][i]["name"], callsList1[j+1][i]["name"])
-#                 isDiff = True
-#                 break
-#             j+=1
-        
-#         if isDiff:
-#             print("list1 diff", i)
-#             i+=1
-#             for j in range(num_list2):
-#                 indexList[j]+=1
-#             continue
-        
-#         for j in range(num_list2):
-#             while callsList1[0][i]["name"] != callsList2[j][indexList[j]]["name"]:
-#                 print("list2", j, indexList[j])
-#                 indexList[j]+=1
-        
-#         final_args = []
-#         # print(callsList1[0][i]["name"])
-#         symbol_index = 0
-#         tmp_v = {}
-#         for k in range(len(callsList1[0][i]["args"])):
-#             item0 = callsList1[0][i]["args"][k]
-#             # print("*************")
-#             # print(callsList1[0][i]["args"][k])
-#             # print(callsList1[1][i]["args"][k])
-#             # print(callsList1[2][i]["args"][k])
-#             # print(callsList2[0][i]["args"][k])
-#             # print(callsList2[1][i]["args"][k])
-#             if item0["type"] == "torch.Tensor":
-#                 final_shape = []
-#                 for h in range(len(item0["shape"])):
-#                     is_Same = True
-#                     j = 0
-#                     base = callsList1[0][i]["args"][k]["shape"][h]
-#                     sizes = [base]
-#                     while j < num_list1-1:
-#                         sizes.append(callsList1[j+1][i]["args"][k]["shape"][h])
-#                         if base != callsList1[j+1][i]["args"][k]["shape"][h]:
-#                             is_Same = False
-#                         j+=1
-                    
-#                     for j in range(num_list2):
-#                         sizes.append(callsList2[j][indexList[j]]["args"][k]["shape"][h])
-#                         if base != callsList2[j][indexList[j]]["args"][k]["shape"][h]:
-#                             is_Same = False
-                    
-#                     if is_Same:
-#                         final_shape.append(base)
-#                     else:
-#                         expr = computeLinearRel(sizes, batches, seqLens)
-#                         if not expr:
-#                             if sizes in tmp_v:
-#                                 expr = tmp_v[sizes]
-#                             else:
-#                                 expr = "u" + str(symbol_index)
-#                                 symbol_index+=1
-#                                 tmp_v[sizes] = expr
-#                             print(sizes)
-#                         final_shape.append(expr)
-                
-#                 # print(final_shape)  
-#                 final_args.append({"shape": final_shape, "dtype": item0["dtype"], "type": "torch.Tensor"})
-#             else:
-#                 is_Same = True
-#                 j = 0
-#                 base = callsList1[0][i]["args"][k]["value"]
-#                 values = [base]
-#                 while j < num_list1-1:
-#                     values.append(callsList1[j+1][i]["args"][k]["value"])
-#                     if base != callsList1[j+1][i]["args"][k]["value"]:
-#                         is_Same = False
-#                     j+=1
-                
-#                 for j in range(num_list2):
-#                     values.append(callsList2[j][indexList[j]]["args"][k]["value"])
-#                     if base != callsList2[j][indexList[j]]["args"][k]["value"]:
-#                         is_Same = False
-                
-#                 if is_Same:
-#                     final_args.append({"value": base, "type": item0["type"]})
-#                 else:
-#                     expr = computeLinearRel(values, batches, seqLens)
-#                     if not expr:
-#                         if values in tmp_v:
-#                             expr = tmp_v[values]
-#                         else:
-#                             expr = "u" + str(symbol_index)
-#                             symbol_index+=1
-#                             tmp_v[values] = expr
-#                         print(values)
-#                     final_args.append({"value": expr, "type": item0["type"]})
-        
-#         final_cons[i] = {"name": callsList1[0][i]["name"], "args": final_args}
-#         i+=1
-#         for j in range(num_list2):
-#             indexList[j]+=1
-    
-#     modelId = modelId.replace('/', '_') 
-#     with open(outdir+"/"+modelId+".json", "w") as wf:
-#         json.dump(final_cons, wf)
-        
-
-# def computeFinalArgs(modelId, calls1, calls2, calls3):
-#     if len(calls1) != len(calls2):
-#         print(modelId, len(calls1), len(calls2))
-    
-#     final_cons = {}
-#     i,j = 0,0
-#     while i < len(calls1):   
-#         if calls1[i]["name"] != calls2[i]["name"]:    
-#             print(i, calls1[i]["name"], calls2[i]["name"])
-#             i+=1
-#             j+=1
-#             continue
-        
-#         if calls2[i]["name"] != calls3[j]["name"]:
-#             j+=1
-#         else:
-#             final_args = []
-#             symbol = 'a'
-#             tmp_v = {}
-#             for k in range(len(calls1[i]["args"])):
-#                 item1 = calls1[i]["args"][k]
-#                 item2 = calls2[i]["args"][k]
-#                 item3 = calls3[j]["args"][k]
-#                 if item1["type"] == "torch.Tensor":
-#                     final_shape = []
-#                     for h in range(len(item1["shape"])):
-#                         shape1 = item1["shape"][h]
-#                         shape2 = item2["shape"][h]
-#                         shape3 = item3["shape"][h]
-#                         if shape1 == shape2 == shape3:
-#                             final_shape.append(shape1)
-#                         else:
-#                             if shape3 in tmp_v:
-#                                 final_shape.append(tmp_v[shape3])
-#                             else:
-#                                 tmp_v[shape3] = symbol
-#                                 final_shape.append(symbol)
-#                                 symbol = chr(ord(symbol) + 1)
-                            
-#                     final_args.append({"shape": final_shape, "dtype": item1["dtype"], "type": "torch.Tensor"})
-#                 else:
-#                     if item1["value"] == item2["value"] == item3["value"]:
-#                         final_args.append(item1)
-#                     else:
-#                         if item3["value"] in tmp_v:
-#                             final_args.append({"value": tmp_v[item3["value"]], "type": item1["type"]})
-#                         else:
-#                             tmp_v[item3["value"]] = symbol
-#                             final_args.append({"value": symbol, "type": item1["type"]})
-#                             symbol = chr(ord(symbol) + 1)
-
-#             final_cons[i] = {"name": calls1[i]["name"], "args": final_args}
-#             i+=1
-#             j+=1
-    
-#     res = {0: calls1, 1: calls2, 2: calls3, "final": final_cons}   
-#     modelId = modelId.replace('/', '_')       
-#     with open("./output0/"+modelId+".json", "w") as rf:
-#         json.dump(res, rf)
-
-
 def extractModels():
-    if os.path.exists("./vllm_models.json"):
-        with open("./vllm_models.json", "r") as rf:
+    model_ids_path = os.path.join(root_dir, "data", "vllm_models.json")
+    if os.path.exists(model_ids_path):
+        with open(model_ids_path, "r") as rf:
             model_ids = json.load(rf)
             return model_ids
     
-    file_path = Path("/home/mvh6224/vllm/tests/models/registry.py")
+    file_path = Path(
+        os.getenv(
+            "VLLM_REGISTRY_PATH",
+            os.path.join(root_dir, "data", "vllm", "tests", "models", "registry.py"),
+        )
+    )
 
     with file_path.open("r", encoding="utf-8") as f:
         content = f.read()
@@ -952,30 +631,7 @@ def extractModels():
 
     model_ids = re.findall(pattern, content)
     
-    with open("./vllm_models.json", "w") as wf:
+    with open(model_ids_path, "w") as wf:
         json.dump(model_ids, wf)
 
     return model_ids
-
-# with open("/home/mvh6224/CUDA-BOSolver/pyanalyzer/data/hllj_mistral-instruct-v0.2-awq-marlin.json") as df:
-#     data = json.load(df)
-
-# total_calls_map = {}
-# for item in data:
-#     batch_size = item["batch_size"]
-#     seq_len = item["seq_len"]
-#     for call in item['calls']:
-#         func_name = call["name"]
-#         if func_name not in total_calls_map:
-#             total_calls_map[func_name] = {}
-#         if (batch_size, seq_len) not in total_calls_map[func_name]:
-#             total_calls_map[func_name][(batch_size, seq_len)] = []
-        
-#         total_calls_map[func_name][(batch_size, seq_len)].append(call["args"])
-
-# computeSymbolicArgsWithMap(total_calls_map, "test.json")
-
-# with open("./test.json") as df:
-#     data = json.load(df)
-
-# computeSymbolicArgsWithMap(data, "test_out.json")
