@@ -9,6 +9,7 @@ from sxia.utils.vllm import _get_vllm_dir
 logger = logging.getLogger(__name__)
 
 
+
 def _collect_dirs_from_args(args):
     dirs = []
     if args.dir:
@@ -16,7 +17,6 @@ def _collect_dirs_from_args(args):
     if args.dir_dir:
         # list all child directories in the directory
         if not os.path.isdir(args.dir_dir):
-            logger.error(f"{args.dir_dir} is not a directory")
             return
         dirs.extend([os.path.join(args.dir_dir, d) for d in os.listdir(args.dir_dir)])
     return dirs
@@ -28,7 +28,6 @@ def _handle_flatten(dir: str):
 
 def _handle_scan_args(args):
     if not args.dir and not args.dir_dir:
-        logger.error("--dir or --dir-dir must be provided for scan hf")
         return
     dirs = _collect_dirs_from_args(args)
     from sxia.hf import analyze, HfAnalysisConfig
@@ -46,7 +45,6 @@ def _handle_scan_args(args):
 
 def _handle_flatten_args(args):
     if not args.dir and not args.dir_dir:
-        logger.error("--dir or --dir-dir must be provided for flatten")
         return
     dirs = _collect_dirs_from_args(args)
     for dir in dirs:
@@ -100,14 +98,7 @@ def main():
     if os.path.exists(log_file):
         os.remove(log_file)
 
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(filename)s:%(lineno)s %(levelname)s %(message)s",
-        handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
-    )
-
     if args.command is None:
-        parser.print_help()
         return
     args.func(args)
 
@@ -143,7 +134,6 @@ if __name__ == "__main__":
             vllm_test_one(vllm_dir, args.vllm_model_arch, callgraph_dir)
             collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
             end_time = time.time()
-            logger.info(f"total time cost: {end_time - start_time} seconds.")
 
         if args.vllm_dir:
             start_time = time.time()
@@ -154,4 +144,3 @@ if __name__ == "__main__":
                 indirect_fill(target_file=target_file)
             collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
             end_time = time.time()
-            logger.info(f"total time cost: {end_time - start_time} seconds.")

@@ -1,17 +1,17 @@
 import ast
 from typing import Union
 import os
+import logging
 from sxia.value import (
     ClassValue,
     CppBindingValue,
     ImportValue,
     ModuleInstanceValue,
 )
-import logging
 import traceback
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 def get_cls_from_mod(mod: ast.Module, cls_name: str) -> ast.ClassDef:
     cls_defs = [
@@ -64,8 +64,6 @@ def getImport(
         item = mod_inst.value.get(key)
         return item
     except Exception as ex:
-        logger.error(f"Error resolving {key} in {mod_inst.file_path}: {ex}")
-        traceback.print_exc()
         pass
 
 def env_resolve(
@@ -107,9 +105,6 @@ def env_resolve(
                             if key in curr.value:
                                 curr = curr.value[key]
                                 break
-                            logger.error(
-                                f"Cannot resolve {key} in {mod_inst.file_path}, please check the import path"
-                            )
                             return None
             continue
 
@@ -154,8 +149,6 @@ def env_resolve(
                 matched = True
                 continue
         except Exception as ex:
-            logger.error(f"Error resolving {key} in {mod_inst.file_path}: {ex}")
-            traceback.print_exc()
             pass
 
         # try start imports
@@ -184,9 +177,6 @@ def env_resolve(
             if os.path.isfile(cpp_file):
                 return CppBindingValue(None, key)
 
-        logger.error(
-            f"Cannot resolve {key} in {mod_inst.file_path}, please check the import path"
-        )
         return None
 
     return curr
@@ -274,7 +264,6 @@ def _resolve_import_value(
             except KeyError:
                 pass
             except Exception:
-                traceback.print_exc()
                 pass
 
             # try start imports

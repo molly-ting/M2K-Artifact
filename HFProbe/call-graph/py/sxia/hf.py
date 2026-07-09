@@ -45,7 +45,7 @@ def get_cuda_functions(cuda_file: str) -> list["CudaFunction"]:
     except FileNotFoundError:
         print(f"File {cuda_file} not found.")
     except Exception as e:
-        print(f"Error processing {cuda_file}: {e}")
+        pass
 
     return cuda_functions
 
@@ -163,7 +163,7 @@ def parse_m_def_relationships(file_path: str) -> list[PyCppBinding]:
     except FileNotFoundError:
         print(f"File {file_path} not found.")
     except Exception as e:
-        print(f"Error processing {file_path}: {e}")
+        pass
 
     return relationships
 
@@ -193,7 +193,6 @@ def get_class_defs(py_file: str) -> list[str]:
 
 
 def get_analysis(path: str, vllm_dir: str) -> Analysis:
-    logger.info(f"Analyzing huggingface repository {path}")
 
     config_obj = None
     auto_config_cls = None
@@ -255,7 +254,6 @@ def get_analysis(path: str, vllm_dir: str) -> Analysis:
                     architecture, vllm_model2path[architecture], vllm_dir, config_obj
                 )
     except Exception as e:
-        logger.warning(f"Failed to analyze vLLM model: {e}")
         va = None
         va_err = str(e)
 
@@ -316,7 +314,6 @@ def analyze(config: HfAnalysisConfig):
         analysis = get_analysis(config.path, config.vllm_dir)
     except Exception as e:
         error = str(e)
-        logger.exception(error)
 
     result = {"analysis": asdict(analysis) if analysis else None, "error": error}
     model_name = os.path.basename(config.path)
@@ -450,7 +447,6 @@ def find_all_schemes(root_dir, py_file):
 
 
 def transformers_with_config(path: str):
-    logger.info(f"Analyzing huggingface repository {path}")
 
     config_obj = None
     auto_config_cls = None
@@ -501,7 +497,6 @@ def transformers_test(repo_path, out_dir):
         print(f"Repository path {repo_path} does not exist.")
         return
     
-    logger.info(f"Analyzing huggingface repository {repo_path}")
     if not out_dir:
         out_dir = os.path.join(root_dir, "cgout-models")
 
@@ -548,7 +543,6 @@ def vllm_test(vllm_dir, out_dir=None):
             out_path = os.path.join(out_dir, architecture+"_forward.json")
             analyze_vllm_model(architecture, vllm_model2path[architecture], vllm_dir, None, None, out_path)
         except Exception as ex:
-            traceback.print_exc()
             continue
 
 def vllm_test_one(vllm_dir, architecture, out_dir=None):
@@ -606,7 +600,6 @@ def indirect_fill(vllm_dir, target_file, out_dir=None):
                 else:
                     children = find_all_subclasses(os.path.dirname(vllm_dir), new_path, class_name)
                 for c in children:
-                    print(c, new_path)
                     os.makedirs(out_dir+"/"+class_name, exist_ok=True)
                     out_path = os.path.join(out_dir+"/"+class_name, c+"_"+func_name+".json")
                     if os.path.exists(out_path):
@@ -614,5 +607,4 @@ def indirect_fill(vllm_dir, target_file, out_dir=None):
                     try:
                         analyze_vllm_model(c, new_path, vllm_dir, None, func_name, out_path)
                     except Exception as ex:
-                        traceback.print_exc()
                         continue

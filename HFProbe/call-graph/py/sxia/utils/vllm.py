@@ -103,7 +103,6 @@ def extract_path_model_pairs(vllm_dir: str) -> dict[str, str]:
             if module_name.endswith(".py"):
                 module_name = module_name[:-3]
             res[cls_name] = os.path.join(models_dir, module_name + ".py")
-            logger.debug("Found model %s at %s", cls_name, res[cls_name])
         return res
 
     # Fallback: original line-based parse for unexpected formats.

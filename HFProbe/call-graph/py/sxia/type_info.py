@@ -1,4 +1,5 @@
 import ast
+import logging
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
@@ -10,7 +11,6 @@ from ast import (
     FunctionDef,
     ClassDef,
 )
-import logging
 
 logger = logging.getLogger(__name__)
 from sxia.utils.ast import name_or_full_attr
@@ -218,8 +218,6 @@ class TypeInfoCollector(NodeVisitor):
                 if callee_name == "torch.nn.ModuleList":
                     base_ty[key] = self._resolve_nn_module_list_type(node.value.args)
                 else:
-                    if callee_name == "zip":
-                        print("!")
                     base_ty[key] = TypeInfo(
                         callee_name,
                         args=self._resolve_call_arg_types(node.value),
@@ -263,7 +261,6 @@ class TypeInfoCollector(NodeVisitor):
     def _resolve_nn_module_list_type(self, args: list[ast.expr]) -> TypeInfo:
         base = TypeInfo("Any")
         if len(args) != 1:
-            logger.warning("ModuleList other than 1 argument is not supported")
             return base
         if isinstance(args[0], ast.ListComp) and isinstance(args[0].elt, ast.Call):
             base = TypeInfo(name_or_full_attr(args[0].elt.func))

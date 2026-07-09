@@ -1,5 +1,6 @@
 import ast
 import os
+import logging
 from sxia.analysis_types import PyCppBinding, TorchCall
 from sxia.ast_ext.cfg import CachedCFGBuilder
 from sxia.cfgrunner.runner import FuncRunner
@@ -12,10 +13,9 @@ from sxia.utils.ast import (
     get_func_from_cls,
 )
 
-import logging
-
-
 logger = logging.getLogger(__name__)
+
+
 
 
 class TorchCallVisitor:
@@ -49,7 +49,6 @@ class TorchCallVisitor:
         func = get_func_from_cls(self._init_cls, self._init_func)
 
         possible_selfs = [p.return_value for p in paths]
-        logger.debug(f"possible_selfs: {len(possible_selfs)}")
         for self_value in possible_selfs:
             if "config" not in self_value.value:
                 self_value.value["config"] = self._config
@@ -69,7 +68,6 @@ class TorchCallVisitor:
         bindings: list[PyCppBinding] = None,
     ):
         assert isinstance(config, Value)
-        print(f"starts_from {py_file} {cls} {func} {config}")
         if not os.path.exists(py_file):
             raise FileNotFoundError(py_file)
         with open(py_file, "r") as f:

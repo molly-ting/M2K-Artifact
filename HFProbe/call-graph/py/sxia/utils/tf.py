@@ -6,8 +6,8 @@ import ast
 from sxia.utils.ast import get_inherited_classes
 from sxia.value import ClassValue, ModuleInstanceValue
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 def get_transformers_dir() -> str:
     """
@@ -33,11 +33,9 @@ def get_transformers_models(dir: Optional[str] = None) -> list[str]:
         for d in os.listdir(model_dirs_parent)
         if not d.endswith(".py")
     ]
-    logger.info(f"Found {len(model_dirs)} models")
 
     for md in model_dirs:
         if not os.path.isdir(md):
-            logger.error(f"{md} is not a directory")
             continue
         configs, models = _list_config_and_model(md)
 

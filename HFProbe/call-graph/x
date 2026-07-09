@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-PYTHONPATH=py python3 py/sxia/main.py $@
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PYTHONPATH="${SCRIPT_DIR}/py${PYTHONPATH:+:${PYTHONPATH}}" \
+    python3 "${SCRIPT_DIR}/py/sxia/main.py" "$@"

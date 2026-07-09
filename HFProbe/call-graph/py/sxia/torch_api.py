@@ -2,8 +2,8 @@ from functools import reduce
 from sxia.value import ClassInstanceValue, Value, new_symbol
 import logging
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 def _empty_like(x: Value):
     empty = Value(ty=x.ty, def_at=None)
@@ -26,12 +26,8 @@ def sym_name():
 def _arange(args: list[Value], kwargs: dict[str, Value]) -> Value:
     if not args:
         raise ValueError("torch.arange requires at least one argument")
-    logger.debug(f"torch.arange: args: {args}")
     for arg in args:
         if isinstance(arg, Value) and arg.is_symbol():
-            logger.warning(
-                f"torch.arange: argument {arg} is a symbol, return symbol"
-            )
             return new_symbol(ty="torch.Tensor")
 
     def get_int(val, name: str) -> int:
@@ -238,7 +234,6 @@ def _torch_tensor(args: list[Value], kwargs: dict[str, Value]) -> Value:
         return cls_inst
 
     if isinstance(raw_data, Value) and raw_data.is_symbol():
-        logger.warning("torch.tensor: data is a symbol, return symbol")
         return new_symbol(ty="torch.Tensor")
     
     if not isinstance(raw_data, (list)):
@@ -805,7 +800,6 @@ def _torch_permute(
     shape = self_value.value["shape"]
     for arg in args:
         if not isinstance(arg, int):
-            logger.warning("torch.permute requires integer arguments")
             return new_symbol(name=f"{self_value.sym_name}.permute", ty="torch.Tensor")
     new_shape = [shape[i] for i in args]
     self_value.value["shape"] = tuple(new_shape)

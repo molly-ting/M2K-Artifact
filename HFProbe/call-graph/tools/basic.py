@@ -216,14 +216,10 @@ def to_graphviz(collector: CallsiteCollector) -> graphviz.Digraph:
 
     # Create edges from caller to callee
     for func_name, cg_func in collector._functions.items():
-        print(f"Function: {func_name}")
         for callsite in cg_func.calls:
             caller_name = func_name
             callee_name = callsite.name
             dot.edge(caller_name, callee_name)
-            print(
-                f"  {callee_name} (args: {callsite.actual_args}, kwargs: {callsite.actual_kwargs})"
-            )
 
     return dot
 

@@ -167,8 +167,6 @@ def new_symbol(name: str = None, def_at=None, ty=None) -> Value:
 
     if def_at is not None:
         assert isinstance(def_at, ast.AST)
-        if hasattr(def_at, "lineno"):
-            logger.debug(f"Creating symbol {name} at {def_at.lineno}")
     return Value(None, def_at, name, ty)
 
 

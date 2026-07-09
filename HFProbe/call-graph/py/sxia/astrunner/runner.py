@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import traceback
+import logging
 from typing import List, Optional, Union
 from sxia.analysis_types import PyCppBinding, TorchCall
 from sxia.type_info import resolve_ann
@@ -33,9 +34,9 @@ from sxia.utils.ast import (
 
 from sxia.torch_api import torch_apis
 from sxia.native_api import global_func_map
-import logging
 
 logger = logging.getLogger(__name__)
+
 
 
 def resolve_with_import(name: str, env: ModuleInstanceValue):
@@ -236,9 +237,6 @@ class FuncRunner(ast.NodeVisitor):
                     break
         elif self_value is not None:
             self_ty = getattr(self_value, "ty", None)
-        logger.debug(
-            f"[FuncRunner] self:{self_ty} {name} at file {self._env.file_path}"
-        )
         
         self._visit_level = 0
         self._shape2tensor = {}
@@ -289,9 +287,6 @@ class FuncRunner(ast.NodeVisitor):
             # find nested functions
             for stmt in self.start_node.body:
                 if isinstance(stmt, ast.FunctionDef):
-                    logger.debug(
-                        f"Found nested function: {stmt.name} at line {stmt.lineno}"
-                    )
                     func_value = FuncValue(
                         def_at=stmt,
                         parent=self._self_value,
@@ -363,20 +358,12 @@ class FuncRunner(ast.NodeVisitor):
                             self_value.value[stmt.target.id] = new_symbol(
                                 def_at=node
                             )
-                else:
-                    logger.warning(
-                        f"AnnAssign Unsupported target: {ast.dump(node.target)}"
-                    )
             elif isinstance(stmt, ast.Assign):
                 stmt_value = self._eval(stmt.value)
                 if len(stmt.targets) == 1:
                     target = stmt.targets[0]
                     if isinstance(target, ast.Name):
                         self_value.value[target.id] = stmt_value
-                    else:
-                        logger.warning(
-                            f"visit_Assign Unsupported target: {ast.dump(target)}"
-                        )
                 else:
                     assert isinstance(stmt_value, list)
                     assert len(stmt_value) == len(stmt.targets)
@@ -691,8 +678,6 @@ class FuncRunner(ast.NodeVisitor):
                                 if not isinstance(ret_val.value, dict) or node.attr not in ret_val.value:
                                     return new_symbol(def_at=node)
                             return ret_val.value[node.attr]
-                else:
-                    print(f"_eval Unsupported node: {ast.dump(node)}")
             elif isinstance(node, ast.Tuple):
                 val = []
                 for item in node.elts:
@@ -798,12 +783,8 @@ class FuncRunner(ast.NodeVisitor):
             elif isinstance(node, ast.Lambda):
                 return self._handle_lambda(node)
             else:
-                logger.warning(
-                    f"_eval Unsupported node: {ast.dump(node)} at line {node.lineno}"
-                )
                 return new_symbol(def_at=node)
         except Exception:
-            logger.exception(f"failed to eval {ast.dump(node)} at line {node.lineno}")
             return new_symbol(def_at=node)
 
     def _handle_dict(self, node: ast.Dict):
@@ -811,9 +792,7 @@ class FuncRunner(ast.NodeVisitor):
         for key, value in zip(node.keys, node.values):
             resolved_value = self._eval(key)
             if type(resolved_value) is not str:
-                logger.warning(
-                    f"Unsupported dict key type: {type(resolved_value)} for {ast.dump(node)}"
-                )
+                pass
             else:
                 ret[resolved_value] = self._eval(value)
 
@@ -839,22 +818,17 @@ class FuncRunner(ast.NodeVisitor):
         elif isinstance(value, Value) and value.is_symbol():
             return new_symbol(def_at=node)
         else:
-            logger.warning(f"Unsupported starred value: {ast.dump(node)}")
             return new_symbol(def_at=node)
 
     def visit_ImportFrom(self, node):
         self._env.add_import_from(node)
 
     def visit_FunctionDef(self, node):
-        logger.debug(f"visit_FunctionDef: {node.name} at line {node.lineno}")
         self._visit_level += 1
         if self._visit_level == 1:
             return self.generic_visit(node)
-        else:
-            logger.debug("skipping nested function visit")
 
     def visit_For(self, node):
-        logger.debug(f"visit_For: {ast.dump(node.iter)} at line {node.lineno}")
         skip_generic_visit = False
         if isinstance(node.iter, ast.Call):
             if isinstance(node.iter.func, ast.Name):
@@ -937,10 +911,6 @@ class FuncRunner(ast.NodeVisitor):
                         self._eval(node.target, item)
                         for stmt in node.body:
                             self.visit(stmt)
-                else:
-                    logger.warning(
-                        f"Unsupported for loop iterator: {ast.dump(node.iter)} at line {node.lineno}"
-                    )
             elif isinstance(node.iter.func, ast.Attribute):
                 base_val = self._eval(node.iter.func.value)
 
@@ -950,28 +920,14 @@ class FuncRunner(ast.NodeVisitor):
                         base_val, dict
                     ):
                         return
-                    logger.debug(
-                        f"{base_val} at line {node.lineno} is calling named_children"
-                    )
                     ncs = base_val.named_children()
                     for name, child in ncs:
-                        logger.debug(
-                            f"visit_For named_children: {name} at line {node.lineno}"
-                        )
                         if isinstance(node.target, ast.Tuple):
                             if len(node.target.elts) == 2:
                                 self._eval(node.target.elts[0], name)
                                 self._eval(node.target.elts[1], child)
                                 for stmt in node.body:
                                     self.visit(stmt)
-                            else:
-                                logger.warning(
-                                    f"Unsupported target in for loop: {ast.dump(node.target)}"
-                                )
-                        else:
-                            logger.warning(
-                                f"Unsupported target in for loop: {ast.dump(node.target)}"
-                            )
         else:
             try:
                 iter_value = self._eval(node.iter)
@@ -1037,11 +993,9 @@ class FuncRunner(ast.NodeVisitor):
                         self.return_value = [old_value, tmp_value]
             else:
                 self.return_value = tmp_value
-            logger.debug(f"visit_Return return value: {self.return_value} at line {node.lineno}")
 
     def _handle_list_comp(self, node: Union[ast.ListComp, ast.GeneratorExp]):
         if len(node.generators) > 1:
-            logger.warning("Do not support more than 1 generater")
             return new_symbol(def_at=node)
 
         iterator = node.generators[0].iter
@@ -1055,7 +1009,6 @@ class FuncRunner(ast.NodeVisitor):
                     val.append(self._eval(node.elt))
                 return val
         if not isinstance(iterator, ast.Call):
-            logger.warning("Do not support iterator is not call")
             return new_symbol(def_at=node)
 
         if iterator.func.id == "range":
@@ -1066,7 +1019,6 @@ class FuncRunner(ast.NodeVisitor):
                         arr_len = 1
                         
                 if not isinstance(arr_len, int):
-                    logger.warning("Do not support iterator range with non int arg")
                     return new_symbol(def_at=node)
 
                 val = []
@@ -1090,9 +1042,6 @@ class FuncRunner(ast.NodeVisitor):
                     val.append(self._eval(node.elt))
                 return val
             else:
-                logger.warning(
-                    f"Unsupported range args: {len(iterator.args)} at line {node.lineno}"
-                )
                 return new_symbol(def_at=node)
         elif iterator.func.id == "zip":
             in_items = self._eval(iterator)
@@ -1101,9 +1050,6 @@ class FuncRunner(ast.NodeVisitor):
                 target = node.generators[0].target
                 if isinstance(target, ast.Tuple):
                     if len(target.elts) != len(in_item):
-                        logger.warning(
-                            f"Unsupported target in list comprehension: {ast.dump(target)}"
-                        )
                         return new_symbol(def_at=node)
                     for i, el in enumerate(target.elts):
                         if isinstance(el, ast.Name):
@@ -1113,9 +1059,6 @@ class FuncRunner(ast.NodeVisitor):
                     val.append(elm)
             return val
         else:
-            logger.warning(
-                f"Unsupported iterator: {ast.dump(iterator)} at line {node.lineno}"
-            )
             return new_symbol(def_at=node)
 
     def _handle_unary_op(self, node: ast.UnaryOp):
@@ -1133,8 +1076,6 @@ class FuncRunner(ast.NodeVisitor):
             return not to_primitive(operand)
         elif isinstance(op, ast.Invert):
             return ~to_primitive(operand)
-        else:
-            print(f"visit_UnaryOp Unsupported op: {ast.dump(node)}")
 
     def _handle_bool_op(self, node: ast.BoolOp):
         super().generic_visit(node)
@@ -1152,7 +1093,6 @@ class FuncRunner(ast.NodeVisitor):
                     return new_symbol(def_at=node)
             return any([to_primitive(v) for v in values])
         else:
-            print(f"visit_BoolOp Unsupported op: {ast.dump(node)}")
             return new_symbol(def_at=node)
 
     def _is_super_init(self, node: ast.Attribute):
@@ -1311,9 +1251,6 @@ class FuncRunner(ast.NodeVisitor):
                     return torch_apis[typed_method_sig](
                         args, kwargs=kwargs, self_value=self_value
                     )
-                logger.warning(
-                    f"visit_Call Unsupported callee: {ast.dump(node)} at line {node.lineno}"
-                )
                 return new_symbol(def_at=node)
         elif isinstance(func, ImportValue):
             resolved_result = resolve_import_value(self._env, func, self._resolve_import_dirs)
@@ -1358,9 +1295,6 @@ class FuncRunner(ast.NodeVisitor):
                     call_graph=self.call_graph,
                 ).run()
 
-            logger.warning(
-                f"visit_Call Unsupported callee: {func.value} at line {node.lineno}"
-            )
             return new_symbol(def_at=node)
         elif func.is_symbol():
             if func.ty:
@@ -1488,9 +1422,6 @@ class FuncRunner(ast.NodeVisitor):
                 func = base_val.value["forward"]
 
             else:
-                logger.warning(
-                    f"Not supported call class {ast.dump(node)} at line {node.lineno}"
-                )
                 return new_symbol(def_at=node)
             
             new_env = _find_module(func)
@@ -1687,9 +1618,7 @@ class FuncRunner(ast.NodeVisitor):
                                     pass
 
                     else:
-                        logger.warning(
-                            f"Unsupported init: {ast.dump(node)} at line {node.lineno}"
-                        )
+                        pass
 
                     if init_fn:
                         old_def_at = self._self_value.def_at
@@ -1748,7 +1677,6 @@ class FuncRunner(ast.NodeVisitor):
 
             callee_name = name_or_full_attr(node.func)
             full_callee_name = resolve_with_import(callee_name, self._env)
-            logger.debug(f"handling callee: {full_callee_name} at line {node.lineno}")
             if (isinstance(self.start_node, ast.ClassDef) or isinstance(self.start_node, ast.FunctionDef)) and callee_name == self.start_node.name:
                 return new_symbol(def_at=node)
 
@@ -1810,7 +1738,6 @@ class FuncRunner(ast.NodeVisitor):
                 try:
                     return torch_apis[full_callee_name](args, kwargs=kwargs)
                 except Exception:
-                    logger.exception("failed to run torch api")
                     return new_symbol(def_at=node)
 
             parts = full_callee_name.split(".")
@@ -1861,9 +1788,6 @@ class FuncRunner(ast.NodeVisitor):
                     else:
                         func = self._self_value.get(".".join(parts[1:]))
                 except Exception:
-                    logger.exception(
-                        f"visit_Call Unsupported callee: {ast.dump(node)} at line {node.lineno}"
-                    )
                     try:
                         ty = None
                         targets = None
@@ -1938,7 +1862,6 @@ class FuncRunner(ast.NodeVisitor):
                             if item not in self.call_graph[self.cg_key]["unknown"]:
                                 self.call_graph[self.cg_key]["unknown"].append(item)
                     except Exception:
-                        traceback.print_exc()
                         pass
                     return new_symbol(def_at=node)
                 
@@ -2003,8 +1926,6 @@ class FuncRunner(ast.NodeVisitor):
                     callee_self = callee_self.value[key]
                     i += 1
                 callee_method = parts[-1]
-                logger.debug(f"callee_self: {callee_self}, {type(callee_self)}")
-                logger.debug(f"callee: {parts[-1]}")
                 
                 if isinstance(callee_self, list):
                     return_values = []
@@ -2020,9 +1941,6 @@ class FuncRunner(ast.NodeVisitor):
                 typed_method_sig = None
                 if isinstance(callee_self, ClassInstanceValue):
                     typed_method_sig = f"{callee_self.ty}.{callee_method}"
-                    logger.debug(
-                        f"typed_method_sig: {typed_method_sig} at line {node.lineno}"
-                    )
 
                 if typed_method_sig in torch_apis:
                     try:
@@ -2030,9 +1948,6 @@ class FuncRunner(ast.NodeVisitor):
                             args, kwargs=kwargs, self_value=callee_self
                         )
                     except Exception:
-                        logger.warning(
-                            f"visit_Call Unsupported callee: {typed_method_sig} at line {node.lineno}"
-                        )
                         return new_symbol(name=f"[return: {typed_method_sig}]", def_at=node)
 
                 if isinstance(callee_self, dict):
@@ -2043,9 +1958,6 @@ class FuncRunner(ast.NodeVisitor):
                     if callee_method == "capitalize":
                         return callee_self.capitalize()
                     else:
-                        logger.warning(
-                            f"visit_Call Unsupported callee for string: {ast.dump(node)} at line {node.lineno}"
-                        )
                         return new_symbol(def_at=node)
                 elif isinstance(callee_self, Value):
                     if isinstance(callee_self, ClassValue):
@@ -2068,9 +1980,6 @@ class FuncRunner(ast.NodeVisitor):
                                 call_graph=self.call_graph,
                             ).run()
                         else:
-                            logger.warning(
-                                f"visit_Call Unsupported callee: {ast.dump(node)} at line {node.lineno}"
-                            )
                             return new_symbol(def_at=node)
 
                     if callee_self.is_symbol():
@@ -2104,22 +2013,13 @@ class FuncRunner(ast.NodeVisitor):
                         elif callee_method == "stride":
                             return new_symbol(def_at=node)
                         else:
-                            logger.warning(
-                                f"visit_Call Unsupported callee: {callee_self.ty}.{callee_method} at line {node.lineno}"
-                            )
                             return new_symbol(def_at=node)
                     else:
-                        logger.warning(
-                                    f"visit_Call Unsupported callee: {callee_self.ty}.{callee_method} at line {node.lineno}"
-                                )
                         return new_symbol(def_at=node)
                 elif isinstance(callee_self, list):
                     if callee_method == "append":
                         return callee_self.append(args[0])
                     else:
-                        logger.warning(
-                                    f"visit_Call Unsupported callee: list.{callee_method} at line {node.lineno}"
-                                )
                         return new_symbol(def_at=node)
                 else:
                     if typed_method_sig:
@@ -2134,9 +2034,6 @@ class FuncRunner(ast.NodeVisitor):
                             item = {"class": None, "function": full_callee_name, "type": callee_self.ty, "filepath": new_env.file_path, "line": node.lineno}
                             if item not in self.call_graph[self.cg_key]["unknown"]:
                                 self.call_graph[self.cg_key]["unknown"].append(item)
-                    logger.warning(
-                                f"visit_Call Unsupported callee: list.{callee_method} at line {node.lineno}"
-                            )
                     return new_symbol(def_at=node)
 
             if full_callee_name.startswith("torch.ops._"):
@@ -2218,9 +2115,6 @@ class FuncRunner(ast.NodeVisitor):
                         call_graph=self.call_graph,
                     ).run()
 
-                logger.warning(
-                    f"visit_Call Unsupported callee: {full_callee_name} at line {node.lineno}"
-                )
                 return new_symbol(def_at=node, name=f"[return: {full_callee_name}]")
         elif isinstance(node.func, ast.Name):
             if (isinstance(self.start_node, ast.ClassDef) or isinstance(self.start_node, ast.FunctionDef)) and node.func.id == self.start_node.name:
@@ -2376,15 +2270,9 @@ class FuncRunner(ast.NodeVisitor):
                         return return_values[0]
                     return return_values
                 else:
-                    logger.warning(
-                        f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                    )
                     return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
 
             else:
-                logger.warning(
-                    f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                )
                 return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
 
         elif isinstance(node.func, ast.Call):
@@ -2431,14 +2319,8 @@ class FuncRunner(ast.NodeVisitor):
                     else:
                         target_func = return_values
                 else:
-                    logger.warning(
-                        f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                    )
                     return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
             else:
-                logger.warning(
-                    f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                )
                 return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
             
             if target_func is not None and (
@@ -2495,17 +2377,10 @@ class FuncRunner(ast.NodeVisitor):
                         return return_values[0]
                     return return_values
                 else:
-                    logger.warning(
-                        f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                    )
                     return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
             else:
-                logger.warning(
-                    f"visit_Call Unsupported callee: {node.func.id} at line {node.lineno}"
-                )
                 return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
         else:
-            logger.warning(f"visit_Call Unsupported callee: {ast.dump(node)}")
             return new_symbol(name=f"[return: {ast.dump(node)}]", def_at=node)
 
     def _handle_obj_call(self, base, method, args, kwargs, node):
@@ -2522,20 +2397,11 @@ class FuncRunner(ast.NodeVisitor):
                 elif method == "pop":
                     base.pop(args[0], args[1] if len(args) > 1 else None)
                 else:
-                    logger.warning(
-                                f"visit_Call Unsupported callee: dict.method at {node.lineno}"
-                            )
                     return new_symbol(def_at=node)
                 
             else:
-                    logger.warning(
-                                f"visit_Call Unsupported callee: dict.method at {node.lineno}"
-                            )
                     return new_symbol(def_at=node)
         except Exception as ex:
-            logger.warning(
-                f"visit_Call Unsupported callee: dict.method at {node.lineno}"
-            )
             return new_symbol(def_at=node)
 
     def visit_Call(self, node: ast.Call):
@@ -2605,7 +2471,6 @@ class FuncRunner(ast.NodeVisitor):
                         default_val = node.kw_defaults[arg_index]
                         if isinstance(default_val, ast.Constant):
                             self.local_env[arg.arg] = new_symbol(def_at=node, ty=type(default_val.value), name=arg.arg)
-                            logger.debug(f"symbolize kwonlyarg {arg.arg} to local_env")
                         elif default_val:
                             self.local_env[arg.arg] = self._eval(default_val)
 
@@ -2620,7 +2485,6 @@ class FuncRunner(ast.NodeVisitor):
                         self.local_env[arg.arg] = new_symbol(
                             def_at=node, name=f"[arg: {arg.arg}]"
                         )
-                        logger.debug(f"symbolize input tensor {arg.arg} to local_env")
                         found = True
 
             if arg.annotation:
@@ -2645,7 +2509,6 @@ class FuncRunner(ast.NodeVisitor):
                         else:
                             arg_val.ty = ty.ty
 
-                        logger.debug(f"update symbolic arg {arg.arg} to {ty.ty}")
 
             if found:
                 break
@@ -2709,7 +2572,6 @@ class FuncRunner(ast.NodeVisitor):
                 else False
             )
         else:
-            print(f"visit_Compare Unsupported op: {ast.dump(node)}")
             return new_symbol(def_at=node)
 
     def _handle_bin_op(self, node: ast.BinOp):
@@ -2786,11 +2648,8 @@ class FuncRunner(ast.NodeVisitor):
             return to_primitive(left_val) is to_primitive(right_val)
         elif isinstance(op, ast.IsNot):
             return to_primitive(left_val) is not to_primitive(right_val)
-        else:
-            print(f"visit_BinOp Unsupported op: {ast.dump(node)}")
 
     def visit_AnnAssign(self, node):
-        logger.debug(f"visit_annassign {ast.dump(node)} at line {node.lineno}")
         try:
             if not node.value:
                 return
@@ -2805,10 +2664,9 @@ class FuncRunner(ast.NodeVisitor):
                             
             self._eval(node.target, value)
         except Exception:
-            logger.exception(f"failed to execute {ast.dump(node)}")
+            pass
             
     def visit_Assign(self, node):
-        logger.debug(f"visit_assign {ast.dump(node)} at line {node.lineno}")
         try:
             value = self._eval(node.value)
             if isinstance(value, Value) and value.is_symbol():
@@ -2853,13 +2711,10 @@ class FuncRunner(ast.NodeVisitor):
                 else:
                     self._eval(target, value)
         except Exception:
-            logger.exception(f"failed to execute {ast.dump(node)}")
+            pass
 
     def visit_If(self, node):
         test_value = self._eval(node.test)
-        logger.debug(
-            f"eval if {ast.dump(node.test)} at line {node.lineno} = {test_value}"
-        )
 
         if test_value and ((
             (isinstance(test_value, Value) and not test_value.is_symbol())
@@ -2966,11 +2821,6 @@ class TorchCallVisitor:
                 func = _find_func_in_bases(self._init_cls, self._env, set())
 
             if func is None:
-                logger.warning(
-                    "Function %s not found in class %s",
-                    self._init_func,
-                    self._init_cls.name,
-                )
                 return
                 
         FuncRunner(
