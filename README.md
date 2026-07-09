@@ -6,7 +6,7 @@
 
 This document provides instructions for reproducing the experimental results reported in the M2K paper. We first describe the hardware and software requirements for running the artifact and explain how to install it. We then walk through the example in Figure 2 to demonstrate how the tool works. Finally, we explain how to reproduce the empirical study of kernel memory bugs (Section 2.3), the bug-detection results in the wild (Section 6.1), the coverage and advancement measurements (Section 6.2), and the ablation study on component rationality (Section 6.3).
 
-## System Requirements
+## 1. System Requirements
 
 - **OS:** XXX
 - **CPU:** XXX
@@ -15,9 +15,9 @@ This document provides instructions for reproducing the experimental results rep
 - **GPU / CUDA:** XXX (for the ablation experiment)
 - **Python:** XXX
 
-## Installation
+## 2. Installation
 
-## Tool Demonstration 
+## 3. Tool Demonstration 
 
 This section walks through the example in Figure 2 to show the basic workflow of M2K.
 
@@ -30,10 +30,10 @@ XXX
 **Expected output:** XXX
 
 
-## Kernel Memory Bugs in Inference Systems (Section 2.3)
+## 4. Kernel Memory Bugs in Inference Systems (Section 2.3)
 
 
-## Bug Detection in the Wild (Section 6.1)
+## 5. Bug Detection in the Wild (Section 6.1)
 
 
 
@@ -51,11 +51,11 @@ XXX
 **Expected output:** XXX
 
 
-## Coverage and Advancement (Section 6.2)
+## 6. Coverage and Advancement (Section 6.2)
 
 
 
-## Rationality of Components (Section 6.3)
+## 7. Rationality of Components (Section 6.3)
 
 
 
