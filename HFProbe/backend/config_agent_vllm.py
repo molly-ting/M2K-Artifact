@@ -180,7 +180,7 @@ def generate_vllm(model_structure, op_name, config_example, framework_config=Non
     
     if framework_config:
         vllm_config = None
-        if "vllm_config" in framework_config:
+        if "vllmconfig" in framework_config:
             vllm_config = framework_config["vllmconfig"]
         envs_config = None
         if "envs" in framework_config:

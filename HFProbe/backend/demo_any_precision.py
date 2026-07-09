@@ -1,3 +1,12 @@
+"""
+Run this script from the any-precision-llm repository directory:
+HFProbe/data/research_paper/any-precision-llm
+
+Expected order:
+1. Run quantize.py first so it creates cache/packed/<quantized-model>.
+2. Run this demo afterward; it loads the default model from ./cache/packed.
+"""
+
 import torch
 from any_precision import AnyPrecisionForCausalLM
 from transformers import AutoTokenizer, TextStreamer, AutoModelForCausalLM

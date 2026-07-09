@@ -1,32 +1,17 @@
 import torch
 from typing import Optional
 import math
-# from utils import tensor_calls
 
 # Define a mock function with the same signature (args, kwargs)
 def get_cuda_view_from_cpu_tensor_mock(cpu_tensor):
-    # tensor_calls.append({"name": "vllm.get_cuda_view_from_cpu_tensor", "args": {"shape": cpu_tensor.shape, "dtype": str(cpu_tensor.dtype), "type": "torch.Tensor"}})
     return torch.zeros_like(cpu_tensor, dtype=cpu_tensor.dtype, device=cpu_tensor.device)
     
 # Patch the CUDA kernel with your mock
-# torch.ops._C.get_cuda_view_from_cpu_tensor = get_cuda_view_from_cpu_tensor_mock
 
 def aqlm_gemm_mock(input: torch.Tensor, codes: torch.Tensor,
               codebooks: torch.Tensor, scales: torch.Tensor,
               codebook_partition_sizes: list[int],
               bias: Optional[torch.Tensor]):
-#     argCons = []
-#     argCons.append({"shape": input.shape, "dtype": str(input.dtype), "type": "torch.Tensor"})
-#     argCons.append({"shape": codes.shape, "dtype": str(codes.dtype), "type": "torch.Tensor"})
-#     argCons.append({"shape": codebooks.shape, "dtype": str(codebooks.dtype), "type": "torch.Tensor"})
-#     argCons.append({"shape": scales.shape, "dtype": str(scales.dtype), "type": "torch.Tensor"})
-#     argCons.append({"shape": scales.shape, "dtype": str(scales.dtype), "type": "torch.Tensor"})
-#     argCons.append({"shape": len(codebook_partition_sizes), "dtype": "int", "type": "list"})
-#     if bias:
-#         argCons.append({"shape": bias.shape, "dtype": str(bias.dtype), "type": "torch.Tensor"})
-#     tensor_calls.append({"name": "vllm.aqlm_gemm", "args": argCons})
-#     output_sizes = input.sizes()
-#     output_sizes[-1] = sum(codebook_partition_sizes)
     out_features = codes.size(0) * codebooks.size(2)
     flat_input = input.reshape((-1, input.size(-1)))
     flat_output = torch.zeros((flat_input.size(0), out_features),
@@ -38,93 +23,37 @@ def aqlm_gemm_mock(input: torch.Tensor, codes: torch.Tensor,
     output_sizes.append(-1)
     return flat_output.reshape(tuple(output_sizes))
     
-# torch.ops._C.aqlm_gemm = aqlm_gemm_mock
-
 
 def awq_dequantize_mock(qweight: torch.Tensor, scales: torch.Tensor,
                    zeros: torch.Tensor, split_k_iters: int, thx: int,
                    thy: int):
-    # argCons = []
-    # argCons.append({"shape": qweight.shape, "dtype": str(qweight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": scales.shape, "dtype": str(scales.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": zeros.shape, "dtype": str(zeros.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": split_k_iters, "type": "int"})
-    # argCons.append({"value": thx, "type": "int"})
-    # argCons.append({"value": thy, "type": "int"})
-    # tensor_calls.append({"name": "vllm.awq_dequantize", "args": argCons})
     return torch.zeros((qweight.size(0), qweight.size(1)*8), dtype=scales.dtype, device=scales.device)
-
-# torch.ops._C.awq_dequantize = awq_dequantize_mock
 
 
 def awq_gemm_mock(input: torch.Tensor, qweight: torch.Tensor, qzeros: torch.Tensor,
              scales: torch.Tensor, split_k_iters: int):
-    # argCons = []
-    # argCons.append({"shape": input.shape, "dtype": str(input.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": qweight.shape, "dtype": str(qweight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": qzeros.shape, "dtype": str(qzeros.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": scales.shape, "dtype": str(scales.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": split_k_iters, "type": "int"})
-    # tensor_calls.append({"name": "vllm.awq_gemm", "args": argCons})
     return torch.zeros((input.size(0), qweight.size(1)*8), dtype=input.dtype, device=input.device)
-
-# torch.ops._C.awq_gemm = awq_gemm_mock
 
 
 def gptq_gemm_mock(a: torch.Tensor, b_q_weight: torch.Tensor,
                     b_gptq_qzeros: torch.Tensor,
                     b_gptq_scales: torch.Tensor, b_g_idx: torch.Tensor,
                     use_exllama: bool, bit: int) -> torch.Tensor:
-    # argCons = []
-    # argCons.append({"shape": a.shape, "dtype": str(a.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_q_weight.shape, "dtype": str(b_q_weight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_gptq_qzeros.shape, "dtype": str(b_gptq_qzeros.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_gptq_scales.shape, "dtype": str(b_gptq_scales.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_g_idx.shape, "dtype": str(b_g_idx.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": use_exllama, "type": "bool"})
-    # argCons.append({"value": bit, "type": "int"})
-    # tensor_calls.append({"name": "vllm.ggml_dequantize", "args": argCons})
-    
     return torch.zeros((a.size(0), b_q_weight.size(1)),
                         dtype=a.dtype,
                         device=a.device)
-
-# torch.ops._C.gptq_gemm = gptq_gemm_mock
 
     
 def marlin_gemm_mock(a: torch.Tensor, b_q_weight: torch.Tensor,
                 b_scales: torch.Tensor, workspace: torch.Tensor, size_m: int,
                 size_n: int, size_k: int):
-    # argCons = []
-    # argCons.append({"shape": a.shape, "dtype": str(a.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_q_weight.shape, "dtype": str(b_q_weight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_scales.shape, "dtype": str(b_scales.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": workspace.shape, "dtype": str(workspace.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": size_m, "type": "int"})
-    # argCons.append({"value": size_n, "type": "int"})
-    # argCons.append({"value": size_k, "type": "int"})
-    # tensor_calls.append({"name": "vllm.gptq_gemm", "args": argCons})
     return torch.zeros((size_m, size_n), dtype=a.dtype, device=a.device)
-
-# torch.ops._C.marlin_gemm = marlin_gemm_mock
 
 
 def gptq_marlin_24_gemm_mock(a: torch.Tensor, b_q_weight: torch.Tensor,
                         b_meta: torch.Tensor, b_scales: torch.Tensor,
                         workspace: torch.Tensor, b_q_type,
                         size_m: int, size_n: int, size_k: int):
-    # argCons = []
-    # argCons.append({"shape": a.shape, "dtype": str(a.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_q_weight.shape, "dtype": str(b_q_weight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_meta.shape, "dtype": str(b_meta.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_scales.shape, "dtype": str(b_scales.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": workspace.shape, "dtype": str(workspace.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": b_q_type, "type": "vllm.scalar_type.ScalarType"})
-    # argCons.append({"value": size_m, "type": "int"})
-    # argCons.append({"value": size_n, "type": "int"})
-    # argCons.append({"value": size_k, "type": "int"})
-    # tensor_calls.append({"name": "vllm.gptq_marlin_24_gemm", "args": argCons})
-    
     return torch.zeros((size_m, size_n), device=a.device, dtype=a.dtype)
 
 def gptq_marlin_gemm_mock(a: torch.Tensor,
@@ -144,40 +73,6 @@ def gptq_marlin_gemm_mock(a: torch.Tensor,
                      use_atomic_add: bool = False,
                      use_fp32_reduce: bool = False,
                      is_zp_float: bool = False):
-    # argCons = []
-    # argCons.append({"shape": a.shape, "dtype": str(a.dtype), "type": "torch.Tensor"})
-    # if c:
-    #     argCons.append({"shape": c.shape, "dtype": str(c.dtype), "type": "torch.Tensor"})
-    # else:
-    #     argCons.append({"value": None, "type": "Optional[torch.Tensor]"})
-    # argCons.append({"shape": b_q_weight.shape, "dtype": str(b_q_weight.dtype), "type": "torch.Tensor"})
-    # argCons.append({"shape": b_scales.shape, "dtype": str(b_scales.dtype), "type": "torch.Tensor"})
-    # if global_scale:
-    #     argCons.append({"shape": global_scale.shape, "dtype": str(global_scale.dtype), "type": "torch.Tensor"})
-    # else:
-    #     argCons.append({"value": None, "type": "Optional[torch.Tensor]"})
-    # if b_zeros:
-    #     argCons.append({"shape": b_zeros.shape, "dtype": str(b_zeros.dtype), "type": "torch.Tensor"})
-    # else:
-    #     argCons.append({"value": None, "type": "Optional[torch.Tensor]"})
-    # if g_idx:
-    #     argCons.append({"shape": g_idx.shape, "dtype": str(g_idx.dtype), "type": "torch.Tensor"})
-    # else:
-    #     argCons.append({"value": None, "type": "Optional[torch.Tensor]"})
-    # if perm:
-    #     argCons.append({"shape": perm.shape, "dtype": str(perm.dtype), "type": "torch.Tensor"})
-    # else:
-    #     argCons.append({"value": None, "type": "Optional[torch.Tensor]"})
-    # argCons.append({"shape": workspace.shape, "dtype": str(workspace.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": b_q_type, "type": "vllm.scalar_type.ScalarType"})
-    # argCons.append({"value": size_m, "type": "int"})
-    # argCons.append({"value": size_n, "type": "int"})
-    # argCons.append({"value": size_k, "type": "int"})
-    # argCons.append({"value": is_k_full, "type": "bool"})
-    # argCons.append({"value": use_atomic_add, "type": "bool"})
-    # argCons.append({"value": use_fp32_reduce, "type": "bool"})
-    # argCons.append({"value": is_zp_float, "type": "bool"})
-    # tensor_calls.append({"name": "vllm.gptq_marlin_gemm", "args": argCons})
     return torch.zeros((size_m, size_n), device=a.device, dtype=a.dtype)
 
 def marlin_qqq_gemm_mock(a: torch.Tensor, b_q_weight: torch.Tensor,
@@ -226,18 +121,7 @@ def allspark_w8a16_gemm_mock(a: torch.Tensor, b_qweight: torch.Tensor,
     return torch.zeros((m, n), device=a.device, dtype=a.dtype)
 
 def ggml_dequantize_mock(W: torch.Tensor, quant_type: int, m: int, n: int, dtype: Optional[torch.dtype]):
-    # argCons = []
-    # argCons.append({"shape": W.shape, "dtype": str(W.dtype), "type": "torch.Tensor"})
-    # argCons.append({"value": quant_type, "type": "int"})
-    # argCons.append({"value": m, "type": "int"})
-    # argCons.append({"value": n, "type": "int"})
-    # tensor_calls.append({"name": "vllm.ggml_dequantize", "args": argCons})
-    
-    # if dtype:
-    #     argCons.append({"value": dtype, "type": "torch.dtype"})
     return torch.zeros((m, n), dtype=torch.float16, device=W.device)
-
-# torch.ops._C.ggml_dequantize = ggml_dequantize_mock
 
 def ggml_mul_mat_vec_a8_mock(
     W: torch.Tensor,
@@ -290,7 +174,6 @@ def cutlass_scaled_mm_supports_fp4_mock(cuda_device_capability: int):
     return True
 
 def cutlass_scaled_mm_supports_fp8_mock(cuda_device_capability: int):
-    # return True
     return False
 
 def cutlass_scaled_mm_supports_block_fp8_mock(cuda_device_capability: int):
@@ -400,27 +283,6 @@ def allocate_shared_buffer_and_handle_mock(size: int) :
 def open_mem_handle_mock(mem_handle: torch.Tensor):
     return 0
 
-
-# def unified_attention_mock(
-#     query: torch.Tensor,
-#     key: torch.Tensor,
-#     value: torch.Tensor,
-#     layer_name: str,
-# ) -> torch.Tensor:
-#     return torch.zeros_like(query).contiguous()
-
-# def apply_w8a8_block_fp8_linear_mock(
-#     input: torch.Tensor,
-#     weight: torch.Tensor,
-#     block_size: list[int],
-#     weight_scale: torch.Tensor,
-#     input_scale: Optional[torch.Tensor] = None,
-#     bias: Optional[torch.Tensor] = None,
-#     cutlass_block_fp8_supported: bool = True,
-#     use_aiter_and_is_supported: bool = False,
-# ):
-#     output_shape = [*input.shape[:-1], weight.shape[0]]
-#     return torch.zeros(output_shape, dtype=input.dtype, device=input.device)
 
 def per_token_group_quant_fp8_mock(
     x: torch.Tensor,
@@ -779,13 +641,6 @@ def varlen_fwd_mock(q, k, v, out, cu_seqlens_q, cu_seqlens_k, seqused_k,
     if out is None:
         out = torch.zeros_like(q)
 
-    # if return_softmax_lse:
-    #     # total_q_seqlen = cu_seqlens_q[-1].item() if cu_seqlens_q.numel() > 0 else 0
-    #     # softmax_lse = torch.zeros((nheads, total_q_seqlen), dtype=q.dtype, device=q.device)
-    #     softmax_lse = torch.zeros((nheads, total_q), dtype=q.dtype, device=q.device)
-    # else:
-    #     softmax_lse = None
-    
     softmax_lse = torch.zeros((nheads, total_q), dtype=q.dtype, device=q.device)
     
     return out, softmax_lse
