@@ -8,7 +8,18 @@ import sys
 CUDA_PATH = "/usr/local/cuda"  # Path to CUDA installation
 COMBINED_SUFFIX = "_combined.bc"  # Suffix for the combined .bc files
 project_path = Path(__file__).parent.parent
-signed_clang_path = os.getenv("SIGNED_CLANG_PATH", "clang++-13")
+
+def _resolve_signed_clang_path():
+    signed_clang_path = os.getenv("SIGNED_CLANG_PATH")
+    if not signed_clang_path:
+        return "clang++-13"
+
+    path = Path(signed_clang_path)
+    if path.is_dir():
+        return str(path / "clang++")
+    return signed_clang_path
+
+signed_clang_path = _resolve_signed_clang_path()
 
 # Manually define PyTorch include paths
 try:

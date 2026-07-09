@@ -45,6 +45,7 @@ RUN mkdir build
 WORKDIR '/home/llvm-project/build'
 RUN cmake ..
 RUN make -j8
+ENV SIGNED_CLANG_PATH=/home/llvm-project/build/bin
 
 WORKDIR '/home'
 RUN [ ! -d /home/z3 ] && git clone https://github.com/Z3Prover/z3.git
@@ -59,3 +60,6 @@ RUN apt install -y nano
 
 RUN git clone git@github.com:molly-ting/M2K-Artifact.git
 WORKDIR '/home/M2K-Artifact'
+RUN cmake -S cuKLEE -B cuKLEE/build
+RUN cmake --build cuKLEE/build -j8
+ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
