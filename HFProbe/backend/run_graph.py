@@ -17,6 +17,11 @@ from collections import defaultdict
 tensor_calls = []
 CPP_SEARCH_DIRS = []
 _CPP_LOAD_SEEN = False
+current_path_string = os.path.abspath(__file__)
+root_dir = os.path.dirname(os.path.dirname(current_path_string))
+models_hf_dir = os.path.join(root_dir, "data", "models_hf")
+models_hf_parent = os.path.dirname(models_hf_dir)
+models_hf_datasets_dir = os.path.join(models_hf_dir, "datasets")
 # pytree: Prefer PyTorch's built-in implementation; fall back to simple recursion on failure.
 try:
     from torch.utils import _pytree as pytree
@@ -610,7 +615,7 @@ def all_negative(data, batch):
 import traceback
 
 def run_ultra(model_id):
-    output_dir = "./hfout"
+    output_dir = os.path.join(root_dir, "results", "hf-exp", "out")
     os.makedirs(output_dir, exist_ok=True)
 
     filename = model_id.replace('/', '_')+".json"
@@ -618,9 +623,11 @@ def run_ultra(model_id):
     if os.path.exists(agg_path):
         return
     
-    local_dir = "models_hf/"+model_id.replace('/', '_')
+    local_dir = os.path.join(models_hf_dir, model_id.replace('/', '_'))
     
     module_dir = copy_config_to_modules_if_needed(local_dir)
+    if models_hf_parent not in sys.path:
+        sys.path.append(models_hf_parent)
     sys.path.append(module_dir)
 
     total_calls_map = defaultdict(dict)
@@ -650,13 +657,13 @@ def run_ultra(model_id):
                 for dName in TRANSDUCTIVE:
                     if dName == "WordNet18RR":
                         try:
-                            dataset = datasets.WN18RR("./models_hf/datasets/")
+                            dataset = datasets.WN18RR(models_hf_datasets_dir)
                         except Exception as e:
                             print(f"❌ Failed to instantiate WordNet18RR: {e}")
                             continue
                     elif dName == "RelLinkPredDataset":
                         try:
-                            dataset = datasets.FB15k237("./models_hf/datasets/")
+                            dataset = datasets.FB15k237(models_hf_datasets_dir)
                         except Exception as e:
                             print(f"❌ Failed to instantiate RelLinkPredDataset: {e}")
                             continue
@@ -667,7 +674,7 @@ def run_ultra(model_id):
                             continue
 
                         try:
-                            dataset = cls(root="./models_hf/datasets/")
+                            dataset = cls(root=models_hf_datasets_dir)
                             print(f"✅ Created instance of {dName}")
                         except Exception as e:
                             print(f"❌ Failed to instantiate {dName}: {e}")
@@ -693,7 +700,9 @@ def run_ultra(model_id):
 
     print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
-    with open("./hfdata/"+filename, "w") as wf:
+    data_dir = os.path.join(root_dir, "results", "hf-exp", "data")
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, filename), "w") as wf:
         json.dump(data, wf)
 
 def setConfig(cfg, override_configs):
@@ -712,7 +721,7 @@ def setConfig(cfg, override_configs):
 
 def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_name=None):
     if not output_dir:
-        output_dir = "./hfout"
+        output_dir = os.path.join(root_dir, "results", "hf-exp", "out")
     os.makedirs(output_dir, exist_ok=True)
 
     if op_name:
@@ -725,9 +734,11 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
     if os.path.exists(agg_path):
         return
     
-    local_dir = "models_hf/"+model_id.replace('/', '_')
+    local_dir = os.path.join(models_hf_dir, model_id.replace('/', '_'))
     
     module_dir = copy_config_to_modules_if_needed(local_dir)
+    if models_hf_parent not in sys.path:
+        sys.path.append(models_hf_parent)
     sys.path.append(module_dir)
 
     total_calls_map = defaultdict(dict)
@@ -752,13 +763,13 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
         for dName in TRANSDUCTIVE:
             if dName == "WordNet18RR":
                 try:
-                    dataset = datasets.WN18RR("./models_hf/datasets/")
+                    dataset = datasets.WN18RR(models_hf_datasets_dir)
                 except Exception as e:
                     print(f"❌ Failed to instantiate WordNet18RR: {e}")
                     continue
             elif dName == "RelLinkPredDataset":
                 try:
-                    dataset = datasets.FB15k237("./models_hf/datasets/")
+                    dataset = datasets.FB15k237(models_hf_datasets_dir)
                 except Exception as e:
                     print(f"❌ Failed to instantiate RelLinkPredDataset: {e}")
                     continue
@@ -769,7 +780,7 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
                     continue
 
                 try:
-                    dataset = cls(root="./models_hf/datasets/")
+                    dataset = cls(root=models_hf_datasets_dir)
                     print(f"✅ Created instance of {dName}")
                 except Exception as e:
                     print(f"❌ Failed to instantiate {dName}: {e}")
@@ -813,7 +824,7 @@ def load_model_from_local_path(path):
     return model
 
 def run_minchul(model_id):
-    output_dir = "./hfout"
+    output_dir = os.path.join(root_dir, "results", "hf-exp", "out")
     os.makedirs(output_dir, exist_ok=True)
 
     filename = model_id.replace('/', '_')+".json"
@@ -821,7 +832,7 @@ def run_minchul(model_id):
     if os.path.exists(agg_path):
         return
     
-    local_dir = "models_hf/"+model_id.replace('/', '_')
+    local_dir = os.path.join(models_hf_dir, model_id.replace('/', '_'))
     
     total_calls_map = defaultdict(dict)
     data = []
@@ -834,12 +845,12 @@ def run_minchul(model_id):
         from torchvision.transforms import Compose, ToTensor, Normalize
         from PIL import Image
         img_path = ""
-        img = Image.open('images/1.jpg')
+        img = Image.open(os.path.join(root_dir, "data", "images", "1.jpg"))
         trans = Compose([ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])
         input = trans(img).unsqueeze(0)  # torch.randn(1, 3, 112, 112)
         
         # KPRPE also takes keypoints locations as input
-        aligner = load_model_from_local_path('models_hf/minchul_cvlface_DFA_mobilenet')
+        aligner = load_model_from_local_path(os.path.join(models_hf_dir, "minchul_cvlface_DFA_mobilenet"))
         aligned_x, orig_ldmks, aligned_ldmks, score, thetas, bbox = aligner(input)
         keypoints = orig_ldmks  # torch.randn(1, 5, 2)
         out = model(input, keypoints)
@@ -848,5 +859,7 @@ def run_minchul(model_id):
 
     print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
-    with open("./hfdata/"+filename, "w") as wf:
+    data_dir = os.path.join(root_dir, "results", "hf-exp", "data")
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, filename), "w") as wf:
         json.dump(data, wf)

@@ -3,7 +3,6 @@ use the following command format to run the script:
 BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python run_rs_models.py
 """
 import os, torch, sys, inspect
-from pathlib import Path
 import shutil, subprocess, json
 import types
 from huggingface_hub import snapshot_download, list_repo_files
@@ -12,7 +11,11 @@ from utils import computeSymbolicArgsWithMap
 from collections import defaultdict
 import traceback
 
-ROOT_DIR = Path(__file__).resolve().parent
+current_path_string = os.path.abspath(__file__)
+root_dir = os.path.dirname(os.path.dirname(current_path_string))
+research_paper_dir = os.path.join(root_dir, "data", "research_paper")
+default_rs_out_dir = os.path.join(root_dir, "results", "research_paper", "out")
+default_rs_data_dir = os.path.join(root_dir, "results", "research_paper", "data")
 
 tensor_calls = []
 CPP_SEARCH_DIRS = []
@@ -562,7 +565,7 @@ def testShiftAdd(override_configs=None, out_dir=None, op_name=None):
     model, tokenizer = load_model_and_tokenizer(local_dir, config)
     torch.set_default_dtype(torch.float)
 
-    parent_dir = str(ROOT_DIR / "models_rs" / "ShiftAddLLM")
+    parent_dir = os.path.join(research_paper_dir, "ShiftAddLLM")
     if parent_dir not in sys.path:
         sys.path.append(parent_dir)
     from lut_gemm.quant import make_lut
@@ -581,7 +584,7 @@ def testShiftAdd(override_configs=None, out_dir=None, op_name=None):
     tensor_calls.clear()
 
     if not out_dir:
-        out_dir = ROOT_DIR / "rsdata"
+        out_dir = default_rs_data_dir
     os.makedirs(out_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "ShiftAddLLM")
@@ -607,8 +610,8 @@ def testKVQuant():
     )
     print(f"Model {model_id} downloaded to {local_dir}")
 
-    output_dir = ROOT_DIR / "rsout"
-    data_dir = ROOT_DIR / "rsdata"
+    output_dir = default_rs_out_dir
+    data_dir = default_rs_data_dir
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(data_dir, exist_ok=True)
     filename = "KVQuant.json"
@@ -713,7 +716,7 @@ def testQuaRot(override_configs=None, out_dir=None, op_name=None):
         use_fast=True,
     )
 
-    parent_dir = str(ROOT_DIR / "models_rs" / "QuaRot")
+    parent_dir = os.path.join(research_paper_dir, "QuaRot")
     if parent_dir not in sys.path:
         sys.path.append(parent_dir)
     from e2e.quantized_llama.modeling_llama import QuarotLlamaForCausalLM
@@ -737,7 +740,7 @@ def testQuaRot(override_configs=None, out_dir=None, op_name=None):
     tensor_calls.clear()
 
     if not out_dir:
-        out_dir = ROOT_DIR / "rsdata"
+        out_dir = default_rs_data_dir
     os.makedirs(out_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "QuaRot")
@@ -753,11 +756,11 @@ def testQuaRot(override_configs=None, out_dir=None, op_name=None):
 
 def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = ROOT_DIR / "rsout"
+        out_dir = default_rs_out_dir
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = ROOT_DIR / "rsdata"
+        data_dir = default_rs_data_dir
     os.makedirs(data_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "AQLM")
@@ -794,7 +797,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
               f"group={aqlm_in_group}x{aqlm_out_group}")
     # ===================================================
 
-    repo_root = str(ROOT_DIR / "models_rs" / "AQLM")
+    repo_root = os.path.join(research_paper_dir, "AQLM")
     inference_lib_path = os.path.join(repo_root, "inference_lib", "src")
     if inference_lib_path not in sys.path:
         sys.path.insert(0, inference_lib_path)
@@ -920,11 +923,11 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
 
 def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = ROOT_DIR / "rsout"
+        out_dir = default_rs_out_dir
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = ROOT_DIR / "rsdata"
+        data_dir = default_rs_data_dir
     os.makedirs(data_dir, exist_ok=True)
     if op_name:
         out_dir = os.path.join(out_dir, "Mixture-Compressor-MoE")
@@ -958,7 +961,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
         print(f"[Config] MCM Target: nbits={mcm_bits}, group_size={mcm_group_size}")
 
     # --- 2. Add the repository path ---
-    repo_root = str(ROOT_DIR / "models_rs" / "Mixture-Compressor-MoE")
+    repo_root = os.path.join(research_paper_dir, "Mixture-Compressor-MoE")
     if repo_root not in sys.path:
         sys.path.insert(0, repo_root)
     print(f"[INFO] Importing MCM from {repo_root}")
@@ -1149,11 +1152,11 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
 
 def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
-        out_dir = ROOT_DIR / "rsout"
+        out_dir = default_rs_out_dir
     os.makedirs(out_dir, exist_ok=True)
 
     if not data_dir:
-        data_dir = ROOT_DIR / "rsdata"
+        data_dir = default_rs_data_dir
     os.makedirs(data_dir, exist_ok=True)
 
     if op_name:
@@ -1167,7 +1170,7 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
         agg_path = os.path.join(out_dir, "any-precision-llm.json")
         rs_data_path = os.path.join(data_dir, "any-precision-llm.json")
 
-    repo_root = str(ROOT_DIR / "models_rs" / "any-precision-llm")
+    repo_root = os.path.join(research_paper_dir, "any-precision-llm")
     if repo_root not in sys.path:
         sys.path.insert(0, repo_root)
 

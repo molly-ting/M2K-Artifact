@@ -17,6 +17,8 @@ from collections import defaultdict
 tensor_calls = []
 CPP_SEARCH_DIRS = []
 _CPP_LOAD_SEEN = False
+current_path_string = os.path.abspath(__file__)
+root_dir = os.path.dirname(os.path.dirname(current_path_string))
 # pytree: prefer Torch's implementation and fall back to a simple recursive version.
 try:
     from torch.utils import _pytree as pytree
@@ -876,15 +878,15 @@ SEQ_LENS_CONFIGS = [9, 17, 33]
 
 def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=None, is_op_suffix=False):
     if not output_dir:
-        output_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfout"
+        output_dir = os.path.join(root_dir, "results", "hf-exp", "out")
     os.makedirs(output_dir, exist_ok=True)
     
-    root_dir = os.path.dirname(output_dir)
+    output_root_dir = os.path.dirname(output_dir)
     if is_op_suffix:
-        log_dir = os.path.join(root_dir, "logs")
+        log_dir = os.path.join(output_root_dir, "logs")
         log_dir = os.path.join(log_dir, model_id.replace('/', '_'))
     else:
-        log_dir = os.path.join(root_dir, "hflogs")
+        log_dir = os.path.join(output_root_dir, "hflogs")
     os.makedirs(log_dir, exist_ok=True)
 
     if not is_op_suffix:
@@ -952,7 +954,7 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
     print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
     if not data_dir:
-        data_dir = "/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfdata"
+        data_dir = os.path.join(root_dir, "results", "hf-exp", "data")
     os.makedirs(data_dir, exist_ok=True)
            
     with open(os.path.join(data_dir, filename), "w") as wf:
@@ -991,7 +993,10 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
 import traceback
 
 def testhf():
-    with open("/home/mvh6224/CUDA-BOSolver/pyanalyzer/hfmodels0.json", "r") as f:
+    model_list_path = os.path.join(root_dir, "data", "hfmodels0.json")
+    if not os.path.exists(model_list_path):
+        model_list_path = os.path.join(root_dir, "data", "hfmodels.json")
+    with open(model_list_path, "r") as f:
         model_list = json.load(f)
         
         from huggingface_hub import HfApi
