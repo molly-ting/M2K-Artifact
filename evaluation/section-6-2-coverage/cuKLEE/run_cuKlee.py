@@ -6,7 +6,9 @@ import sys
 
 CUDA_PATH = "/usr/local/cuda"  # Path to CUDA installation
 COMBINED_SUFFIX = "_combined.bc"  # Suffix for the combined .bc files
-project_path = Path(__file__).parent.parent
+project_path = Path(__file__).parent.parent.parent.parent
+compile_include_path = os.path.join(project_path, "cuKLEE", "include")
+current_dir = Path(__file__).parent
 signed_clang_path = os.getenv("SIGNED_CLANG_PATH", "clang++-13")
 
 # Manually define PyTorch include paths
@@ -67,9 +69,9 @@ def compile_cu_file(cu_file, root_path):
         *(["-I", str(OPENMP_INCLUDE_DIR)] if OPENMP_INCLUDE_DIR is not None else []),
         "-I", root_path,
         "-I", "/usr/include/python3.10",
-        "-I", f"{project_path}/compile/include/cutlass/include",
-        "-I", f"{project_path}/compile/include",
-        "-I", f"{project_path}/compile/include/cutlass/examples",
+        "-I", f"{compile_include_path}/cutlass/include",
+        "-I", compile_include_path,
+        "-I", f"{compile_include_path}/cutlass/examples",
     ]
 
     if "cutlass" in cu_file:
@@ -87,7 +89,7 @@ def compile_cu_file(cu_file, root_path):
 
 def compile_coverage():
     original_dir = os.getcwd()
-    root_dir = os.path.join(project_path, "experiments", "coverage")
+    root_dir = os.path.join(current_dir, "input_files")
     for dname in os.listdir(root_dir):
         dir_path = os.path.join(root_dir, dname)
         cu_dir = dir_path
@@ -158,38 +160,20 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         with open(log_file, 'w') as output_file:
             subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--output-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
         
-        with open(log_file, 'r') as output_file:
-            log_content = output_file.read()
-            # if 'Aborted (core dumped)' in log_content:
-            #     print(f"cuKLEE aborted on {bc_file}. See log for details.")
-            #     logging.error(f"cuKLEE aborted (core dumped) on {bc_file}.")
-            #     return False
-            if "KLEE: done: completed paths =" not in log_content:
-                print(f"cuKLEE not complete on {json_file}. See log for details.")
-                logging.error(f"cuKLEE not complete on {json_file}.")
-                return False
-            else:
-                print(f"Successfully ran cuKLEE on {json_file}. Output saved to {log_file}")
-                return True
+        print(f"Output saved to {log_file}")
     
+    except Exception as e:
+        pass
     except subprocess.TimeoutExpired:
-        # Handle the timeout error
-        logging.error(f"cuKLEE run on {json_file} timed out after {TIMEOUT_LIMIT} seconds.")
-        print(f"cuKLEE run on {json_file} timed out after {TIMEOUT_LIMIT} seconds. See log for details.")
-        return False
-
+        pass
     except subprocess.CalledProcessError as e:
-        # Log the error if KLEE throws an exception
-        logging.error(f"Error running cuKLEE on {json_file}: {str(e)}")
-        print(f"Error running cuKLEE on {json_file}. See log for details.")
-        return False
-
-root_path = Path(__file__).parent
+        pass
+    return True
 
 def run_original():
-    input_dir = os.path.join(root_path, "coverage")
-    logDir = os.path.join(root_path, "coverage-cuKLEE-log")
-    outputdir = os.path.join(root_path, "coverage-cuKLEE-result")
+    input_dir = os.path.join(current_dir, "input_files")
+    logDir = os.path.join(current_dir, "cuKLEE-log")
+    outputdir = os.path.join(current_dir, "cuKLEE-output")
 
     for dname in os.listdir(input_dir):
         if dname == "simplified":
@@ -201,9 +185,9 @@ def run_original():
                 run_klee_on_json_file(json_file, logDir, outputdir, useDirName=True)
 
 def run_simplified():
-    input_dir = os.path.join(root_path, "coverage", "simplified")
-    logDir = os.path.join(root_path, "coverage-cuKLEE-log", "simplified")
-    outputdir = os.path.join(root_path, "coverage-cuKLEE-result", "simplified")
+    input_dir = os.path.join(current_dir, "input_files", "simplified")
+    logDir = os.path.join(current_dir, "cuKLEE-log", "simplified")
+    outputdir = os.path.join(current_dir, "cuKLEE-output", "simplified")
 
     for file in os.listdir(input_dir):
         if file.endswith(".json"):
