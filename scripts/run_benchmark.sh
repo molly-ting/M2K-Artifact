@@ -12,3 +12,4 @@
 
 # python3 scripts/run.py
 # HFProbe\validation\run_vllm_input_check.py
+# summarize results

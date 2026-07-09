@@ -218,6 +218,7 @@ def compile_paper():
                     "-I", TORCH_INCLUDE,
                     "-I", TORCH_INCLUDE + "/torch/csrc/api/include",
                     "-I", f"{CUDA_PATH}/include",
+                    *(["-I", str(OPENMP_INCLUDE_DIR)] if OPENMP_INCLUDE_DIR is not None else []),
                     "-I", dir_path,
                     "-I", "/usr/include/python3.10"
                 ])
@@ -229,18 +230,20 @@ def compile_paper():
                     continue
                 target_files.append(combined_bc_file)
 
+            merged_combined_bc_file = None
             for cpp_bc_file in cpp_bc_files:
                 if not os.path.exists(cpp_bc_file):
                     continue
                 target_files.append(cpp_bc_file)
+                merged_combined_bc_file = cpp_bc_file[:-7] + COMBINED_SUFFIX
 
             run_command([
                 "llvm-link-13",
-                "-o", target_files[0]] + target_files)
+                "-o", merged_combined_bc_file] + target_files)
             
             run_command([
                 "llvm-dis-13",
-                target_files[0]
+                merged_combined_bc_file
             ])
     os.chdir(original_dir)
 

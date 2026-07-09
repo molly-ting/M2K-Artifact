@@ -211,6 +211,9 @@ def run_wo_c():
             processed_models = set(json.load(mf))
 
     for model_id in all_models:
+        if "/" not in model_id:
+            model_id = model_id.replace("_", "/", 1)
+            
         structure = structure_model_map[model_id]
 
         if not os.path.exists(os.path.join(config_path, structure)):
