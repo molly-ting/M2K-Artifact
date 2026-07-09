@@ -3,6 +3,8 @@ from torchmock.torchmocks import *
 import contextlib, torch, torch.nn.init as _init
 from typing import Any
 
+current_path_string = os.path.abspath(__file__)
+root_dir = os.path.dirname(os.path.dirname(current_path_string))
 
 os.environ["VLLM_USE_V1"] = "0"
 os.environ["VLLM_NO_USAGE_STATS"] = "1"
@@ -11,7 +13,7 @@ os.environ["VLLM_ROCM_USE_AITER_PAGED_ATTN"] = "0"
 os.environ["VLLM_ROCM_USE_AITER"] = "0"
 os.environ["VLLM_USE_TRITON_AWQ"] = "0"
 os.environ["VLLM_ENABLE_MOE_ALIGN_BLOCK_SIZE_TRITON"] = "0"
-os.environ["XDG_CONFIG_HOME"] = "./.config"
+os.environ["XDG_CONFIG_HOME"] = os.path.join(root_dir, ".config")
 os.environ["GIT_LFS_SKIP_SMUDGE"] = "1"
 
 import torch
