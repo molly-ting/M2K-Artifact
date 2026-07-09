@@ -437,11 +437,8 @@ void runKLEECommand(const std::string &functionName, const std::string &function
     if (TimeOutSec == 0) {
         int result = system(command.c_str());
         if (result != 0) {
-            std::cerr << "Error running klee\n";
             return;
         }
-
-        std::cout << "finish running klee\n";
         return;
     }
 
@@ -452,7 +449,7 @@ void runKLEECommand(const std::string &functionName, const std::string &function
 
     // Wait for completion or timeout
     if (future.wait_for(std::chrono::seconds(TimeOutSec)) == std::future_status::timeout) {
-        std::cerr << "⚠️ KLEE timed out after " << TimeOutSec << " seconds for function " << functionName << std::endl;
+        std::cerr << "⚠️ cuKLEE timed out after " << TimeOutSec << " seconds for function " << functionName << std::endl;
 
 #ifdef _WIN32
         // Windows: use taskkill
@@ -467,11 +464,10 @@ void runKLEECommand(const std::string &functionName, const std::string &function
 
     int result = future.get(); // get exit code
     if (result != 0) {
-        std::cerr << "Error running KLEE (exit code " << result << ")" << std::endl;
+        std::cout << std::endl;
         return;
     }
-
-    std::cout << "✅ Finished running KLEE for " << functionName << std::endl;
+    std::cout << std::endl;
 }
 
 void runKLEECommand(const std::string &functionName, const std::string &functionType, const std::string &filePath, const std::string &outputDir="") {
@@ -492,11 +488,8 @@ void runKLEECommand(const std::string &functionName, const std::string &function
     if (TimeOutSec == 0) {
         int result = system(command.c_str());
         if (result != 0) {
-            std::cerr << "Error running klee\n";
             return;
         }
-
-        std::cout << "finish running klee\n";
         return;
     }
 
@@ -507,7 +500,7 @@ void runKLEECommand(const std::string &functionName, const std::string &function
 
     // Wait for completion or timeout
     if (future.wait_for(std::chrono::seconds(TimeOutSec)) == std::future_status::timeout) {
-        std::cerr << "⚠️ KLEE timed out after " << TimeOutSec << " seconds for function " << functionName << std::endl;
+        std::cerr << "⚠️ cuKLEE timed out after " << TimeOutSec << " seconds for function " << functionName << std::endl;
 
 #ifdef _WIN32
         // Windows: use taskkill
@@ -522,11 +515,10 @@ void runKLEECommand(const std::string &functionName, const std::string &function
 
     int result = future.get(); // get exit code
     if (result != 0) {
-        std::cerr << "Error running KLEE (exit code " << result << ")" << std::endl;
+        std::cout << std::endl;
         return;
     }
-
-    std::cout << "✅ Finished running KLEE for " << functionName << std::endl;
+    std::cout << std::endl;
 }
 
 int main(int argc, char **argv) {
@@ -611,7 +603,6 @@ int main(int argc, char **argv) {
                     }
                 }
                 if (targetFunctionName.empty()) {
-                    errs() << "Error function name\n";
                     continue;
                 }
                 runKLEECommand(targetFunctionName, "caller", arg1, modifiedFilePath, i, OutputDir);
@@ -661,16 +652,13 @@ int main(int argc, char **argv) {
             }
             std::string stubFuncName = getKernelStubName(*module, kernelFunctionName);
             std::set<std::string> highestCallers = findAllHighestLevelCallers(callGraph, stubFuncName);
-            std::cout << "Kernel Function: " << kernelFunctionName << " stub: " << stubFuncName << " -> Highest-Level Callers: ";
             for (const auto &caller : highestCallers) {
-                std::cout << caller << " ";
                 if (caller == stubFuncName) {
                     continue;
                 } else {
                     functionCallersMap[caller] = "caller";
                 }
             }
-            std::cout << std::endl;
         }
 
         for (const auto &entry : functionCallersMap) {

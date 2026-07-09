@@ -32,7 +32,7 @@ FILE *klee::klee_message_file = NULL;
 
 static const char *warningPrefix = "WARNING";
 static const char *warningOncePrefix = "WARNING ONCE";
-static const char *errorPrefix = "ERROR";
+static const char *errorPrefix = "WARNING";
 static const char *notePrefix = "NOTE";
 
 namespace klee {

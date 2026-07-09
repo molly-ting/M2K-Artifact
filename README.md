@@ -8,26 +8,39 @@ This document provides instructions for reproducing the experimental results rep
 
 ## 1. System Requirements
 
-- **OS:** XXX
+- **OS:** Ubuntu 18.04/20.04/22.04
 - **CPU:** XXX
-- **Memory (RAM):** XXX
+- **Memory (RAM):** >=256 GB
 - **Disk space:** XXX
-- **GPU / CUDA:** XXX (for the ablation experiment)
-- **Python:** XXX
+- **GPU:** V100/RTX 20xx/H100 (for the ablation experiment)
+- **CUDA:** 12.1
+- **Python:** 3.10
 
 ## 2. Installation
+### option 1
+```bash
+./setup.sh
+```
+### option 2
+```bash
+docker build -t m2k-env .
+docker run m2k-env
+```
 
 ## 3. Tool Demonstration 
 
 This section walks through the example in Figure 2 to show the basic workflow of M2K.
-
+a. run cuKLEE alone
 **Steps:**
 
 ```bash
-XXX
+cd example
+./run_example_cuKLEE.sh
 ```
 
 **Expected output:** XXX
+
+b. run model Qwen/Qwen2-0.5B-Instruct
 
 
 ## 4. Kernel Memory Bugs in Inference Systems (Section 2.3)
@@ -59,15 +72,3 @@ XXX
 
 
 
-
-
-excels/exp1.xlsx results of section 6.1
-excels/coverage.xlsx dataset and results of section 6.2
-excels/ablation.xlsx results of section 6.3
-excels/bug-memory.xlsx data of figure 5
-
-compile one cuda file:
-python3 scripts/compile_cuda.py --input-file <input_filepath> --out-dir <output_directory>
-
-compile cuda files in one directory:
-python3 scripts/compile_cuda.py --input-dir <input_dirpath> --out-dir <output_directory>
