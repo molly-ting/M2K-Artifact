@@ -32,14 +32,31 @@ docker run -it m2k-env
 
 This section walks through the example in Figure 2 to show the basic workflow of M2K.
 
-### a. run cuKLEE alone
+### a. Using HFProbe to profile Qwen2ForCausalLM
 
-**Steps:**
+**Step 1: Static call graph computation**
+
+Command:
 
 ```bash
-cd example
-./run_example_cuKLEE.sh
+cd HFProbe/call-graph
+./x --scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
 ```
+
+`./x --scan` accepts the following options:
+
+- `--out=<dir>` — directory that stores information about the possibly-triggered kernels (default: `HFProbe/call-graph/opout`).
+- `--vllm-dir=<dir>` — directory of the vLLM repository; if unset, the installed vLLM path is used.
+- `--vllm-model-arch=<arch>` — model architecture of the target model; if unset, all vLLM model architectures are analyzed.
+
+The computed call graph is written to `HFProbe/call-graph/cgout` which will not be used anymore; `--out` only stores the invoked-kernel information.
+
+Output:
+
+```bash
+XXX
+```
+
 
 **Expected output:** XXX
 
