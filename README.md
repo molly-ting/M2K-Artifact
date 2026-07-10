@@ -59,7 +59,6 @@ Output:
             1293
         ]
     },
-    ...
 }
 ```
 
@@ -98,11 +97,14 @@ python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-d
 output directory
 ```text
 config/
+├── model_architecture/
+│   └── kernel_name.json  # Mutated config for the kernel
 out/
 ├── model_id/
 │   └── kernel_name.json  # Collected arguments using the mutated config
 └── model_id.json         # Collected arguments using the default config
 input/          # Generated input files for cuKLEE (in step 4)
+└── kernel_name.json 
 ```
 results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 ```json
@@ -138,7 +140,6 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
             }
         ]
     ],
-    ...
 }
 ```
 
