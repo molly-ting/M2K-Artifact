@@ -84,6 +84,22 @@ python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model
 XXX
 ```
 
+#### Step 3: Mutating Model Configuration
+
+**Command:**
+
+```bash
+export HF_TOKEN=<Hugging Face Token>
+export OPENAI_API_KEY=<Openai API Key>
+python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --data-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/configs-examples --call-graph-dir=call-graph/opout --mutate=true --use-llm=true
+```
+
+**Output:**
+
+```bash
+XXX
+```
+
 
 
 
