@@ -341,7 +341,7 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
         return True, tmp_triggered_ops
     return False, tmp_triggered_ops
 
-def main_vllm_benchmark(out_dir=None, use_llm=False, callgraph_path=None):
+def main_vllm_benchmark(out_dir=None, use_exist_configs=False, callgraph_path=None):
     global structure_configs
     with open(f"{project_dir}/evaluation/section-6-1-bug-detection/vllm_models.json") as mf:
         structure_model_map = json.load(mf)
@@ -354,7 +354,7 @@ def main_vllm_benchmark(out_dir=None, use_llm=False, callgraph_path=None):
         structure_configs = []
         structure = structure_model_map[model_id]
 
-        if use_llm:
+        if not use_exist_configs:
             test_one(model_id, structure, os.path.join(callgraph_path, structure+".json"), out_dir)
         else:
             test_one_with_configs(model_id, structure, out_dir)
@@ -715,7 +715,68 @@ def test_one_with_configs(model_id, structure, out_dir=None):
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
 
+def test_model_with_one_config(model_id, config_path, out_dir=None):
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+    os.makedirs(out_dir, exist_ok=True)
     
+    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
+        framework_configs = json.load(ff)
+    
+    op_name = os.path.basename(config_path).replace(".json", "")
+    fcon = None
+    if op_name in framework_configs:
+        fcon = framework_configs[op_name]
+    
+    if not os.path.exists(config_path):
+        print(f"Config file {config_path} does not exist.")
+        return
+    
+    model_config = None
+    with open(config_path) as cf:
+        model_config = json.load(cf)
+        
+    triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name, out_dir)
+    if triggered:
+        print(f"Kernel {op_name} is successfully triggered with the provided config.")
+    else:
+        print(f"Kernel {op_name} could not be triggered with the provided config.")
+
+def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file,out_dir=None):
+    global config_out_path
+    
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+    
+    out_config_dir = os.path.join(out_dir, "config", structure)
+    os.makedirs(out_config_dir, exist_ok=True)
+    config_out_path = os.path.join(out_config_dir, f"{op_name}.json")
+    if os.path.exists(config_out_path):
+        return None, None
+    
+    call_op_info = {}
+    with open(kernel_info_file) as kf:
+        call_op_info = json.load(kf)
+    
+    filePath = call_op_info[op_name]["filePath"]
+    start_line = call_op_info[op_name]["lines"][0]
+    end_line = call_op_info[op_name]["lines"][1]
+    code_sinppet = read_code_snippet(filePath, start_line, end_line)
+    
+    config_example = {}
+    with open(seed_config_file) as sf:
+        config_example = json.load(sf)
+    
+    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
+        framework_configs = json.load(ff)
+    
+    fcon = None
+    if op_name in framework_configs:
+        fcon = framework_configs[op_name]
+    
+    output, token_usage = generate_vllm(structure, op_name, config_example, fcon, code_sinppet, out_dir=out_config_dir) 
+    return output
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="run profiling backend on vLLM"
@@ -728,28 +789,44 @@ if __name__ == "__main__":
         "--model-architecture", type=str, required=False, help="Model architecture"
     )
     parser.add_argument(
-        "--data-dir", type=str, required=False, help="Data directory containing model config examples"
+        "--seed-configs-dir", type=str, required=False, help="Data directory containing model config examples"
+    )
+    parser.add_argument(
+        "--seed-config-file", type=str, required=False, help="model default config for mutation"
     )
     parser.add_argument(
         "--out-dir", type=str, required=False, help="Output directory"
     )
     parser.add_argument(
-        "--call-graph-dir", type=str, required=False, help="Directory containing call graphs"
+        "--kernel-info-dir", type=str, required=False, help="Directory containing kernel info"
     )
     parser.add_argument(
-        "--mutate", type=bool, required=False, default=True, help="Whether to mutate model configs"
+        "--kernel-info-file", type=str, required=False, help="File containing kernel info of the model"
     )
     parser.add_argument(
-        "--use-llm", type=bool, required=False, default=True, help="Whether to use GPT to mutate model configs or load exisiting configs"
+        "--mutate", action=argparse.BooleanOptionalAction, default=True, help="Whether to mutate model configs"
+    )
+    parser.add_argument(
+        "--use-existent-config", action=argparse.BooleanOptionalAction, default=True, help="Whether to load exisiting configs or to use GPT to mutate model configs"
+    )
+    parser.add_argument(
+        "--config-file", type=str, required=False, help="model config file to run profiling backend"
+    )
+    parser.add_argument(
+        "--kernel-name", type=str, required=False, help="kernel name to mutate config for"
     )
     args = parser.parse_args()
 
     if args.model_id:
-        if args.mutate and args.use_llm:
-            test_one(args.model_id, args.model_architecture, args.call_graph_dir, args.out_dir, args.data_dir)
-        elif args.mutate and not args.use_llm:
+        if args.config_file:
+            test_model_with_one_config(args.model_id, args.config_file, args.out_dir)
+        elif args.mutate and not args.use_existent_config:
+            test_one(args.model_id, args.model_architecture, args.kernel_info_dir, args.out_dir, args.seed_configs_dir)
+        elif args.mutate and args.use_existent_config:
             test_one_with_configs(args.model_id, args.model_architecture, args.out_dir)
         else:
             test_one_without_mutate_config(args.model_id, args.out_dir)
+    elif args.kernel_name and args.seed_config_file and args.model_architecture:
+        mutate_config_kernel(args.model_architecture, args.kernel_name, args.seed_config_file, args.kernel_info_file, args.out_dir)
     else:
-        main_vllm_benchmark(args.out_dir, use_llm=args.use_llm, callgraph_path=args.call_graph_dir)
+        main_vllm_benchmark(args.out_dir, use_exist_configs=args.use_existent_config, callgraph_path=args.kernel_info_dir)

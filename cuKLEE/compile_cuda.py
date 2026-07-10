@@ -62,6 +62,8 @@ def run_command(command, cwd=None):
 
 def compile_cu_file(cu_file, root_path):
     print(f"Compiling {cu_file}...")
+    if not root_path:
+        root_path = os.path.dirname(cu_file)
 
     clang_command = [
         signed_clang_path,
@@ -384,8 +386,13 @@ if __name__ == "__main__":
         compile_paper()
     elif args.compile_hf:
         compile_hf()
-    elif args.input_dir and args.out_dir:
+    elif args.input_dir:
+        if not args.out_dir:
+            args.out_dir = args.input_dir
         compileDir(args.out_dir, args.input_dir)
-    elif args.input_file and args.out_dir:
+    elif args.input_file:
+        if not args.out_dir:
+            args.out_dir = os.path.dirname(args.input_file)
+        os.makedirs(args.out_dir, exist_ok=True)
         os.chdir(args.out_dir)
         compile_cu_file(args.input_file, root_path=os.path.dirname(args.input_file))

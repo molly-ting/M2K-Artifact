@@ -8,7 +8,7 @@ This document provides instructions for reproducing the experimental results rep
 
 ## 1. System Requirements
 
-- **OS:** Ubuntu 18.04/20.04/22.04
+- **OS:** Ubuntu 22.04
 - **Memory (RAM):** >=256 GB
 - **Disk space:** >=155GB
 - **GPU:** V100/RTX 20xx/H100 (for the ablation experiment)
@@ -49,39 +49,97 @@ bash x --scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
 - `--vllm-dir=<dir>` — directory of the vLLM repository; if unset, the installed vLLM path is used.
 - `--vllm-model-arch=<arch>` — model architecture of the target model; if unset, all vLLM model architectures are analyzed.
 
-The computed call graph is written to `HFProbe/call-graph/cgout` which will not be used anymore; `--out` only stores the invoked-kernel information.
-
 Output:
-
-```bash
-XXX
+``` json
+{
+    "dynamic_scaled_int8_quant": {
+        "filePath": "vllm/_custom_ops.py",
+        "lines": [
+            1258,
+            1293
+        ]
+    },
+    ...
+}
 ```
+
 
 #### Step 2: Running the profiling backend
 
 **Command:**
 
 ```bash
+# apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
+# enter HFProbe directory
 cd ..
-mkdir -p results/vllm/config
-cp -r ../evaluation/section-6-1-bug-detection/HFProbe_results/vllm/config/Qwen2ForCausalLM results/vllm/config/
-python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --call-graph-dir=call-graph/opout --mutate=true --use-llm=false
+python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm
+# run with specific model config
+# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm --config-file=../examples/dynamic_scaled_fp8_quant_config.json
 ```
 
 `config_agent_vllm.py` accepts the following options:
 
 - `--model-id=<modelID>` — the target model ID.
-- `--model-architecture=<arch>` — the target model architecture.
+- `--model-architecture=<arch>` — the target model architecture from model config.
+- `--seed-configs-dir=<dir>` — the directory containing model config examples.
+- `--seed-config-file=<file>` — the file path of model default config for mutation.
 - `--out-dir=<dir>` — the output directory (see the layout below).
-- `--call-graph-dir=<dir>` — the output directory produced by the previous step.
-- `--mutate=<bool>` — whether to mutate the configs.
-- `--use-llm=<bool>` — whether to use an LLM (GPT) to mutate the configs, or reuse existing ones.
+- `--kernel-info-dir=<dir>` — the output directory produced by the previous step.
+- `--kernel-info-file=<file>` — the file containing kernel information produced by the previous step.
+- `--mutate` — mutate the configs.
+- `--no-mutate` — do not mutate the configs.
+- `--use-existent-config` — reuse existing ones.
+- `--config-file=<file>` — the file path of model config to run.
+- `--kernel-name` — the kernel name to mutate config for.
 
 **Output:**
 
-```bash
-XXX
+output directory
+```text
+config/
+out/
+├── model_id/
+│   └── kernel_name.json  # Collected arguments using the mutated config
+└── model_id.json         # Collected arguments using the default config
+input/          # Generated input files for cuKLEE (in step 4)
+```
+results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
+```json
+{
+    "vllm.rms_norm": [
+        [
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "value": 1e-06,
+                "type": "float"
+            }
+        ]
+    ],
+    ...
+}
 ```
 
 #### Step 3: Mutating Model Configuration
@@ -89,15 +147,46 @@ XXX
 **Command:**
 
 ```bash
-export HF_TOKEN=<Hugging Face Token>
 export OPENAI_API_KEY=<Openai API Key>
-python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --data-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/configs-examples --call-graph-dir=call-graph/opout --mutate=true --use-llm=true
+python3 backend/config_agent_vllm.py --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=../examples/Qwen2ForCausalLM_model_config.json --kernel-info-file=../examples/Qwen2ForCausalLM_kernel_info.json
+# to mutate configs for all kernels and run profiling backend in one batch
+# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-info-dir=call-graph/opout --mutate 
 ```
 
 **Output:**
-
-```bash
-XXX
+results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
+```json
+{
+    "architectures": [
+        "Qwen2ForCausalLM"
+    ],
+    "attention_dropout": 0.0,
+    "bos_token_id": 151643,
+    "eos_token_id": 151645,
+    "hidden_act": "silu",
+    "hidden_size": 896,
+    "initializer_range": 0.02,
+    "intermediate_size": 4864,
+    "max_position_embeddings": 32768,
+    "max_window_layers": 24,
+    "model_type": "qwen2",
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "rms_norm_eps": 1e-06,
+    "rope_theta": 1000000.0,
+    "sliding_window": 32768,
+    "tie_word_embeddings": true,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.40.1",
+    "use_cache": true,
+    "use_sliding_window": false,
+    "vocab_size": 151936,
+    "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+    }
+}
 ```
 
 #### Step 4: Generating Interface Constraints
@@ -106,20 +195,67 @@ XXX
 **Command:**
 
 ```bash
-python3 input_generate.py --vllm-result-dir=results/vllm --vllm-compile-path=../evaluation/section-6-1-bug-detection/benchmark_compiled_files/vllm_0_9_0 --vllm-repo-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files
+# compile cuda files to LLVM bitcode
+# running profiling backend will trigger multiple kernels. we have to compile all cuda files in vLLM.
+python3 ../cuKLEE/compile_cuda.py --input-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --out-dir=../cuKLEE/compiled/vllm
+# some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernels-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
+python3 input_generate.py --vllm --profile-out-dir=results/vllm --compiled-kernels-dir=../cuKLEE/compiled/vllm --cuda_source_dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
+
+`compile_cuda.py` accepts the following options:
+- `--input-dir=<dir>` — directory containing the CUDA files (the included header files should be put in this folder or cuKLEE/include).
+- `--out-dir=<dir>` — the output directory, if not set, use the input-dir.
 
 `input_generate.py` accepts the following options:
 
-- `--vllm-result-dir=<dir>` — the `--out-dir` from the previous step.
-- `--vllm-compile-path=<dir>` — directory containing the compiled CUDA files.
-- `--vllm-repo-dir=<dir>` — directory containing the CUDA and C++ files (or the repository directory).
-
+- `--profile-out-dir=<dir>` — the `--out-dir` from the previous step.
+- `--compiled-kernels-dir=<dir>` — directory containing the compiled CUDA files.
+- `--cuda-source-dir=<dir>` — directory containing the CUDA and C++ files (or the repository directory).
+- `--vllm` — mark for vllm profiling.
 
 **Output:**
-
-```bash
-XXX
+results/vllm/input/dynamic_scaled_fp8_quant.json
+```json
+[
+    {
+        "py_function": "dynamic_scaled_fp8_quant",
+        "cuda_function": "dynamic_scaled_fp8_quant",
+        "input_file_path": "examples/fp8_common_combined.bc",
+        "args": [
+            {
+                "shape": [
+                    "u0",
+                    896
+                ],
+                "dtype": "torch.float8_e4m3fn",
+                "type": "torch.Tensor",
+                "symRanges": {
+                    "u0": [
+                        17,
+                        161
+                    ]
+                }
+            },
+            {
+                "shape": [
+                    "1.0*s*b",
+                    896
+                ],
+                "dtype": "torch.float16",
+                "type": "torch.Tensor"
+            },
+            {
+                "shape": [
+                    1
+                ],
+                "dtype": "torch.float32",
+                "type": "torch.Tensor"
+            }
+        ],
+        "seq_len": 32768,
+        "num_token": 2864606
+    }
+]
 ```
 
 ### b. Using cuKLEE to perform symbolic execution on the dynamic_scaled_fp8_quant kernel 
@@ -128,12 +264,27 @@ XXX
 **Step 4: run cuKLEE** 
 ```bash
 cd ..
-# usage: python3 cuKLEE/run.py --input-dir=<directory contains input json files> --output-dir=<directory to store the buggy z3 sontraints> --log-dir=<directory to store cuKLEE console outputs>
-python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --output-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
-python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input-load --output-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
+cuKLEE --timeout=3600 --output-dir=examples/out examples/dynamic_scaled_fp8_quant.json
+# to run multiple files in a batch
+# python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --out-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
 ```
 
+`cuKLEE/run.py` accepts the following options:
+- `--input-dir=<dir>` — directory containing the input json files.
+- `--out-dir=<dir>` — directory containing z3 constraints for each bug.
+- `--log-dir=<dir>` — directory containing console output for each input file.
+
 **Expected output:** XXX
+console output:
+```
+
+```
+examples/out:
+```text
+```
+xxx-io.txt:
+```text
+```
 
 **Step 5: validate reported bugs** 
 ```bash

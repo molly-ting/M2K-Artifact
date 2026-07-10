@@ -341,13 +341,13 @@ def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
 
 def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=None, ignore_max=True, has_seq_con=False, has_token_con=False):
     if compile_path is None:
-        compile_path = os.path.join(os.path.dirname(current_dir), "compile", "vllm_0_9_0")
+        compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "compiled_files")
     
     if result_dir is None:
         result_dir = os.path.join(current_dir, "results", "vllm")
 
     if kernel_map_path is None:
-        kernel_map_path = os.path.join(current_dir, "evaluation", "section-6-1-bug-detection", "HFProbe_results", "kernel_map", "kernel_map_vllm.json")
+        kernel_map_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "HFProbe_results", "kernel_map", "kernel_map_vllm.json")
 
     with open(kernel_map_path) as rf:
         kernel_map = json.load(rf)
@@ -429,13 +429,25 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
 
     return res
 
-def generate_vllm_input_load(result_dir, compile_path, ignore_max=True):
-    with open(os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")) as rf:
-        kernel_map = json.load(rf)
+def generate_vllm_input_load(result_dir, compile_path, kernel_map_path=None, ignore_max=True):
+    if compile_path is None:
+        compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "compiled_files")
+    
+    if result_dir is None:
+        result_dir = os.path.join(current_dir, "results", "vllm")
+
+    if kernel_map_path is None:
+        kernel_map_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "HFProbe_results", "kernel_map", "kernel_map_vllm.json")
+
+    if kernel_map_path is None:
+        kernel_map_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "HFProbe_results", "kernel_map", "kernel_map_vllm.json")
 
     input_dir = os.path.join(result_dir, "load")
-    write_dir = os.path.join(result_dir, "input-load")
+    write_dir = os.path.join(result_dir, "input")
     os.makedirs(write_dir, exist_ok=True)
+    
+    with open(kernel_map_path) as rf:
+        kernel_map = json.load(rf)
 
     res = {}
     for root, _, files in os.walk(input_dir):
@@ -543,15 +555,18 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=No
                 if item not in res[cuda_func]:
                     res[cuda_func].append(item)
 
-def generate_one_hf(model_id, compile_path, result_dir=None, has_seq_con=False, has_token_con=False):
+def generate_one_hf(model_id, compile_path, kernel_map_path=None, result_dir=None, has_seq_con=False, has_token_con=False):
     if compile_path is None:
-        compile_path = os.path.join(os.path.dirname(current_dir), "compile", "huggingface", model_id)
-
+        compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "huggingface", "compiled_files")
+    
     if not result_dir:
         result_dir = os.path.dirname(__file__) + "/results/huggingface"
     os.makedirs(os.path.join(result_dir, "input"), exist_ok=True)
 
-    with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
+    if kernel_map_path is None:
+        kernel_map_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "intermediate_results", "kernel_map", f"kernel_map_{model_id}.json")
+
+    with open(kernel_map_path) as rf:
         kernel_map = json.load(rf)
     
     max_seq_len = None
@@ -583,19 +598,22 @@ def generate_one_hf(model_id, compile_path, result_dir=None, has_seq_con=False, 
         with open(out_filepath, "w") as wf:
             json.dump(write_data, wf, indent=4)
 
-def generate_all_hf(compile_path, result_dir=None, has_seq_con=False, has_token_con=False):
+def generate_all_hf(compile_path, result_dir=None, kernel_map_dir=None, has_seq_con=False, has_token_con=False):
     if compile_path is None:
-        compile_path = os.path.join(os.path.dirname(current_dir), "compile", "huggingface")
-
+        compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "huggingface", "compiled_files")
+    
     if not result_dir:
         result_dir = os.path.dirname(__file__) + "/results/huggingface"
     os.makedirs(os.path.join(result_dir, "input"), exist_ok=True)
+    
+    if kernel_map_dir is None:
+        kernel_map_dir = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "intermediate_results", "kernel_map")
 
     res = {}
     for file in os.listdir(f"{result_dir}/out"):
         if file.endswith(".json"):
             model_id = file[:-5]
-            with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
+            with open(f"{kernel_map_dir}/kernel_map_{model_id}.json") as rf:
                 kernel_map = json.load(rf)
             
             max_seq_len = None
@@ -608,7 +626,7 @@ def generate_all_hf(compile_path, result_dir=None, has_seq_con=False, has_token_
             _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
         else:
             model_id = file
-            with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
+            with open(f"{kernel_map_dir}/kernel_map_{model_id}.json") as rf:
                 kernel_map = json.load(rf)
 
             max_seq_len = None
@@ -622,7 +640,8 @@ def generate_all_hf(compile_path, result_dir=None, has_seq_con=False, has_token_
 def generate_research_paper_input():
     compile_path = os.path.join(os.path.dirname(current_dir), "compile", "papers")
     result_dir = os.path.dirname(__file__) + "/results/research_paper"
-    generate_all_hf(compile_path, result_dir)
+    kernel_map_dir = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "intermediate_results", "kernel_map")
+    generate_all_hf(compile_path, result_dir, kernel_map_dir)
 
 
 if __name__ == "__main__":
@@ -637,41 +656,41 @@ if __name__ == "__main__":
         "--hf-benchmark", type=bool, required=False, help="HuggingFace benchmark result directory"
     )
     parser.add_argument(
-        "--vllm-repo-dir", type=str, required=False, help="vLLM code directory"
-    )
-
-    parser.add_argument(
-        "--vllm-result-dir", type=str, required=False, help="vLLM result directory"
-    )
-    parser.add_argument(
-        "--vllm-compile-path", type=str, required=False, help="directory containing vLLM compiled cuda files"
-    )
-
-    parser.add_argument(
-        "--vllm-hf-dir", type=str, required=False, help="HuggingFace result directory"
-    )
-    parser.add_argument(
-        "--vllm-hf-compile-path", type=str, required=False, help="directory containing HuggingFace compiled cuda files"
-    )
-
-    parser.add_argument(
         "--research-paper", type=bool, required=False, help="Generate input files for the research paper"
     )
+    
+    parser.add_argument(
+        "--cuda-source-dir", type=str, required=False, help="directory containing the CUDA and C++ files (or the repository directory)"
+    )
+    parser.add_argument(
+        "--profile-out-dir", type=str, required=False, help="vLLM result directory"
+    )
+    parser.add_argument(
+        "--compiled-kernel-dir", type=str, required=False, help="directory containing vLLM compiled cuda files"
+    )
+    parser.add_argument(
+        "--vllm", action=argparse.BooleanOptionalAction, default=True, help="Whether is vLLM output or HuggingFace output"
+    )
+    parser.add_argument(
+        "--model-id", type=str, required=False, help="Model ID for HuggingFace output"
+    )    
 
     args = parser.parse_args()
     if args.research_paper:
         generate_research_paper_input()
     elif args.vllm_benchmark:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
-        wrapper.find_kernel_rel(args.vllm_repo_dir, kernel_map_path)
+        wrapper.find_kernel_rel(args.profile_out_dir, kernel_map_path)
         generate_vllm_inputs(None, None, kernel_map_path, True, False)
         generate_vllm_input_load(None, None, True)
     elif args.hf_benchmark:
         generate_all_hf(None, None)
-    elif args.vllm_result_dir:
+    elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
-        wrapper.find_kernel_rel(args.vllm_repo_dir, kernel_map_path)
-        generate_vllm_inputs(args.vllm_result_dir, args.vllm_compile_path, kernel_map_path, False, True, True)
-        generate_vllm_input_load(args.vllm_result_dir, args.vllm_compile_path, False)
-    elif args.vllm_hf_dir:
-        generate_all_hf(args.vllm_hf_compile_path, args.vllm_hf_dir)
+        wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
+        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False, True, True)
+        generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False)
+    elif args.model_id:
+        kernel_map_path = os.path.join(current_dir, "kernel_map", f"kernel_map_{args.model_id}.json")
+        wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
+        generate_one_hf(args.model_id, args.compiled_kernel_dir, kernel_map_path, args.profile_out_dir, True, True)
