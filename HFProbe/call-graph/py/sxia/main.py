@@ -1,7 +1,7 @@
 import logging
 import argparse
 import os
-from time import time
+import time
 from sxia.hf import vllm_test, indirect_fill, transformers_test, vllm_test_one
 from sxia.op import collect_ops
 from sxia.utils.vllm import _get_vllm_dir
@@ -24,6 +24,29 @@ def _collect_dirs_from_args(args):
 
 def _handle_flatten(dir: str):
     pass
+
+
+def _iter_callgraph_files(callgraph_dir: str):
+    for root, _, files in os.walk(callgraph_dir):
+        for file in sorted(files):
+            if file.endswith(".json"):
+                yield os.path.join(root, file)
+
+
+def _run_indirect_fill(vllm_dir: str, callgraph_dir: str):
+    filled = set()
+    while True:
+        target_files = [
+            target_file
+            for target_file in _iter_callgraph_files(callgraph_dir)
+            if target_file not in filled
+        ]
+        if not target_files:
+            return
+
+        for target_file in target_files:
+            filled.add(target_file)
+            indirect_fill(vllm_dir=vllm_dir, target_file=target_file, out_dir=callgraph_dir)
 
 
 def _handle_scan_args(args):
@@ -132,6 +155,7 @@ if __name__ == "__main__":
             callgraph_dir = os.path.join(root_dir, "cgout")
             vllm_dir = args.vllm_dir if args.vllm_dir else _get_vllm_dir()
             vllm_test_one(vllm_dir, args.vllm_model_arch, callgraph_dir)
+            _run_indirect_fill(vllm_dir, callgraph_dir)
             collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
             end_time = time.time()
 

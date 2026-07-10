@@ -1,9 +1,167 @@
 import argparse
 import os, json
+from huggingface_hub import HfApi, hf_hub_download
+import requests
 
 vllm_ignored = {"maxV", "minV", "symRanges"}
 
 current_dir = os.path.dirname(__file__)
+gpu_memory_utilization = 1
+gpu_memory = 288
+
+def model_info(model_id):
+    if model_id == "mosaicml/mpt-7b":
+        model_id = "k0t1k/mosaicml-mpt-7b-instruct-lora"
+    if model_id == "databricks/dbrx-instruct":
+        model_id = "alpindale/dbrx-instruct"
+        
+    api = HfApi()
+    try:
+        info = api.model_info(model_id, files_metadata=True)
+    except:
+        print(f"Failed to get model info for {model_id}")
+        return None, None, None, None
+
+    weights_size = 0
+    for f in info.siblings:
+        if f.rfilename.endswith((".bin", ".safetensors", ".pt")):
+            if f.size is None:
+                url = f"https://huggingface.co/{model_id}/resolve/main/{f.rfilename}"
+                r = requests.head(url, allow_redirects=True)
+                size = int(r.headers.get("Content-Length", 0))
+                # print(model_id, f.rfilename, size)
+                weights_size += size
+            else:
+                weights_size += f.size
+
+    path = hf_hub_download(
+        repo_id=model_id,
+        filename="config.json"
+    )
+
+    with open(path) as f:
+        config = json.load(f)
+    
+    hidden_size, intermediate_size, num_layers = None, None, None
+    if "hidden_size" in config:
+        hidden_size = config["hidden_size"]
+    elif "text_config" in config and "hidden_size" in config["text_config"]:
+        hidden_size = config["text_config"]["hidden_size"]
+    elif "llm_config" in config and "hidden_size" in config["llm_config"]:
+        hidden_size = config["llm_config"]["hidden_size"]
+    elif "vision_config" in config and "hidden_size" in config["vision_config"]:
+        hidden_size = config["vision_config"]["hidden_size"]
+    elif "n_embed" in config:
+        hidden_size = config["n_embed"]
+    elif "n_embd" in config:
+        hidden_size = config["n_embd"]
+    elif "d_model" in config:
+        hidden_size = config["d_model"]
+        
+    if "intermediate_size" in config:
+        intermediate_size = config["intermediate_size"]
+    elif "text_config" in config and "intermediate_size" in config["text_config"]:
+        intermediate_size = config["text_config"]["intermediate_size"]
+    elif "llm_config" in config and "intermediate_size" in config["llm_config"]:
+        intermediate_size = config["llm_config"]["intermediate_size"]
+    elif "vision_config" in config and "intermediate_size" in config["vision_config"]:
+        intermediate_size = config["vision_config"]["intermediate_size"]
+    elif "ffn_hidden_size" in config:
+        intermediate_size = config["ffn_hidden_size"]
+    
+    if "num_hidden_layers" in config:
+        num_layers = config["num_hidden_layers"]
+    elif "text_config" in config and "num_hidden_layers" in config["text_config"]:
+        num_layers = config["text_config"]["num_hidden_layers"]
+    elif "llm_config" in config and "num_hidden_layers" in config["llm_config"]:
+        num_layers = config["llm_config"]["num_hidden_layers"]
+    elif "vision_config" in config and "num_hidden_layers" in config["vision_config"]:
+        num_layers = config["vision_config"]["num_hidden_layers"]
+    elif "n_layer" in config:
+        num_layers = config["n_layer"]
+    elif "n_layers" in config:
+        num_layers = config["n_layers"]
+    elif "num_layers" in config:    
+        num_layers = config["num_layers"]
+
+    return weights_size, hidden_size, intermediate_size, num_layers
+
+possible_len_keys = [
+    # OPT
+    "max_position_embeddings",
+    # GPT-2
+    "n_positions",
+    # MPT
+    "max_seq_len",
+    # ChatGLM2
+    "seq_length",
+    # Command-R
+    "model_max_length",
+    # Whisper
+    "max_target_positions",
+    # Others
+    "max_sequence_length",
+    "max_seq_length",
+    "seq_len",
+]
+
+def get_max_model_len(model_id):
+    try:
+        path = hf_hub_download(
+            repo_id=model_id,
+            filename="config.json"
+        )
+    except:
+        return None
+
+    with open(path) as f:
+        model_config = json.load(f)
+        
+    max_seq_len = None
+    for key in possible_len_keys:
+        if key in model_config:
+            if not max_seq_len:
+                max_seq_len = model_config[key]
+            elif model_config[key] is not None:
+                max_seq_len = min(max_seq_len, model_config[key])
+        elif "text_config" in model_config and key in model_config["text_config"]:
+            if not max_seq_len:
+                max_seq_len = model_config["text_config"][key]
+            elif model_config["text_config"][key] is not None:
+                max_seq_len = min(max_seq_len, model_config["text_config"][key])
+        elif "vision_config" in model_config and key in model_config["vision_config"]:
+            if not max_seq_len:
+                max_seq_len = model_config["vision_config"][key]
+            elif model_config["vision_config"][key] is not None:
+                max_seq_len = min(max_seq_len, model_config["vision_config"][key])
+        elif "llm_config" in model_config and key in model_config["llm_config"]:
+            if not max_seq_len:
+                max_seq_len = model_config["llm_config"][key]
+            elif model_config["llm_config"][key] is not None:
+                max_seq_len = min(max_seq_len, model_config["llm_config"][key])
+    return max_seq_len
+
+def get_max_token_vllm(model_id):
+    weights_size, hidden_size, intermediate_size, num_layers = model_info(model_id)
+    if weights_size is None or hidden_size is None:
+        return None
+        
+    if intermediate_size is None:
+        intermediate_size = hidden_size * 2
+
+    token_limit = int(((gpu_memory * gpu_memory_utilization * 1024 * 1024 * 1024/1.25) - weights_size) / (2 * num_layers * hidden_size * 2))
+    return token_limit
+
+def get_max_token_hf(model_id):
+    weights_size, hidden_size, intermediate_size, num_layers = model_info(model_id)
+    if weights_size is None or hidden_size is None:
+        return None
+        
+    if intermediate_size is None:
+        intermediate_size = hidden_size * 2
+
+    token_limit = int(((gpu_memory * gpu_memory_utilization * 1024 * 1024 * 1024/1.45) - weights_size) / (2 * num_layers * hidden_size * 2))
+    return token_limit
 
 def remove_ignored(obj, ignored=None):
     if ignored is None:
@@ -114,7 +272,7 @@ def _append_or_merge_vllm_input(items, item, ignore_max):
     items.append(item)
     return True
 
-def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, max_seq_len=None):
+def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, max_seq_len=None, max_token_num=None):
     if not os.path.exists(filepath):
         return
 
@@ -142,7 +300,9 @@ def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, 
                 "args": args,
             }
             if max_seq_len is not None:
-                item["max_seq_len"] = max_seq_len
+                item["seq_len"] = max_seq_len
+            if max_token_num is not None:
+                item["num_token"] = max_token_num
             _append_or_merge_vllm_input(res[cuda_func], item, ignore_max)
 
 def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
@@ -178,14 +338,17 @@ def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
         }
         _append_or_merge_vllm_input(res[cuda_func], tmp, ignore_max)
 
-def generate_vllm_inputs(result_dir=None, compile_path=None, ignore_max=True, has_seq_con=False):
+def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=None, ignore_max=True, has_seq_con=False, has_token_con=False):
     if compile_path is None:
         compile_path = os.path.join(os.path.dirname(current_dir), "compile", "vllm_0_9_0")
     
     if result_dir is None:
         result_dir = os.path.join(current_dir, "results", "vllm")
 
-    with open(os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")) as rf:
+    if kernel_map_path is None:
+        kernel_map_path = os.path.join(current_dir, "evaluation", "section-6-1-bug-detection", "HFProbe_results", "kernel_map", "kernel_map_vllm.json")
+
+    with open(kernel_map_path) as rf:
         kernel_map = json.load(rf)
 
     input_dir = os.path.join(result_dir, "out")
@@ -203,8 +366,12 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, ignore_max=True, ha
                     sf_data = json.load(sf)
                     if "seq_len" in sf_data:
                         max_seq_len = sf_data["seq_len"]
+            max_token_num = None
+            if has_token_con:
+                model_id = name[:-5].replace("_", "/", 1)
+                max_token_num = get_max_token_vllm(model_id)
 
-            _read_vllm_output_file(path, kernel_map, compile_path, res, ignore_max, max_seq_len)
+            _read_vllm_output_file(path, kernel_map, compile_path, res, ignore_max, max_seq_len, max_token_num)
             continue
         
         model_dir = path
@@ -214,6 +381,11 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, ignore_max=True, ha
                 sf_data = json.load(sf)
                 if "seq_len" in sf_data:
                     max_seq_len = sf_data["seq_len"]
+        
+        max_token_num = None
+        if has_token_con:
+            model_id = model_dir.replace("_", "/", 1)
+            max_token_num = get_max_token_vllm(model_id)
 
         for op_file in os.listdir(model_dir):
             if "seq_con" in op_file:
@@ -226,7 +398,8 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, ignore_max=True, ha
                     compile_path,
                     res,
                     ignore_max,
-                    max_seq_len
+                    max_seq_len,
+                    max_token_num
                 )
 
     for cuda_func, items in res.items():
@@ -290,7 +463,7 @@ def generate_vllm_input_load(result_dir, compile_path, ignore_max=True):
     return res
 
 
-def _read_hf_output_file(filepath, kernel_map, compile_path, res):
+def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=None, max_token_num=None):
     if not os.path.exists(filepath):
         return
 
@@ -325,6 +498,10 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res):
                     "input_file_path": input_file_path,
                     "args": call["args"],
                 }
+                if max_seq_len is not None:
+                    item["seq_len"] = max_seq_len
+                if max_token_num is not None:
+                    item["num_token"] = max_token_num
                 if item not in res[cuda_func]:
                     res[cuda_func].append(item)
     else:
@@ -357,7 +534,7 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res):
                 if item not in res[cuda_func]:
                     res[cuda_func].append(item)
 
-def generate_one_hf(model_id, compile_path, result_dir=None):
+def generate_one_hf(model_id, compile_path, result_dir=None, has_seq_con=False, has_token_con=False):
     if compile_path is None:
         compile_path = os.path.join(os.path.dirname(current_dir), "compile", "huggingface", model_id)
 
@@ -368,9 +545,17 @@ def generate_one_hf(model_id, compile_path, result_dir=None):
     with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
         kernel_map = json.load(rf)
     
+    max_seq_len = None
+    if has_seq_con:
+        max_seq_len = get_max_model_len(model_id.replace("_", "/", 1))
+
+    max_token_num = None
+    if has_token_con:
+        max_token_num = get_max_token_hf(model_id.replace("_", "/", 1))
+    
     res = {}
     for file in os.listdir(f"{result_dir}/out/"+model_id):
-        _read_hf_output_file(os.path.join(result_dir, "out", model_id, file), kernel_map, compile_path, res)
+        _read_hf_output_file(os.path.join(result_dir, "out", model_id, file), kernel_map, compile_path, res, max_seq_len, max_token_num)
     
     for func in res:    
         out_filepath = result_dir+"/input/"+func+".json"
@@ -389,7 +574,7 @@ def generate_one_hf(model_id, compile_path, result_dir=None):
         with open(out_filepath, "w") as wf:
             json.dump(write_data, wf, indent=4)
 
-def generate_all_hf(compile_path, result_dir=None):
+def generate_all_hf(compile_path, result_dir=None, has_seq_con=False, has_token_con=False):
     if compile_path is None:
         compile_path = os.path.join(os.path.dirname(current_dir), "compile", "huggingface")
 
@@ -403,12 +588,27 @@ def generate_all_hf(compile_path, result_dir=None):
             model_id = file[:-5]
             with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
                 kernel_map = json.load(rf)
-            _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res)
+            
+            max_seq_len = None
+            if has_seq_con:
+                max_seq_len = get_max_model_len(model_id.replace("_", "/", 1))
+
+            max_token_num = None
+            if has_token_con:
+                max_token_num = get_max_token_hf(model_id.replace("_", "/", 1))
+            _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
         else:
             model_id = file
             with open(f"{current_dir}/kernel_map/kernel_map_{model_id}.json") as rf:
                 kernel_map = json.load(rf)
-            _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res)
+
+            max_seq_len = None
+            if has_seq_con:
+                max_seq_len = get_max_model_len(model_id.replace("_", "/", 1))
+            max_token_num = None
+            if has_token_con:
+                max_token_num = get_max_token_hf(model_id.replace("_", "/", 1))
+            _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
 
 def generate_research_paper_input():
     compile_path = os.path.join(os.path.dirname(current_dir), "compile", "papers")
@@ -434,6 +634,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--vllm-compile-path", type=str, required=False, help="directory containing vLLM compiled cuda files"
     )
+    parser.add_argument(
+        "--kernel-map-path", type=str, required=False, help="path to the kernel map file"
+    )
 
     parser.add_argument(
         "--vllm-hf-dir", type=str, required=False, help="HuggingFace result directory"
@@ -450,10 +653,12 @@ if __name__ == "__main__":
     if args.research_paper:
         generate_research_paper_input()
     elif args.vllm_benchmark:
-        generate_vllm_inputs(None, None, True, False)
+        generate_vllm_inputs(None, None, args.kernel_map_path, True, False)
+        generate_vllm_input_load(None, None, True)
     elif args.hf_benchmark:
         generate_all_hf(None, None)
     elif args.vllm_result_dir:
-        generate_vllm_inputs(args.vllm_result_dir, args.vllm_compile_path, False, True)
+        generate_vllm_inputs(args.vllm_result_dir, args.vllm_compile_path, args.kernel_map_path, False, True, True)
+        generate_vllm_input_load(args.vllm_result_dir, args.vllm_compile_path, False)
     elif args.vllm_hf_dir:
         generate_all_hf(args.vllm_hf_compile_path, args.vllm_hf_dir)

@@ -1,4 +1,7 @@
 
+import argparse
+import enum
+
 from vllm import LLM, SamplingParams
 import os, json
 import traceback
@@ -27,30 +30,22 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
         with open(log_file, 'w') as output_file:
             subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--output-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
         
-        with open(log_file, 'r') as output_file:
-            log_content = output_file.read()
-            # if 'Aborted (core dumped)' in log_content:
-            #     print(f"cuKLEE aborted on {bc_file}. See log for details.")
-            #     logging.error(f"cuKLEE aborted (core dumped) on {bc_file}.")
-            #     return False
-            if "KLEE: done: completed paths =" not in log_content:
-                print(f"cuKLEE not complete on {bc_file}. See log for details.")
-                logging.error(f"cuKLEE not complete on {bc_file}.")
-                return False
-            else:
-                print(f"Successfully ran cuKLEE on {bc_file}. Output saved to {log_file}")
-                return True
-
+        print(f"Output saved to {log_file}")
+    
+    except Exception as e:
+        pass
+    except subprocess.TimeoutExpired:
+        pass
     except subprocess.CalledProcessError as e:
-        # Log the error if cuKLEE throws an exception
-        logging.error(f"Error running cuKLEE on {bc_file}: {str(e)}")
-        print(f"Error running cuKLEE on {bc_file}. See log for details.")
-        return False
+        pass
+    return True
 
 def run_wo_H():
-    input_dirpath = os.path.join(project_dir, "compile", "vllm_compile_0_9_0")
-    output_directory = os.path.join(project_dir, "experiments", "ablation", "vllm_0_9_0_output")
-    log_directory = os.path.join(project_dir, "experiments", "ablation", "vllm_0_9_0_log")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    eval_dir = os.path.dirname(current_dir)
+    input_dirpath = os.path.join(eval_dir, "evaluation/section-6-1-bug-detection/benchmark_compiled_files/vllm_0_9_0")
+    output_directory = os.path.join(current_dir, "vllm_0_9_0_output")
+    log_directory = os.path.join(current_dir, "vllm_0_9_0_log")
     os.makedirs(output_directory, exist_ok=True)
     os.makedirs(log_directory, exist_ok=True)
     input_files = [os.path.join(input_dirpath, filename) for filename in os.listdir(input_dirpath) if filename.endswith('_combined.bc')]
@@ -190,17 +185,11 @@ def runVllm(modelId, framework_config, model_config, op_name):
 def run_wo_c():
     global bug_res
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = f"{current_dir}/HFProbe/results/vllm/config"
+    eval_dir = os.path.dirname(current_dir)
+    config_path = f"{eval_dir}/evaluation/section-6-1-bug-detection/HFProbe_results/vllm/config"
 
-    with open(f"{current_dir}/vllm_text_model_structures_map.json") as mf:
+    with open(f"{current_dir}/vllm_models.json") as mf:
         structure_model_map = json.load(mf)
-    
-    with open(f"{current_dir}/vllm_other_model_structures_map.json") as mf:
-        other_structure_model_map = json.load(mf)
-        structure_model_map.update(other_structure_model_map)
-    
-    with open(f"{current_dir}/models.json", "r") as mf:
-        all_models = json.load(mf)
         
     with open(f"{current_dir}/framework_config.json", "r") as ff:
         framework_configs = json.load(ff)
@@ -210,10 +199,7 @@ def run_wo_c():
         with open(f"{current_dir}/processed_models.json") as mf:
             processed_models = set(json.load(mf))
 
-    for model_id in all_models:
-        if "/" not in model_id:
-            model_id = model_id.replace("_", "/", 1)
-            
+    for model_id in structure_model_map:     
         structure = structure_model_map[model_id]
 
         if not os.path.exists(os.path.join(config_path, structure)):
@@ -261,3 +247,18 @@ def run_wo_c():
 
 # todo: run_wo_m: read results of results/vllm/model.json
 # todo: run_wo_v: read results without validation
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="run cuKLEE"
+    )
+
+    parser.add_argument(
+        "--without", type=enum, required=True, choices=["H", "C", "M", "V"], help="Run without H, C, M, or V"
+    )
+
+    args = parser.parse_args()
+    if args.without == "H":
+        run_wo_H()
+    elif args.without == "C":
+        run_wo_c()

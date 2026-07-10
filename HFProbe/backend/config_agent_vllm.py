@@ -1,4 +1,6 @@
 
+import argparse
+
 from agents import Agent, Runner, function_tool, WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
@@ -113,6 +115,7 @@ possible_len_keys = [
 ]
 current_path_string = os.path.abspath(__file__)
 root_dir = os.path.dirname(os.path.dirname(current_path_string))
+project_dir = os.path.dirname(root_dir)
 
 structure_configs = []
 resCon = {}
@@ -338,32 +341,30 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
         return True, tmp_triggered_ops
     return False, tmp_triggered_ops
 
-def main_vllm():
+def main_vllm_benchmark(out_dir=None, use_llm=False, callgraph_path=None):
     global structure_configs
-    with open(root_dir + "/data/vllm_text_model_structures_map.json") as mf:
+    with open(f"{project_dir}/evaluation/section-6-1-bug-detection/vllm_models.json") as mf:
         structure_model_map = json.load(mf)
     
-    with open(root_dir + "/data/vllm_other_model_structures_map.json") as mf:
-        other_structure_model_map = json.load(mf)
-        structure_model_map.update(other_structure_model_map)
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
 
     for model_id in structure_model_map:
         structure = structure_model_map[model_id]         
         structure_configs = []
         structure = structure_model_map[model_id]
 
-        if os.path.exists(f"{root_dir}/results/vllm/config/{structure}/result.json"):
-            continue
-        if not os.path.exists(f"{root_dir}/data/vllm-configs-examples/{structure}.json"):
-            continue
-
-        opout_path = os.path.join(root_dir, "call-graph", "opout", structure+".json")
-        test_one(model_id, structure, opout_path)
+        if use_llm:
+            test_one(model_id, structure, os.path.join(callgraph_path, structure+".json"), out_dir)
+        else:
+            test_one_with_configs(model_id, structure, out_dir)
       
-def test_one(model_id, structure, opout_path=None, out_dir=None):
+def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
     global config_out_path
     global structure_configs
-    
+
+    if not data_dir:
+        data_dir = os.path.join(project_dir, "evaluation/section-6-1-bug-detection")
     if not out_dir:
         out_dir = os.path.join(root_dir, f"results/vllm")
     os.makedirs(out_dir, exist_ok=True)
@@ -377,7 +378,6 @@ def test_one(model_id, structure, opout_path=None, out_dir=None):
     try:
         run_vllm.handleVLLMModel(model_id, tmp_config, None, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data")
     except:
-        traceback.print_exc()
         return
     
     triggered_ops = findTriggeredOps(model_id, None, f"{out_dir}/out", f"{out_dir}/load")
@@ -393,7 +393,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None):
     with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
         framework_configs = json.load(ff) 
     
-    config_example_path = os.path.join(f"{root_dir}/data/vllm-configs-examples", structure+".json")
+    config_example_path = os.path.join(f"{data_dir}/vllm-configs-examples", structure+".json")
     if not os.path.exists(config_example_path):
         print(f"Config example for {structure} does not exist.")
         return
@@ -620,3 +620,136 @@ def test_one(model_id, structure, opout_path=None, out_dir=None):
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
+
+def test_one_without_mutate_config(model_id, out_dir=None):
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+    os.makedirs(out_dir, exist_ok=True)
+    
+    tmp_config = {"dtype": "float16"}
+
+    try:
+        run_vllm.handleVLLMModel(model_id, tmp_config, None, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data")
+    except:
+        return
+
+def test_one_with_configs(model_id, structure, out_dir=None):
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/vllm")
+    os.makedirs(out_dir, exist_ok=True)
+    final_res_path = f"{out_dir}/config/{structure}/result.json"
+    if os.path.exists(final_res_path):
+        return
+    
+    tmp_config = {"dtype": "float16"}
+
+    try:
+        run_vllm.handleVLLMModel(model_id, tmp_config, None, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data")
+    except:
+        return
+    
+    triggered_ops = findTriggeredOps(model_id, None, f"{out_dir}/out", f"{out_dir}/load")
+    if not triggered_ops:
+        return 
+    
+    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
+        framework_configs = json.load(ff) 
+    
+    out_config_dir = f"{out_dir}/config/{structure}"
+    if not os.path.exists(out_config_dir):
+        return
+    
+    initial_trigger = triggered_ops.copy()
+
+    for op_name in framework_configs:
+        if op_name in triggered_ops:
+            print(f"Op name: {op_name} already handled.")
+            continue
+
+        if "envs" not in framework_configs[op_name] and "vllmconfig" not in framework_configs[op_name]:
+            continue
+        
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{op_name}.json"
+        if os.path.exists(execute_res_path):
+            print(f"Op name: {op_name} already handled.")
+            continue
+ 
+        model_config_out_path = os.path.join(out_config_dir, f"{op_name}.json")
+        fcon = framework_configs[op_name]  
+        triggered, tmp_triggered_ops = run_vllm_config(fcon, None, model_id, op_name, out_dir)
+
+        if triggered:
+            print(f"Operator {op_name} is successfully triggered.")
+
+        if tmp_triggered_ops:
+            triggered_ops.update(tmp_triggered_ops)
+    
+    for config_file in os.listdir(out_config_dir):
+        if not config_file.endswith(".json"):
+            continue
+        if "no_trigger" in config_file or "cost" in config_file or "result" in config_file:
+            continue
+
+        op_name = config_file[:-5]        
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{config_file}"
+        if os.path.exists(execute_res_path):
+            print(f"{config_file} already executed.")
+            continue
+        
+        model_config_out_path = os.path.join(out_config_dir, config_file)
+        with open(model_config_out_path) as of:
+            model_config = json.load(of)
+            
+        fcon = None
+        if op_name in framework_configs:
+            fcon = framework_configs[op_name]
+
+        triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name, out_dir)
+        if triggered:
+            print(f"Operator {op_name} is successfully triggered.")
+
+        if tmp_triggered_ops:
+            triggered_ops.update(tmp_triggered_ops)
+
+    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
+    with open(final_res_path, "w") as resf:
+        json.dump(final_result, resf)
+
+    
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="run profiling backend on vLLM"
+    )
+
+    parser.add_argument(
+        "--model-id", type=str, required=False, help="Model ID"
+    )
+    parser.add_argument(
+        "--model-architecture", type=str, required=False, help="Model architecture"
+    )
+    parser.add_argument(
+        "--data-dir", type=str, required=False, help="Data directory containing model config examples"
+    )
+    parser.add_argument(
+        "--out-dir", type=str, required=False, help="Output directory"
+    )
+    parser.add_argument(
+        "--call-graph-dir", type=str, required=False, help="Directory containing call graphs"
+    )
+    parser.add_argument(
+        "--mutate", type=bool, required=False, default=True, help="Whether to mutate model configs"
+    )
+    parser.add_argument(
+        "--use-llm", type=bool, required=False, default=True, help="Whether to use GPT to mutate model configs or load exisiting configs"
+    )
+    args = parser.parse_args()
+
+    if args.model_id:
+        if args.mutate and args.use_llm:
+            test_one(args.model_id, args.model_architecture, args.call_graph_dir, args.out_dir, args.data_dir)
+        elif args.mutate and not args.use_llm:
+            test_one_with_configs(args.model_id, args.model_architecture, args.out_dir)
+        else:
+            test_one_without_mutate_config(args.model_id, args.out_dir)
+    else:
+        main_vllm_benchmark(args.out_dir, use_llm=args.use_llm, callgraph_path=args.call_graph_dir)
