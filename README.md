@@ -16,15 +16,17 @@ This document provides instructions for reproducing the experimental results rep
 - **Python:** 3.10
 
 ## 2. Installation
-### a. option 1
+
+### Option-1: Native installation
 ```bash
 ./setup.sh
 ```
-### b. option 2
+### Option-2: Containerized installation 
 ```bash
 docker build -t m2k-env .
 docker run -it m2k-env
 ```
+
 
 ## 3. Tool Demonstration 
 
