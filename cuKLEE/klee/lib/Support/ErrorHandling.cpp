@@ -94,7 +94,7 @@ static void klee_vfmessage(FILE *fp, const char *pfx, const char *msg,
                        /*bg=*/false);
   }
 
-  fdos << "KLEE: ";
+  fdos << "cuKLEE: ";
   if (pfx)
     fdos << pfx << ": ";
 
