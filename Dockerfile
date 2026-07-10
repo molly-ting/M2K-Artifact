@@ -38,21 +38,24 @@ RUN apt-get install -y clang-13 llvm-13 llvm-13-dev llvm-13-tools
 ENV LLVM_DIR=/usr/lib/llvm-13
 ENV PATH="$LLVM_DIR/bin:$PATH"
 
-RUN git clone https://github.com/molly-ting/llvm-project.git
+RUN git clone --progress --depth 1 --branch signed \
+	https://github.com/molly-ting/llvm-project.git \
+	/home/llvm-project
 WORKDIR /home/llvm-project
-RUN git checkout signed
 RUN mkdir build
 WORKDIR /home/llvm-project/build
-RUN cmake ..
+RUN cmake ../llvm
 RUN make -j8
 ENV SIGNED_CLANG_PATH=/home/llvm-project/build/bin
 
 WORKDIR /home
-RUN [ ! -d /home/z3 ] && git clone https://github.com/Z3Prover/z3.git
+RUN [ ! -d /home/z3 ] && git clone --progress --depth 1 --branch z3-4.12.2 \
+	https://github.com/Z3Prover/z3.git \
+	/home/z3
 WORKDIR /home/z3
 RUN python3 scripts/mk_make.py
 WORKDIR /home/z3/build
-RUN make
+RUN make -j"$(nproc)"
 RUN make install
 
 RUN apt install -y wget gnupg2 curl lsb-release
