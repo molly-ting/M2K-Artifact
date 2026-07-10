@@ -15,6 +15,7 @@ os.environ["VLLM_USE_TRITON_AWQ"] = "0"
 os.environ["VLLM_ENABLE_MOE_ALIGN_BLOCK_SIZE_TRITON"] = "0"
 os.environ["XDG_CONFIG_HOME"] = os.path.join(root_dir, ".config")
 os.environ["GIT_LFS_SKIP_SMUDGE"] = "1"
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 import torch
 from torch import Tensor
