@@ -57,8 +57,36 @@ Output:
 XXX
 ```
 
+#### Step 2: Running the profiling backend
 
-**Expected output:** XXX
+**Command:**
+
+```bash
+export HF_TOKEN=<Hugging Face Token>
+cd ..
+mkdir -p results/vllm/config
+cp -r ../evaluation/section-6-1-bug-detection/HFProbe_results/vllm/config/Qwen2ForCausalLM results/vllm/config/
+python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --call-graph-dir=call-graph/opout --mutate=true --use-llm=false
+```
+
+`config_agent_vllm.py` accepts the following options:
+
+- `--model-id=<modelID>` — the target model ID.
+- `--model-architecture=<arch>` — the target model architecture.
+- `--out-dir=<dir>` — the output directory (see the layout below).
+- `--call-graph-dir=<dir>` — the output directory produced by the previous step.
+- `--mutate=<bool>` — whether to mutate the configs.
+- `--use-llm=<bool>` — whether to use an LLM (GPT) to mutate the configs, or reuse existing ones.
+
+**Output:**
+
+```bash
+XXX
+```
+
+
+
+
 
 ### b. run model Qwen/Qwen2-0.5B-Instruct
 **Step 1: compute call graph** 
