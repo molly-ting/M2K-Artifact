@@ -39,27 +39,27 @@ ENV LLVM_DIR=/usr/lib/llvm-13
 ENV PATH="$LLVM_DIR/bin:$PATH"
 
 RUN git clone git@github.com:molly-ting/llvm-project.git
-WORKDIR '/home/llvm-project'
+WORKDIR /home/llvm-project
 RUN git checkout signed
 RUN mkdir build
-WORKDIR '/home/llvm-project/build'
+WORKDIR /home/llvm-project/build
 RUN cmake ..
 RUN make -j8
 ENV SIGNED_CLANG_PATH=/home/llvm-project/build/bin
 
-WORKDIR '/home'
+WORKDIR /home
 RUN [ ! -d /home/z3 ] && git clone https://github.com/Z3Prover/z3.git
-WORKDIR '/home/z3'
+WORKDIR /home/z3
 RUN python3 scripts/mk_make.py
-WORKDIR '/home/z3/build'
+WORKDIR /home/z3/build
 RUN make
 RUN make install
 
 RUN apt install -y wget gnupg2 curl lsb-release
 RUN apt install -y nano
 
-RUN git clone git@github.com:molly-ting/M2K-Artifact.git
-WORKDIR '/home/M2K-Artifact'
+WORKDIR /home/M2K-Artifact
+COPY . /home/M2K-Artifact
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j8
 ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
