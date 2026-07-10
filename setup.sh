@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
 DEPS_DIR="${PROJECT_DIR}/.deps"
 VENV_DIR="${PROJECT_DIR}/.venv"
 ENV_FILE="${PROJECT_DIR}/scripts/env.sh"
@@ -221,7 +221,7 @@ write_env_file() {
   log "Writing ${ENV_FILE}"
   cat >"${ENV_FILE}" <<EOF
 #!/usr/bin/env bash
-# Source this file after running scripts/setup.sh:
+# Source this file after running ./setup.sh:
 #   source scripts/env.sh
 
 export LLVM_DIR=/usr/lib/llvm-13
