@@ -38,7 +38,7 @@ RUN apt-get install -y clang-13 llvm-13 llvm-13-dev llvm-13-tools
 ENV LLVM_DIR=/usr/lib/llvm-13
 ENV PATH="$LLVM_DIR/bin:$PATH"
 
-RUN git clone git@github.com:molly-ting/llvm-project.git
+RUN git clone https://github.com/molly-ting/llvm-project.git
 WORKDIR /home/llvm-project
 RUN git checkout signed
 RUN mkdir build
