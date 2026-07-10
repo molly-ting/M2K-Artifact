@@ -1523,11 +1523,11 @@ int main(int argc, char **argv, char **envp) {
             promptCons.insert({"seq_len", limit});
           }
         }
-        if (call.contains("num_token")) {
-          const auto& value = call["num_token"];
+        if (call.contains("num_tokens")) {
+          const auto& value = call["num_tokens"];
           if (value.is_number()) {
             unsigned limit = value.get<unsigned>();
-            promptCons.insert({"num_token", limit});
+            promptCons.insert({"num_tokens", limit});
           }
         }
         interpreter->setPromptCons(promptCons);

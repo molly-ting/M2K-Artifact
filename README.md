@@ -74,7 +74,7 @@ export HF_TOKEN=<Hugging Face Token>
 cd ..
 python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm
 # run with specific model config
-# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm --config-file=../examples/dynamic_scaled_fp8_quant_config.json
+# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm --config-file=../example/dynamic_scaled_fp8_quant_config.json
 ```
 
 `config_agent_vllm.py` accepts the following options:
@@ -149,7 +149,7 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 
 ```bash
 export OPENAI_API_KEY=<Openai API Key>
-python3 backend/config_agent_vllm.py --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=../examples/Qwen2ForCausalLM_model_config.json --kernel-info-file=../examples/Qwen2ForCausalLM_kernel_info.json
+python3 backend/config_agent_vllm.py --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=../example/Qwen2ForCausalLM_model_config.json --kernel-info-file=../example/Qwen2ForCausalLM_kernel_info.json
 # to mutate configs for all kernels and run profiling backend in one batch
 # python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-info-dir=call-graph/opout --mutate 
 ```
@@ -200,7 +200,7 @@ results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 # running profiling backend will trigger multiple kernels. we have to compile all cuda files in vLLM.
 python3 ../cuKLEE/compile_cuda.py --input-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --out-dir=../cuKLEE/compiled/vllm
 # some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernels-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
-python3 input_generate.py --vllm --profile-out-dir=results/vllm --compiled-kernels-dir=../cuKLEE/compiled/vllm --cuda_source_dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
+python3 input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=results/vllm --compiled-kernels-dir=../cuKLEE/compiled/vllm --cuda_source_dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
 
 `compile_cuda.py` accepts the following options:
@@ -213,6 +213,7 @@ python3 input_generate.py --vllm --profile-out-dir=results/vllm --compiled-kerne
 - `--compiled-kernels-dir=<dir>` — directory containing the compiled CUDA files.
 - `--cuda-source-dir=<dir>` — directory containing the CUDA and C++ files (or the repository directory).
 - `--vllm` — mark for vllm profiling.
+- `--add-memory-max-num-tokens` - add num_tokens limit of 288GB GPU memory.
 
 **Output:**
 results/vllm/input/dynamic_scaled_fp8_quant.json
@@ -221,21 +222,15 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
     {
         "py_function": "dynamic_scaled_fp8_quant",
         "cuda_function": "dynamic_scaled_fp8_quant",
-        "input_file_path": "examples/fp8_common_combined.bc",
+        "input_file_path": "example/fp8_common_combined.bc",
         "args": [
             {
                 "shape": [
-                    "u0",
+                    "1*b*s",
                     896
                 ],
                 "dtype": "torch.float8_e4m3fn",
-                "type": "torch.Tensor",
-                "symRanges": {
-                    "u0": [
-                        17,
-                        161
-                    ]
-                }
+                "type": "torch.Tensor"
             },
             {
                 "shape": [
@@ -254,7 +249,7 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
             }
         ],
         "seq_len": 32768,
-        "num_token": 2864606
+        "num_tokens": 2864606
     }
 ]
 ```
@@ -265,7 +260,7 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
 **Step 4: run cuKLEE** 
 ```bash
 cd ..
-cuKLEE --timeout=3600 --output-dir=examples/out examples/dynamic_scaled_fp8_quant.json
+cuKLEE --timeout=3600 --out-dir=example/out example/dynamic_scaled_fp8_quant.json
 # to run multiple files in a batch
 # python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --out-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
 ```
@@ -280,7 +275,7 @@ console output:
 ```
 
 ```
-examples/out:
+example/out:
 ```text
 ```
 xxx-io.txt:
@@ -289,9 +284,33 @@ xxx-io.txt:
 
 **Step 5: validate reported bugs** 
 ```bash
+# if you haven't run previous HFProbe steps, copy example/dynamic_scaled_fp8_quant.json to HFProbee/results/vllm/input 
+python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/results/vllm --cuklee-out-dir=example/out --kernel-name=dynamic_scaled_fp8_quant --index=0 --model-id=Qwen/Qwen2-0.5B-Instruct --config-file=example/dynamic_scaled_fp8_quant_config.json
 ```
 
-**Expected output:** XXX
+`run_vllm_validation.py` accepts the following options:
+- `--profile-out-dir=<dir>` — out-dir of step 2.
+- `--cuklee-out-dir=<dir>` — out-dir of the previous step.
+- `--kernel-name=<name>` — the target kernel name.
+- `--index=<int>` — the index in the input json file in the previous step (default value is 0).
+- `--model-id=<modelID>` — the target model ID.
+- `--config-file=<filepath>` — the model config file generated in step 3.
+
+**Expected output:** 
+console output
+```text
+```
+validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_config_0__validate_results.json
+```json
+{
+    "": {
+        "status": "success", 
+        "batch_size": , 
+        "seq_len": , 
+        "config": "example/dynamic_scaled_fp8_quant_config.json"
+    }
+}
+```
 
 ## 4. Kernel Memory Bugs in Inference Systems (Section 2.3)
 https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=0#gid=0

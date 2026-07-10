@@ -158,7 +158,7 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--output-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
         
         print(f"Output saved to {log_file}")
     

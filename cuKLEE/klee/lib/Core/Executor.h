@@ -225,7 +225,7 @@ private:
   std::map<unsigned, Interpreter::ParameterValue> argumentValues;
   std::map<std::string, std::vector<std::tuple<int, int, int>>> parCons; // equal parameters
   std::map<std::string, std::pair<int, int>> symRangeCons; // value ranges of expr
-  std::map<std::string, unsigned> promptCons; // num_token limit
+  std::map<std::string, unsigned> promptCons; // num_tokens limit
   bool isLoopCheck = false;
   std::map<llvm::BranchInst*, llvm::Instruction*> trampolineBrs;
 

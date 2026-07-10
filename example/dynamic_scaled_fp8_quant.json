@@ -2,21 +2,15 @@
     {
         "py_function": "dynamic_scaled_fp8_quant",
         "cuda_function": "dynamic_scaled_fp8_quant",
-        "input_file_path": "examples/fp8_common_combined.bc",
+        "input_file_path": "example/fp8_common_combined.bc",
         "args": [
             {
                 "shape": [
-                    "u0",
+                    "1*b*s",
                     896
                 ],
                 "dtype": "torch.float8_e4m3fn",
-                "type": "torch.Tensor",
-                "symRanges": {
-                    "u0": [
-                        17,
-                        161
-                    ]
-                }
+                "type": "torch.Tensor"
             },
             {
                 "shape": [
@@ -35,6 +29,6 @@
             }
         ],
         "seq_len": 32768,
-        "num_token": 2864606
+        "num_tokens": 2864606
     }
 ]

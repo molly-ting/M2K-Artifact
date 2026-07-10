@@ -38,7 +38,7 @@ cl::list<std::string>
             cl::desc("<program arguments>..."));
 
 cl::opt<std::string>
-  OutputDir("output-dir",
+  OutputDir("out-dir",
             cl::desc("Directory in which to write results"),
             cl::init(""));
 

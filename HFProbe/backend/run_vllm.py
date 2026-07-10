@@ -234,19 +234,29 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
         tokens = tokenizer(single_prompt)["input_ids"]
         seq_len_real = len(tokens)
         if seq_len_real != seq_len:
-            if seq_len_real == seq_len + 1:
-                single_prompt = "word " * (seq_len-1)
-                single_prompt = single_prompt.strip() 
+            max_retry_times = 5
+            retry_count = 0
+            seq_len_tmp = seq_len
+            while seq_len_real > seq_len:
+                seq_len_tmp -= 1
+                single_prompt = "word" * seq_len_tmp
+                single_prompt = single_prompt.strip()
                 tokens = tokenizer(single_prompt)["input_ids"]
                 seq_len_real = len(tokens)
-                if seq_len_real != seq_len:
-                    print(f"Error: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}) even after adjustment.")
-                    return -2
-            else:
-                print(f"Error: seq_len_real ({seq_len_real}) does not match expected seq_len ({seq_len}).")
-                return -2
+                retry_count += 1
+                if retry_count >= max_retry_times:
+                    break
             
-        print("Running model ", modelId, "...", f"batch_size={batch_size}, seq_len={seq_len_real} ...")
+            retry_count = 0
+            while seq_len_real < seq_len:
+                seq_len_tmp += 1
+                single_prompt = "word" * seq_len_tmp
+                single_prompt = single_prompt.strip()
+                tokens = tokenizer(single_prompt)["input_ids"]
+                seq_len_real = len(tokens)
+                retry_count += 1
+                if retry_count >= max_retry_times:
+                    break
     
         with framework.enable_thin_kv():
             with framework.torch.inference_mode():

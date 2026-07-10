@@ -15467,8 +15467,8 @@ void Executor::runKernelFunction(Function *f, bool hasLaunchKernel) {
   } else {
     addConstraint(*state, UleExpr::create(seqLenExpr, ConstantExpr::create(2000000, seqLenExpr->getWidth())));
   }
-  if (promptCons.find("num_token") != promptCons.end()) {
-    addConstraint(*state, UleExpr::create(MulExpr::create(batchSizeExpr, seqLenExpr), ConstantExpr::create(promptCons["num_token"], seqLenExpr->getWidth())));
+  if (promptCons.find("num_tokens") != promptCons.end()) {
+    addConstraint(*state, UleExpr::create(MulExpr::create(batchSizeExpr, seqLenExpr), ConstantExpr::create(promptCons["num_tokens"], seqLenExpr->getWidth())));
   } else {
     addConstraint(*state, UleExpr::create(MulExpr::create(batchSizeExpr, seqLenExpr), ConstantExpr::create(9000000, seqLenExpr->getWidth())));
   }

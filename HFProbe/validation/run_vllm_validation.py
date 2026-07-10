@@ -1,6 +1,8 @@
+import argparse
 import os, json
 import backend.run_vllm as run
 import ast
+from ..input_generate import get_max_token_vllm, get_max_model_len
 
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -113,7 +115,7 @@ possible_len_keys = [
     "seq_len",
 ]
 
-def run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir, rerun=False):
+def run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir, rerun=False, run_benchmark_existent=False):
     out_path = f"{result_dir}/validation/{model_id.replace('/', '_')}/{op_name}-{lineno}-{index}.json"
     if os.path.exists(out_path) and not rerun:
         with open(out_path) as f:
@@ -157,8 +159,9 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, batch_siz
     if batch_size > 128:
         config["max_num_seqs"] = batch_size
     
-    if op_name == "advance_step_flashinfer":
-        config["block_size"] = 2048
+    if run_benchmark_existent:
+        if op_name == "advance_step_flashinfer":
+            config["block_size"] = 2048
     
     os.makedirs(f"{result_dir}/validation/", exist_ok=True)
     os.makedirs(f"{result_dir}/validation/{model_id.replace('/', '_')}", exist_ok=True)
@@ -174,6 +177,124 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, batch_siz
         os.environ = env_old
     
     return res
+
+import z3
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(current_dir)
+
+def solve_with_bounds(smt_file, num_tokens):        
+    with open(smt_file, "r") as f:
+        content = f.read()
+    content = content.replace("(check-sat)", "")  
+    content = content.replace("(get-model)", "")
+    content = content.replace("(reset)", "")
+    
+    constraints = z3.parse_smt2_string(content)
+
+    tactic = z3.Then("simplify", "purify-arith", "nlsat")
+    s = tactic.solver()
+    s.set(timeout=30000)
+    s.add(constraints)
+
+    # Declare variables
+    batch_size = z3.Int('batch_size')
+    seq_len = z3.Int('seq_len')
+
+    # Add new constraints
+    s.add(batch_size * seq_len <= num_tokens)
+    result = s.check()
+
+    if result == z3.sat:
+        model = s.model()
+        bs_val = model.evaluate(batch_size, model_completion=True)
+        sl_val = model.evaluate(seq_len, model_completion=True)
+        return bs_val.as_long(), sl_val.as_long()
+    elif result == z3.unknown:
+        return None, None
+    else:
+        return None, None
+    
+def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, result_dir):
+    klee_function_out_path = None
+    for dirname in os.listdir(klee_out_dir):
+        if len(op_name) + op_name in dirname:
+            klee_function_out_path = os.path.join(klee_out_dir, dirname)
+            break
+    
+    if not index:
+        index = 0
+    constraint_path = os.path.join(klee_function_out_path, f"klee-out-jindex-{index}-0")
+    max_num_tokens = get_max_token_vllm(model_id)
+    max_model_len = get_max_model_len(model_id)
+
+    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
+        framework_configs = json.load(ff)
+
+    fcon = None
+    if op_name in framework_configs:
+        fcon = framework_configs[op_name]
+    
+    model_config = None
+    with open(config_file) as cf:
+        model_config = json.load(cf)
+
+    res = {}
+    for lineno in os.listdir(constraint_path):
+        if not lineno.endswith(".txt"):
+            continue
+
+        smt_file_path = os.path.join(constraint_path, lineno)
+        batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens)
+        if batch_size is None or seq_len is None:
+            continue
+        
+        print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
+        params_data = run_vllm_config(fcon, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir)
+
+        if params_data and isinstance(params_data, int):
+            error_msg = "model config is invalid"
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            print(f"config_file: {config_file} is not valid for model {model_id}.")
+            continue
+        elif params_data is None:
+            error_msg = f"{op_name} is not triggered"
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} cannot trigger {op_name}.")
+            continue
+
+        i = int(index)
+        with open(f"{result_dir}/input/{op_name}.json") as f:
+            op_param_data = json.load(f)
+        target_params = op_param_data[i]["args"]
+        
+        match_found = False
+        for key in params_data:
+            for bs in params_data[key]:
+                if isinstance(bs, tuple):
+                    b, s = bs
+                else:
+                    b, s = ast.literal_eval(bs)
+                    
+                if not batch_size == int(b) or seq_len != int(s):
+                    continue
+                
+                for t in params_data[key][bs]:
+                    if compare_json_arrays(target_params, t, {"s": seq_len, "b": batch_size}):
+                        match_found = True
+                        break
+            if match_found:
+                break
+        
+        if match_found:
+            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+            print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} can trigger bug {lineno} for {op_name}.")
+        else:
+            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+            print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} can trigger {op_name}, but cannot trigger bug {lineno} due to different parameters.")
+
+    with open(f"{current_dir}/{model_id.replace('/', '_')}_{op_name}_{index}_validate_results.json", "w") as wf:
+        json.dump(res, wf, indent=2)
 
 def vllm_input_check(input_file, output_file, result_dir):
     with open(input_file) as rf:
@@ -310,5 +431,32 @@ def vllm_input_check(input_file, output_file, result_dir):
         json.dump(res, wf, indent=2)
 
 # vllm_input_check("./vllm-exp/input_check_TP.json", "./vllm-exp/input_check_results.json")
-vllm_input_check("./vllm-exp/input_check_FP.json", "./vllm-exp/input_check_FP_results.json")
+# vllm_input_check("./vllm-exp/input_check_FP.json", "./vllm-exp/input_check_FP_results.json")
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="generate input files for cuKLEE."
+    )
+
+    parser.add_argument(
+        "--profile-out-dir", type=str, required=False, help="out directory of profiling backend"
+    )
+    parser.add_argument(
+        "--cuklee-out-dir", type=str, required=False, help="out directory of cuKLEE"
+    )
+    parser.add_argument(
+        "--kernel-name", type=str, required=False, help="target kernel name"
+    )
+    parser.add_argument(
+        "--index", type=int, required=False, default=0, help="index in the input file"
+    )
+    parser.add_argument(
+        "--model-id", type=str, required=False, help="target model ID"
+    )
+    parser.add_argument(
+        "--config-file", type=str, required=False, help="target model config file"
+    )
+
+    args = parser.parse_args()
+    if args.kernel_name and args.model_id and args.config_file:
+        vllm_validate_one(args.cuklee_out_dir, args.kernel_name, args.index, args.model_id, args.config_file, args.profile_out_dir)

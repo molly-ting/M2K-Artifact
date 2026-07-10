@@ -370,13 +370,13 @@ if __name__ == "__main__":
         "--input-file", type=str, required=False, help="Input .cu file to compile"
     )
     parser.add_argument(
-        "--compile-paper", type=bool, required=False, help="Compile cuda files in research papers"
+        "--compile-paper", action=argparse.BooleanOptionalAction, default=False, required=False, help="Compile cuda files in research papers"
     )
     parser.add_argument(
-        "--compile-vllm", type=bool, required=False, help="Compile cuda files in vLLM"
+        "--compile-vllm", action=argparse.BooleanOptionalAction, default=False, required=False, help="Compile cuda files in vLLM"
     )
     parser.add_argument(
-        "--compile-hf", type=bool, required=False, help="Compile cuda files in Hugging Face models"
+        "--compile-hf", action=argparse.BooleanOptionalAction, default=False, required=False, help="Compile cuda files in Hugging Face models"
     )
 
     args = parser.parse_args()

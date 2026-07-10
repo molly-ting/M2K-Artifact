@@ -28,7 +28,7 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
         
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--output-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
         
         print(f"Output saved to {log_file}")
     

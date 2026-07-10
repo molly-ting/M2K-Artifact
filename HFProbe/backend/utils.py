@@ -609,29 +609,12 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
     with open(outPath, "w") as wf:
         json.dump(final_cons, wf, indent=4)
 
-def extractModels():
-    model_ids_path = os.path.join(root_dir, "data", "vllm_models.json")
-    if os.path.exists(model_ids_path):
-        with open(model_ids_path, "r") as rf:
-            model_ids = json.load(rf)
-            return model_ids
-    
-    file_path = Path(
-        os.getenv(
-            "VLLM_REGISTRY_PATH",
-            os.path.join(root_dir, "data", "vllm", "tests", "models", "registry.py"),
-        )
-    )
 
-    with file_path.open("r", encoding="utf-8") as f:
-        content = f.read()
+def test():
+    calls_map_path ="C:\\Users\\molly\\Workspace\\M2K-Artifact\\evaluation\\section-6-1-bug-detection\\intermediate_results\\vllm\\data\\Qwen_Qwen2-0.5B-Instruct\\dynamic_scaled_fp8_quant.json"
+    outPath = Path(root_dir) / "test.json"
+    with open(calls_map_path, "r") as rf:
+        calls_map = json.load(rf)
+    computeSymbolicArgsWithMap(calls_map, outPath)
 
-    # Match strings like _HfExamplesInfo("BAAI/AquilaChat-7B"
-    pattern = r'_HfExamplesInfo\(\s*["\']([^"\']+)["\']'
-
-    model_ids = re.findall(pattern, content)
-    
-    with open(model_ids_path, "w") as wf:
-        json.dump(model_ids, wf)
-
-    return model_ids
+test()

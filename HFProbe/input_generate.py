@@ -303,7 +303,7 @@ def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, 
             if max_seq_len is not None:
                 item["seq_len"] = max_seq_len
             if max_token_num is not None:
-                item["num_token"] = max_token_num
+                item["num_tokens"] = max_token_num
             _append_or_merge_vllm_input(res[cuda_func], item, ignore_max)
 
 def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
@@ -522,7 +522,7 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=No
                 if max_seq_len is not None:
                     item["seq_len"] = max_seq_len
                 if max_token_num is not None:
-                    item["num_token"] = max_token_num
+                    item["num_tokens"] = max_token_num
                 if item not in res[cuda_func]:
                     res[cuda_func].append(item)
     else:
@@ -650,13 +650,13 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--vllm-benchmark", type=bool, required=False, help="vLLM benchmark result directory"
+        "--vllm-benchmark", action=argparse.BooleanOptionalAction, default=False, required=False, help="vLLM benchmark result directory"
     )
     parser.add_argument(
-        "--hf-benchmark", type=bool, required=False, help="HuggingFace benchmark result directory"
+        "--hf-benchmark", action=argparse.BooleanOptionalAction, default=False, required=False, help="HuggingFace benchmark result directory"
     )
     parser.add_argument(
-        "--research-paper", type=bool, required=False, help="Generate input files for the research paper"
+        "--research-paper", action=argparse.BooleanOptionalAction, default=False, required=False, help="Generate input files for the research paper"
     )
     
     parser.add_argument(
@@ -673,7 +673,10 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--model-id", type=str, required=False, help="Model ID for HuggingFace output"
-    )    
+    )   
+    parser.add_argument(
+        "--add-memory-max-num-tokens", action=argparse.BooleanOptionalAction, default=True, help="add num_tokens limit of 288GB GPU memory"
+    ) 
 
     args = parser.parse_args()
     if args.research_paper:
@@ -688,9 +691,9 @@ if __name__ == "__main__":
     elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
-        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False, True, True)
+        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False, True, args.add_memory_max_num_tokens)
         generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False)
     elif args.model_id:
         kernel_map_path = os.path.join(current_dir, "kernel_map", f"kernel_map_{args.model_id}.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
-        generate_one_hf(args.model_id, args.compiled_kernel_dir, kernel_map_path, args.profile_out_dir, True, True)
+        generate_one_hf(args.model_id, args.compiled_kernel_dir, kernel_map_path, args.profile_out_dir, True, args.add_memory_max_num_tokens)
