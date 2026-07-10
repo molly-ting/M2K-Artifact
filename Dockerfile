@@ -63,6 +63,9 @@ RUN apt install -y nano
 
 WORKDIR /home/M2K-Artifact
 COPY . /home/M2K-Artifact
+RUN python3 -m pip install --no-cache-dir \
+    -r HFProbe/call-graph/py/requirements.txt \
+    -r HFProbe/requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j8
 ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
