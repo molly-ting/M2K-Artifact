@@ -2,7 +2,7 @@
     "compressed_tensors_wNa16-CompressedTensorsWNA16-__init__": {
         "class": "CompressedTensorsWNA16",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_wNa16.py",
+        "filepath": "vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_wNa16.py",
         "loc": [
             40,
             65
@@ -13,7 +13,7 @@
     "compressed_tensors_wNa16-CompressedTensorsWNA16-apply_weights": {
         "class": "CompressedTensorsWNA16",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_wNa16.py",
+        "filepath": "vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_wNa16.py",
         "loc": [
             198,
             200
@@ -24,7 +24,7 @@
                 "class": null,
                 "function": "self.kernel.apply_weights",
                 "type": "MPLinearKernel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
                 "line": 200
             }
         ]

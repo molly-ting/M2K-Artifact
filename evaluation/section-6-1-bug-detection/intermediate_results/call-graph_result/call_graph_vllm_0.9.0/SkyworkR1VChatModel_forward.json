@@ -2,7 +2,7 @@
     "skyworkr1v-SkyworkR1VChatModel-__init__": {
         "class": "SkyworkR1VChatModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             648,
             687
@@ -11,37 +11,37 @@
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_patch_quant_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 657
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 673
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_init_vision_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 669
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 679
             },
             {
                 "class": null,
                 "function": "init_vllm_registered_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 676
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_init_mlp1",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 682
             }
         ],
@@ -50,7 +50,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_patch_quant_config": {
         "class": "SkyworkR1VChatModel",
         "function": "_patch_quant_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             689,
             699
@@ -61,7 +61,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -72,7 +72,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_init_vision_model": {
         "class": "SkyworkR1VChatModel",
         "function": "_init_vision_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             701,
             724
@@ -81,13 +81,13 @@
             {
                 "class": "InternVisionModel",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 717
             },
             {
                 "class": "InternVisionPatchModel",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 724
             }
         ],
@@ -96,7 +96,7 @@
     "intern_vit-InternVisionModel-__init__": {
         "class": "InternVisionModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             418,
             438
@@ -105,13 +105,13 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 431
             },
             {
                 "class": "InternVisionEncoder",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 432
             }
         ],
@@ -120,7 +120,7 @@
     "intern_vit-InternVisionEmbeddings-__init__": {
         "class": "InternVisionEmbeddings",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             39,
             57
@@ -131,7 +131,7 @@
     "intern_vit-InternVisionEncoder-__init__": {
         "class": "InternVisionEncoder",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             381,
             405
@@ -142,7 +142,7 @@
     "intern_vit-InternVisionPatchModel-__init__": {
         "class": "InternVisionPatchModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             100,
             103
@@ -151,7 +151,7 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 103
             }
         ],
@@ -160,7 +160,7 @@
     "utils-init_vllm_registered_model": {
         "class": null,
         "function": "init_vllm_registered_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             281,
             302
@@ -169,7 +169,7 @@
             {
                 "class": null,
                 "function": "initialize_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 302
             }
         ],
@@ -178,7 +178,7 @@
     "utils-initialize_model": {
         "class": null,
         "function": "initialize_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             40,
             89
@@ -187,25 +187,25 @@
             {
                 "class": null,
                 "function": "get_model_architecture",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 51
             },
             {
                 "class": null,
                 "function": "configure_quant_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 54
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 60
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 88
             }
         ],
@@ -214,7 +214,7 @@
     "utils-get_model_architecture": {
         "class": null,
         "function": "get_model_architecture",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             218,
             247
@@ -223,25 +223,25 @@
             {
                 "class": null,
                 "function": "resolve_transformers_arch",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "as_embedding_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "as_classification_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 243
             },
             {
                 "class": null,
                 "function": "as_reward_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -250,7 +250,7 @@
     "utils-resolve_transformers_arch": {
         "class": null,
         "function": "resolve_transformers_arch",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             164,
             215
@@ -261,7 +261,7 @@
     "adapters-as_embedding_model": {
         "class": null,
         "function": "as_embedding_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             117,
             144
@@ -270,19 +270,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 135
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 142
             }
         ],
@@ -291,7 +291,7 @@
     "interfaces_base-is_pooling_model": {
         "class": null,
         "function": "is_pooling_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "filepath": "vllm/model_executor/models/./interfaces_base.py",
         "loc": [
             145,
             146
@@ -302,7 +302,7 @@
     "adapters-_create_pooling_model_cls": {
         "class": null,
         "function": "_create_pooling_model_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             33,
             114
@@ -313,7 +313,7 @@
     "adapters-_get_pooling_model_name": {
         "class": null,
         "function": "_get_pooling_model_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             24,
             30
@@ -324,7 +324,7 @@
                 "class": null,
                 "function": "model_name.removesuffix",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 28
             }
         ]
@@ -332,7 +332,7 @@
     "adapters-as_classification_model": {
         "class": null,
         "function": "as_classification_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             147,
             217
@@ -341,19 +341,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 160
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 215
             }
         ],
@@ -362,7 +362,7 @@
     "adapters-as_reward_model": {
         "class": null,
         "function": "as_reward_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             220,
             247
@@ -371,19 +371,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 231
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 237
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -392,7 +392,7 @@
     "utils-configure_quant_config": {
         "class": null,
         "function": "configure_quant_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             284,
             301
@@ -403,7 +403,7 @@
     "config-set_current_vllm_config": {
         "class": null,
         "function": "set_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4513,
             4549
@@ -414,7 +414,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_init_mlp1": {
         "class": "SkyworkR1VChatModel",
         "function": "_init_mlp1",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             726,
             740
@@ -423,13 +423,13 @@
             {
                 "class": "ReplicatedLinear",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 732
             },
             {
                 "class": "ReplicatedLinear",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 737
             }
         ],
@@ -438,7 +438,7 @@
     "linear-ReplicatedLinear-__init__": {
         "class": "ReplicatedLinear",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             267,
             304
@@ -447,7 +447,7 @@
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 299
             }
         ],
@@ -456,7 +456,7 @@
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "LinearMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 289
             }
         ]
@@ -464,7 +464,7 @@
     "linear-LinearBase-__init__": {
         "class": "LinearBase",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             218,
             244
@@ -473,7 +473,7 @@
             {
                 "class": "UnquantizedLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 240
             }
         ],
@@ -482,7 +482,7 @@
                 "class": null,
                 "function": "quant_config.get_quant_method",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 242
             }
         ]
@@ -490,7 +490,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -499,7 +499,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -508,7 +508,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53
@@ -519,7 +519,7 @@
     "skyworkr1v-SkyworkR1VChatModel-forward": {
         "class": "SkyworkR1VChatModel",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             896,
             931
@@ -528,13 +528,13 @@
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "get_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 912
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "get_input_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 913
             }
         ],
@@ -543,7 +543,7 @@
                 "class": null,
                 "function": "self.language_model.model",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 930
             }
         ]
@@ -551,7 +551,7 @@
     "skyworkr1v-SkyworkR1VChatModel-get_multimodal_embeddings": {
         "class": "SkyworkR1VChatModel",
         "function": "get_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             871,
             877
@@ -560,13 +560,13 @@
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_parse_and_validate_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 873
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_process_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 877
             }
         ],
@@ -575,7 +575,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_parse_and_validate_image_input": {
         "class": "SkyworkR1VChatModel",
         "function": "_parse_and_validate_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             789,
             831
@@ -584,37 +584,37 @@
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 805
             },
             {
                 "class": "SkyworkR1VImageEmbeddingInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 803
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 821
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 822
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_validate_pixel_values",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 826
             },
             {
                 "class": "SkyworkR1VImagePixelInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 824
             }
         ],
@@ -623,7 +623,7 @@
     "utils-flatten_bn": {
         "class": null,
         "function": "flatten_bn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             306,
             307
@@ -634,7 +634,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_validate_pixel_values": {
         "class": "SkyworkR1VChatModel",
         "function": "_validate_pixel_values",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             769,
             787
@@ -643,7 +643,7 @@
             {
                 "class": null,
                 "function": "_validate_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 785
             }
         ],
@@ -652,7 +652,7 @@
     "skyworkr1v-_validate_shape": {
         "class": null,
         "function": "_validate_shape",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             774,
             782
@@ -663,7 +663,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_process_image_input": {
         "class": "SkyworkR1VChatModel",
         "function": "_process_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             833,
             859
@@ -672,7 +672,7 @@
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "extract_feature",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 842
             }
         ],
@@ -681,7 +681,7 @@
     "skyworkr1v-SkyworkR1VChatModel-extract_feature": {
         "class": "SkyworkR1VChatModel",
         "function": "extract_feature",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             756,
             767
@@ -690,19 +690,19 @@
             {
                 "class": "InternVisionModel",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 757
             },
             {
                 "class": "InternVisionPatchModel",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 757
             },
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "pixel_shuffle",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 762
             }
         ],
@@ -711,7 +711,7 @@
     "intern_vit-InternVisionModel-forward": {
         "class": "InternVisionModel",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             443,
             463
@@ -720,13 +720,13 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 456
             },
             {
                 "class": "InternVisionEncoder",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 461
             }
         ],
@@ -735,7 +735,7 @@
     "intern_vit-InternVisionEmbeddings-forward": {
         "class": "InternVisionEmbeddings",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             84,
             95
@@ -744,7 +744,7 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "_get_position_embedding",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 93
             }
         ],
@@ -753,7 +753,7 @@
                 "class": null,
                 "function": "self.class_embedding.expand",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 90
             }
         ]
@@ -761,7 +761,7 @@
     "intern_vit-InternVisionEmbeddings-_get_position_embedding": {
         "class": "InternVisionEmbeddings",
         "function": "_get_position_embedding",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             71,
             82
@@ -770,7 +770,7 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "_get_pos_embed",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 79
             }
         ],
@@ -779,7 +779,7 @@
     "intern_vit-InternVisionEmbeddings-_get_pos_embed": {
         "class": "InternVisionEmbeddings",
         "function": "_get_pos_embed",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             59,
             69
@@ -790,7 +790,7 @@
     "intern_vit-InternVisionEncoder-forward": {
         "class": "InternVisionEncoder",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             407,
             413
@@ -801,7 +801,7 @@
     "intern_vit-InternVisionPatchModel-forward": {
         "class": "InternVisionPatchModel",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+        "filepath": "vllm/model_executor/models/intern_vit.py",
         "loc": [
             108,
             126
@@ -810,7 +810,7 @@
             {
                 "class": "InternVisionEmbeddings",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/intern_vit.py",
+                "filepath": "vllm/model_executor/models/intern_vit.py",
                 "line": 121
             }
         ],
@@ -819,7 +819,7 @@
     "skyworkr1v-SkyworkR1VChatModel-pixel_shuffle": {
         "class": "SkyworkR1VChatModel",
         "function": "pixel_shuffle",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             742,
             754
@@ -830,7 +830,7 @@
     "skyworkr1v-SkyworkR1VChatModel-get_input_embeddings": {
         "class": "SkyworkR1VChatModel",
         "function": "get_input_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             879,
             894
@@ -839,13 +839,13 @@
             {
                 "class": "SkyworkR1VChatModel",
                 "function": "_set_visual_token_mask",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 887
             },
             {
                 "class": null,
                 "function": "merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 888
             }
         ],
@@ -854,7 +854,7 @@
                 "class": null,
                 "function": "self.language_model.get_input_embeddings",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+                "filepath": "vllm/model_executor/models/skyworkr1v.py",
                 "line": 884
             }
         ]
@@ -862,7 +862,7 @@
     "skyworkr1v-SkyworkR1VChatModel-_set_visual_token_mask": {
         "class": "SkyworkR1VChatModel",
         "function": "_set_visual_token_mask",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/skyworkr1v.py",
+        "filepath": "vllm/model_executor/models/skyworkr1v.py",
         "loc": [
             861,
             866
@@ -873,7 +873,7 @@
     "utils-merge_multimodal_embeddings": {
         "class": null,
         "function": "merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             457,
             501
@@ -882,7 +882,7 @@
             {
                 "class": null,
                 "function": "_merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 497
             }
         ],
@@ -891,7 +891,7 @@
     "utils-_merge_multimodal_embeddings": {
         "class": null,
         "function": "_merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             394,
             418
@@ -900,13 +900,13 @@
             {
                 "class": null,
                 "function": "_flatten_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 410
             },
             {
                 "class": null,
                 "function": "_embedding_count_expression",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 412
             }
         ],
@@ -915,7 +915,7 @@
     "utils-_flatten_embeddings": {
         "class": null,
         "function": "_flatten_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             352,
             362
@@ -926,7 +926,7 @@
     "utils-_embedding_count_expression": {
         "class": null,
         "function": "_embedding_count_expression",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             365,
             375

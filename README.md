@@ -11,7 +11,7 @@ This document provides instructions for reproducing the experimental results rep
 - **OS:** Ubuntu 22.04
 - **Memory (RAM):** >=256 GB
 - **Disk space:** >=155GB
-- **GPU:** V100/RTX 20xx/H100 (for the ablation experiment)
+- **GPU:** H200 (for the ablation experiment)
 - **CUDA:** 12.1
 - **Python:** 3.10
 

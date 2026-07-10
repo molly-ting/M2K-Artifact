@@ -2,7 +2,7 @@
     "transformers-TransformersForCausalLM-__init__": {
         "class": "TransformersForCausalLM",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             435,
             464
@@ -11,43 +11,43 @@
             {
                 "class": "TransformersModel",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 442
             },
             {
                 "class": null,
                 "function": "get_pp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 444
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 450
             },
             {
                 "class": "ParallelLMHead",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 446
             },
             {
                 "class": "ParallelLMHead",
                 "function": "tie_weights",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 453
             },
             {
                 "class": "LogitsProcessor",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+                "filepath": "vllm/model_executor/layers/logits_processor.py",
                 "line": 457
             },
             {
                 "class": "PPMissingLayer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 461
             }
         ],
@@ -56,7 +56,7 @@
                 "class": null,
                 "function": "self.model.get_input_embeddings",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 454
             }
         ]
@@ -64,7 +64,7 @@
     "transformers-TransformersModel-__init__": {
         "class": "TransformersModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             143,
             211
@@ -73,43 +73,43 @@
             {
                 "class": null,
                 "function": "get_pp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 161
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 164
             },
             {
                 "class": "ConfigOverride",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 172
             },
             {
                 "class": "TransformersModel",
                 "function": "pipeline_parallel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 187
             },
             {
                 "class": "TransformersModel",
                 "function": "tensor_parallel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 188
             },
             {
                 "class": "TransformersModel",
                 "function": "create_attention_instances",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 201
             },
             {
                 "class": "TransformersModel",
                 "function": "init_buffers",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 204
             }
         ],
@@ -118,7 +118,7 @@
     "parallel_state-get_pp_group": {
         "class": null,
         "function": "get_pp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             869,
             872
@@ -129,7 +129,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -138,7 +138,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -147,7 +147,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -158,7 +158,7 @@
     "transformers-ConfigOverride-__init__": {
         "class": "ConfigOverride",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             117,
             121
@@ -169,7 +169,7 @@
     "transformers-TransformersModel-pipeline_parallel": {
         "class": "TransformersModel",
         "function": "pipeline_parallel",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             213,
             261
@@ -178,19 +178,19 @@
             {
                 "class": "PPMissingLayer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 245
             },
             {
                 "class": "PPMissingLayer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 255
             },
             {
                 "class": "PPMissingLayer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 261
             }
         ],
@@ -199,7 +199,7 @@
     "utils-PPMissingLayer-__init__": {
         "class": "PPMissingLayer",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             515,
             517
@@ -210,7 +210,7 @@
     "transformers-TransformersModel-tensor_parallel": {
         "class": "TransformersModel",
         "function": "tensor_parallel",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             263,
             290
@@ -219,7 +219,7 @@
             {
                 "class": null,
                 "function": "_tensor_parallel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 290
             }
         ],
@@ -228,7 +228,7 @@
     "transformers-_tensor_parallel": {
         "class": null,
         "function": "_tensor_parallel",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             277,
             288
@@ -239,7 +239,7 @@
     "transformers-TransformersModel-create_attention_instances": {
         "class": "TransformersModel",
         "function": "create_attention_instances",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             292,
             323
@@ -248,7 +248,7 @@
             {
                 "class": "Attention",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/layer.py",
+                "filepath": "vllm/attention/layer.py",
                 "line": 312
             }
         ],
@@ -257,21 +257,21 @@
                 "class": null,
                 "function": "self.model_config.get_num_attention_heads",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 296
             },
             {
                 "class": null,
                 "function": "self.model_config.get_head_size",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 298
             },
             {
                 "class": null,
                 "function": "self.model_config.get_num_kv_heads",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 299
             }
         ]
@@ -279,7 +279,7 @@
     "layer-Attention-__init__": {
         "class": "Attention",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/layer.py",
+        "filepath": "vllm/attention/layer.py",
         "loc": [
             37,
             165
@@ -288,61 +288,61 @@
             {
                 "class": null,
                 "function": "get_attn_backend",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+                "filepath": "vllm/attention/selector.py",
                 "line": 126
             },
             {
                 "class": "BlocksparseFlashAttentionBackend",
                 "function": "get_impl_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+                "filepath": "vllm/attention/backends/blocksparse_attn.py",
                 "line": 133
             },
             {
                 "class": "PlaceholderAttentionBackend",
                 "function": "get_impl_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+                "filepath": "vllm/attention/backends/placeholder_attn.py",
                 "line": 133
             },
             {
                 "class": "BlocksparseFlashAttentionImpl",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+                "filepath": "vllm/attention/backends/blocksparse_attn.py",
                 "line": 134
             },
             {
                 "class": "PlaceholderAttentionImpl",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+                "filepath": "vllm/attention/backends/placeholder_attn.py",
                 "line": 134
             },
             {
                 "class": "BlocksparseFlashAttentionBackend",
                 "function": "get_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+                "filepath": "vllm/attention/backends/blocksparse_attn.py",
                 "line": 138
             },
             {
                 "class": "PlaceholderAttentionBackend",
                 "function": "get_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+                "filepath": "vllm/attention/backends/placeholder_attn.py",
                 "line": 138
             },
             {
                 "class": null,
                 "function": "backend_name_to_enum",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+                "filepath": "vllm/attention/selector.py",
                 "line": 138
             },
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 149
             },
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 159
             }
         ],
@@ -351,21 +351,21 @@
                 "class": null,
                 "function": "quant_config.get_quant_method",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 106
             },
             {
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/layer.py",
+                "filepath": "vllm/attention/layer.py",
                 "line": 121
             },
             {
                 "class": "AttentionImpl",
                 "function": "impl_cls",
                 "type": "AttentionImpl",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+                "filepath": "vllm/attention/backends/abstract.py",
                 "line": 134
             }
         ]
@@ -373,7 +373,7 @@
     "selector-get_attn_backend": {
         "class": null,
         "function": "get_attn_backend",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+        "filepath": "vllm/attention/selector.py",
         "loc": [
             81,
             104
@@ -382,7 +382,7 @@
             {
                 "class": null,
                 "function": "_cached_get_attn_backend",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+                "filepath": "vllm/attention/selector.py",
                 "line": 95
             }
         ],
@@ -391,7 +391,7 @@
     "selector-_cached_get_attn_backend": {
         "class": null,
         "function": "_cached_get_attn_backend",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+        "filepath": "vllm/attention/selector.py",
         "loc": [
             108,
             154
@@ -400,13 +400,13 @@
             {
                 "class": null,
                 "function": "get_global_forced_attn_backend",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+                "filepath": "vllm/attention/selector.py",
                 "line": 138
             },
             {
                 "class": null,
                 "function": "backend_name_to_enum",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+                "filepath": "vllm/attention/selector.py",
                 "line": 145
             }
         ],
@@ -415,7 +415,7 @@
     "selector-get_global_forced_attn_backend": {
         "class": null,
         "function": "get_global_forced_attn_backend",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+        "filepath": "vllm/attention/selector.py",
         "loc": [
             73,
             78
@@ -426,7 +426,7 @@
     "selector-backend_name_to_enum": {
         "class": null,
         "function": "backend_name_to_enum",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/selector.py",
+        "filepath": "vllm/attention/selector.py",
         "loc": [
             19,
             30
@@ -437,7 +437,7 @@
     "blocksparse_attn-get_impl_cls": {
         "class": null,
         "function": "get_impl_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+        "filepath": "vllm/attention/backends/blocksparse_attn.py",
         "loc": [
             98,
             99
@@ -448,7 +448,7 @@
     "placeholder_attn-get_impl_cls": {
         "class": null,
         "function": "get_impl_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+        "filepath": "vllm/attention/backends/placeholder_attn.py",
         "loc": [
             33,
             34
@@ -459,7 +459,7 @@
     "blocksparse_attn-BlocksparseFlashAttentionImpl-__init__": {
         "class": "BlocksparseFlashAttentionImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+        "filepath": "vllm/attention/backends/blocksparse_attn.py",
         "loc": [
             296,
             362
@@ -468,31 +468,31 @@
             {
                 "class": "BlocksparseParams",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+                "filepath": "vllm/attention/backends/blocksparse_attn.py",
                 "line": 321
             },
             {
                 "class": null,
                 "function": "get_supported_head_sizes",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "filepath": "vllm/attention/ops/paged_attn.py",
                 "line": 338
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 344
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 345
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 348
             }
         ],
@@ -501,7 +501,7 @@
     "paged_attn-get_supported_head_sizes": {
         "class": null,
         "function": "get_supported_head_sizes",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "filepath": "vllm/attention/ops/paged_attn.py",
         "loc": [
             38,
             39
@@ -512,7 +512,7 @@
     "parallel_state-get_tensor_model_parallel_rank": {
         "class": null,
         "function": "get_tensor_model_parallel_rank",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1154,
             1156
@@ -521,7 +521,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1156
             }
         ],
@@ -530,7 +530,7 @@
     "interface-LocalStridedBlockSparseAttn-__init__": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             20,
             78
@@ -539,19 +539,19 @@
             {
                 "class": null,
                 "function": "get_head_sliding_step",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 57
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "get_attn_pattern",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 61
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 72
             }
         ],
@@ -560,7 +560,7 @@
     "utils-get_head_sliding_step": {
         "class": null,
         "function": "get_head_sliding_step",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             154,
             159
@@ -571,7 +571,7 @@
     "interface-LocalStridedBlockSparseAttn-get_attn_pattern": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "get_attn_pattern",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             80,
             101
@@ -580,7 +580,7 @@
             {
                 "class": null,
                 "function": "get_sparse_attn_mask",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 81
             }
         ],
@@ -589,7 +589,7 @@
     "utils-get_sparse_attn_mask": {
         "class": null,
         "function": "get_sparse_attn_mask",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             163,
             245
@@ -598,25 +598,25 @@
             {
                 "class": null,
                 "function": "get_head_sliding_step",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 213
             },
             {
                 "class": null,
                 "function": "binary_mask_to_bias",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 236
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 242
             }
         ],
@@ -625,7 +625,7 @@
     "utils-binary_mask_to_bias": {
         "class": null,
         "function": "binary_mask_to_bias",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             148,
             151
@@ -636,7 +636,7 @@
     "utils-dense_to_crow_col": {
         "class": null,
         "function": "dense_to_crow_col",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             41,
             63
@@ -645,7 +645,7 @@
             {
                 "class": "csr_matrix",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 51
             }
         ],
@@ -654,7 +654,7 @@
     "utils-csr_matrix-__init__": {
         "class": "csr_matrix",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             19,
             38
@@ -665,7 +665,7 @@
     "placeholder_attn-PlaceholderAttentionImpl-__init__": {
         "class": "PlaceholderAttentionImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+        "filepath": "vllm/attention/backends/placeholder_attn.py",
         "loc": [
             395,
             396
@@ -676,7 +676,7 @@
     "blocksparse_attn-get_name": {
         "class": null,
         "function": "get_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+        "filepath": "vllm/attention/backends/blocksparse_attn.py",
         "loc": [
             94,
             95
@@ -687,7 +687,7 @@
     "placeholder_attn-get_name": {
         "class": null,
         "function": "get_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/placeholder_attn.py",
+        "filepath": "vllm/attention/backends/placeholder_attn.py",
         "loc": [
             29,
             30
@@ -698,7 +698,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -707,7 +707,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],
@@ -716,7 +716,7 @@
     "transformers-TransformersModel-init_buffers": {
         "class": "TransformersModel",
         "function": "init_buffers",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             325,
             352
@@ -725,7 +725,7 @@
             {
                 "class": "TransformersModel",
                 "function": "init_buffers",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+                "filepath": "vllm/model_executor/models/transformers.py",
                 "line": 352
             }
         ],
@@ -734,7 +734,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -745,7 +745,7 @@
     "vocab_parallel_embedding-ParallelLMHead-__init__": {
         "class": "ParallelLMHead",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             451,
             473
@@ -754,7 +754,7 @@
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 468
             }
         ],
@@ -763,7 +763,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-__init__": {
         "class": "VocabParallelEmbedding",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             200,
             271
@@ -772,49 +772,49 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 211
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 212
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 217
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 219
             },
             {
                 "class": "VocabParallelEmbedding",
                 "function": "_get_indices",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 224
             },
             {
                 "class": "UnquantizedEmbeddingMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 235
             },
             {
                 "class": null,
                 "function": "method_has_implemented_embedding",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 254
             }
         ],
@@ -823,14 +823,14 @@
                 "class": null,
                 "function": "quant_config.get_quant_method",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "QuantizeMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 265
             }
         ]
@@ -838,7 +838,7 @@
     "vocab_parallel_embedding-pad_vocab_size": {
         "class": null,
         "function": "pad_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             52,
             55
@@ -849,7 +849,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-_get_indices": {
         "class": "VocabParallelEmbedding",
         "function": "_get_indices",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             274,
             300
@@ -858,19 +858,19 @@
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 282
             },
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 285
             },
             {
                 "class": "VocabParallelEmbeddingShardIndices",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 296
             }
         ],
@@ -879,7 +879,7 @@
     "vocab_parallel_embedding-vocab_range_from_global_vocab_size": {
         "class": null,
         "function": "vocab_range_from_global_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             67,
             74
@@ -888,13 +888,13 @@
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 71
             },
             {
                 "class": null,
                 "function": "vocab_range_from_per_partition_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 72
             }
         ],
@@ -903,7 +903,7 @@
     "utils-divide": {
         "class": null,
         "function": "divide",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             54,
             58
@@ -912,7 +912,7 @@
             {
                 "class": null,
                 "function": "ensure_divisibility",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 57
             }
         ],
@@ -921,7 +921,7 @@
     "utils-ensure_divisibility": {
         "class": null,
         "function": "ensure_divisibility",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             48,
             51
@@ -932,7 +932,7 @@
     "vocab_parallel_embedding-vocab_range_from_per_partition_vocab_size": {
         "class": null,
         "function": "vocab_range_from_per_partition_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             58,
             64
@@ -943,7 +943,7 @@
     "base_config-method_has_implemented_embedding": {
         "class": null,
         "function": "method_has_implemented_embedding",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             50,
             62
@@ -954,7 +954,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -963,7 +963,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -972,7 +972,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53
@@ -983,7 +983,7 @@
     "vocab_parallel_embedding-ParallelLMHead-tie_weights": {
         "class": "ParallelLMHead",
         "function": "tie_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             475,
             482
@@ -994,7 +994,7 @@
     "logits_processor-LogitsProcessor-__init__": {
         "class": "LogitsProcessor",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+        "filepath": "vllm/model_executor/layers/logits_processor.py",
         "loc": [
             33,
             53
@@ -1005,7 +1005,7 @@
     "transformers-TransformersForCausalLM-forward": {
         "class": "TransformersForCausalLM",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/transformers.py",
+        "filepath": "vllm/model_executor/models/transformers.py",
         "loc": [
             480,
             489

@@ -2,7 +2,7 @@
     "awq-AWQConfig-__init__": {
         "class": "AWQConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             23,
             40
@@ -13,7 +13,7 @@
     "base_config-QuantizationConfig-__init__": {
         "class": "QuantizationConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             68,
             71
@@ -24,7 +24,7 @@
     "awq-AWQConfig-get_quant_method": {
         "class": "AWQConfig",
         "function": "get_quant_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             76,
             82
@@ -33,19 +33,19 @@
             {
                 "class": null,
                 "function": "is_layer_skipped_awq",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "filepath": "vllm/model_executor/layers/quantization/awq.py",
                 "line": 79
             },
             {
                 "class": "UnquantizedLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 80
             },
             {
                 "class": "AWQLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+                "filepath": "vllm/model_executor/layers/quantization/awq.py",
                 "line": 81
             }
         ],
@@ -54,7 +54,7 @@
     "awq-is_layer_skipped_awq": {
         "class": null,
         "function": "is_layer_skipped_awq",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             85,
             86
@@ -65,7 +65,7 @@
     "awq-AWQLinearMethod-__init__": {
         "class": "AWQLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             96,
             97

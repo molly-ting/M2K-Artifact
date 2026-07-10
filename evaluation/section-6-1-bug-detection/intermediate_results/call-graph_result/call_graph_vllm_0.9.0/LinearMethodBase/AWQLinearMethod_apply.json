@@ -2,7 +2,7 @@
     "awq-AWQLinearMethod-__init__": {
         "class": "AWQLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             96,
             97
@@ -13,7 +13,7 @@
     "awq-AWQLinearMethod-apply": {
         "class": "AWQLinearMethod",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq.py",
         "loc": [
             163,
             185
@@ -22,13 +22,13 @@
             {
                 "class": null,
                 "function": "awq_dequantize",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 178
             },
             {
                 "class": null,
                 "function": "awq_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 181
             }
         ],
@@ -37,7 +37,7 @@
     "_custom_ops-awq_dequantize": {
         "class": null,
         "function": "awq_dequantize",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             338,
             346
@@ -46,13 +46,13 @@
             {
                 "class": null,
                 "function": "awq_dequantize_triton",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_triton.py",
+                "filepath": "vllm/model_executor/layers/quantization/awq_triton.py",
                 "line": 344
             },
             {
                 "class": null,
                 "function": "torch.ops._C.awq_dequantize",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 345
             }
         ],
@@ -61,7 +61,7 @@
     "awq_triton-awq_dequantize_triton": {
         "class": null,
         "function": "awq_dequantize_triton",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_triton.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq_triton.py",
         "loc": [
             222,
             262
@@ -72,7 +72,7 @@
     "_custom_ops-awq_gemm": {
         "class": null,
         "function": "awq_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             349,
             355
@@ -81,13 +81,13 @@
             {
                 "class": null,
                 "function": "awq_gemm_triton",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_triton.py",
+                "filepath": "vllm/model_executor/layers/quantization/awq_triton.py",
                 "line": 354
             },
             {
                 "class": null,
                 "function": "torch.ops._C.awq_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 355
             }
         ],
@@ -96,7 +96,7 @@
     "awq_triton-awq_gemm_triton": {
         "class": null,
         "function": "awq_gemm_triton",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/awq_triton.py",
+        "filepath": "vllm/model_executor/layers/quantization/awq_triton.py",
         "loc": [
             270,
             319

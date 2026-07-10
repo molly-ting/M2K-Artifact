@@ -2,7 +2,7 @@
     "fp8-Fp8MoEMethod-__init__": {
         "class": "Fp8MoEMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/fp8.py",
         "loc": [
             436,
             465
@@ -13,7 +13,7 @@
     "fp8-Fp8MoEMethod-create_weights": {
         "class": "Fp8MoEMethod",
         "function": "create_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/fp8.py",
         "loc": [
             467,
             593
@@ -22,43 +22,43 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 482
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 512
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 521
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 569
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 570
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 583
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 589
             }
         ],
@@ -67,7 +67,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -76,7 +76,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -85,7 +85,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -96,7 +96,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -105,7 +105,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -114,7 +114,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53

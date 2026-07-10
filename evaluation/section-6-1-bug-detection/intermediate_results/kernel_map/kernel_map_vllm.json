@@ -1,382 +1,382 @@
 {
     "silu_and_mul": {
         "func_name": "silu_and_mul",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "mul_and_silu": {
         "func_name": "mul_and_silu",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "gelu_and_mul": {
         "func_name": "gelu_and_mul",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "gelu_tanh_and_mul": {
         "func_name": "gelu_tanh_and_mul",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "fatrelu_and_mul": {
         "func_name": "fatrelu_and_mul",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "gelu_new": {
         "func_name": "gelu_new",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "gelu_fast": {
         "func_name": "gelu_fast",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "gelu_quick": {
         "func_name": "gelu_quick",
-        "file_path": "/home/mvh6224/vllm/csrc/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesactivation_kernels.cu"
     },
     "rms_norm": {
         "func_name": "rms_norm",
-        "file_path": "/home/mvh6224/vllm/csrc/layernorm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_fileslayernorm_kernels.cu"
     },
     "fused_add_rms_norm": {
         "func_name": "fused_add_rms_norm",
-        "file_path": "/home/mvh6224/vllm/csrc/layernorm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_fileslayernorm_kernels.cu"
     },
     "get_device_attribute": {
         "func_name": "get_device_attribute",
-        "file_path": "/home/mvh6224/vllm/csrc/cuda_utils_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescuda_utils_kernels.cu"
     },
     "get_max_shared_memory_per_block_device_attribute": {
         "func_name": "get_max_shared_memory_per_block_device_attribute",
-        "file_path": "/home/mvh6224/vllm/csrc/cuda_utils_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescuda_utils_kernels.cu"
     },
     "rms_norm_static_fp8_quant": {
         "func_name": "rms_norm_static_fp8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/layernorm_quant_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_fileslayernorm_quant_kernels.cu"
     },
     "fused_add_rms_norm_static_fp8_quant": {
         "func_name": "fused_add_rms_norm_static_fp8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/layernorm_quant_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_fileslayernorm_quant_kernels.cu"
     },
     "swap_blocks": {
         "func_name": "swap_blocks",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "copy_blocks": {
         "func_name": "copy_blocks",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "copy_blocks_mla": {
         "func_name": "copy_blocks_mla",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "reshape_and_cache": {
         "func_name": "reshape_and_cache",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "reshape_and_cache_flash": {
         "func_name": "reshape_and_cache_flash",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "concat_and_cache_mla": {
         "func_name": "concat_and_cache_mla",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "convert_fp8": {
         "func_name": "convert_fp8",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "gather_cache": {
         "func_name": "gather_cache",
-        "file_path": "/home/mvh6224/vllm/csrc/cache_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescache_kernels.cu"
     },
     "permute_cols": {
         "func_name": "permute_cols",
-        "file_path": "/home/mvh6224/vllm/csrc/permute_cols.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filespermute_cols.cu"
     },
     "rotary_embedding": {
         "func_name": "rotary_embedding",
-        "file_path": "/home/mvh6224/vllm/csrc/pos_encoding_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filespos_encoding_kernels.cu"
     },
     "batched_rotary_embedding": {
         "func_name": "batched_rotary_embedding",
-        "file_path": "/home/mvh6224/vllm/csrc/pos_encoding_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filespos_encoding_kernels.cu"
     },
     "init_custom_ar": {
         "func_name": "init_custom_ar",
-        "file_path": "/home/mvh6224/vllm/csrc/custom_all_reduce.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescustom_all_reduce.cu"
     },
     "all_reduce": {
         "func_name": "all_reduce",
-        "file_path": "/home/mvh6224/vllm/csrc/custom_all_reduce.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filescustom_all_reduce.cu"
     },
     "paged_attention_v2": {
         "func_name": "paged_attention_v2",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/paged_attention_v2.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/paged_attention_v2.cu"
     },
     "paged_attention_v1": {
         "func_name": "paged_attention_v1",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/paged_attention_v1.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/paged_attention_v1.cu"
     },
     "merge_attn_states": {
         "func_name": "merge_attn_states",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/merge_attn_states.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/merge_attn_states.cu"
     },
     "convert_vertical_slash_indexes": {
         "func_name": "convert_vertical_slash_indexes",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/vertical_slash_index.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/vertical_slash_index.cu"
     },
     "convert_vertical_slash_indexes_mergehead": {
         "func_name": "convert_vertical_slash_indexes_mergehead",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/vertical_slash_index.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/vertical_slash_index.cu"
     },
     "cutlass_mla_decode": {
         "func_name": "cutlass_mla_decode",
-        "file_path": "/home/mvh6224/vllm/csrc/attention/mla/cutlass_mla_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesattention/mla/cutlass_mla_entry.cu"
     },
     "topk_softmax": {
         "func_name": "topk_softmax",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/topk_softmax_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/topk_softmax_kernels.cu"
     },
     "moe_align_block_size": {
         "func_name": "moe_align_block_size",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_align_sum_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_align_sum_kernels.cu"
     },
     "sgl_moe_align_block_size": {
         "func_name": "sgl_moe_align_block_size",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_align_sum_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_align_sum_kernels.cu"
     },
     "moe_sum": {
         "func_name": "moe_sum",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_align_sum_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_align_sum_kernels.cu"
     },
     "moe_permute": {
         "func_name": "moe_permute",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_permute_unpermute_op.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_permute_unpermute_op.cu"
     },
     "moe_unpermute": {
         "func_name": "moe_unpermute",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_permute_unpermute_op.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_permute_unpermute_op.cu"
     },
     "moe_permute_unpermute_supported": {
         "func_name": "moe_permute_unpermute_supported",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_permute_unpermute_op.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_permute_unpermute_op.cu"
     },
     "moe_wna16_gemm": {
         "func_name": "moe_wna16_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/moe_wna16.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/moe_wna16.cu"
     },
     "moe_wna16_marlin_gemm": {
         "func_name": "moe_wna16_marlin_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/moe/marlin_moe_wna16/ops.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmoe/marlin_moe_wna16/ops.cu"
     },
     "advance_step_flashattn": {
         "func_name": "advance_step_flashattn",
-        "file_path": "/home/mvh6224/vllm/csrc/prepare_inputs/advance_step.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesprepare_inputs/advance_step.cu"
     },
     "advance_step_flashinfer": {
         "func_name": "advance_step_flashinfer",
-        "file_path": "/home/mvh6224/vllm/csrc/prepare_inputs/advance_step.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesprepare_inputs/advance_step.cu"
     },
     "paged_attention": {
         "func_name": "paged_attention",
-        "file_path": "/home/mvh6224/vllm/csrc/rocm/attention.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesrocm/attention.cu"
     },
     "LLMM1": {
         "func_name": "LLMM1",
-        "file_path": "/home/mvh6224/vllm/csrc/rocm/skinny_gemms.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesrocm/skinny_gemms.cu"
     },
     "wvSplitK": {
         "func_name": "wvSplitK",
-        "file_path": "/home/mvh6224/vllm/csrc/rocm/skinny_gemms.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesrocm/skinny_gemms.cu"
     },
     "wvSplitKQ": {
         "func_name": "wvSplitKQ",
-        "file_path": "/home/mvh6224/vllm/csrc/rocm/skinny_gemms.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesrocm/skinny_gemms.cu"
     },
     "selective_scan_fwd": {
         "func_name": "selective_scan_fwd",
-        "file_path": "/home/mvh6224/vllm/csrc/mamba/mamba_ssm/selective_scan_fwd.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmamba/mamba_ssm/selective_scan_fwd.cu"
     },
     "causal_conv1d_fwd": {
         "func_name": "causal_conv1d_fwd",
-        "file_path": "/home/mvh6224/vllm/csrc/mamba/causal_conv1d/causal_conv1d.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmamba/causal_conv1d/causal_conv1d.cu"
     },
     "causal_conv1d_update": {
         "func_name": "causal_conv1d_update",
-        "file_path": "/home/mvh6224/vllm/csrc/mamba/causal_conv1d/causal_conv1d.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesmamba/causal_conv1d/causal_conv1d.cu"
     },
     "silu_and_mul_quant": {
         "func_name": "silu_and_mul_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/activation_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/activation_kernels.cu"
     },
     "awq_dequantize": {
         "func_name": "awq_dequantize",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/awq/gemm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/awq/gemm_kernels.cu"
     },
     "awq_gemm": {
         "func_name": "awq_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/awq/gemm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/awq/gemm_kernels.cu"
     },
     "gptq_marlin_repack": {
         "func_name": "gptq_marlin_repack",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq_marlin/gptq_marlin_repack.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq_marlin/gptq_marlin_repack.cu"
     },
     "gptq_marlin_gemm": {
         "func_name": "gptq_marlin_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq_marlin/gptq_marlin.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq_marlin/gptq_marlin.cu"
     },
     "awq_marlin_repack": {
         "func_name": "awq_marlin_repack",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq_marlin/awq_marlin_repack.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq_marlin/awq_marlin_repack.cu"
     },
     "machete_supported_schedules": {
         "func_name": "supported_schedules",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/machete/machete_pytorch.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/machete/machete_pytorch.cu"
     },
     "machete_mm": {
         "func_name": "mm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/machete/machete_pytorch.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/machete/machete_pytorch.cu"
     },
     "machete_prepack_B": {
         "func_name": "prepack_B",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/machete/machete_pytorch.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/machete/machete_pytorch.cu"
     },
     "static_scaled_fp8_quant": {
         "func_name": "static_scaled_fp8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp8/common.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp8/common.cu"
     },
     "dynamic_scaled_fp8_quant": {
         "func_name": "dynamic_scaled_fp8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp8/common.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp8/common.cu"
     },
     "dynamic_per_token_scaled_fp8_quant": {
         "func_name": "dynamic_per_token_scaled_fp8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp8/common.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp8/common.cu"
     },
     "aqlm_gemm": {
         "func_name": "aqlm_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/aqlm/gemm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/aqlm/gemm_kernels.cu"
     },
     "aqlm_dequant": {
         "func_name": "aqlm_dequant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/aqlm/gemm_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/aqlm/gemm_kernels.cu"
     },
     "static_scaled_int8_quant": {
         "func_name": "static_scaled_int8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/compressed_tensors/int8_quant_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/compressed_tensors/int8_quant_kernels.cu"
     },
     "dynamic_scaled_int8_quant": {
         "func_name": "dynamic_scaled_int8_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/compressed_tensors/int8_quant_kernels.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/compressed_tensors/int8_quant_kernels.cu"
     },
     "rms_norm_dynamic_per_token_quant": {
         "func_name": "rms_norm_dynamic_per_token_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fused_kernels/fused_layernorm_dynamic_per_token_quant.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fused_kernels/fused_layernorm_dynamic_per_token_quant.cu"
     },
     "rearrange_kn_weight_as_n32k16_order": {
         "func_name": "rearrange_kn_weight_as_n32k16_order",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq_allspark/allspark_repack.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq_allspark/allspark_repack.cu"
     },
     "allspark_w8a16_gemm": {
         "func_name": "allspark_w8a16_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq_allspark/allspark_qgemm_w8a16.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq_allspark/allspark_qgemm_w8a16.cu"
     },
     "ggml_dequantize": {
         "func_name": "ggml_dequantize",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gguf/gguf_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gguf/gguf_kernel.cu"
     },
     "ggml_mul_mat_vec_a8": {
         "func_name": "ggml_mul_mat_vec_a8",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gguf/gguf_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gguf/gguf_kernel.cu"
     },
     "ggml_mul_mat_a8": {
         "func_name": "ggml_mul_mat_a8",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gguf/gguf_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gguf/gguf_kernel.cu"
     },
     "ggml_moe_a8": {
         "func_name": "ggml_moe_a8",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gguf/gguf_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gguf/gguf_kernel.cu"
     },
     "ggml_moe_a8_vec": {
         "func_name": "ggml_moe_a8_vec",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gguf/gguf_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gguf/gguf_kernel.cu"
     },
     "cutlass_scaled_fp4_mm": {
         "func_name": "cutlass_scaled_fp4_mm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp4/nvfp4_scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp4/nvfp4_scaled_mm_entry.cu"
     },
     "cutlass_scaled_mm_supports_fp4": {
         "func_name": "cutlass_scaled_mm_supports_fp4",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp4/nvfp4_scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp4/nvfp4_scaled_mm_entry.cu"
     },
     "scaled_fp4_quant": {
         "func_name": "scaled_fp4_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp4/nvfp4_quant_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp4/nvfp4_quant_entry.cu"
     },
     "scaled_fp4_experts_quant": {
         "func_name": "scaled_fp4_experts_quant",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp4/nvfp4_quant_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp4/nvfp4_quant_entry.cu"
     },
     "cutlass_fp4_group_mm": {
         "func_name": "cutlass_fp4_group_mm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/fp4/nvfp4_blockwise_moe_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/fp4/nvfp4_blockwise_moe_kernel.cu"
     },
     "cutlass_scaled_mm_supports_fp8": {
         "func_name": "cutlass_scaled_mm_supports_fp8",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "cutlass_scaled_mm_supports_block_fp8": {
         "func_name": "cutlass_scaled_mm_supports_block_fp8",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "cutlass_group_gemm_supported": {
         "func_name": "cutlass_group_gemm_supported",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "cutlass_scaled_mm": {
         "func_name": "cutlass_scaled_mm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "cutlass_moe_mm": {
         "func_name": "cutlass_moe_mm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "get_cutlass_moe_mm_data": {
         "func_name": "get_cutlass_moe_mm_data",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "cutlass_scaled_mm_azp": {
         "func_name": "cutlass_scaled_mm_azp",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/cutlass_w8a8/scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/cutlass_w8a8/scaled_mm_entry.cu"
     },
     "gptq_gemm": {
         "func_name": "gptq_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq/q_gemm.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq/q_gemm.cu"
     },
     "gptq_shuffle": {
         "func_name": "gptq_shuffle",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/gptq/q_gemm.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/gptq/q_gemm.cu"
     },
     "marlin_qqq_gemm": {
         "func_name": "marlin_qqq_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/marlin/qqq/marlin_qqq_gemm_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/marlin/qqq/marlin_qqq_gemm_kernel.cu"
     },
     "marlin_gemm": {
         "func_name": "marlin_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/marlin/dense/marlin_cuda_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/marlin/dense/marlin_cuda_kernel.cu"
     },
     "gptq_marlin_24_gemm": {
         "func_name": "gptq_marlin_24_gemm",
-        "file_path": "/home/mvh6224/vllm/csrc/quantization/marlin/sparse/marlin_24_cuda_kernel.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filesquantization/marlin/sparse/marlin_24_cuda_kernel.cu"
     },
     "cutlass_sparse_scaled_mm_supported": {
         "func_name": "cutlass_sparse_scaled_mm_supported",
-        "file_path": "/home/mvh6224/vllm/csrc/sparse/cutlass/sparse_scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filessparse/cutlass/sparse_scaled_mm_entry.cu"
     },
     "cutlass_scaled_sparse_mm": {
         "func_name": "cutlass_scaled_sparse_mm",
-        "file_path": "/home/mvh6224/vllm/csrc/sparse/cutlass/sparse_scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filessparse/cutlass/sparse_scaled_mm_entry.cu"
     },
     "cutlass_sparse_compress": {
         "func_name": "cutlass_sparse_compress",
-        "file_path": "/home/mvh6224/vllm/csrc/sparse/cutlass/sparse_scaled_mm_entry.cu"
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_filessparse/cutlass/sparse_scaled_mm_entry.cu"
     }
 }

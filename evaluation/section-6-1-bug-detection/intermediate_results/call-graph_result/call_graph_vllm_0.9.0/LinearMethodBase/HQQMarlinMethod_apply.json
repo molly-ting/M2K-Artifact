@@ -2,7 +2,7 @@
     "hqq_marlin-HQQMarlinMethod-__init__": {
         "class": "HQQMarlinMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/hqq_marlin.py",
         "loc": [
             185,
             189
@@ -13,7 +13,7 @@
     "hqq_marlin-HQQMarlinMethod-apply": {
         "class": "HQQMarlinMethod",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/hqq_marlin.py",
         "loc": [
             286,
             331
@@ -22,13 +22,13 @@
             {
                 "class": "MarlinWorkspace",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_test.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_test.py",
                 "line": 292
             },
             {
                 "class": null,
                 "function": "gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 305
             }
         ],
@@ -37,14 +37,14 @@
                 "class": null,
                 "function": "scales.to",
                 "type": "layer.marlin_scales",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+                "filepath": "vllm/model_executor/layers/quantization/hqq_marlin.py",
                 "line": 302
             },
             {
                 "class": null,
                 "function": "zeros.to",
                 "type": "layer.marlin_zeros",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/hqq_marlin.py",
+                "filepath": "vllm/model_executor/layers/quantization/hqq_marlin.py",
                 "line": 303
             }
         ]
@@ -52,7 +52,7 @@
     "marlin_utils_test-MarlinWorkspace-__init__": {
         "class": "MarlinWorkspace",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_test.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_test.py",
         "loc": [
             19,
             28
@@ -63,7 +63,7 @@
     "_custom_ops-gptq_marlin_gemm": {
         "class": null,
         "function": "gptq_marlin_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             948,
             970
@@ -72,7 +72,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 965
             }
         ],

@@ -2,7 +2,7 @@
     "hpu_attn-HPUAttentionImpl-__init__": {
         "class": "HPUAttentionImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+        "filepath": "vllm/attention/backends/hpu_attn.py",
         "loc": [
             100,
             169
@@ -11,13 +11,13 @@
             {
                 "class": null,
                 "function": "get_supported_head_sizes",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+                "filepath": "vllm/attention/ops/hpu_paged_attn.py",
                 "line": 154
             },
             {
                 "class": null,
                 "function": "is_quantized_kv_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+                "filepath": "vllm/attention/backends/abstract.py",
                 "line": 167
             }
         ],
@@ -26,7 +26,7 @@
     "abstract-AttentionImpl-__init__": {
         "class": "AttentionImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+        "filepath": "vllm/attention/backends/abstract.py",
         "loc": [
             260,
             273
@@ -37,7 +37,7 @@
     "hpu_paged_attn-get_supported_head_sizes": {
         "class": null,
         "function": "get_supported_head_sizes",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+        "filepath": "vllm/attention/ops/hpu_paged_attn.py",
         "loc": [
             31,
             32
@@ -48,7 +48,7 @@
     "abstract-is_quantized_kv_cache": {
         "class": null,
         "function": "is_quantized_kv_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+        "filepath": "vllm/attention/backends/abstract.py",
         "loc": [
             305,
             306
@@ -59,7 +59,7 @@
     "hpu_attn-HPUAttentionImpl-forward": {
         "class": "HPUAttentionImpl",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+        "filepath": "vllm/attention/backends/hpu_attn.py",
         "loc": [
             171,
             256
@@ -68,31 +68,31 @@
             {
                 "class": null,
                 "function": "split_kv_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+                "filepath": "vllm/attention/ops/hpu_paged_attn.py",
                 "line": 206
             },
             {
                 "class": null,
                 "function": "_make_alibi_bias",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+                "filepath": "vllm/attention/backends/hpu_attn.py",
                 "line": 225
             },
             {
                 "class": "HPUAttentionImpl",
                 "function": "common_attention_args",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+                "filepath": "vllm/attention/backends/hpu_attn.py",
                 "line": 243
             },
             {
                 "class": "HPUAttentionImpl",
                 "function": "common_attention_args",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+                "filepath": "vllm/attention/backends/hpu_attn.py",
                 "line": 253
             },
             {
                 "class": null,
                 "function": "forward_decode",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+                "filepath": "vllm/attention/ops/hpu_paged_attn.py",
                 "line": 248
             }
         ],
@@ -101,14 +101,14 @@
                 "class": null,
                 "function": "block_indices.size",
                 "type": "attn_metadata.block_indices",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+                "filepath": "vllm/attention/backends/hpu_attn.py",
                 "line": 203
             },
             {
                 "class": null,
                 "function": "block_indices.size",
                 "type": "attn_metadata.block_indices",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+                "filepath": "vllm/attention/backends/hpu_attn.py",
                 "line": 204
             }
         ]
@@ -116,7 +116,7 @@
     "hpu_paged_attn-split_kv_cache": {
         "class": null,
         "function": "split_kv_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+        "filepath": "vllm/attention/ops/hpu_paged_attn.py",
         "loc": [
             44,
             51
@@ -127,7 +127,7 @@
     "hpu_attn-_make_alibi_bias": {
         "class": null,
         "function": "_make_alibi_bias",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+        "filepath": "vllm/attention/backends/hpu_attn.py",
         "loc": [
             280,
             309
@@ -138,7 +138,7 @@
     "hpu_attn-HPUAttentionImpl-common_attention_args": {
         "class": "HPUAttentionImpl",
         "function": "common_attention_args",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/hpu_attn.py",
+        "filepath": "vllm/attention/backends/hpu_attn.py",
         "loc": [
             258,
             277
@@ -149,7 +149,7 @@
     "hpu_paged_attn-forward_decode": {
         "class": null,
         "function": "forward_decode",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/hpu_paged_attn.py",
+        "filepath": "vllm/attention/ops/hpu_paged_attn.py",
         "loc": [
             63,
             64

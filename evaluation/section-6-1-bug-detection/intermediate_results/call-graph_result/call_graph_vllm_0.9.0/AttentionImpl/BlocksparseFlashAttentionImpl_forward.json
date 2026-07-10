@@ -2,7 +2,7 @@
     "blocksparse_attn-BlocksparseFlashAttentionImpl-__init__": {
         "class": "BlocksparseFlashAttentionImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+        "filepath": "vllm/attention/backends/blocksparse_attn.py",
         "loc": [
             296,
             362
@@ -11,31 +11,31 @@
             {
                 "class": "BlocksparseParams",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+                "filepath": "vllm/attention/backends/blocksparse_attn.py",
                 "line": 321
             },
             {
                 "class": null,
                 "function": "get_supported_head_sizes",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "filepath": "vllm/attention/ops/paged_attn.py",
                 "line": 338
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 344
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 345
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 348
             }
         ],
@@ -44,7 +44,7 @@
     "paged_attn-get_supported_head_sizes": {
         "class": null,
         "function": "get_supported_head_sizes",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "filepath": "vllm/attention/ops/paged_attn.py",
         "loc": [
             38,
             39
@@ -55,7 +55,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -64,7 +64,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -73,7 +73,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -84,7 +84,7 @@
     "parallel_state-get_tensor_model_parallel_rank": {
         "class": null,
         "function": "get_tensor_model_parallel_rank",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1154,
             1156
@@ -93,7 +93,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1156
             }
         ],
@@ -102,7 +102,7 @@
     "interface-LocalStridedBlockSparseAttn-__init__": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             20,
             78
@@ -111,19 +111,19 @@
             {
                 "class": null,
                 "function": "get_head_sliding_step",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 57
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "get_attn_pattern",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 61
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 72
             }
         ],
@@ -132,7 +132,7 @@
     "utils-get_head_sliding_step": {
         "class": null,
         "function": "get_head_sliding_step",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             154,
             159
@@ -143,7 +143,7 @@
     "interface-LocalStridedBlockSparseAttn-get_attn_pattern": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "get_attn_pattern",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             80,
             101
@@ -152,7 +152,7 @@
             {
                 "class": null,
                 "function": "get_sparse_attn_mask",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 81
             }
         ],
@@ -161,7 +161,7 @@
     "utils-get_sparse_attn_mask": {
         "class": null,
         "function": "get_sparse_attn_mask",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             163,
             245
@@ -170,25 +170,25 @@
             {
                 "class": null,
                 "function": "get_head_sliding_step",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 213
             },
             {
                 "class": null,
                 "function": "binary_mask_to_bias",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 236
             },
             {
                 "class": null,
                 "function": "dense_to_crow_col",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 242
             }
         ],
@@ -197,7 +197,7 @@
     "utils-binary_mask_to_bias": {
         "class": null,
         "function": "binary_mask_to_bias",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             148,
             151
@@ -208,7 +208,7 @@
     "utils-dense_to_crow_col": {
         "class": null,
         "function": "dense_to_crow_col",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             41,
             63
@@ -217,7 +217,7 @@
             {
                 "class": "csr_matrix",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
                 "line": 51
             }
         ],
@@ -226,7 +226,7 @@
     "utils-csr_matrix-__init__": {
         "class": "csr_matrix",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./utils.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./utils.py",
         "loc": [
             19,
             38
@@ -237,7 +237,7 @@
     "blocksparse_attn-BlocksparseFlashAttentionImpl-forward": {
         "class": "BlocksparseFlashAttentionImpl",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/blocksparse_attn.py",
+        "filepath": "vllm/attention/backends/blocksparse_attn.py",
         "loc": [
             364,
             457
@@ -246,25 +246,25 @@
             {
                 "class": null,
                 "function": "split_kv_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "filepath": "vllm/attention/ops/paged_attn.py",
                 "line": 394
             },
             {
                 "class": null,
                 "function": "write_to_paged_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "filepath": "vllm/attention/ops/paged_attn.py",
                 "line": 401
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 424
             },
             {
                 "class": null,
                 "function": "forward_decode",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+                "filepath": "vllm/attention/ops/paged_attn.py",
                 "line": 435
             }
         ],
@@ -273,7 +273,7 @@
     "paged_attn-split_kv_cache": {
         "class": null,
         "function": "split_kv_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "filepath": "vllm/attention/ops/paged_attn.py",
         "loc": [
             51,
             64
@@ -284,7 +284,7 @@
     "paged_attn-write_to_paged_cache": {
         "class": null,
         "function": "write_to_paged_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "filepath": "vllm/attention/ops/paged_attn.py",
         "loc": [
             67,
             86
@@ -293,7 +293,7 @@
             {
                 "class": null,
                 "function": "reshape_and_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 77
             }
         ],
@@ -302,7 +302,7 @@
     "_custom_ops-reshape_and_cache": {
         "class": null,
         "function": "reshape_and_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1539,
             1551
@@ -311,7 +311,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C_cache_ops.reshape_and_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1549
             }
         ],
@@ -320,7 +320,7 @@
     "interface-LocalStridedBlockSparseAttn-forward": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             203,
             238
@@ -329,13 +329,13 @@
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "spda",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 225
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "varlen_attn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 233
             }
         ],
@@ -344,7 +344,7 @@
     "interface-LocalStridedBlockSparseAttn-spda": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "spda",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             174,
             201
@@ -353,19 +353,19 @@
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "get_attn_pattern",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 192
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "transpose_and_pad",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 196
             },
             {
                 "class": "LocalStridedBlockSparseAttn",
                 "function": "transpose_and_unpad",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
                 "line": 201
             }
         ],
@@ -374,7 +374,7 @@
     "interface-LocalStridedBlockSparseAttn-transpose_and_pad": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "transpose_and_pad",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             147,
             158
@@ -385,7 +385,7 @@
     "interface-LocalStridedBlockSparseAttn-transpose_and_unpad": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "transpose_and_unpad",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             161,
             172
@@ -396,7 +396,7 @@
     "interface-LocalStridedBlockSparseAttn-varlen_attn": {
         "class": "LocalStridedBlockSparseAttn",
         "function": "varlen_attn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/interface.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/interface.py",
         "loc": [
             103,
             144
@@ -405,7 +405,7 @@
             {
                 "class": null,
                 "function": "blocksparse_flash_attn_varlen_fwd",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./blocksparse_attention_kernel.py",
+                "filepath": "vllm/attention/ops/blocksparse_attention/./blocksparse_attention_kernel.py",
                 "line": 133
             }
         ],
@@ -414,7 +414,7 @@
     "blocksparse_attention_kernel-blocksparse_flash_attn_varlen_fwd": {
         "class": null,
         "function": "blocksparse_flash_attn_varlen_fwd",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/blocksparse_attention/./blocksparse_attention_kernel.py",
+        "filepath": "vllm/attention/ops/blocksparse_attention/./blocksparse_attention_kernel.py",
         "loc": [
             8,
             122
@@ -425,7 +425,7 @@
     "paged_attn-forward_decode": {
         "class": null,
         "function": "forward_decode",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/ops/paged_attn.py",
+        "filepath": "vllm/attention/ops/paged_attn.py",
         "loc": [
             89,
             192
@@ -434,13 +434,13 @@
             {
                 "class": null,
                 "function": "paged_attention_v1",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 133
             },
             {
                 "class": null,
                 "function": "paged_attention_v2",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 168
             }
         ],
@@ -449,7 +449,7 @@
     "_custom_ops-paged_attention_v1": {
         "class": null,
         "function": "paged_attention_v1",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             40,
             66
@@ -458,7 +458,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.paged_attention_v1",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 61
             }
         ],
@@ -467,7 +467,7 @@
     "_custom_ops-paged_attention_v2": {
         "class": null,
         "function": "paged_attention_v2",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             69,
             98
@@ -476,7 +476,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.paged_attention_v2",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 93
             }
         ],

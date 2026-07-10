@@ -2,7 +2,7 @@
     "modelopt-ModelOptNvFp4LinearMethod-__init__": {
         "class": "ModelOptNvFp4LinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             282,
             293
@@ -11,13 +11,13 @@
             {
                 "class": null,
                 "function": "cutlass_fp4_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+                "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
                 "line": 284
             },
             {
                 "class": null,
                 "function": "is_fp4_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
                 "line": 288
             }
         ],
@@ -26,7 +26,7 @@
     "modelopt-cutlass_fp4_supported": {
         "class": null,
         "function": "cutlass_fp4_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             253,
             258
@@ -35,13 +35,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 256
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_mm_supports_fp4",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 258
             }
         ],
@@ -50,7 +50,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -59,7 +59,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -68,7 +68,7 @@
     "_custom_ops-cutlass_scaled_mm_supports_fp4": {
         "class": null,
         "function": "cutlass_scaled_mm_supports_fp4",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             607,
             608
@@ -77,7 +77,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm_supports_fp4",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 608
             }
         ],
@@ -86,7 +86,7 @@
     "marlin_utils_fp4-is_fp4_marlin_supported": {
         "class": null,
         "function": "is_fp4_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
         "loc": [
             20,
             21
@@ -97,7 +97,7 @@
     "modelopt-ModelOptNvFp4LinearMethod-apply": {
         "class": "ModelOptNvFp4LinearMethod",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             412,
             449
@@ -106,19 +106,19 @@
             {
                 "class": null,
                 "function": "apply_fp4_marlin_linear",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
                 "line": 419
             },
             {
                 "class": null,
                 "function": "scaled_fp4_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 434
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_fp4_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 444
             }
         ],
@@ -127,7 +127,7 @@
     "marlin_utils_fp4-apply_fp4_marlin_linear": {
         "class": null,
         "function": "apply_fp4_marlin_linear",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
         "loc": [
             66,
             107
@@ -136,13 +136,13 @@
             {
                 "class": null,
                 "function": "should_use_atomic_add_reduce",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 82
             },
             {
                 "class": null,
                 "function": "gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 88
             }
         ],
@@ -151,7 +151,7 @@
     "marlin_utils-should_use_atomic_add_reduce": {
         "class": null,
         "function": "should_use_atomic_add_reduce",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             363,
             383
@@ -160,13 +160,13 @@
             {
                 "class": null,
                 "function": "maybe_warn_marlin_atomic_add_env",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 374
             },
             {
                 "class": null,
                 "function": "maybe_warn_marlin_atomic_add",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 380
             }
         ],
@@ -175,7 +175,7 @@
     "marlin_utils-maybe_warn_marlin_atomic_add_env": {
         "class": null,
         "function": "maybe_warn_marlin_atomic_add_env",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             351,
             360
@@ -186,7 +186,7 @@
     "marlin_utils-maybe_warn_marlin_atomic_add": {
         "class": null,
         "function": "maybe_warn_marlin_atomic_add",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             340,
             348
@@ -197,7 +197,7 @@
     "_custom_ops-gptq_marlin_gemm": {
         "class": null,
         "function": "gptq_marlin_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             948,
             970
@@ -206,7 +206,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 965
             }
         ],
@@ -215,7 +215,7 @@
     "_custom_ops-scaled_fp4_quant": {
         "class": null,
         "function": "scaled_fp4_quant",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1024,
             1078
@@ -224,7 +224,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.scaled_fp4_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1075
             }
         ],
@@ -233,7 +233,7 @@
     "_custom_ops-cutlass_scaled_fp4_mm": {
         "class": null,
         "function": "cutlass_scaled_fp4_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             611,
             620
@@ -242,7 +242,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_fp4_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 618
             }
         ],

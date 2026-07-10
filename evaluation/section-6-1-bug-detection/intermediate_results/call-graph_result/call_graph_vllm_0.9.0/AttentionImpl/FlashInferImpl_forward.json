@@ -2,7 +2,7 @@
     "flashinfer-FlashInferImpl-__init__": {
         "class": "FlashInferImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+        "filepath": "vllm/attention/backends/flashinfer.py",
         "loc": [
             926,
             963
@@ -13,7 +13,7 @@
     "flashinfer-FlashInferImpl-forward": {
         "class": "FlashInferImpl",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+        "filepath": "vllm/attention/backends/flashinfer.py",
         "loc": [
             965,
             1100
@@ -22,19 +22,19 @@
             {
                 "class": null,
                 "function": "reshape_and_cache_flash",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 993
             },
             {
                 "class": null,
                 "function": "get_fp8_dtype_for_flashinfer",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+                "filepath": "vllm/attention/backends/flashinfer.py",
                 "line": 1006
             },
             {
                 "class": null,
                 "function": "get_kv_cache_stride_order",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+                "filepath": "vllm/attention/backends/flashinfer.py",
                 "line": 1033
             }
         ],
@@ -43,7 +43,7 @@
                 "class": null,
                 "function": "kv_cache_dtype.startswith",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+                "filepath": "vllm/attention/backends/flashinfer.py",
                 "line": 1005
             }
         ]
@@ -51,7 +51,7 @@
     "_custom_ops-reshape_and_cache_flash": {
         "class": null,
         "function": "reshape_and_cache_flash",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1554,
             1567
@@ -60,7 +60,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C_cache_ops.reshape_and_cache_flash",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1564
             }
         ],
@@ -69,7 +69,7 @@
     "flashinfer-get_fp8_dtype_for_flashinfer": {
         "class": null,
         "function": "get_fp8_dtype_for_flashinfer",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+        "filepath": "vllm/attention/backends/flashinfer.py",
         "loc": [
             115,
             121
@@ -80,7 +80,7 @@
     "flashinfer-get_kv_cache_stride_order": {
         "class": null,
         "function": "get_kv_cache_stride_order",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/flashinfer.py",
+        "filepath": "vllm/attention/backends/flashinfer.py",
         "loc": [
             88,
             93

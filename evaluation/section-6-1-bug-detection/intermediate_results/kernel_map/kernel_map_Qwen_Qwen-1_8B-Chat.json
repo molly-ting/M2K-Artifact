@@ -1,1 +1,54 @@
-{"vecquant8matmul_batched_column_compression": {"func_name": "vecquant8matmul_batched_column_compression_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched": {"func_name": "vecquant8matmul_batched_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul": {"func_name": "vecquant8matmul_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant4matmul_batched": {"func_name": "vecquant4matmul_batched_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant4matmul_batched_column_compression": {"func_name": "vecquant4matmul_batched_column_compression_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_old": {"func_name": "vecquant8matmul_batched_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_faster": {"func_name": "vecquant8matmul_batched_faster_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_column_compression_faster": {"func_name": "vecquant8matmul_batched_column_compression_faster_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_column_compression_old": {"func_name": "vecquant8matmul_batched_column_compression_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant4matmul_batched_old": {"func_name": "vecquant4matmul_batched_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant4matmul_batched_column_compression_old": {"func_name": "vecquant4matmul_batched_column_compression_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_faster_old": {"func_name": "vecquant8matmul_batched_faster_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}, "vecquant8matmul_batched_column_compression_faster_old": {"func_name": "vecquant8matmul_batched_column_compression_faster_old_cuda", "file_path": "/data/szx5097/hfplayground/_models/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"}}
+{
+    "vecquant8matmul_batched_column_compression": {
+        "func_name": "vecquant8matmul_batched_column_compression_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched": {
+        "func_name": "vecquant8matmul_batched_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul": {
+        "func_name": "vecquant8matmul_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant4matmul_batched": {
+        "func_name": "vecquant4matmul_batched_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant4matmul_batched_column_compression": {
+        "func_name": "vecquant4matmul_batched_column_compression_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_old": {
+        "func_name": "vecquant8matmul_batched_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_faster": {
+        "func_name": "vecquant8matmul_batched_faster_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_column_compression_faster": {
+        "func_name": "vecquant8matmul_batched_column_compression_faster_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_column_compression_old": {
+        "func_name": "vecquant8matmul_batched_column_compression_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant4matmul_batched_old": {
+        "func_name": "vecquant4matmul_batched_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant4matmul_batched_column_compression_old": {
+        "func_name": "vecquant4matmul_batched_column_compression_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_faster_old": {
+        "func_name": "vecquant8matmul_batched_faster_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    },
+    "vecquant8matmul_batched_column_compression_faster_old": {
+        "func_name": "vecquant8matmul_batched_column_compression_faster_old_cuda",
+        "file_path": "evaluation/section-6-1-bug-detection/benchmarks/huggingface/cuda_files/Qwen_Qwen-1_8B-Chat/cache_autogptq_cuda_kernel_256.cu"
+    }
+}

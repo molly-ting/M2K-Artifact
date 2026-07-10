@@ -2,7 +2,7 @@
     "gptq_marlin-GPTQMarlinConfig-__init__": {
         "class": "GPTQMarlinConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             46,
             94
@@ -13,7 +13,7 @@
     "base_config-QuantizationConfig-__init__": {
         "class": "QuantizationConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             68,
             71
@@ -24,7 +24,7 @@
     "gptq_marlin-GPTQMarlinConfig-get_quant_method": {
         "class": "GPTQMarlinConfig",
         "function": "get_quant_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             154,
             167
@@ -33,19 +33,19 @@
             {
                 "class": null,
                 "function": "check_moe_marlin_supports_layer",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 159
             },
             {
                 "class": "GPTQMarlinMoEMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
                 "line": 165
             },
             {
                 "class": null,
                 "function": "get_linear_quant_method",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 166
             }
         ],
@@ -54,7 +54,7 @@
     "marlin_utils-check_moe_marlin_supports_layer": {
         "class": null,
         "function": "check_moe_marlin_supports_layer",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             170,
             186
@@ -65,7 +65,7 @@
     "gptq_marlin-GPTQMarlinMoEMethod-__init__": {
         "class": "GPTQMarlinMoEMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             351,
             359
@@ -76,7 +76,7 @@
     "gptq_utils-get_linear_quant_method": {
         "class": null,
         "function": "get_linear_quant_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
         "loc": [
             71,
             94
@@ -85,31 +85,31 @@
             {
                 "class": null,
                 "function": "get_dynamic_override",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 82
             },
             {
                 "class": "UnquantizedEmbeddingMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 86
             },
             {
                 "class": "UnquantizedLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 87
             },
             {
                 "class": null,
                 "function": "override_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 91
             },
             {
                 "class": "GPTQMarlinLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
                 "line": 93
             }
         ],
@@ -118,7 +118,7 @@
     "gptq_utils-get_dynamic_override": {
         "class": null,
         "function": "get_dynamic_override",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
         "loc": [
             50,
             68
@@ -129,7 +129,7 @@
     "gptq_utils-override_config": {
         "class": null,
         "function": "override_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
         "loc": [
             17,
             47
@@ -138,25 +138,25 @@
             {
                 "class": null,
                 "function": "get_dynamic_override",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 18
             },
             {
                 "class": null,
                 "function": "get_dynamic_override",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 22
             },
             {
                 "class": null,
                 "function": "get_dynamic_override",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 26
             },
             {
                 "class": null,
                 "function": "get_dynamic_override",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/gptq_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/gptq_utils.py",
                 "line": 33
             }
         ],
@@ -165,14 +165,14 @@
                 "class": null,
                 "function": "config.get_name",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 32
             },
             {
                 "class": null,
                 "function": "config.get_name",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 43
             }
         ]
@@ -180,7 +180,7 @@
     "gptq_marlin-GPTQMarlinLinearMethod-__init__": {
         "class": "GPTQMarlinLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             204,
             209
@@ -189,7 +189,7 @@
             {
                 "class": null,
                 "function": "verify_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 208
             }
         ],
@@ -198,7 +198,7 @@
     "marlin_utils-verify_marlin_supported": {
         "class": null,
         "function": "verify_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             105,
             111
@@ -207,7 +207,7 @@
             {
                 "class": null,
                 "function": "_check_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 108
             }
         ],
@@ -216,7 +216,7 @@
     "marlin_utils-_check_marlin_supported": {
         "class": null,
         "function": "_check_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             69,
             93
@@ -225,13 +225,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 76
             },
             {
                 "class": null,
                 "function": "query_marlin_supported_quant_types",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 80
             }
         ],
@@ -240,7 +240,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -249,7 +249,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -258,7 +258,7 @@
     "marlin_utils-query_marlin_supported_quant_types": {
         "class": null,
         "function": "query_marlin_supported_quant_types",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             35,
             66
@@ -267,7 +267,7 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 41
             }
         ],

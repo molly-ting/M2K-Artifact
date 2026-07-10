@@ -2,7 +2,7 @@
     "aqlm-AQLMLinearMethod-__init__": {
         "class": "AQLMLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             228,
             229
@@ -13,7 +13,7 @@
     "aqlm-AQLMLinearMethod-apply": {
         "class": "AQLMLinearMethod",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             326,
             375
@@ -22,19 +22,19 @@
             {
                 "class": null,
                 "function": "aqlm_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 351
             },
             {
                 "class": null,
                 "function": "optimized_dequantize_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 358
             },
             {
                 "class": null,
                 "function": "generic_dequantize_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 368
             }
         ],
@@ -43,7 +43,7 @@
     "_custom_ops-aqlm_gemm": {
         "class": null,
         "function": "aqlm_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             892,
             897
@@ -52,7 +52,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.aqlm_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 896
             }
         ],
@@ -61,7 +61,7 @@
     "aqlm-optimized_dequantize_gemm": {
         "class": null,
         "function": "optimized_dequantize_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             133,
             157
@@ -70,7 +70,7 @@
             {
                 "class": null,
                 "function": "aqlm_dequant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 142
             }
         ],
@@ -79,7 +79,7 @@
     "_custom_ops-aqlm_dequant": {
         "class": null,
         "function": "aqlm_dequant",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             900,
             903
@@ -88,7 +88,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.aqlm_dequant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 902
             }
         ],
@@ -97,7 +97,7 @@
     "aqlm-generic_dequantize_gemm": {
         "class": null,
         "function": "generic_dequantize_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             95,
             128
@@ -106,7 +106,7 @@
             {
                 "class": null,
                 "function": "dequantize_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 117
             }
         ],
@@ -115,7 +115,7 @@
     "aqlm-dequantize_gemm": {
         "class": null,
         "function": "dequantize_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             78,
             91
@@ -124,13 +124,13 @@
             {
                 "class": null,
                 "function": "unpack_int_data",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 87
             },
             {
                 "class": null,
                 "function": "dequantize_weight",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 86
             }
         ],
@@ -139,7 +139,7 @@
     "aqlm-unpack_int_data": {
         "class": null,
         "function": "unpack_int_data",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             34,
             35
@@ -150,7 +150,7 @@
                 "class": null,
                 "function": "data.to",
                 "type": "torch.IntTensor",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+                "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
                 "line": 35
             }
         ]
@@ -158,7 +158,7 @@
     "aqlm-dequantize_weight": {
         "class": null,
         "function": "dequantize_weight",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/aqlm.py",
+        "filepath": "vllm/model_executor/layers/quantization/aqlm.py",
         "loc": [
             38,
             75

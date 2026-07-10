@@ -2,7 +2,7 @@
     "quark_moe-QuarkW8A8Fp8MoEMethod-__init__": {
         "class": "QuarkW8A8Fp8MoEMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
         "loc": [
             48,
             62
@@ -13,21 +13,21 @@
                 "class": null,
                 "function": "self.weight_quant.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
                 "line": 53
             },
             {
                 "class": null,
                 "function": "self.input_quant.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
                 "line": 54
             },
             {
                 "class": null,
                 "function": "self.input_quant.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
                 "line": 62
             }
         ]
@@ -35,7 +35,7 @@
     "quark_moe-QuarkW8A8Fp8MoEMethod-create_weights": {
         "class": "QuarkW8A8Fp8MoEMethod",
         "function": "create_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
         "loc": [
             64,
             124
@@ -44,37 +44,37 @@
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 78
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 87
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 106
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 107
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 115
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 121
             }
         ],
@@ -83,7 +83,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -92,7 +92,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -101,7 +101,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53

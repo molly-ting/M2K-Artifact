@@ -2,7 +2,7 @@
     "quark-QuarkConfig-__init__": {
         "class": "QuarkConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             31,
             42
@@ -13,7 +13,7 @@
     "base_config-QuantizationConfig-__init__": {
         "class": "QuantizationConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             68,
             71
@@ -24,7 +24,7 @@
     "quark-QuarkConfig-get_quant_method": {
         "class": "QuarkConfig",
         "function": "get_quant_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             57,
             78
@@ -33,37 +33,37 @@
             {
                 "class": null,
                 "function": "should_ignore_layer",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 63
             },
             {
                 "class": "UnquantizedLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 66
             },
             {
                 "class": "QuarkConfig",
                 "function": "get_scheme",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 68
             },
             {
                 "class": "QuarkLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 70
             },
             {
                 "class": "QuarkKVCacheMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 72
             },
             {
                 "class": null,
                 "function": "get_moe_method",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
                 "line": 75
             }
         ],
@@ -72,7 +72,7 @@
                 "class": null,
                 "function": "self.quant_config.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 62
             }
         ]
@@ -80,7 +80,7 @@
     "utils-should_ignore_layer": {
         "class": null,
         "function": "should_ignore_layer",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
         "loc": [
             23,
             71
@@ -89,7 +89,7 @@
             {
                 "class": null,
                 "function": "check_equal_or_regex_match",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 67
             }
         ],
@@ -98,7 +98,7 @@
                 "class": null,
                 "function": "layer_name.split",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 33
             }
         ]
@@ -106,7 +106,7 @@
     "utils-check_equal_or_regex_match": {
         "class": null,
         "function": "check_equal_or_regex_match",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
         "loc": [
             74,
             83
@@ -115,7 +115,7 @@
             {
                 "class": null,
                 "function": "_is_equal_or_regex_match",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 81
             }
         ],
@@ -124,7 +124,7 @@
     "utils-_is_equal_or_regex_match": {
         "class": null,
         "function": "_is_equal_or_regex_match",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
         "loc": [
             86,
             104
@@ -135,21 +135,21 @@
                 "class": null,
                 "function": "target.startswith",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 95
             },
             {
                 "class": null,
                 "function": "target.lower",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 100
             },
             {
                 "class": null,
                 "function": "value.lower",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 100
             }
         ]
@@ -157,7 +157,7 @@
     "quark-QuarkConfig-get_scheme": {
         "class": "QuarkConfig",
         "function": "get_scheme",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             331,
             342
@@ -166,19 +166,19 @@
             {
                 "class": "QuarkConfig",
                 "function": "_find_matched_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 334
             },
             {
                 "class": "QuarkConfig",
                 "function": "_get_scheme_from_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 337
             },
             {
                 "class": "QuarkConfig",
                 "function": "_check_scheme_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 340
             }
         ],
@@ -187,7 +187,7 @@
     "quark-QuarkConfig-_find_matched_config": {
         "class": "QuarkConfig",
         "function": "_find_matched_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             260,
             300
@@ -196,7 +196,7 @@
             {
                 "class": null,
                 "function": "deep_compare",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
                 "line": 277
             }
         ],
@@ -205,28 +205,28 @@
                 "class": null,
                 "function": "layer_name.split",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 263
             },
             {
                 "class": null,
                 "function": "self.quant_config.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 286
             },
             {
                 "class": null,
                 "function": "self.quant_config.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 294
             },
             {
                 "class": null,
                 "function": "self.quant_config.get",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 299
             }
         ]
@@ -234,7 +234,7 @@
     "utils-deep_compare": {
         "class": null,
         "function": "deep_compare",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/utils.py",
         "loc": [
             10,
             20
@@ -245,7 +245,7 @@
     "quark-QuarkConfig-_get_scheme_from_config": {
         "class": "QuarkConfig",
         "function": "_get_scheme_from_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             302,
             329
@@ -254,49 +254,49 @@
             {
                 "class": "QuarkConfig",
                 "function": "_is_fp8_w8a8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 310
             },
             {
                 "class": null,
                 "function": "get_min_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
                 "line": 312
             },
             {
                 "class": "QuarkConfig",
                 "function": "_check_scheme_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 311
             },
             {
                 "class": "QuarkW8A8Fp8",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
                 "line": 317
             },
             {
                 "class": "QuarkConfig",
                 "function": "_is_static_tensor_w8a8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 319
             },
             {
                 "class": "QuarkW8A8Int8",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_int8.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_int8.py",
                 "line": 321
             },
             {
                 "class": "QuarkConfig",
                 "function": "_is_mx_fp4",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 324
             },
             {
                 "class": "QuarkW4A4MXFP4",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w4a4_mxfp4.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w4a4_mxfp4.py",
                 "line": 325
             }
         ],
@@ -305,28 +305,28 @@
                 "class": null,
                 "function": "weight_config.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 314
             },
             {
                 "class": null,
                 "function": "input_config.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 316
             },
             {
                 "class": null,
                 "function": "weight_config.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 320
             },
             {
                 "class": null,
                 "function": "input_config.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 323
             }
         ]
@@ -334,7 +334,7 @@
     "quark-QuarkConfig-_is_fp8_w8a8": {
         "class": "QuarkConfig",
         "function": "_is_fp8_w8a8",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             165,
             188
@@ -345,42 +345,42 @@
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 172
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 173
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 174
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 175
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 183
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 187
             }
         ]
@@ -388,7 +388,7 @@
     "quark_w8a8_fp8-get_min_capability": {
         "class": null,
         "function": "get_min_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
         "loc": [
             28,
             30
@@ -399,7 +399,7 @@
     "quark-QuarkConfig-_check_scheme_supported": {
         "class": "QuarkConfig",
         "function": "_check_scheme_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             148,
             163
@@ -408,7 +408,7 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 151
             }
         ],
@@ -417,7 +417,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -426,7 +426,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -435,7 +435,7 @@
     "quark_w8a8_fp8-QuarkW8A8Fp8-__init__": {
         "class": "QuarkW8A8Fp8",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_fp8.py",
         "loc": [
             21,
             25
@@ -444,7 +444,7 @@
             {
                 "class": "Fp8LinearOp",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 24
             }
         ],
@@ -453,7 +453,7 @@
     "w8a8_utils-Fp8LinearOp-__init__": {
         "class": "Fp8LinearOp",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             300,
             316
@@ -462,13 +462,13 @@
             {
                 "class": null,
                 "function": "cutlass_fp8_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 301
             },
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 313
             }
         ],
@@ -477,7 +477,7 @@
     "w8a8_utils-cutlass_fp8_supported": {
         "class": null,
         "function": "cutlass_fp8_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             35,
             42
@@ -486,13 +486,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 39
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 42
             }
         ],
@@ -501,7 +501,7 @@
     "_custom_ops-cutlass_scaled_mm_supports_fp8": {
         "class": null,
         "function": "cutlass_scaled_mm_supports_fp8",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             623,
             624
@@ -510,7 +510,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 624
             }
         ],
@@ -519,7 +519,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -528,7 +528,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],
@@ -537,7 +537,7 @@
     "quark-QuarkConfig-_is_static_tensor_w8a8": {
         "class": "QuarkConfig",
         "function": "_is_static_tensor_w8a8",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             190,
             210
@@ -548,49 +548,49 @@
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 196
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 197
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 199
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 201
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 203
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 204
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 206
             }
         ]
@@ -598,7 +598,7 @@
     "quark_w8a8_int8-QuarkW8A8Int8-__init__": {
         "class": "QuarkW8A8Int8",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_int8.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w8a8_int8.py",
         "loc": [
             22,
             26
@@ -609,7 +609,7 @@
     "quark-QuarkConfig-_is_mx_fp4": {
         "class": "QuarkConfig",
         "function": "_is_mx_fp4",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             212,
             258
@@ -620,70 +620,70 @@
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 221
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 221
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 227
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 227
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 240
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 246
             },
             {
                 "class": null,
                 "function": "weight_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 252
             },
             {
                 "class": null,
                 "function": "input_quant.get",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 252
             }
         ]
@@ -691,7 +691,7 @@
     "quark_w4a4_mxfp4-QuarkW4A4MXFP4-__init__": {
         "class": "QuarkW4A4MXFP4",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/./quark_w4a4_mxfp4.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/./quark_w4a4_mxfp4.py",
         "loc": [
             21,
             27
@@ -702,7 +702,7 @@
     "quark-QuarkLinearMethod-__init__": {
         "class": "QuarkLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             368,
             369
@@ -713,7 +713,7 @@
     "quark-QuarkKVCacheMethod-__init__": {
         "class": "QuarkKVCacheMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             415,
             417
@@ -722,7 +722,7 @@
             {
                 "class": "QuarkKVCacheMethod",
                 "function": "validate_kv_cache_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
                 "line": 416
             }
         ],
@@ -731,7 +731,7 @@
     "quark-QuarkKVCacheMethod-validate_kv_cache_config": {
         "class": "QuarkKVCacheMethod",
         "function": "validate_kv_cache_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark.py",
         "loc": [
             420,
             440
@@ -742,7 +742,7 @@
     "kv_cache-BaseKVCacheMethod-__init__": {
         "class": "BaseKVCacheMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kv_cache.py",
+        "filepath": "vllm/model_executor/layers/quantization/kv_cache.py",
         "loc": [
             24,
             25
@@ -753,7 +753,7 @@
     "quark_moe-get_moe_method": {
         "class": null,
         "function": "get_moe_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
         "loc": [
             25,
             43
@@ -762,7 +762,7 @@
             {
                 "class": "QuarkW8A8Fp8MoEMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+                "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
                 "line": 41
             }
         ],
@@ -771,7 +771,7 @@
     "quark_moe-QuarkW8A8Fp8MoEMethod-__init__": {
         "class": "QuarkW8A8Fp8MoEMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/quark_moe.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/quark_moe.py",
         "loc": [
             48,
             62

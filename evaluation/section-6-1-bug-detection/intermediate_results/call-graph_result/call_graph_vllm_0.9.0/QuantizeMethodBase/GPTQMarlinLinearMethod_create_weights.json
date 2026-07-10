@@ -2,7 +2,7 @@
     "gptq_marlin-GPTQMarlinLinearMethod-__init__": {
         "class": "GPTQMarlinLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             204,
             209
@@ -11,7 +11,7 @@
             {
                 "class": null,
                 "function": "verify_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 208
             }
         ],
@@ -20,7 +20,7 @@
     "marlin_utils-verify_marlin_supported": {
         "class": null,
         "function": "verify_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             105,
             111
@@ -29,7 +29,7 @@
             {
                 "class": null,
                 "function": "_check_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 108
             }
         ],
@@ -38,7 +38,7 @@
     "marlin_utils-_check_marlin_supported": {
         "class": null,
         "function": "_check_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             69,
             93
@@ -47,13 +47,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 76
             },
             {
                 "class": null,
                 "function": "query_marlin_supported_quant_types",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 80
             }
         ],
@@ -62,7 +62,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -71,7 +71,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -80,7 +80,7 @@
     "marlin_utils-query_marlin_supported_quant_types": {
         "class": null,
         "function": "query_marlin_supported_quant_types",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             35,
             66
@@ -89,7 +89,7 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 41
             }
         ],
@@ -98,7 +98,7 @@
     "gptq_marlin-GPTQMarlinLinearMethod-create_weights": {
         "class": "GPTQMarlinLinearMethod",
         "function": "create_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
         "loc": [
             211,
             334
@@ -107,55 +107,55 @@
             {
                 "class": "MPLinearLayerConfig",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
                 "line": 225
             },
             {
                 "class": null,
                 "function": "choose_mp_linear_kernel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/__init__.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/__init__.py",
                 "line": 236
             },
             {
                 "class": null,
                 "function": "marlin_repeat_scales_on_all_ranks",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 250
             },
             {
                 "class": "PackedvLLMParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 264
             },
             {
                 "class": "RowvLLMParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 277
             },
             {
                 "class": "ChannelQuantScaleParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 306
             },
             {
                 "class": "PackedColumnParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 308
             },
             {
                 "class": "GroupQuantScaleParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 315
             },
             {
                 "class": "PackedvLLMParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 318
             }
         ],
@@ -164,14 +164,14 @@
                 "class": null,
                 "function": "self._kernel_backends_being_used.add",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/gptq_marlin.py",
+                "filepath": "vllm/model_executor/layers/quantization/gptq_marlin.py",
                 "line": 241
             },
             {
                 "class": "MPLinearKernel",
                 "function": "kernel_type",
                 "type": "MPLinearKernel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
                 "line": 330
             }
         ]
@@ -179,7 +179,7 @@
     "__init__-choose_mp_linear_kernel": {
         "class": null,
         "function": "choose_mp_linear_kernel",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/__init__.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/__init__.py",
         "loc": [
             30,
             82
@@ -188,7 +188,7 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 54
             }
         ],
@@ -197,7 +197,7 @@
     "marlin_utils-marlin_repeat_scales_on_all_ranks": {
         "class": null,
         "function": "marlin_repeat_scales_on_all_ranks",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             215,
             220
@@ -208,7 +208,7 @@
     "parameter-PackedvLLMParameter-__init__": {
         "class": "PackedvLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             329,
             339
@@ -219,7 +219,7 @@
     "parameter-RowvLLMParameter-__init__": {
         "class": "RowvLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             166,
             168
@@ -230,7 +230,7 @@
     "parameter-BasevLLMParameter-__init__": {
         "class": "BasevLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             33,
             55
@@ -241,7 +241,7 @@
     "parameter-_ColumnvLLMParameter-__init__": {
         "class": "_ColumnvLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             95,
             97
@@ -252,7 +252,7 @@
     "parameter-PackedColumnParameter-__init__": {
         "class": "PackedColumnParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             281,
             291

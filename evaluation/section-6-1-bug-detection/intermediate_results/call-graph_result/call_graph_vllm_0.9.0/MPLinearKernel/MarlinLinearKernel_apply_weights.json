@@ -2,7 +2,7 @@
     "marlin-MarlinLinearKernel-apply_weights": {
         "class": "MarlinLinearKernel",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/marlin.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/marlin.py",
         "loc": [
             109,
             130
@@ -11,7 +11,7 @@
             {
                 "class": null,
                 "function": "apply_gptq_marlin_linear",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 118
             }
         ],
@@ -20,7 +20,7 @@
     "marlin_utils-apply_gptq_marlin_linear": {
         "class": null,
         "function": "apply_gptq_marlin_linear",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             386,
             430
@@ -29,13 +29,13 @@
             {
                 "class": null,
                 "function": "should_use_atomic_add_reduce",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 403
             },
             {
                 "class": null,
                 "function": "gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 409
             }
         ],
@@ -44,7 +44,7 @@
     "marlin_utils-should_use_atomic_add_reduce": {
         "class": null,
         "function": "should_use_atomic_add_reduce",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             363,
             383
@@ -53,13 +53,13 @@
             {
                 "class": null,
                 "function": "maybe_warn_marlin_atomic_add_env",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 374
             },
             {
                 "class": null,
                 "function": "maybe_warn_marlin_atomic_add",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
                 "line": 380
             }
         ],
@@ -68,7 +68,7 @@
     "marlin_utils-maybe_warn_marlin_atomic_add_env": {
         "class": null,
         "function": "maybe_warn_marlin_atomic_add_env",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             351,
             360
@@ -79,7 +79,7 @@
     "marlin_utils-maybe_warn_marlin_atomic_add": {
         "class": null,
         "function": "maybe_warn_marlin_atomic_add",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils.py",
         "loc": [
             340,
             348
@@ -90,7 +90,7 @@
     "_custom_ops-gptq_marlin_gemm": {
         "class": null,
         "function": "gptq_marlin_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             948,
             970
@@ -99,7 +99,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gptq_marlin_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 965
             }
         ],

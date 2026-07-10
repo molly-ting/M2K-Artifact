@@ -2,7 +2,7 @@
     "modelopt-ModelOptFp8Config-__init__": {
         "class": "ModelOptFp8Config",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             41,
             49
@@ -13,7 +13,7 @@
     "base_config-QuantizationConfig-__init__": {
         "class": "QuantizationConfig",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             68,
             71
@@ -24,7 +24,7 @@
     "modelopt-ModelOptFp8Config-get_quant_method": {
         "class": "ModelOptFp8Config",
         "function": "get_quant_method",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             80,
             87
@@ -33,7 +33,7 @@
             {
                 "class": "ModelOptFp8LinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+                "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
                 "line": 84
             }
         ],
@@ -42,7 +42,7 @@
     "modelopt-ModelOptFp8LinearMethod-__init__": {
         "class": "ModelOptFp8LinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             102,
             104
@@ -51,7 +51,7 @@
             {
                 "class": "Fp8LinearOp",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 104
             }
         ],
@@ -60,7 +60,7 @@
     "w8a8_utils-Fp8LinearOp-__init__": {
         "class": "Fp8LinearOp",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             300,
             316
@@ -69,13 +69,13 @@
             {
                 "class": null,
                 "function": "cutlass_fp8_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 301
             },
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 313
             }
         ],
@@ -84,7 +84,7 @@
     "w8a8_utils-cutlass_fp8_supported": {
         "class": null,
         "function": "cutlass_fp8_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             35,
             42
@@ -93,13 +93,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 39
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 42
             }
         ],
@@ -108,7 +108,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -117,7 +117,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -126,7 +126,7 @@
     "_custom_ops-cutlass_scaled_mm_supports_fp8": {
         "class": null,
         "function": "cutlass_scaled_mm_supports_fp8",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             623,
             624
@@ -135,7 +135,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 624
             }
         ],
@@ -144,7 +144,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -153,7 +153,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],

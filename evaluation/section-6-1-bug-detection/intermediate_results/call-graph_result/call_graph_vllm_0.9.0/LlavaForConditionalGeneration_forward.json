@@ -2,7 +2,7 @@
     "llava-LlavaForConditionalGeneration-__init__": {
         "class": "LlavaForConditionalGeneration",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             501,
             541
@@ -11,37 +11,37 @@
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 525
             },
             {
                 "class": null,
                 "function": "init_vision_tower_for_llava",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 521
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 532
             },
             {
                 "class": "LlavaMultiModalProjector",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 526
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 537
             },
             {
                 "class": null,
                 "function": "init_vllm_registered_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 534
             }
         ],
@@ -50,7 +50,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -61,7 +61,7 @@
     "llava-init_vision_tower_for_llava": {
         "class": null,
         "function": "init_vision_tower_for_llava",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             450,
             488
@@ -70,7 +70,7 @@
             {
                 "class": null,
                 "function": "_get_num_hidden_layers",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 460
             }
         ],
@@ -79,7 +79,7 @@
     "llava-_get_num_hidden_layers": {
         "class": null,
         "function": "_get_num_hidden_layers",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             416,
             433
@@ -90,7 +90,7 @@
     "llava-LlavaMultiModalProjector-__init__": {
         "class": "LlavaMultiModalProjector",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             84,
             103
@@ -99,19 +99,19 @@
             {
                 "class": "ColumnParallelLinear",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 93
             },
             {
                 "class": null,
                 "function": "get_act_fn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 98
             },
             {
                 "class": "RowParallelLinear",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 99
             }
         ],
@@ -120,7 +120,7 @@
     "linear-ColumnParallelLinear-__init__": {
         "class": "ColumnParallelLinear",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             370,
             429
@@ -129,19 +129,19 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 385
             },
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 387
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 424
             }
         ],
@@ -150,7 +150,7 @@
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "LinearMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 410
             }
         ]
@@ -158,7 +158,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -167,7 +167,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -176,7 +176,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -187,7 +187,7 @@
     "utils-divide": {
         "class": null,
         "function": "divide",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             54,
             58
@@ -196,7 +196,7 @@
             {
                 "class": null,
                 "function": "ensure_divisibility",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 57
             }
         ],
@@ -205,7 +205,7 @@
     "utils-ensure_divisibility": {
         "class": null,
         "function": "ensure_divisibility",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             48,
             51
@@ -216,7 +216,7 @@
     "linear-LinearBase-__init__": {
         "class": "LinearBase",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             218,
             244
@@ -225,7 +225,7 @@
             {
                 "class": "UnquantizedLinearMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 240
             }
         ],
@@ -234,7 +234,7 @@
                 "class": null,
                 "function": "quant_config.get_quant_method",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 242
             }
         ]
@@ -242,7 +242,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -251,7 +251,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -260,7 +260,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53
@@ -271,7 +271,7 @@
     "activation-get_act_fn": {
         "class": null,
         "function": "get_act_fn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             344,
             351
@@ -280,25 +280,25 @@
             {
                 "class": "FastGELU",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 328
             },
             {
                 "class": "NewGELU",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 330
             },
             {
                 "class": "ReLUSquaredActivation",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 336
             },
             {
                 "class": "QuickGELU",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 340
             }
         ],
@@ -307,7 +307,7 @@
                 "class": null,
                 "function": "act_fn_name.lower",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 346
             }
         ]
@@ -315,7 +315,7 @@
     "activation-FastGELU-__init__": {
         "class": "FastGELU",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             217,
             223
@@ -326,7 +326,7 @@
     "custom_op-CustomOp-__init__": {
         "class": "CustomOp",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "filepath": "vllm/model_executor/custom_op.py",
         "loc": [
             18,
             20
@@ -335,7 +335,7 @@
             {
                 "class": "CustomOp",
                 "function": "dispatch_forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 20
             }
         ],
@@ -344,7 +344,7 @@
     "activation-CustomOp-dispatch_forward": {
         "class": "CustomOp",
         "function": "dispatch_forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             70,
             99
@@ -353,7 +353,7 @@
             {
                 "class": "CustomOp",
                 "function": "enabled",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 74
             }
         ],
@@ -362,14 +362,14 @@
                 "class": null,
                 "function": "compilation_config.enabled_custom_ops.update",
                 "type": "compilation_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 76
             },
             {
                 "class": null,
                 "function": "compilation_config.disabled_custom_ops.update",
                 "type": "compilation_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 78
             }
         ]
@@ -377,7 +377,7 @@
     "activation-CustomOp-enabled": {
         "class": "CustomOp",
         "function": "enabled",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             102,
             118
@@ -386,13 +386,13 @@
             {
                 "class": null,
                 "function": "default_on",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 111
             },
             {
                 "class": null,
                 "function": "default_on",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 118
             }
         ],
@@ -401,7 +401,7 @@
     "custom_op-default_on": {
         "class": null,
         "function": "default_on",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "filepath": "vllm/model_executor/custom_op.py",
         "loc": [
             121,
             132
@@ -410,7 +410,7 @@
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 127
             }
         ],
@@ -419,14 +419,14 @@
                 "class": null,
                 "function": "custom_ops.count",
                 "type": "compilation_config.custom_ops",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "custom_ops.count",
                 "type": "compilation_config.custom_ops",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 130
             }
         ]
@@ -434,7 +434,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -443,7 +443,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],
@@ -452,7 +452,7 @@
     "activation-NewGELU-__init__": {
         "class": "NewGELU",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             191,
             197
@@ -463,7 +463,7 @@
     "activation-QuickGELU-__init__": {
         "class": "QuickGELU",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             242,
             248
@@ -474,7 +474,7 @@
     "linear-RowParallelLinear-__init__": {
         "class": "RowParallelLinear",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             1166,
             1221
@@ -483,25 +483,25 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1181
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1182
             },
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 1183
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 1216
             }
         ],
@@ -510,7 +510,7 @@
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "LinearMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 1199
             }
         ]
@@ -518,7 +518,7 @@
     "parallel_state-get_tensor_model_parallel_rank": {
         "class": null,
         "function": "get_tensor_model_parallel_rank",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1154,
             1156
@@ -527,7 +527,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1156
             }
         ],
@@ -536,7 +536,7 @@
     "utils-init_vllm_registered_model": {
         "class": null,
         "function": "init_vllm_registered_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             281,
             302
@@ -545,7 +545,7 @@
             {
                 "class": null,
                 "function": "initialize_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 302
             }
         ],
@@ -554,7 +554,7 @@
     "utils-initialize_model": {
         "class": null,
         "function": "initialize_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             40,
             89
@@ -563,25 +563,25 @@
             {
                 "class": null,
                 "function": "get_model_architecture",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 51
             },
             {
                 "class": null,
                 "function": "configure_quant_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 54
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 60
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 88
             }
         ],
@@ -590,7 +590,7 @@
     "utils-get_model_architecture": {
         "class": null,
         "function": "get_model_architecture",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             218,
             247
@@ -599,25 +599,25 @@
             {
                 "class": null,
                 "function": "resolve_transformers_arch",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "as_embedding_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "as_classification_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 243
             },
             {
                 "class": null,
                 "function": "as_reward_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -626,7 +626,7 @@
     "utils-resolve_transformers_arch": {
         "class": null,
         "function": "resolve_transformers_arch",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             164,
             215
@@ -637,7 +637,7 @@
     "adapters-as_embedding_model": {
         "class": null,
         "function": "as_embedding_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             117,
             144
@@ -646,19 +646,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 135
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 142
             }
         ],
@@ -667,7 +667,7 @@
     "interfaces_base-is_pooling_model": {
         "class": null,
         "function": "is_pooling_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "filepath": "vllm/model_executor/models/./interfaces_base.py",
         "loc": [
             145,
             146
@@ -678,7 +678,7 @@
     "adapters-_create_pooling_model_cls": {
         "class": null,
         "function": "_create_pooling_model_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             33,
             114
@@ -689,7 +689,7 @@
     "adapters-_get_pooling_model_name": {
         "class": null,
         "function": "_get_pooling_model_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             24,
             30
@@ -700,7 +700,7 @@
                 "class": null,
                 "function": "model_name.removesuffix",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 28
             }
         ]
@@ -708,7 +708,7 @@
     "adapters-as_classification_model": {
         "class": null,
         "function": "as_classification_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             147,
             217
@@ -717,19 +717,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 160
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 215
             }
         ],
@@ -738,7 +738,7 @@
     "adapters-as_reward_model": {
         "class": null,
         "function": "as_reward_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             220,
             247
@@ -747,19 +747,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 231
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 237
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -768,7 +768,7 @@
     "utils-configure_quant_config": {
         "class": null,
         "function": "configure_quant_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             284,
             301
@@ -779,7 +779,7 @@
     "config-set_current_vllm_config": {
         "class": null,
         "function": "set_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4513,
             4549
@@ -790,7 +790,7 @@
     "llava-LlavaForConditionalGeneration-forward": {
         "class": "LlavaForConditionalGeneration",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             684,
             743
@@ -799,13 +799,13 @@
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "get_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 733
             },
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "get_input_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 734
             }
         ],
@@ -814,7 +814,7 @@
                 "class": null,
                 "function": "self.language_model.model",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 738
             }
         ]
@@ -822,7 +822,7 @@
     "llava-LlavaForConditionalGeneration-get_multimodal_embeddings": {
         "class": "LlavaForConditionalGeneration",
         "function": "get_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             661,
             667
@@ -831,13 +831,13 @@
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "_parse_and_validate_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 663
             },
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "_process_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 667
             }
         ],
@@ -846,7 +846,7 @@
     "llava-LlavaForConditionalGeneration-_parse_and_validate_image_input": {
         "class": "LlavaForConditionalGeneration",
         "function": "_parse_and_validate_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             556,
             594
@@ -855,43 +855,43 @@
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 572
             },
             {
                 "class": "PixtralHFImagePixelInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 570
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 578
             },
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "_validate_pixel_values",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 577
             },
             {
                 "class": "LlavaImagePixelInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 575
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 591
             },
             {
                 "class": "LlavaImageEmbeddingInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 589
             }
         ],
@@ -900,7 +900,7 @@
     "utils-flatten_bn": {
         "class": null,
         "function": "flatten_bn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             306,
             307
@@ -911,7 +911,7 @@
     "llava-LlavaForConditionalGeneration-_validate_pixel_values": {
         "class": "LlavaForConditionalGeneration",
         "function": "_validate_pixel_values",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             543,
             554
@@ -922,7 +922,7 @@
     "llava-LlavaForConditionalGeneration-_process_image_input": {
         "class": "LlavaForConditionalGeneration",
         "function": "_process_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             637,
             656
@@ -931,13 +931,13 @@
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "_process_image_pixels",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 645
             },
             {
                 "class": "LlavaMultiModalProjector",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 654
             }
         ],
@@ -946,7 +946,7 @@
     "llava-LlavaForConditionalGeneration-_process_image_pixels": {
         "class": "LlavaForConditionalGeneration",
         "function": "_process_image_pixels",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             627,
             635
@@ -955,7 +955,7 @@
             {
                 "class": "LlavaForConditionalGeneration",
                 "function": "_image_pixels_to_features",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 635
             }
         ],
@@ -964,7 +964,7 @@
     "llava-LlavaForConditionalGeneration-_image_pixels_to_features": {
         "class": "LlavaForConditionalGeneration",
         "function": "_image_pixels_to_features",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             606,
             625
@@ -973,7 +973,7 @@
             {
                 "class": null,
                 "function": "json_map_leaves",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/jsontree.py",
+                "filepath": "vllm/jsontree.py",
                 "line": 624
             }
         ],
@@ -982,7 +982,7 @@
                 "class": "tuple",
                 "function": "vision_tower",
                 "type": "tuple",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 614
             }
         ]
@@ -990,7 +990,7 @@
     "jsontree-json_map_leaves": {
         "class": null,
         "function": "json_map_leaves",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/jsontree.py",
+        "filepath": "vllm/jsontree.py",
         "loc": [
             27,
             39
@@ -999,7 +999,7 @@
             {
                 "class": null,
                 "function": "select_features",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/jsontree.py",
+                "filepath": "vllm/jsontree.py",
                 "line": 39
             }
         ],
@@ -1008,7 +1008,7 @@
     "jsontree-select_features": {
         "class": null,
         "function": "select_features",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/jsontree.py",
+        "filepath": "vllm/jsontree.py",
         "loc": [
             616,
             620
@@ -1019,7 +1019,7 @@
     "llava-LlavaMultiModalProjector-forward": {
         "class": "LlavaMultiModalProjector",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             105,
             109
@@ -1028,31 +1028,31 @@
             {
                 "class": "ColumnParallelLinear",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 106
             },
             {
                 "class": "FastGELU",
                 "function": "forward_cuda",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 107
             },
             {
                 "class": "NewGELU",
                 "function": "forward_cuda",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 107
             },
             {
                 "class": "QuickGELU",
                 "function": "forward_cuda",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 107
             },
             {
                 "class": "RowParallelLinear",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 108
             }
         ],
@@ -1061,7 +1061,7 @@
     "linear-ColumnParallelLinear-forward": {
         "class": "ColumnParallelLinear",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             479,
             495
@@ -1070,7 +1070,7 @@
             {
                 "class": null,
                 "function": "tensor_model_parallel_all_gather",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "filepath": "vllm/distributed/./communication_op.py",
                 "line": 489
             }
         ],
@@ -1079,7 +1079,7 @@
                 "class": null,
                 "function": "self.quant_method.apply",
                 "type": "LinearMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 486
             }
         ]
@@ -1087,7 +1087,7 @@
     "communication_op-tensor_model_parallel_all_gather": {
         "class": null,
         "function": "tensor_model_parallel_all_gather",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "filepath": "vllm/distributed/./communication_op.py",
         "loc": [
             16,
             19
@@ -1098,7 +1098,7 @@
     "activation-FastGELU-forward_cuda": {
         "class": "FastGELU",
         "function": "forward_cuda",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             230,
             233
@@ -1107,7 +1107,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gelu_fast",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 232
             }
         ],
@@ -1116,7 +1116,7 @@
     "activation-NewGELU-forward_cuda": {
         "class": "NewGELU",
         "function": "forward_cuda",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             205,
             208
@@ -1125,7 +1125,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gelu_new",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 207
             }
         ],
@@ -1134,7 +1134,7 @@
     "activation-QuickGELU-forward_cuda": {
         "class": "QuickGELU",
         "function": "forward_cuda",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+        "filepath": "vllm/model_executor/layers/activation.py",
         "loc": [
             254,
             257
@@ -1143,7 +1143,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.gelu_quick",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/activation.py",
+                "filepath": "vllm/model_executor/layers/activation.py",
                 "line": 256
             }
         ],
@@ -1152,7 +1152,7 @@
     "linear-RowParallelLinear-forward": {
         "class": "RowParallelLinear",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+        "filepath": "vllm/model_executor/layers/linear.py",
         "loc": [
             1272,
             1300
@@ -1161,19 +1161,19 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1278
             },
             {
                 "class": null,
                 "function": "split_tensor_along_last_dim",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 1279
             },
             {
                 "class": null,
                 "function": "tensor_model_parallel_all_reduce",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "filepath": "vllm/distributed/./communication_op.py",
                 "line": 1292
             }
         ],
@@ -1182,7 +1182,7 @@
                 "class": null,
                 "function": "self.quant_method.apply",
                 "type": "LinearMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/linear.py",
+                "filepath": "vllm/model_executor/layers/linear.py",
                 "line": 1288
             }
         ]
@@ -1190,7 +1190,7 @@
     "utils-split_tensor_along_last_dim": {
         "class": null,
         "function": "split_tensor_along_last_dim",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             61,
             86
@@ -1199,7 +1199,7 @@
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 79
             }
         ],
@@ -1208,7 +1208,7 @@
     "communication_op-tensor_model_parallel_all_reduce": {
         "class": null,
         "function": "tensor_model_parallel_all_reduce",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "filepath": "vllm/distributed/./communication_op.py",
         "loc": [
             11,
             13
@@ -1219,7 +1219,7 @@
     "llava-LlavaForConditionalGeneration-get_input_embeddings": {
         "class": "LlavaForConditionalGeneration",
         "function": "get_input_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+        "filepath": "vllm/model_executor/models/llava.py",
         "loc": [
             669,
             682
@@ -1228,7 +1228,7 @@
             {
                 "class": null,
                 "function": "merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 676
             }
         ],
@@ -1237,7 +1237,7 @@
                 "class": null,
                 "function": "self.language_model.get_input_embeddings",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llava.py",
+                "filepath": "vllm/model_executor/models/llava.py",
                 "line": 674
             }
         ]
@@ -1245,7 +1245,7 @@
     "utils-merge_multimodal_embeddings": {
         "class": null,
         "function": "merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             457,
             501
@@ -1254,7 +1254,7 @@
             {
                 "class": null,
                 "function": "_merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 497
             }
         ],
@@ -1263,7 +1263,7 @@
     "utils-_merge_multimodal_embeddings": {
         "class": null,
         "function": "_merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             394,
             418
@@ -1272,13 +1272,13 @@
             {
                 "class": null,
                 "function": "_flatten_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 410
             },
             {
                 "class": null,
                 "function": "_embedding_count_expression",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 412
             }
         ],
@@ -1287,7 +1287,7 @@
     "utils-_flatten_embeddings": {
         "class": null,
         "function": "_flatten_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             352,
             362
@@ -1298,7 +1298,7 @@
     "utils-_embedding_count_expression": {
         "class": null,
         "function": "_embedding_count_expression",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             365,
             375

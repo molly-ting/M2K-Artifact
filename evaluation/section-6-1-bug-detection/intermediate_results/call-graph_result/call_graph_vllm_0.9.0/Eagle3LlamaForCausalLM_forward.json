@@ -2,7 +2,7 @@
     "llama_eagle3-Eagle3LlamaForCausalLM-__init__": {
         "class": "Eagle3LlamaForCausalLM",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+        "filepath": "vllm/model_executor/models/llama_eagle3.py",
         "loc": [
             178,
             200
@@ -11,19 +11,19 @@
             {
                 "class": "LlamaModel",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+                "filepath": "vllm/model_executor/models/llama_eagle3.py",
                 "line": 184
             },
             {
                 "class": "ParallelLMHead",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 189
             },
             {
                 "class": "LogitsProcessor",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+                "filepath": "vllm/model_executor/layers/logits_processor.py",
                 "line": 195
             }
         ],
@@ -32,7 +32,7 @@
     "llama_eagle3-LlamaModel-__init__": {
         "class": "LlamaModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+        "filepath": "vllm/model_executor/models/llama_eagle3.py",
         "loc": [
             85,
             122
@@ -41,37 +41,37 @@
             {
                 "class": null,
                 "function": "get_pp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+                "filepath": "vllm/distributed/parallel_state.py",
                 "line": 98
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 102
             },
             {
                 "class": "VocabParallelEmbedding",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 99
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 108
             },
             {
                 "class": "LlamaDecoderLayer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+                "filepath": "vllm/model_executor/models/llama_eagle3.py",
                 "line": 106
             },
             {
                 "class": "RMSNorm",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 119
             }
         ],
@@ -80,7 +80,7 @@
     "parallel_state-get_pp_group": {
         "class": null,
         "function": "get_pp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/parallel_state.py",
+        "filepath": "vllm/distributed/parallel_state.py",
         "loc": [
             869,
             872
@@ -91,7 +91,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -102,7 +102,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-__init__": {
         "class": "VocabParallelEmbedding",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             200,
             271
@@ -111,49 +111,49 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 211
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 212
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 217
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 219
             },
             {
                 "class": "VocabParallelEmbedding",
                 "function": "_get_indices",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 224
             },
             {
                 "class": "UnquantizedEmbeddingMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 235
             },
             {
                 "class": null,
                 "function": "method_has_implemented_embedding",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 254
             }
         ],
@@ -162,14 +162,14 @@
                 "class": null,
                 "function": "quant_config.get_quant_method",
                 "type": "QuantizationConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "QuantizeMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 265
             }
         ]
@@ -177,7 +177,7 @@
     "parallel_state-get_tensor_model_parallel_rank": {
         "class": null,
         "function": "get_tensor_model_parallel_rank",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1154,
             1156
@@ -186,7 +186,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1156
             }
         ],
@@ -195,7 +195,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -206,7 +206,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -215,7 +215,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -224,7 +224,7 @@
     "vocab_parallel_embedding-pad_vocab_size": {
         "class": null,
         "function": "pad_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             52,
             55
@@ -235,7 +235,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-_get_indices": {
         "class": "VocabParallelEmbedding",
         "function": "_get_indices",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             274,
             300
@@ -244,19 +244,19 @@
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 282
             },
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 285
             },
             {
                 "class": "VocabParallelEmbeddingShardIndices",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 296
             }
         ],
@@ -265,7 +265,7 @@
     "vocab_parallel_embedding-vocab_range_from_global_vocab_size": {
         "class": null,
         "function": "vocab_range_from_global_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             67,
             74
@@ -274,13 +274,13 @@
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 71
             },
             {
                 "class": null,
                 "function": "vocab_range_from_per_partition_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 72
             }
         ],
@@ -289,7 +289,7 @@
     "utils-divide": {
         "class": null,
         "function": "divide",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             54,
             58
@@ -298,7 +298,7 @@
             {
                 "class": null,
                 "function": "ensure_divisibility",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 57
             }
         ],
@@ -307,7 +307,7 @@
     "utils-ensure_divisibility": {
         "class": null,
         "function": "ensure_divisibility",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             48,
             51
@@ -318,7 +318,7 @@
     "vocab_parallel_embedding-vocab_range_from_per_partition_vocab_size": {
         "class": null,
         "function": "vocab_range_from_per_partition_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             58,
             64
@@ -329,7 +329,7 @@
     "base_config-method_has_implemented_embedding": {
         "class": null,
         "function": "method_has_implemented_embedding",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             50,
             62
@@ -340,7 +340,7 @@
     "llama_eagle3-LlamaDecoderLayer-__init__": {
         "class": "LlamaDecoderLayer",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+        "filepath": "vllm/model_executor/models/llama_eagle3.py",
         "loc": [
             33,
             52
@@ -351,7 +351,7 @@
     "layernorm-RMSNorm-__init__": {
         "class": "RMSNorm",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             96,
             116
@@ -362,7 +362,7 @@
     "custom_op-CustomOp-__init__": {
         "class": "CustomOp",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "filepath": "vllm/model_executor/custom_op.py",
         "loc": [
             18,
             20
@@ -371,7 +371,7 @@
             {
                 "class": "CustomOp",
                 "function": "dispatch_forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 20
             }
         ],
@@ -380,7 +380,7 @@
     "layernorm-CustomOp-dispatch_forward": {
         "class": "CustomOp",
         "function": "dispatch_forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             70,
             99
@@ -389,7 +389,7 @@
             {
                 "class": "CustomOp",
                 "function": "enabled",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 74
             }
         ],
@@ -398,14 +398,14 @@
                 "class": null,
                 "function": "compilation_config.enabled_custom_ops.update",
                 "type": "compilation_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 76
             },
             {
                 "class": null,
                 "function": "compilation_config.disabled_custom_ops.update",
                 "type": "compilation_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 78
             }
         ]
@@ -413,7 +413,7 @@
     "layernorm-CustomOp-enabled": {
         "class": "CustomOp",
         "function": "enabled",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             102,
             118
@@ -422,13 +422,13 @@
             {
                 "class": null,
                 "function": "default_on",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 111
             },
             {
                 "class": null,
                 "function": "default_on",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 118
             }
         ],
@@ -437,7 +437,7 @@
     "custom_op-default_on": {
         "class": null,
         "function": "default_on",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+        "filepath": "vllm/model_executor/custom_op.py",
         "loc": [
             121,
             132
@@ -446,7 +446,7 @@
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 127
             }
         ],
@@ -455,14 +455,14 @@
                 "class": null,
                 "function": "custom_ops.count",
                 "type": "compilation_config.custom_ops",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "custom_ops.count",
                 "type": "compilation_config.custom_ops",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/custom_op.py",
+                "filepath": "vllm/model_executor/custom_op.py",
                 "line": 130
             }
         ]
@@ -470,7 +470,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -479,7 +479,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],
@@ -488,7 +488,7 @@
     "vocab_parallel_embedding-ParallelLMHead-__init__": {
         "class": "ParallelLMHead",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             451,
             473
@@ -497,7 +497,7 @@
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 468
             }
         ],
@@ -506,7 +506,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -515,7 +515,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -524,7 +524,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53
@@ -535,7 +535,7 @@
     "logits_processor-LogitsProcessor-__init__": {
         "class": "LogitsProcessor",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/logits_processor.py",
+        "filepath": "vllm/model_executor/layers/logits_processor.py",
         "loc": [
             33,
             53
@@ -546,7 +546,7 @@
     "llama_eagle3-Eagle3LlamaForCausalLM-forward": {
         "class": "Eagle3LlamaForCausalLM",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+        "filepath": "vllm/model_executor/models/llama_eagle3.py",
         "loc": [
             202,
             208
@@ -555,7 +555,7 @@
             {
                 "class": "LlamaModel",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+                "filepath": "vllm/model_executor/models/llama_eagle3.py",
                 "line": 208
             }
         ],
@@ -564,7 +564,7 @@
     "llama_eagle3-LlamaModel-forward": {
         "class": "LlamaModel",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/llama_eagle3.py",
+        "filepath": "vllm/model_executor/models/llama_eagle3.py",
         "loc": [
             124,
             142
@@ -573,13 +573,13 @@
             {
                 "class": "VocabParallelEmbedding",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 130
             },
             {
                 "class": "RMSNorm",
                 "function": "forward_cuda",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 141
             }
         ],
@@ -588,7 +588,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-forward": {
         "class": "VocabParallelEmbedding",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             405,
             424
@@ -597,13 +597,13 @@
             {
                 "class": null,
                 "function": "get_masked_input_and_mask",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 408
             },
             {
                 "class": null,
                 "function": "tensor_model_parallel_all_reduce",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "filepath": "vllm/distributed/./communication_op.py",
                 "line": 423
             }
         ],
@@ -612,7 +612,7 @@
                 "class": null,
                 "function": "self.quant_method.embedding",
                 "type": "QuantizeMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 417
             }
         ]
@@ -620,7 +620,7 @@
     "vocab_parallel_embedding-get_masked_input_and_mask": {
         "class": null,
         "function": "get_masked_input_and_mask",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             141,
             158
@@ -631,7 +631,7 @@
     "communication_op-tensor_model_parallel_all_reduce": {
         "class": null,
         "function": "tensor_model_parallel_all_reduce",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "filepath": "vllm/distributed/./communication_op.py",
         "loc": [
             11,
             13
@@ -642,7 +642,7 @@
     "layernorm-RMSNorm-forward_cuda": {
         "class": "RMSNorm",
         "function": "forward_cuda",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             156,
             171
@@ -651,61 +651,61 @@
             {
                 "class": "RMSNorm",
                 "function": "forward_native",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 162
             },
             {
                 "class": null,
                 "function": "dispatch_cuda_rmsnorm_func",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 165
             },
             {
                 "class": null,
                 "function": "rocm_aiter_fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 168
             },
             {
                 "class": null,
                 "function": "fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 168
             },
             {
                 "class": null,
                 "function": "rocm_aiter_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 168
             },
             {
                 "class": null,
                 "function": "rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 168
             },
             {
                 "class": null,
                 "function": "rocm_aiter_fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "rocm_aiter_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 171
             }
         ],
@@ -714,7 +714,7 @@
     "layernorm-RMSNorm-forward_native": {
         "class": "RMSNorm",
         "function": "forward_native",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             118,
             154
@@ -725,7 +725,7 @@
     "layernorm-dispatch_cuda_rmsnorm_func": {
         "class": null,
         "function": "dispatch_cuda_rmsnorm_func",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             77,
             85
@@ -734,13 +734,13 @@
             {
                 "class": null,
                 "function": "is_rocm_aiter_rmsnorm_enabled",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 79
             },
             {
                 "class": null,
                 "function": "is_rocm_aiter_rmsnorm_enabled",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+                "filepath": "vllm/model_executor/layers/layernorm.py",
                 "line": 83
             }
         ],
@@ -749,7 +749,7 @@
     "layernorm-is_rocm_aiter_rmsnorm_enabled": {
         "class": null,
         "function": "is_rocm_aiter_rmsnorm_enabled",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             13,
             16
@@ -760,7 +760,7 @@
     "layernorm-rocm_aiter_fused_add_rms_norm": {
         "class": null,
         "function": "rocm_aiter_fused_add_rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             58,
             74
@@ -771,7 +771,7 @@
     "layernorm-fused_add_rms_norm": {
         "class": null,
         "function": "fused_add_rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             32,
             42
@@ -780,7 +780,7 @@
             {
                 "class": null,
                 "function": "fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 36
             }
         ],
@@ -789,7 +789,7 @@
     "_custom_ops-fused_add_rms_norm": {
         "class": null,
         "function": "fused_add_rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             279,
             281
@@ -798,7 +798,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.fused_add_rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 281
             }
         ],
@@ -807,7 +807,7 @@
     "layernorm-rocm_aiter_rms_norm": {
         "class": null,
         "function": "rocm_aiter_rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             45,
             55
@@ -818,7 +818,7 @@
     "layernorm-rms_norm": {
         "class": null,
         "function": "rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/layernorm.py",
+        "filepath": "vllm/model_executor/layers/layernorm.py",
         "loc": [
             19,
             29
@@ -827,7 +827,7 @@
             {
                 "class": null,
                 "function": "rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 23
             }
         ],
@@ -836,7 +836,7 @@
     "_custom_ops-rms_norm": {
         "class": null,
         "function": "rms_norm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             272,
             276
@@ -845,7 +845,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.rms_norm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 276
             }
         ],

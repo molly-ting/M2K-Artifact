@@ -2,7 +2,7 @@
     "machete-MacheteLinearKernel-apply_weights": {
         "class": "MacheteLinearKernel",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/machete.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/machete.py",
         "loc": [
             96,
             119
@@ -11,7 +11,7 @@
             {
                 "class": null,
                 "function": "machete_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 109
             }
         ],
@@ -20,7 +20,7 @@
     "_custom_ops-machete_mm": {
         "class": null,
         "function": "machete_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             987,
             1001
@@ -29,7 +29,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.machete_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 999
             }
         ],

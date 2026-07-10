@@ -2,7 +2,7 @@
     "phi3v-Phi3VForCausalLM-__init__": {
         "class": "Phi3VForCausalLM",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             520,
             554
@@ -11,31 +11,31 @@
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 533
             },
             {
                 "class": "VocabParallelEmbedding",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 528
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 540
             },
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 537
             },
             {
                 "class": null,
                 "function": "init_vllm_registered_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 542
             }
         ],
@@ -44,7 +44,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -55,7 +55,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-__init__": {
         "class": "VocabParallelEmbedding",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             200,
             271
@@ -64,49 +64,49 @@
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_rank",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 211
             },
             {
                 "class": null,
                 "function": "get_tensor_model_parallel_world_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 212
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 217
             },
             {
                 "class": null,
                 "function": "pad_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 219
             },
             {
                 "class": "VocabParallelEmbedding",
                 "function": "_get_indices",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 224
             },
             {
                 "class": "UnquantizedEmbeddingMethod",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 235
             },
             {
                 "class": null,
                 "function": "method_has_implemented_embedding",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 254
             }
         ],
@@ -115,7 +115,7 @@
                 "class": null,
                 "function": "self.quant_method.create_weights",
                 "type": "QuantizeMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 265
             }
         ]
@@ -123,7 +123,7 @@
     "parallel_state-get_tensor_model_parallel_rank": {
         "class": null,
         "function": "get_tensor_model_parallel_rank",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1154,
             1156
@@ -132,7 +132,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1156
             }
         ],
@@ -141,7 +141,7 @@
     "parallel_state-get_tp_group": {
         "class": null,
         "function": "get_tp_group",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             843,
             845
@@ -152,7 +152,7 @@
     "parallel_state-get_tensor_model_parallel_world_size": {
         "class": null,
         "function": "get_tensor_model_parallel_world_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+        "filepath": "vllm/distributed/./parallel_state.py",
         "loc": [
             1149,
             1151
@@ -161,7 +161,7 @@
             {
                 "class": null,
                 "function": "get_tp_group",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./parallel_state.py",
+                "filepath": "vllm/distributed/./parallel_state.py",
                 "line": 1151
             }
         ],
@@ -170,7 +170,7 @@
     "vocab_parallel_embedding-pad_vocab_size": {
         "class": null,
         "function": "pad_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             52,
             55
@@ -181,7 +181,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-_get_indices": {
         "class": "VocabParallelEmbedding",
         "function": "_get_indices",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             274,
             300
@@ -190,19 +190,19 @@
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 282
             },
             {
                 "class": null,
                 "function": "vocab_range_from_global_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 285
             },
             {
                 "class": "VocabParallelEmbeddingShardIndices",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 296
             }
         ],
@@ -211,7 +211,7 @@
     "vocab_parallel_embedding-vocab_range_from_global_vocab_size": {
         "class": null,
         "function": "vocab_range_from_global_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             67,
             74
@@ -220,13 +220,13 @@
             {
                 "class": null,
                 "function": "divide",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 71
             },
             {
                 "class": null,
                 "function": "vocab_range_from_per_partition_vocab_size",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 72
             }
         ],
@@ -235,7 +235,7 @@
     "utils-divide": {
         "class": null,
         "function": "divide",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             54,
             58
@@ -244,7 +244,7 @@
             {
                 "class": null,
                 "function": "ensure_divisibility",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+                "filepath": "vllm/distributed/./utils.py",
                 "line": 57
             }
         ],
@@ -253,7 +253,7 @@
     "utils-ensure_divisibility": {
         "class": null,
         "function": "ensure_divisibility",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./utils.py",
+        "filepath": "vllm/distributed/./utils.py",
         "loc": [
             48,
             51
@@ -264,7 +264,7 @@
     "vocab_parallel_embedding-vocab_range_from_per_partition_vocab_size": {
         "class": null,
         "function": "vocab_range_from_per_partition_vocab_size",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             58,
             64
@@ -275,7 +275,7 @@
     "base_config-method_has_implemented_embedding": {
         "class": null,
         "function": "method_has_implemented_embedding",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+        "filepath": "vllm/model_executor/layers/quantization/base_config.py",
         "loc": [
             50,
             62
@@ -286,7 +286,7 @@
     "phi3v-Phi3HDImageEmbedding-__init__": {
         "class": "Phi3HDImageEmbedding",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             156,
             198
@@ -295,7 +295,7 @@
             {
                 "class": null,
                 "function": "_init_img_processor",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 166
             }
         ],
@@ -304,28 +304,28 @@
                 "class": null,
                 "function": "config.embd_layer.get",
                 "type": "PretrainedConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 175
             },
             {
                 "class": null,
                 "function": "config.embd_layer.get",
                 "type": "PretrainedConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 177
             },
             {
                 "class": null,
                 "function": "config.embd_layer.get",
                 "type": "PretrainedConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 179
             },
             {
                 "class": null,
                 "function": "config.img_processor.get",
                 "type": "PretrainedConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 198
             }
         ]
@@ -333,7 +333,7 @@
     "phi3v-Phi3ImageEmbeddingBase-__init__": {
         "class": "Phi3ImageEmbeddingBase",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             128,
             132
@@ -344,7 +344,7 @@
     "phi3v-_init_img_processor": {
         "class": null,
         "function": "_init_img_processor",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             72,
             92
@@ -353,7 +353,7 @@
             {
                 "class": "CLIPVisionModel",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 85
             }
         ],
@@ -362,7 +362,7 @@
                 "class": null,
                 "function": "hf_config.img_processor.get",
                 "type": "PretrainedConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 76
             }
         ]
@@ -370,7 +370,7 @@
     "clip-CLIPVisionModel-__init__": {
         "class": "CLIPVisionModel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             342,
             357
@@ -379,7 +379,7 @@
             {
                 "class": "CLIPVisionTransformer",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 352
             }
         ],
@@ -388,7 +388,7 @@
     "clip-CLIPVisionTransformer-__init__": {
         "class": "CLIPVisionTransformer",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             268,
             310
@@ -397,13 +397,13 @@
             {
                 "class": "CLIPVisionEmbeddings",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 282
             },
             {
                 "class": "CLIPEncoder",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 288
             }
         ],
@@ -412,7 +412,7 @@
     "clip-CLIPVisionEmbeddings-__init__": {
         "class": "CLIPVisionEmbeddings",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             49,
             73
@@ -423,7 +423,7 @@
     "clip-CLIPEncoder-__init__": {
         "class": "CLIPEncoder",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             227,
             247
@@ -434,7 +434,7 @@
     "utils-init_vllm_registered_model": {
         "class": null,
         "function": "init_vllm_registered_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             281,
             302
@@ -443,7 +443,7 @@
             {
                 "class": null,
                 "function": "initialize_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 302
             }
         ],
@@ -452,7 +452,7 @@
     "utils-initialize_model": {
         "class": null,
         "function": "initialize_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             40,
             89
@@ -461,25 +461,25 @@
             {
                 "class": null,
                 "function": "get_model_architecture",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 51
             },
             {
                 "class": null,
                 "function": "configure_quant_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 54
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 60
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 88
             }
         ],
@@ -488,7 +488,7 @@
     "utils-get_model_architecture": {
         "class": null,
         "function": "get_model_architecture",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             218,
             247
@@ -497,25 +497,25 @@
             {
                 "class": null,
                 "function": "resolve_transformers_arch",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "as_embedding_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "as_classification_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 243
             },
             {
                 "class": null,
                 "function": "as_reward_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -524,7 +524,7 @@
     "utils-resolve_transformers_arch": {
         "class": null,
         "function": "resolve_transformers_arch",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             164,
             215
@@ -535,7 +535,7 @@
     "adapters-as_embedding_model": {
         "class": null,
         "function": "as_embedding_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             117,
             144
@@ -544,19 +544,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 135
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 142
             }
         ],
@@ -565,7 +565,7 @@
     "interfaces_base-is_pooling_model": {
         "class": null,
         "function": "is_pooling_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "filepath": "vllm/model_executor/models/./interfaces_base.py",
         "loc": [
             145,
             146
@@ -576,7 +576,7 @@
     "adapters-_create_pooling_model_cls": {
         "class": null,
         "function": "_create_pooling_model_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             33,
             114
@@ -587,7 +587,7 @@
     "adapters-_get_pooling_model_name": {
         "class": null,
         "function": "_get_pooling_model_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             24,
             30
@@ -598,7 +598,7 @@
                 "class": null,
                 "function": "model_name.removesuffix",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 28
             }
         ]
@@ -606,7 +606,7 @@
     "adapters-as_classification_model": {
         "class": null,
         "function": "as_classification_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             147,
             217
@@ -615,19 +615,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 160
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 215
             }
         ],
@@ -636,7 +636,7 @@
     "adapters-as_reward_model": {
         "class": null,
         "function": "as_reward_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             220,
             247
@@ -645,19 +645,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 231
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 237
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -666,7 +666,7 @@
     "utils-configure_quant_config": {
         "class": null,
         "function": "configure_quant_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             284,
             301
@@ -677,7 +677,7 @@
     "config-set_current_vllm_config": {
         "class": null,
         "function": "set_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4513,
             4549
@@ -688,7 +688,7 @@
     "phi3v-Phi3VForCausalLM-forward": {
         "class": "Phi3VForCausalLM",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             677,
             700
@@ -697,13 +697,13 @@
             {
                 "class": "Phi3VForCausalLM",
                 "function": "get_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 690
             },
             {
                 "class": "Phi3VForCausalLM",
                 "function": "get_input_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 691
             }
         ],
@@ -712,7 +712,7 @@
                 "class": null,
                 "function": "self.language_model.model",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 695
             }
         ]
@@ -720,7 +720,7 @@
     "phi3v-Phi3VForCausalLM-get_multimodal_embeddings": {
         "class": "Phi3VForCausalLM",
         "function": "get_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             657,
             663
@@ -729,13 +729,13 @@
             {
                 "class": "Phi3VForCausalLM",
                 "function": "_parse_and_validate_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 659
             },
             {
                 "class": "Phi3VForCausalLM",
                 "function": "_process_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 662
             }
         ],
@@ -744,7 +744,7 @@
     "phi3v-Phi3VForCausalLM-_parse_and_validate_image_input": {
         "class": "Phi3VForCausalLM",
         "function": "_parse_and_validate_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             594,
             628
@@ -753,43 +753,43 @@
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 614
             },
             {
                 "class": "Phi3VForCausalLM",
                 "function": "_validate_pixel_values",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 614
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 616
             },
             {
                 "class": "Phi3VForCausalLM",
                 "function": "_validate_image_sizes",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 615
             },
             {
                 "class": "Phi3VImagePixelInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 612
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 625
             },
             {
                 "class": "Phi3VImageEmbeddingInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 623
             }
         ],
@@ -798,7 +798,7 @@
     "utils-flatten_bn": {
         "class": null,
         "function": "flatten_bn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             306,
             307
@@ -809,7 +809,7 @@
     "phi3v-Phi3VForCausalLM-_validate_pixel_values": {
         "class": "Phi3VForCausalLM",
         "function": "_validate_pixel_values",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             573,
             592
@@ -818,7 +818,7 @@
             {
                 "class": null,
                 "function": "_validate_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 590
             }
         ],
@@ -827,7 +827,7 @@
     "phi3v-_validate_shape": {
         "class": null,
         "function": "_validate_shape",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             580,
             587
@@ -838,7 +838,7 @@
     "phi3v-Phi3VForCausalLM-_validate_image_sizes": {
         "class": "Phi3VForCausalLM",
         "function": "_validate_image_sizes",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             556,
             571
@@ -847,7 +847,7 @@
             {
                 "class": null,
                 "function": "_validate_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 569
             }
         ],
@@ -856,7 +856,7 @@
     "phi3v-Phi3VForCausalLM-_process_image_input": {
         "class": "Phi3VForCausalLM",
         "function": "_process_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             630,
             652
@@ -865,7 +865,7 @@
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 649
             }
         ],
@@ -874,7 +874,7 @@
     "phi3v-Phi3HDImageEmbedding-forward": {
         "class": "Phi3HDImageEmbedding",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             200,
             215
@@ -883,13 +883,13 @@
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "get_img_features",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 210
             },
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "hd_feature_transform",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 213
             }
         ],
@@ -898,7 +898,7 @@
     "phi3v-Phi3HDImageEmbedding-get_img_features": {
         "class": "Phi3HDImageEmbedding",
         "function": "get_img_features",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             134,
             149
@@ -907,7 +907,7 @@
             {
                 "class": "CLIPVisionModel",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 140
             }
         ],
@@ -916,7 +916,7 @@
     "clip-CLIPVisionModel-forward": {
         "class": "CLIPVisionModel",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             359,
             364
@@ -925,7 +925,7 @@
             {
                 "class": "CLIPVisionTransformer",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 364
             }
         ],
@@ -934,7 +934,7 @@
     "clip-CLIPVisionTransformer-forward": {
         "class": "CLIPVisionTransformer",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             312,
             334
@@ -943,19 +943,19 @@
             {
                 "class": "CLIPVisionEmbeddings",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 318
             },
             {
                 "class": "CLIPEncoder",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 325
             },
             {
                 "class": null,
                 "function": "resolve_visual_encoder_outputs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././vision.py",
+                "filepath": "vllm/model_executor/models/././vision.py",
                 "line": 330
             }
         ],
@@ -964,7 +964,7 @@
     "clip-CLIPVisionEmbeddings-forward": {
         "class": "CLIPVisionEmbeddings",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             75,
             86
@@ -975,7 +975,7 @@
                 "class": null,
                 "function": "self.class_embedding.expand",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+                "filepath": "vllm/model_executor/models/./clip.py",
                 "line": 82
             }
         ]
@@ -983,7 +983,7 @@
     "clip-CLIPEncoder-forward": {
         "class": "CLIPEncoder",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./clip.py",
+        "filepath": "vllm/model_executor/models/./clip.py",
         "loc": [
             249,
             263
@@ -994,7 +994,7 @@
     "vision-resolve_visual_encoder_outputs": {
         "class": null,
         "function": "resolve_visual_encoder_outputs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/././vision.py",
+        "filepath": "vllm/model_executor/models/././vision.py",
         "loc": [
             105,
             146
@@ -1005,7 +1005,7 @@
     "phi3v-Phi3HDImageEmbedding-hd_feature_transform": {
         "class": "Phi3HDImageEmbedding",
         "function": "hd_feature_transform",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             217,
             267
@@ -1014,25 +1014,25 @@
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "reshape_hd_patches_2x2merge",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 234
             },
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "add_image_newline",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 236
             },
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "reshape_hd_patches_2x2merge",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 251
             },
             {
                 "class": "Phi3HDImageEmbedding",
                 "function": "add_image_newline",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 253
             }
         ],
@@ -1041,14 +1041,14 @@
                 "class": null,
                 "function": "self.glb_GN.squeeze",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 260
             },
             {
                 "class": null,
                 "function": "image_embeddings.to",
                 "type": "torch.Tensor",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 264
             }
         ]
@@ -1056,7 +1056,7 @@
     "phi3v-Phi3HDImageEmbedding-reshape_hd_patches_2x2merge": {
         "class": "Phi3HDImageEmbedding",
         "function": "reshape_hd_patches_2x2merge",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             269,
             290
@@ -1067,7 +1067,7 @@
     "phi3v-Phi3HDImageEmbedding-add_image_newline": {
         "class": "Phi3HDImageEmbedding",
         "function": "add_image_newline",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             292,
             304
@@ -1078,7 +1078,7 @@
                 "class": null,
                 "function": "self.sub_GN.expand",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+                "filepath": "vllm/model_executor/models/phi3v.py",
                 "line": 299
             }
         ]
@@ -1086,7 +1086,7 @@
     "phi3v-Phi3VForCausalLM-get_input_embeddings": {
         "class": "Phi3VForCausalLM",
         "function": "get_input_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/phi3v.py",
+        "filepath": "vllm/model_executor/models/phi3v.py",
         "loc": [
             665,
             675
@@ -1095,13 +1095,13 @@
             {
                 "class": "VocabParallelEmbedding",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 670
             },
             {
                 "class": null,
                 "function": "merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 672
             }
         ],
@@ -1110,7 +1110,7 @@
     "vocab_parallel_embedding-VocabParallelEmbedding-forward": {
         "class": "VocabParallelEmbedding",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             405,
             424
@@ -1119,13 +1119,13 @@
             {
                 "class": null,
                 "function": "get_masked_input_and_mask",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+                "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
                 "line": 408
             },
             {
                 "class": null,
                 "function": "tensor_model_parallel_all_reduce",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+                "filepath": "vllm/distributed/./communication_op.py",
                 "line": 423
             }
         ],
@@ -1134,7 +1134,7 @@
                 "class": null,
                 "function": "self.quant_method.embedding",
                 "type": "QuantizeMethodBase",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/base_config.py",
+                "filepath": "vllm/model_executor/layers/quantization/base_config.py",
                 "line": 417
             }
         ]
@@ -1142,7 +1142,7 @@
     "vocab_parallel_embedding-get_masked_input_and_mask": {
         "class": null,
         "function": "get_masked_input_and_mask",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/vocab_parallel_embedding.py",
+        "filepath": "vllm/model_executor/layers/vocab_parallel_embedding.py",
         "loc": [
             141,
             158
@@ -1153,7 +1153,7 @@
     "communication_op-tensor_model_parallel_all_reduce": {
         "class": null,
         "function": "tensor_model_parallel_all_reduce",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/distributed/./communication_op.py",
+        "filepath": "vllm/distributed/./communication_op.py",
         "loc": [
             11,
             13
@@ -1164,7 +1164,7 @@
     "utils-merge_multimodal_embeddings": {
         "class": null,
         "function": "merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             457,
             501
@@ -1173,13 +1173,13 @@
             {
                 "class": null,
                 "function": "_merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 491
             },
             {
                 "class": null,
                 "function": "_merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 497
             }
         ],
@@ -1188,7 +1188,7 @@
     "utils-_merge_multimodal_embeddings": {
         "class": null,
         "function": "_merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             394,
             418
@@ -1197,13 +1197,13 @@
             {
                 "class": null,
                 "function": "_flatten_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 410
             },
             {
                 "class": null,
                 "function": "_embedding_count_expression",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 412
             }
         ],
@@ -1212,7 +1212,7 @@
     "utils-_flatten_embeddings": {
         "class": null,
         "function": "_flatten_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             352,
             362
@@ -1223,7 +1223,7 @@
     "utils-_embedding_count_expression": {
         "class": null,
         "function": "_embedding_count_expression",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             365,
             375

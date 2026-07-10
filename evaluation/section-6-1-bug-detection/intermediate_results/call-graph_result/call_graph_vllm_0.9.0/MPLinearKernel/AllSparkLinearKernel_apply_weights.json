@@ -2,7 +2,7 @@
     "allspark-AllSparkLinearKernel-apply_weights": {
         "class": "AllSparkLinearKernel",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/allspark.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/allspark.py",
         "loc": [
             88,
             115
@@ -11,7 +11,7 @@
             {
                 "class": null,
                 "function": "allspark_w8a16_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 99
             }
         ],
@@ -20,7 +20,7 @@
     "_custom_ops-allspark_w8a16_gemm": {
         "class": null,
         "function": "allspark_w8a16_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1244,
             1254
@@ -29,7 +29,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.allspark_w8a16_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1251
             }
         ],

@@ -2,7 +2,7 @@
     "pallas-PallasAttentionBackendImpl-__init__": {
         "class": "PallasAttentionBackendImpl",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+        "filepath": "vllm/attention/backends/pallas.py",
         "loc": [
             99,
             160
@@ -11,7 +11,7 @@
             {
                 "class": null,
                 "function": "is_quantized_kv_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+                "filepath": "vllm/attention/backends/abstract.py",
                 "line": 132
             }
         ],
@@ -20,7 +20,7 @@
     "abstract-is_quantized_kv_cache": {
         "class": null,
         "function": "is_quantized_kv_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/abstract.py",
+        "filepath": "vllm/attention/backends/abstract.py",
         "loc": [
             305,
             306
@@ -31,7 +31,7 @@
     "pallas-PallasAttentionBackendImpl-forward": {
         "class": "PallasAttentionBackendImpl",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+        "filepath": "vllm/attention/backends/pallas.py",
         "loc": [
             162,
             300
@@ -40,19 +40,19 @@
             {
                 "class": null,
                 "function": "write_to_kv_cache",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+                "filepath": "vllm/attention/backends/pallas.py",
                 "line": 196
             },
             {
                 "class": null,
                 "function": "paged_attention",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+                "filepath": "vllm/attention/backends/pallas.py",
                 "line": 263
             },
             {
                 "class": null,
                 "function": "paged_attention",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+                "filepath": "vllm/attention/backends/pallas.py",
                 "line": 287
             }
         ],
@@ -61,7 +61,7 @@
     "pallas-write_to_kv_cache": {
         "class": null,
         "function": "write_to_kv_cache",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+        "filepath": "vllm/attention/backends/pallas.py",
         "loc": [
             303,
             318
@@ -72,7 +72,7 @@
     "pallas-paged_attention": {
         "class": null,
         "function": "paged_attention",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/attention/backends/pallas.py",
+        "filepath": "vllm/attention/backends/pallas.py",
         "loc": [
             321,
             347

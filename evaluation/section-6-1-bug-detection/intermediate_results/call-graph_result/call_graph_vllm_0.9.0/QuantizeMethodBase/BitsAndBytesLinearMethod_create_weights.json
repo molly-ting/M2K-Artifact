@@ -2,7 +2,7 @@
     "bitsandbytes-BitsAndBytesLinearMethod-__init__": {
         "class": "BitsAndBytesLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
         "loc": [
             157,
             168
@@ -13,7 +13,7 @@
     "bitsandbytes-BitsAndBytesLinearMethod-create_weights": {
         "class": "BitsAndBytesLinearMethod",
         "function": "create_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
         "loc": [
             170,
             229
@@ -22,19 +22,19 @@
             {
                 "class": null,
                 "function": "create_qweight_for_8bit",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
                 "line": 223
             },
             {
                 "class": null,
                 "function": "create_qweight_for_4bit",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
                 "line": 225
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 229
             }
         ],
@@ -43,7 +43,7 @@
     "bitsandbytes-create_qweight_for_8bit": {
         "class": null,
         "function": "create_qweight_for_8bit",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
         "loc": [
             183,
             198
@@ -52,7 +52,7 @@
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 190
             }
         ],
@@ -61,7 +61,7 @@
     "utils-set_weight_attrs": {
         "class": null,
         "function": "set_weight_attrs",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             13,
             44
@@ -70,7 +70,7 @@
             {
                 "class": null,
                 "function": "_make_synced_weight_loader",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 43
             }
         ],
@@ -79,7 +79,7 @@
     "utils-_make_synced_weight_loader": {
         "class": null,
         "function": "_make_synced_weight_loader",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+        "filepath": "vllm/model_executor/utils.py",
         "loc": [
             47,
             53
@@ -90,7 +90,7 @@
     "bitsandbytes-create_qweight_for_4bit": {
         "class": null,
         "function": "create_qweight_for_4bit",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
         "loc": [
             200,
             220
@@ -99,13 +99,13 @@
             {
                 "class": null,
                 "function": "calculate_quant_ratio",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+                "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
                 "line": 201
             },
             {
                 "class": null,
                 "function": "set_weight_attrs",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/utils.py",
+                "filepath": "vllm/model_executor/utils.py",
                 "line": 213
             }
         ],
@@ -114,7 +114,7 @@
     "bitsandbytes-calculate_quant_ratio": {
         "class": null,
         "function": "calculate_quant_ratio",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/bitsandbytes.py",
+        "filepath": "vllm/model_executor/layers/quantization/bitsandbytes.py",
         "loc": [
             177,
             181

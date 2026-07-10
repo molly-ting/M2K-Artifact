@@ -2,7 +2,7 @@
     "quark_w8a8_fp8-QuarkW8A8Fp8-__init__": {
         "class": "QuarkW8A8Fp8",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_fp8.py",
         "loc": [
             21,
             25
@@ -11,7 +11,7 @@
             {
                 "class": "Fp8LinearOp",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 24
             }
         ],
@@ -20,7 +20,7 @@
     "w8a8_utils-Fp8LinearOp-__init__": {
         "class": "Fp8LinearOp",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             300,
             316
@@ -29,13 +29,13 @@
             {
                 "class": null,
                 "function": "cutlass_fp8_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 301
             },
             {
                 "class": null,
                 "function": "get_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 313
             }
         ],
@@ -44,7 +44,7 @@
     "w8a8_utils-cutlass_fp8_supported": {
         "class": null,
         "function": "cutlass_fp8_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             35,
             42
@@ -53,13 +53,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 39
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 42
             }
         ],
@@ -68,7 +68,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -77,7 +77,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -86,7 +86,7 @@
     "_custom_ops-cutlass_scaled_mm_supports_fp8": {
         "class": null,
         "function": "cutlass_scaled_mm_supports_fp8",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             623,
             624
@@ -95,7 +95,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm_supports_fp8",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 624
             }
         ],
@@ -104,7 +104,7 @@
     "config-get_current_vllm_config": {
         "class": null,
         "function": "get_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4552,
             4560
@@ -113,7 +113,7 @@
             {
                 "class": null,
                 "function": "VllmConfig",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 4559
             }
         ],
@@ -122,7 +122,7 @@
     "quark_w8a8_fp8-QuarkW8A8Fp8-apply_weights": {
         "class": "QuarkW8A8Fp8",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_fp8.py",
+        "filepath": "vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_fp8.py",
         "loc": [
             135,
             145
@@ -131,7 +131,7 @@
             {
                 "class": "Fp8LinearOp",
                 "function": "apply",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 140
             }
         ],
@@ -140,7 +140,7 @@
     "w8a8_utils-Fp8LinearOp-apply": {
         "class": "Fp8LinearOp",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             318,
             380
@@ -149,43 +149,43 @@
             {
                 "class": null,
                 "function": "scaled_fp8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 350
             },
             {
                 "class": null,
                 "function": "scaled_fp8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 358
             },
             {
                 "class": null,
                 "function": "dispatch_w8a8_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 369
             },
             {
                 "class": null,
                 "function": "cutlass_w8a8_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 373
             },
             {
                 "class": null,
                 "function": "torch_per_tensor_w8a8_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 373
             },
             {
                 "class": null,
                 "function": "torch_per_token_w8a8_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 373
             },
             {
                 "class": null,
                 "function": "torch_channelwise_w8a8_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
                 "line": 373
             }
         ],
@@ -194,7 +194,7 @@
     "_custom_ops-scaled_fp8_quant": {
         "class": null,
         "function": "scaled_fp8_quant",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1139,
             1193
@@ -203,19 +203,19 @@
             {
                 "class": null,
                 "function": "torch.ops._C.dynamic_per_token_scaled_fp8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1183
             },
             {
                 "class": null,
                 "function": "torch.ops._C.dynamic_scaled_fp8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1187
             },
             {
                 "class": null,
                 "function": "torch.ops._C.static_scaled_fp8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1191
             }
         ],
@@ -224,7 +224,7 @@
     "w8a8_utils-dispatch_w8a8_scaled_mm": {
         "class": null,
         "function": "dispatch_w8a8_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             271,
             287
@@ -235,7 +235,7 @@
     "w8a8_utils-cutlass_w8a8_scaled_mm": {
         "class": null,
         "function": "cutlass_w8a8_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             136,
             148
@@ -244,7 +244,7 @@
             {
                 "class": null,
                 "function": "cutlass_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 142
             }
         ],
@@ -253,7 +253,7 @@
     "_custom_ops-cutlass_scaled_mm": {
         "class": null,
         "function": "cutlass_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             632,
             679
@@ -262,7 +262,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 677
             }
         ],
@@ -271,7 +271,7 @@
                 "class": "triton_scaled_mm_module.triton_scaled_mm",
                 "function": "triton_scaled_mm",
                 "type": "triton_scaled_mm_module.triton_scaled_mm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 673
             }
         ]
@@ -279,7 +279,7 @@
     "w8a8_utils-torch_per_tensor_w8a8_scaled_mm": {
         "class": null,
         "function": "torch_per_tensor_w8a8_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             174,
             192
@@ -290,7 +290,7 @@
     "w8a8_utils-torch_per_token_w8a8_scaled_mm": {
         "class": null,
         "function": "torch_per_token_w8a8_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             195,
             222
@@ -301,7 +301,7 @@
     "w8a8_utils-torch_channelwise_w8a8_scaled_mm": {
         "class": null,
         "function": "torch_channelwise_w8a8_scaled_mm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/w8a8_utils.py",
         "loc": [
             225,
             268

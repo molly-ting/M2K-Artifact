@@ -2,7 +2,7 @@
     "qqq-QQQLinearMethod-__init__": {
         "class": "QQQLinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+        "filepath": "vllm/model_executor/layers/quantization/qqq.py",
         "loc": [
             127,
             128
@@ -13,7 +13,7 @@
     "qqq-QQQLinearMethod-apply": {
         "class": "QQQLinearMethod",
         "function": "apply",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/qqq.py",
+        "filepath": "vllm/model_executor/layers/quantization/qqq.py",
         "loc": [
             247,
             274
@@ -22,13 +22,13 @@
             {
                 "class": null,
                 "function": "scaled_int8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 264
             },
             {
                 "class": null,
                 "function": "marlin_qqq_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 266
             }
         ],
@@ -37,7 +37,7 @@
     "_custom_ops-scaled_int8_quant": {
         "class": null,
         "function": "scaled_int8_quant",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1258,
             1295
@@ -46,13 +46,13 @@
             {
                 "class": null,
                 "function": "torch.ops._C.static_scaled_int8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1284
             },
             {
                 "class": null,
                 "function": "torch.ops._C.dynamic_scaled_int8_quant",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1293
             }
         ],
@@ -61,7 +61,7 @@
     "_custom_ops-marlin_qqq_gemm": {
         "class": null,
         "function": "marlin_qqq_gemm",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             1299,
             1304
@@ -70,7 +70,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.marlin_qqq_gemm",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 1303
             }
         ],

@@ -2,7 +2,7 @@
     "bitblas-BitBLASLinearKernel-__init__": {
         "class": "BitBLASLinearKernel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
         "loc": [
             36,
             47
@@ -13,7 +13,7 @@
     "MPLinearKernel-MPLinearKernel-__init__": {
         "class": "MPLinearKernel",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/./MPLinearKernel.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/./MPLinearKernel.py",
         "loc": [
             37,
             52
@@ -22,7 +22,7 @@
             {
                 "class": "MPLinearKernel",
                 "function": "can_implement",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
                 "line": 43
             }
         ],
@@ -31,7 +31,7 @@
     "bitblas-MPLinearKernel-can_implement": {
         "class": "MPLinearKernel",
         "function": "can_implement",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
         "loc": [
             105,
             138
@@ -40,13 +40,13 @@
             {
                 "class": null,
                 "function": "query_bitblas_supported_quant_types",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
                 "line": 124
             },
             {
                 "class": null,
                 "function": "check_bitblas_supports_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
                 "line": 134
             }
         ],
@@ -55,7 +55,7 @@
     "bitblas_utils-query_bitblas_supported_quant_types": {
         "class": null,
         "function": "query_bitblas_supported_quant_types",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
         "loc": [
             29,
             47
@@ -64,7 +64,7 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 33
             }
         ],
@@ -73,7 +73,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -82,7 +82,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -91,7 +91,7 @@
     "bitblas_utils-check_bitblas_supports_shape": {
         "class": null,
         "function": "check_bitblas_supports_shape",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
         "loc": [
             133,
             143
@@ -100,7 +100,7 @@
             {
                 "class": null,
                 "function": "verify_bitblas_supports_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
                 "line": 138
             }
         ],
@@ -109,7 +109,7 @@
     "bitblas_utils-verify_bitblas_supports_shape": {
         "class": null,
         "function": "verify_bitblas_supports_shape",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/bitblas_utils.py",
         "loc": [
             104,
             130
@@ -120,7 +120,7 @@
     "bitblas-BitBLASLinearKernel-apply_weights": {
         "class": "BitBLASLinearKernel",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
+        "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/bitblas.py",
         "loc": [
             295,
             299

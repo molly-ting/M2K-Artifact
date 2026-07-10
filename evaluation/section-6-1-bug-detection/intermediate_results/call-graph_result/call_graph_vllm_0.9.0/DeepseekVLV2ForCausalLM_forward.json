@@ -2,7 +2,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-__init__": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             313,
             368
@@ -11,37 +11,37 @@
             {
                 "class": null,
                 "function": "cached_tokenizer_from_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/transformers_utils/tokenizer.py",
+                "filepath": "vllm/transformers_utils/tokenizer.py",
                 "line": 327
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 332
             },
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_init_vision_module",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 330
             },
             {
                 "class": "MlpProjector",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 334
             },
             {
                 "class": null,
                 "function": "maybe_prefix",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 363
             },
             {
                 "class": null,
                 "function": "init_vllm_registered_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 360
             }
         ],
@@ -50,7 +50,7 @@
     "tokenizer-cached_tokenizer_from_config": {
         "class": null,
         "function": "cached_tokenizer_from_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/transformers_utils/tokenizer.py",
+        "filepath": "vllm/transformers_utils/tokenizer.py",
         "loc": [
             272,
             282
@@ -61,7 +61,7 @@
     "utils-maybe_prefix": {
         "class": null,
         "function": "maybe_prefix",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             680,
             690
@@ -72,7 +72,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_init_vision_module": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_init_vision_module",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             370,
             392
@@ -81,7 +81,7 @@
             {
                 "class": null,
                 "function": "set_default_torch_dtype",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 382
             }
         ],
@@ -90,7 +90,7 @@
     "utils-set_default_torch_dtype": {
         "class": null,
         "function": "set_default_torch_dtype",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             32,
             37
@@ -101,7 +101,7 @@
     "deepseek_vl2-MlpProjector-__init__": {
         "class": "MlpProjector",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             73,
             102
@@ -112,7 +112,7 @@
     "utils-init_vllm_registered_model": {
         "class": null,
         "function": "init_vllm_registered_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             281,
             302
@@ -121,7 +121,7 @@
             {
                 "class": null,
                 "function": "initialize_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 302
             }
         ],
@@ -130,7 +130,7 @@
     "utils-initialize_model": {
         "class": null,
         "function": "initialize_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             40,
             89
@@ -139,25 +139,25 @@
             {
                 "class": null,
                 "function": "get_model_architecture",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 51
             },
             {
                 "class": null,
                 "function": "configure_quant_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 54
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 60
             },
             {
                 "class": null,
                 "function": "set_current_vllm_config",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+                "filepath": "vllm/config.py",
                 "line": 88
             }
         ],
@@ -166,7 +166,7 @@
     "utils-get_model_architecture": {
         "class": null,
         "function": "get_model_architecture",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             218,
             247
@@ -175,25 +175,25 @@
             {
                 "class": null,
                 "function": "resolve_transformers_arch",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+                "filepath": "vllm/model_executor/model_loader/utils.py",
                 "line": 233
             },
             {
                 "class": null,
                 "function": "as_embedding_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 241
             },
             {
                 "class": null,
                 "function": "as_classification_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 243
             },
             {
                 "class": null,
                 "function": "as_reward_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -202,7 +202,7 @@
     "utils-resolve_transformers_arch": {
         "class": null,
         "function": "resolve_transformers_arch",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             164,
             215
@@ -213,7 +213,7 @@
     "adapters-as_embedding_model": {
         "class": null,
         "function": "as_embedding_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             117,
             144
@@ -222,19 +222,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 129
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 135
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 142
             }
         ],
@@ -243,7 +243,7 @@
     "interfaces_base-is_pooling_model": {
         "class": null,
         "function": "is_pooling_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+        "filepath": "vllm/model_executor/models/./interfaces_base.py",
         "loc": [
             145,
             146
@@ -254,7 +254,7 @@
     "adapters-_create_pooling_model_cls": {
         "class": null,
         "function": "_create_pooling_model_cls",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             33,
             114
@@ -265,7 +265,7 @@
     "adapters-_get_pooling_model_name": {
         "class": null,
         "function": "_get_pooling_model_name",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             24,
             30
@@ -276,7 +276,7 @@
                 "class": null,
                 "function": "model_name.removesuffix",
                 "type": "str",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 28
             }
         ]
@@ -284,7 +284,7 @@
     "adapters-as_classification_model": {
         "class": null,
         "function": "as_classification_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             147,
             217
@@ -293,19 +293,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 160
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 171
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 215
             }
         ],
@@ -314,7 +314,7 @@
     "adapters-as_reward_model": {
         "class": null,
         "function": "as_reward_model",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+        "filepath": "vllm/model_executor/models/adapters.py",
         "loc": [
             220,
             247
@@ -323,19 +323,19 @@
             {
                 "class": null,
                 "function": "is_pooling_model",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./interfaces_base.py",
+                "filepath": "vllm/model_executor/models/./interfaces_base.py",
                 "line": 231
             },
             {
                 "class": null,
                 "function": "_create_pooling_model_cls",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 237
             },
             {
                 "class": null,
                 "function": "_get_pooling_model_name",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/adapters.py",
+                "filepath": "vllm/model_executor/models/adapters.py",
                 "line": 245
             }
         ],
@@ -344,7 +344,7 @@
     "utils-configure_quant_config": {
         "class": null,
         "function": "configure_quant_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/model_loader/utils.py",
+        "filepath": "vllm/model_executor/model_loader/utils.py",
         "loc": [
             284,
             301
@@ -355,7 +355,7 @@
     "config-set_current_vllm_config": {
         "class": null,
         "function": "set_current_vllm_config",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/config.py",
+        "filepath": "vllm/config.py",
         "loc": [
             4513,
             4549
@@ -366,7 +366,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-forward": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             608,
             631
@@ -375,13 +375,13 @@
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "get_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 621
             },
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "get_input_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 622
             }
         ],
@@ -390,7 +390,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-get_multimodal_embeddings": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "get_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             588,
             594
@@ -399,13 +399,13 @@
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_parse_and_validate_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 590
             },
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_process_image_input",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 593
             }
         ],
@@ -414,7 +414,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_parse_and_validate_image_input": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_parse_and_validate_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             434,
             468
@@ -423,43 +423,43 @@
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 454
             },
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_validate_pixel_values",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 454
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 456
             },
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_validate_images_spatial_crop",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 455
             },
             {
                 "class": "DeepseekVL2ImagePixelInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 452
             },
             {
                 "class": null,
                 "function": "flatten_bn",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 465
             },
             {
                 "class": "DeepseekVL2VImageEmbeddingInputs",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 463
             }
         ],
@@ -468,7 +468,7 @@
     "utils-flatten_bn": {
         "class": null,
         "function": "flatten_bn",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             306,
             307
@@ -479,7 +479,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_validate_pixel_values": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_validate_pixel_values",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             394,
             413
@@ -488,7 +488,7 @@
             {
                 "class": null,
                 "function": "_validate_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 411
             }
         ],
@@ -497,7 +497,7 @@
     "deepseek_vl2-_validate_shape": {
         "class": null,
         "function": "_validate_shape",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             401,
             408
@@ -508,7 +508,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_validate_images_spatial_crop": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_validate_images_spatial_crop",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             415,
             432
@@ -517,7 +517,7 @@
             {
                 "class": null,
                 "function": "_validate_shape",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 430
             }
         ],
@@ -526,7 +526,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_process_image_input": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_process_image_input",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             564,
             583
@@ -535,7 +535,7 @@
             {
                 "class": "DeepseekVLV2ForCausalLM",
                 "function": "_pixel_values_to_embedding",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 582
             }
         ],
@@ -544,7 +544,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-_pixel_values_to_embedding": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "_pixel_values_to_embedding",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             470,
             562
@@ -553,7 +553,7 @@
             {
                 "class": "MlpProjector",
                 "function": "forward",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 485
             }
         ],
@@ -562,7 +562,7 @@
                 "class": null,
                 "function": "self.vision.forward_features",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 482
             }
         ]
@@ -570,7 +570,7 @@
     "deepseek_vl2-MlpProjector-forward": {
         "class": "MlpProjector",
         "function": "forward",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             104,
             123
@@ -581,7 +581,7 @@
     "deepseek_vl2-DeepseekVLV2ForCausalLM-get_input_embeddings": {
         "class": "DeepseekVLV2ForCausalLM",
         "function": "get_input_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+        "filepath": "vllm/model_executor/models/deepseek_vl2.py",
         "loc": [
             596,
             606
@@ -590,7 +590,7 @@
             {
                 "class": null,
                 "function": "merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 603
             }
         ],
@@ -599,7 +599,7 @@
                 "class": null,
                 "function": "self.language_model.get_input_embeddings",
                 "type": null,
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/deepseek_vl2.py",
+                "filepath": "vllm/model_executor/models/deepseek_vl2.py",
                 "line": 601
             }
         ]
@@ -607,7 +607,7 @@
     "utils-merge_multimodal_embeddings": {
         "class": null,
         "function": "merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             457,
             501
@@ -616,7 +616,7 @@
             {
                 "class": null,
                 "function": "_merge_multimodal_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 497
             }
         ],
@@ -625,7 +625,7 @@
     "utils-_merge_multimodal_embeddings": {
         "class": null,
         "function": "_merge_multimodal_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             394,
             418
@@ -634,13 +634,13 @@
             {
                 "class": null,
                 "function": "_flatten_embeddings",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 410
             },
             {
                 "class": null,
                 "function": "_embedding_count_expression",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+                "filepath": "vllm/model_executor/models/./utils.py",
                 "line": 412
             }
         ],
@@ -649,7 +649,7 @@
     "utils-_flatten_embeddings": {
         "class": null,
         "function": "_flatten_embeddings",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             352,
             362
@@ -660,7 +660,7 @@
     "utils-_embedding_count_expression": {
         "class": null,
         "function": "_embedding_count_expression",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/models/./utils.py",
+        "filepath": "vllm/model_executor/models/./utils.py",
         "loc": [
             365,
             375

@@ -2,7 +2,7 @@
     "compressed_tensors_w8a8_int8-CompressedTensorsW8A8Int8-__init__": {
         "class": "CompressedTensorsW8A8Int8",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a8_int8.py",
+        "filepath": "vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a8_int8.py",
         "loc": [
             24,
             28
@@ -13,7 +13,7 @@
     "compressed_tensors_w8a8_int8-CompressedTensorsW8A8Int8-apply_weights": {
         "class": "CompressedTensorsW8A8Int8",
         "function": "apply_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a8_int8.py",
+        "filepath": "vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a8_int8.py",
         "loc": [
             108,
             110
@@ -24,7 +24,7 @@
                 "class": null,
                 "function": "self.kernel.apply_weights",
                 "type": "MPLinearKernel",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
+                "filepath": "vllm/model_executor/layers/quantization/kernels/mixed_precision/MPLinearKernel.py",
                 "line": 110
             }
         ]

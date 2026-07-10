@@ -210,8 +210,23 @@ def generate_vllm(model_structure, op_name, config_example, framework_config=Non
 
     return runAgent(prompt_vllm)
 
+vllm_path = None
 def read_code_snippet(filePath, start_line, end_line):       
     code_snippet = ""
+    if not filePath.startswith("/"):
+        if not vllm_path:
+            import importlib.util
+            spec = importlib.util.find_spec("vllm")
+            if spec.origin:
+                vllm_path = os.path.dirname(spec.origin)
+        if vllm_path:
+            if filePath.startswith("vllm/"):
+                filePath = os.path.join(vllm_path, filePath[5:])
+            else:
+                filePath = os.path.join(vllm_path, filePath)
+    if not os.path.exists(filePath):
+        return None
+
     with open(filePath) as f:
         lines = f.readlines()
         for i in range(start_line-1, end_line):

@@ -2,7 +2,7 @@
     "modelopt-ModelOptNvFp4LinearMethod-__init__": {
         "class": "ModelOptNvFp4LinearMethod",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             282,
             293
@@ -11,13 +11,13 @@
             {
                 "class": null,
                 "function": "cutlass_fp4_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+                "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
                 "line": 284
             },
             {
                 "class": null,
                 "function": "is_fp4_marlin_supported",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+                "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
                 "line": 288
             }
         ],
@@ -26,7 +26,7 @@
     "modelopt-cutlass_fp4_supported": {
         "class": null,
         "function": "cutlass_fp4_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             253,
             258
@@ -35,13 +35,13 @@
             {
                 "class": null,
                 "function": "get_device_capability",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+                "filepath": "vllm/platforms/cuda.py",
                 "line": 256
             },
             {
                 "class": null,
                 "function": "cutlass_scaled_mm_supports_fp4",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 258
             }
         ],
@@ -50,7 +50,7 @@
     "cuda-get_device_capability": {
         "class": null,
         "function": "get_device_capability",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/cuda.py",
+        "filepath": "vllm/platforms/cuda.py",
         "loc": [
             424,
             426
@@ -59,7 +59,7 @@
             {
                 "class": "DeviceCapability",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/platforms/./interface.py",
+                "filepath": "vllm/platforms/./interface.py",
                 "line": 426
             }
         ],
@@ -68,7 +68,7 @@
     "_custom_ops-cutlass_scaled_mm_supports_fp4": {
         "class": null,
         "function": "cutlass_scaled_mm_supports_fp4",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+        "filepath": "vllm/_custom_ops.py",
         "loc": [
             607,
             608
@@ -77,7 +77,7 @@
             {
                 "class": null,
                 "function": "torch.ops._C.cutlass_scaled_mm_supports_fp4",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/_custom_ops.py",
+                "filepath": "vllm/_custom_ops.py",
                 "line": 608
             }
         ],
@@ -86,7 +86,7 @@
     "marlin_utils_fp4-is_fp4_marlin_supported": {
         "class": null,
         "function": "is_fp4_marlin_supported",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
+        "filepath": "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py",
         "loc": [
             20,
             21
@@ -97,7 +97,7 @@
     "modelopt-ModelOptNvFp4LinearMethod-create_weights": {
         "class": "ModelOptNvFp4LinearMethod",
         "function": "create_weights",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/layers/quantization/modelopt.py",
+        "filepath": "vllm/model_executor/layers/quantization/modelopt.py",
         "loc": [
             295,
             356
@@ -106,25 +106,25 @@
             {
                 "class": "ModelWeightParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 323
             },
             {
                 "class": "PerTensorScaleParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 335
             },
             {
                 "class": "PerTensorScaleParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 341
             },
             {
                 "class": "ModelWeightParameter",
                 "function": "__init__",
-                "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+                "filepath": "vllm/model_executor/parameter.py",
                 "line": 347
             }
         ],
@@ -133,7 +133,7 @@
     "parameter-_ColumnvLLMParameter-__init__": {
         "class": "_ColumnvLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             95,
             97
@@ -144,7 +144,7 @@
     "parameter-BasevLLMParameter-__init__": {
         "class": "BasevLLMParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             33,
             55
@@ -155,7 +155,7 @@
     "parameter-PerTensorScaleParameter-__init__": {
         "class": "PerTensorScaleParameter",
         "function": "__init__",
-        "filepath": "/Users/molly/Workspace/vllm/vllm/model_executor/parameter.py",
+        "filepath": "vllm/model_executor/parameter.py",
         "loc": [
             225,
             227
