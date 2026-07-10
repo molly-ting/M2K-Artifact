@@ -121,14 +121,14 @@ python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input-load --output-dir=c
 **Expected output:** XXX
 
 ## 4. Kernel Memory Bugs in Inference Systems (Section 2.3)
-https://docs.google.com/spreadsheets/d/1S0CNDFlDF6ozVW3j8d6EB1u9S8y5tsS4NnDElRLK7NI/edit?gid=0#gid=0
+https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=0#gid=0
 
 ## 5. Bug Detection in the Wild (Section 6.1)
 raw data of Table 5:
 https://docs.google.com/spreadsheets/d/1C2WeuZRo7ewz1nr3dsw7G8LmE-2AknD0vNDZIXwUWeI/edit?gid=0#gid=0
 
 raw data of Figure 5:
-https://docs.google.com/spreadsheets/d/1IRdEAv0c2zW3-gmKdjgTnS5jR-i-NBIRL9jC_7HIDqs/edit?gid=0#gid=0
+https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=292022127#gid=292022127
 
 **Estimated time:** XXX
 
