@@ -364,7 +364,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
     global structure_configs
 
     if not data_dir:
-        data_dir = os.path.join(project_dir, "evaluation/section-6-1-bug-detection")
+        data_dir = os.path.join(project_dir, "evaluation/section-6-1-bug-detection/vllm-configs-examples")
     if not out_dir:
         out_dir = os.path.join(root_dir, f"results/vllm")
     os.makedirs(out_dir, exist_ok=True)
@@ -393,7 +393,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
     with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
         framework_configs = json.load(ff) 
     
-    config_example_path = os.path.join(f"{data_dir}/vllm-configs-examples", structure+".json")
+    config_example_path = os.path.join(data_dir, structure+".json")
     if not os.path.exists(config_example_path):
         print(f"Config example for {structure} does not exist.")
         return

@@ -1,21 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EXAMPLES_DIR="$PROJECT_DIR/examples"
-JSON_FILE="$EXAMPLES_DIR/dynamic_scaled_fp8_quant.json"
-LOG_FILE="$EXAMPLES_DIR/dynamic_scaled_fp8_quant_log.txt"
-
-python3 -c 'import json, pathlib, sys
-project_dir = pathlib.Path(sys.argv[1])
-json_file = pathlib.Path(sys.argv[2])
-run_json = pathlib.Path(sys.argv[3])
-data = json.loads(json_file.read_text())
-for entry in data:
-    input_path = entry.get("input_file_path")
-    if input_path and input_path.startswith("examples/"):
-        entry["input_file_path"] = str(project_dir / input_path)
-run_json.write_text(json.dumps(data, indent=4) + "\n")
-' "$PROJECT_DIR" "$JSON_FILE" "$JSON_FILE"
-
-cuKLEE --timeout=3600 --output-dir="$EXAMPLES_DIR" "$JSON_FILE" >"$LOG_FILE" 2>&1
+# compile CUDA files to LLVM bitcode in the input directory and store the output in the output directory
+# usage: python3 cuKLEE/compile_cuda.py --input-dir=<input_directory> --output-dir=<output_directory>
+python3 ../cuKLEE/compile_cuda.py --input-dir=./cuda_files --output-dir=.
+# dynamic_scaled_fp8_quant.json stores the LLVM bitcode file path (the absolute path or relative path to the project directory) and constraints for arguments of the cuda function.
+# usage: cuKLEE --timeout=<seconds> --output-dir=<dir to store the z3 constraints> <json_file>
+cuKLEE --timeout=3600 --output-dir=. dynamic_scaled_fp8_quant.json

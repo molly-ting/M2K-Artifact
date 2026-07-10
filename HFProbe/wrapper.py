@@ -178,7 +178,7 @@ def locate_cuda(op_to_impl, cu_files, cpp_files):
     b_to_cu_path.update(extend_res)
     return b_to_cu_path
 
-def find_kernel_rel(dir):
+def find_kernel_rel(dir, out_path):
     lib_dir = Path(dir)
     cpp_files = list(lib_dir.rglob("*.cpp"))
     cu_files = list(lib_dir.rglob("*.cu"))
@@ -243,28 +243,11 @@ def find_kernel_rel(dir):
     # print(b_to_cu_path)
     if not b_to_cu_path:
         return
-    
-    origin_data = None
+
     model_name = dir.split("/")[-1]
-    current_dirpath = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(current_dirpath, f"kernel_map_{model_name}.json")
-    if os.path.exists(out_path):
-        with open(out_path, "r") as f:
-            origin_data = json.load(f)
-    
-    if origin_data:
-        b_to_cu_path.update(origin_data)
-        
+    if not out_path:
+        out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "kernel_map", f"kernel_map_{model_name}.json")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+
     with open(out_path, "w") as f:
         json.dump(b_to_cu_path, f, indent=4)
-                
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="generate maps for CUDA kernels and Python operators."
-    )
-    parser.add_argument(
-        "--input-dir", type=str, required=True, help="Input directory of vLLM or model repository"
-    )
-    args = parser.parse_args()
-    find_kernel_rel(args.input_dir)

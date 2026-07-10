@@ -2,6 +2,7 @@ import argparse
 import os, json
 from huggingface_hub import HfApi, hf_hub_download
 import requests
+import wrapper
 
 vllm_ignored = {"maxV", "minV", "symRanges"}
 
@@ -362,10 +363,14 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
             max_seq_len = None
             if has_seq_con:
                 model_name = name[:-5] 
-                with open(os.path.join(input_dir, model_name + "_seq_con.json")) as sf:
-                    sf_data = json.load(sf)
-                    if "seq_len" in sf_data:
-                        max_seq_len = sf_data["seq_len"]
+                seq_con_path = os.path.join(input_dir, model_name + "_seq_con.json")
+                if os.path.exists(seq_con_path):
+                    with open(seq_con_path) as sf:
+                        sf_data = json.load(sf)
+                        if "seq_len" in sf_data:
+                            max_seq_len = sf_data["seq_len"]
+                else:
+                    max_seq_len = get_max_model_len(model_name.replace("_", "/", 1))
             max_token_num = None
             if has_token_con:
                 model_id = name[:-5].replace("_", "/", 1)
@@ -377,10 +382,14 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
         model_dir = path
         max_seq_len = None
         if has_seq_con:
-            with open(os.path.join(model_dir, "seq_con.json")) as sf:
-                sf_data = json.load(sf)
-                if "seq_len" in sf_data:
-                    max_seq_len = sf_data["seq_len"]
+            seq_con_path = os.path.join(model_dir, "seq_con.json")
+            if os.path.exists(seq_con_path):
+                with open(seq_con_path) as sf:
+                    sf_data = json.load(sf)
+                    if "seq_len" in sf_data:
+                        max_seq_len = sf_data["seq_len"]
+            else:
+                max_seq_len = get_max_model_len(model_name.replace("_", "/", 1))
         
         max_token_num = None
         if has_token_con:
@@ -627,15 +636,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--hf-benchmark", type=bool, required=False, help="HuggingFace benchmark result directory"
     )
+    parser.add_argument(
+        "--vllm-repo-dir", type=str, required=False, help="vLLM code directory"
+    )
 
     parser.add_argument(
         "--vllm-result-dir", type=str, required=False, help="vLLM result directory"
     )
     parser.add_argument(
         "--vllm-compile-path", type=str, required=False, help="directory containing vLLM compiled cuda files"
-    )
-    parser.add_argument(
-        "--kernel-map-path", type=str, required=False, help="path to the kernel map file"
     )
 
     parser.add_argument(
@@ -653,12 +662,16 @@ if __name__ == "__main__":
     if args.research_paper:
         generate_research_paper_input()
     elif args.vllm_benchmark:
-        generate_vllm_inputs(None, None, args.kernel_map_path, True, False)
+        kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
+        wrapper.find_kernel_rel(args.vllm_repo_dir, kernel_map_path)
+        generate_vllm_inputs(None, None, kernel_map_path, True, False)
         generate_vllm_input_load(None, None, True)
     elif args.hf_benchmark:
         generate_all_hf(None, None)
     elif args.vllm_result_dir:
-        generate_vllm_inputs(args.vllm_result_dir, args.vllm_compile_path, args.kernel_map_path, False, True, True)
+        kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
+        wrapper.find_kernel_rel(args.vllm_repo_dir, kernel_map_path)
+        generate_vllm_inputs(args.vllm_result_dir, args.vllm_compile_path, kernel_map_path, False, True, True)
         generate_vllm_input_load(args.vllm_result_dir, args.vllm_compile_path, False)
     elif args.vllm_hf_dir:
         generate_all_hf(args.vllm_hf_compile_path, args.vllm_hf_dir)
