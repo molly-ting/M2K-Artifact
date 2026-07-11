@@ -77,21 +77,8 @@ def _isinstance(args, kwargs):
 
     if isinstance(obj, Value):
         left = obj.ty
-        if isinstance(cls, Value):
-            return left == cls.ty
-        if isinstance(cls, (list, tuple)):
-            candidates = []
-            for item in cls:
-                if isinstance(item, Value):
-                    candidates.append(item.ty)
-                elif hasattr(item, "id"):
-                    candidates.append(item.id)
-                elif isinstance(item, str):
-                    candidates.append(item)
-            return left in candidates
-        if hasattr(cls, "id"):
-            return left == cls.id
-        return new_symbol("isinstance return")
+        right = cls.ty if isinstance(cls, Value) else cls.id
+        return left == right
 
     return new_symbol("isinstance return")
 
@@ -210,6 +197,7 @@ def _list(args, kwargs):
     if obj is None:
         return [None]
     return list(obj)
+
 
 def _vllm_distributed_utils_get_pp_indices(args, kwargs):
     return (0, 1)

@@ -1,5 +1,4 @@
 import ast
-import logging
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
@@ -12,7 +11,6 @@ from ast import (
     ClassDef,
 )
 
-logger = logging.getLogger(__name__)
 from sxia.utils.ast import name_or_full_attr
 
 
@@ -66,17 +64,6 @@ class TypeInfo:
 
 def resolve_ann(expr: ast.expr) -> TypeInfo:
     """Resolve the type annotation to a string."""
-
-    if isinstance(expr, ast.BinOp) and isinstance(expr.op, ast.BitOr):
-        left = resolve_ann(expr.left)
-        right = resolve_ann(expr.right)
-        if not left.ty:
-            right.optional = True
-            return right
-        if not right.ty:
-            left.optional = True
-            return left
-        return TypeInfo(ty=f"{left.ty} | {right.ty}")
 
     base_info = TypeInfo(None)
     queue = [expr]
@@ -138,6 +125,7 @@ class TypeInfoCollector(NodeVisitor):
         <function name>: {
             <arg name>: <type>
         }
+        // class's properties (self.yyy = zzz in __init__)
         <property name>: <type>
     }
     """
@@ -165,6 +153,13 @@ class TypeInfoCollector(NodeVisitor):
         self._ns_stack.append(node)
         self.generic_visit(node)
         self._ns_stack.pop()
+
+    # def visit_arguments(self, node):
+    #     if len(self._ns_stack) < 2:
+    #         return
+    #     func_name = self._ns_stack[-1].name
+    #     cls_name = self._ns_stack[-2].name
+
     def visit_arg(self, node):
         if len(self._ns_stack) != 2:
             return
@@ -288,6 +283,7 @@ class TypeInfoCollector(NodeVisitor):
                     arg0 = node.iter.args[0]
                     arg0_ty = self._resolve_expr_type(arg0)
                     if isinstance(node.target, ast.Tuple):
+                        # for i, (x, y) in enumerate(...)
                         fn_ty[node.target.elts[0].id] = TypeInfo("int")
                         if isinstance(node.target.elts[1], ast.Tuple):
                             for i, el in enumerate(node.target.elts[1].elts):

@@ -1,5 +1,4 @@
 import ast
-import logging
 from typing import Optional, Union
 
 from sxia.analysis_types import TorchCall
@@ -19,8 +18,6 @@ from sxia.value import (
     serialize_value,
 )
 from sxia.torch_api import torch_apis
-
-logger = logging.getLogger(__name__)
 
 
 
@@ -144,6 +141,7 @@ class FuncRunner(ast.NodeVisitor):
                 base_path=None,
             )
             path.return_value = self_value
+            # simply return one path with the class instance
             return [path]
 
     def _new_path(
@@ -238,6 +236,8 @@ class FuncRunner(ast.NodeVisitor):
                 if bb.statements:
                     pass
             if frame.name == "__init__":
+                # if __init__ is called, we need to set the return value to self
+                # since __init__ does not return anything
                 if frame.ret_val_obj:
                     frame.ret_val_obj[frame.ret_val_obj_key] = frame.self_value
         else:
@@ -252,6 +252,8 @@ class FuncRunner(ast.NodeVisitor):
         visited = set()
 
         while bb is not None:
+            # if bb in visited:
+            #     break
             visited.add(bb)
             self._bb = bb
             if bb.statements:
@@ -260,6 +262,7 @@ class FuncRunner(ast.NodeVisitor):
                     self.visit(stmt)
 
             if self._next_bbs is None:
+                # self._next_bbs can be updated by _handle_call
                 self._next_bbs = bb.successors
 
             if self._next_bbs:
@@ -382,6 +385,8 @@ class FuncRunner(ast.NodeVisitor):
                         )
                     else:
                         return ret_val.value[node.attr]
+                else:
+                    pass
             elif isinstance(node, ast.Tuple):
                 val = []
                 for item in node.elts:
@@ -429,14 +434,18 @@ class FuncRunner(ast.NodeVisitor):
                     arg0 = node.iter.args[0]
                     arg0_val = self._eval(frame, arg0)
                     if isinstance(node.target, ast.Tuple):
+                        #     # for i, (x, y) in enumerate(...)
                         if isinstance(node.target.elts[1], ast.Tuple):
                             for i, el in enumerate(node.target.elts[1].elts):
                                 if isinstance(el, ast.Name):
                                     self._eval(frame, el, arg0_val[0][i])
+                                    # if arg0_ty.ty == "zip":
+                                    #     fn_ty[el.id] = arg0_ty.args[i].item
 
         self.generic_visit(node)
 
     def visit_Return(self, node):
+        # super().generic_visit(node)
         frame = self._get_current_frame()
         return_value = self._eval(frame, node.value)
 
@@ -487,6 +496,8 @@ class FuncRunner(ast.NodeVisitor):
             return not to_primitive(operand)
         elif isinstance(op, ast.Invert):
             return ~to_primitive(operand)
+        else:
+            pass
 
     def _handle_bool_op(self, node: ast.BoolOp):
         super().generic_visit(node)
@@ -495,6 +506,8 @@ class FuncRunner(ast.NodeVisitor):
             return all([to_primitive(v) for v in node.values])
         elif isinstance(op, ast.Or):
             return any([to_primitive(v) for v in node.values])
+        else:
+            pass
 
     def _is_super_init(self, node: ast.Attribute):
         if (
@@ -522,6 +535,7 @@ class FuncRunner(ast.NodeVisitor):
         if isinstance(node.func, ast.Attribute):
             if self._is_super_init(node.func):
 
+                # Hard code to assign config to self.config
                 if "config" in local_env:
                     self_value.value["config"] = local_env["config"]
 
@@ -554,8 +568,6 @@ class FuncRunner(ast.NodeVisitor):
                     return torch_apis[full_callee_name](args, kwargs={})
                 except Exception:
                     return new_symbol(def_at=node)
-            else:
-                pass
 
             parts = full_callee_name.split(".")
             if full_callee_name.startswith("self"):
@@ -574,6 +586,7 @@ class FuncRunner(ast.NodeVisitor):
                             return args[0]
 
                     self_value = func
+                    # if it has forward, call forward, else report error and return symbol
                     if "forward" in func.value:
                         func = func.value["forward"]
                     else:
@@ -601,7 +614,6 @@ class FuncRunner(ast.NodeVisitor):
                     callee_self = callee_self.value[parts[i]]
                     i += 1
                 callee_method = parts[-1]
-
                 typed_method_sig = None
                 if isinstance(callee_self, ClassInstanceValue):
                     typed_method_sig = f"{callee_self.ty}.{callee_method}"
@@ -678,6 +690,7 @@ class FuncRunner(ast.NodeVisitor):
                         func.def_at, self_value=self_value, args=args, kwargs=kwargs
                     )
 
+            # like simply xxx(), node.func.id is xxx
             if node.func.id == "super":
                 return new_symbol(def_at=node)
             elif node.func.id == "print":
@@ -809,6 +822,7 @@ class FuncRunner(ast.NodeVisitor):
                     local_env[arg.arg] = init_kwargs[arg.arg]
                     used_init_kwargs.add(arg.arg)
 
+        # after known argument assignment, assign rest of passed kwargs to kwargs(if function declared )
         if node.kwarg is not None:
             local_env[node.kwarg.arg] = {}
             for key, value in init_kwargs.items():
@@ -846,6 +860,7 @@ class FuncRunner(ast.NodeVisitor):
 
 
     def _handle_compare(self, node: ast.Compare):
+        # super().generic_visit(node)
         frame = self._get_current_frame()
         assert len(node.ops) == 1
         assert len(node.comparators) == 1
@@ -910,6 +925,8 @@ class FuncRunner(ast.NodeVisitor):
             return to_primitive(left_val) ^ to_primitive(right_val)
         elif isinstance(op, ast.FloorDiv):
             return to_primitive(left_val) // to_primitive(right_val)
+        else:
+            pass
 
     def visit_Assign(self, node):
         try:

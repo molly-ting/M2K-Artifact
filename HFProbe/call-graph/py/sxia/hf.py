@@ -1,6 +1,5 @@
 from dataclasses import asdict
 import os
-import logging
 import json
 import re
 from typing import Optional
@@ -14,17 +13,15 @@ from sxia.analysis_types import Analysis, CudaFunction, PyCppBinding, TorchCall
 from sxia.astrunner.utils import analyze_transformers_model, get_torch_calls_from_file
 from sxia.utils.vllm import analyze_vllm_model, extract_path_model_pairs
 
-
-logger = logging.getLogger(__name__)
 current_path_string = os.path.abspath(__file__)
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(current_path_string)))
-
 
 def get_cuda_functions(cuda_file: str) -> list["CudaFunction"]:
     """
     Use simple regex to find CUDA functions in a CUDA file.
     """
     cuda_functions = []
+    # function_pattern = re.compile(r"__\w+\s+void\s+(\w+)\s*\(")
     function_pattern = re.compile(
         r"(?:__\w+\s+)*[\w:<>\*&]+\s+(\w+)\s*\([^)]*\)\s*(?:const)?\s*\{",
         re.MULTILINE,
@@ -43,7 +40,7 @@ def get_cuda_functions(cuda_file: str) -> list["CudaFunction"]:
                 cuda_functions.append(cf)
 
     except FileNotFoundError:
-        print(f"File {cuda_file} not found.")
+        pass
     except Exception as e:
         pass
 
@@ -67,6 +64,7 @@ def parse_cpp_cudas(cpp_content: str):
             - 'calls': List of function calls inside the function body.
     """
     function_pattern = re.compile(r"\b[\w:<>~]+\s+(\w+)\s*\(([^)]*)")
+    # function_pattern = re.compile(r"void\s+(\w+)\s*\(([^)]*)")
     call_pattern = re.compile(r"(\w+)\(")  # Matches function calls
 
     lines = cpp_content.splitlines()
@@ -161,7 +159,7 @@ def parse_m_def_relationships(file_path: str) -> list[PyCppBinding]:
             )
 
     except FileNotFoundError:
-        print(f"File {file_path} not found.")
+        pass
     except Exception as e:
         pass
 
@@ -239,7 +237,7 @@ def get_analysis(path: str, vllm_dir: str) -> Analysis:
     torch_calls = get_torch_calls(
         path, auto_model_cls_list, class_defs, bindings, auto_config_cls
     )
-    
+
     va = None
     va_err = None
     try:
@@ -266,6 +264,7 @@ def get_analysis(path: str, vllm_dir: str) -> Analysis:
         bindings=bindings,
         cuda_functions=cuda_fns,
         vllm=va,
+        # vllm_error=va_err,
         vllm_error="",
     )
 
@@ -289,7 +288,6 @@ def get_torch_calls(
                     bindings,
                     auto_config_cls if auto_config_cls in class_defs else None,
                     class_defs[auto_config_cls] if auto_config_cls else None,
-                    out_path=os.path.join(root_dir, "cgout-models", repo_path.split("/")[-1] + ".json"),
                 )
             )
     return torch_calls
@@ -321,13 +319,13 @@ def analyze(config: HfAnalysisConfig):
     os.makedirs(out_path, exist_ok=True)
     with open(os.path.join(out_path, "analysis.json"), "w") as f:
         json.dump(result, f, indent=4)
-
     
 def build_class_and_import_maps(tree):
     class_map = {}
     import_map = {}  # alias → (module, original)
 
     for node in tree.body:
+    # for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef):
             class_map[node.name] = node
         elif isinstance(node, ast.ImportFrom):
@@ -408,10 +406,6 @@ def inherits_from(root_dir, py_file, cls_name, base_class_name, class_map=None, 
             mod_name, orig_name = import_map[b]
             mod_path = find_module_file(mod_name, root_dir, py_file)
             if not mod_path:
-                if not mod_name.startswith("."):
-                    mod_name = "." + mod_name
-                    mod_path = find_module_file(mod_name, root_dir, py_file)
-            if not mod_path:
                 continue
             if mod_path and inherits_from(root_dir, mod_path, orig_name, base_class_name, None, None, visited):
                 return True
@@ -444,7 +438,6 @@ def find_all_schemes(root_dir, py_file):
                 subclasses.append(cls)
                 break
     return subclasses
-
 
 def transformers_with_config(path: str):
 
@@ -585,6 +578,9 @@ def indirect_fill(vllm_dir, target_file, out_dir=None):
     
     for key in unknown_calls:
         class_name, func_name = key
+        if class_name == "str":
+            continue
+        
         filepath = unknown_calls[key] 
         dirpath = os.path.dirname(filepath)
         if filepath.endswith("fused_moe/layer.py") or filepath.endswith("fused_moe/fused_moe_method_base.py"):

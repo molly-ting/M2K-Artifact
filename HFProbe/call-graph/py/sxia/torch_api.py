@@ -1,9 +1,7 @@
 from functools import reduce
 from sxia.value import ClassInstanceValue, Value, new_symbol
-import logging
 
 
-logger = logging.getLogger(__name__)
 
 def _empty_like(x: Value):
     empty = Value(ty=x.ty, def_at=None)
@@ -27,10 +25,15 @@ def _arange(args: list[Value], kwargs: dict[str, Value]) -> Value:
     if not args:
         raise ValueError("torch.arange requires at least one argument")
     for arg in args:
+        # if not isinstance(arg, Value):
+        #     raise TypeError("torch.arange expects Value objects as arguments")
+        # else:
         if isinstance(arg, Value) and arg.is_symbol():
             return new_symbol(ty="torch.Tensor")
 
     def get_int(val, name: str) -> int:
+        # if not isinstance(val.value, int):
+        #     raise TypeError(f"torch.arange: {name} must be an int")
         if isinstance(val, Value):
             return val.value
         elif isinstance(val, list):
@@ -38,6 +41,7 @@ def _arange(args: list[Value], kwargs: dict[str, Value]) -> Value:
         else:
             return val
 
+    # def_at = args[0].def_at if args else None
 
     # Parse start, end, step
     if len(args) == 1:
@@ -89,7 +93,9 @@ def _cat(args: list[Value], kwargs: dict[str, Value]) -> Value:
     # Validate types
     for t in tensors:
         if not isinstance(t, Value) or t.ty != "torch.Tensor":
+            # raise TypeError(
             #     "torch.cat only supports Value objects with type 'torch.Tensor'"
+            # )
             return new_symbol(ty="torch.Tensor")
 
     dim_val = kwargs.get("dim", Value(ty="int", def_at=list_val.def_at, value=0))
@@ -147,6 +153,7 @@ def _zeros(args: list[Value], kwargs: dict[str, Value]) -> Value:
     out.value = {
         "shape": tuple(data_val),
         # FIXME: here just wait for Value's constraint implementation
+        # (if shape contains symbol, we need constraint system)
         "size": None,
         "dtype": dtype,
         "device": device,
@@ -205,6 +212,7 @@ def _iinfo(dtype: Value):
         out.set_attribute("min", -2147483648)
         out.set_attribute("max", 2147483647)
     else:
+        # For non-integer types, return unknown.
         out.set_attribute("min", None)
         out.set_attribute("max", None)
 
@@ -351,6 +359,7 @@ def _torch_flatten(args: list[Value], kwargs: dict[str, Value]) -> Value:
 
     if isinstance(input_tensor, Value):
         tensor_shape = input_tensor.value["shape"]
+        # Handle end_dim == -1 as the last dimension
         if end_dim == -1:
             end_dim = len(tensor_shape) - 1
         flatten_dims = list(tensor_shape[start_dim : end_dim + 1])

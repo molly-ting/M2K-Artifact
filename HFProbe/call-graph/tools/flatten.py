@@ -167,6 +167,8 @@ class _SingleStatementNestedIfFlattener(ast.NodeTransformer):
             if not isinstance(node.value, ast.IfExp):
                 return node
 
+            # temp_var = f"_temp_if{self.temp_counter}"
+            # self.temp_counter += 1
             new_if = ast.If(
                 node.value.test,
                 body=[ast.Assign(targets=node.targets, value=node.value.body)],
@@ -209,12 +211,10 @@ def flatten_file(filename, in_place=False):
         shutil.copyfile(filename, filename + ".bak")
         with open(filename, "w") as f:
             f.write(new_source)
-        print(f"Flattened code written to {filename}")
     else:
         output_file = filename.replace(".py", "_flattened.py")
         with open(output_file, "w") as f:
             f.write(new_source)
-        print(f"Flattened code written to {output_file}")
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ import json
 import os
 from sxia.analysis_types import PyCppBinding, TorchCall
 from sxia.value import ClassInstanceValue, ModuleInstanceValue, Value
+from sxia.astrunner.runner import FuncRunner, TorchCallVisitor
 
 
 def get_torch_calls_from_file(
@@ -16,8 +17,6 @@ def get_torch_calls_from_file(
 ) -> list[TorchCall]:
     if os.path.exists(out_path):
         return []
-    
-    from sxia.astrunner.runner import FuncRunner, TorchCallVisitor
 
     config_json_path = os.path.join(repo_path, "config.json")
     if not os.path.exists(config_json_path):

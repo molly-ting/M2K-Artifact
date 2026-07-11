@@ -1,9 +1,7 @@
 import ast
 from typing import Any, Union
-import logging
 
 
-logger = logging.getLogger(__name__)
 
 
 def serialize_value(val):
@@ -207,6 +205,7 @@ class ModuleInstanceValue(ModuleValue):
         return mod_inst
 
     def add_import_from(self, node: ast.ImportFrom):
+        # from module import submodule
         # submodule will be mapped to module.submodule
         for alias in node.names:
             import_value = ImportValue(
@@ -259,6 +258,7 @@ def _top_level_init(inst_value, stmts: list[ast.stmt]):
         elif isinstance(stmt, ast.ImportFrom):
             inst_value.add_import_from(stmt)
         elif isinstance(stmt, ast.Import):
+            # import module
             # module will be mapped to module.module
             for alias in stmt.names:
                 keyName = alias.asname or alias.name

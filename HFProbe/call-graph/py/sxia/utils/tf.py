@@ -1,13 +1,10 @@
 from typing import Optional, Tuple
 import os
-import logging
 import ast
 
 from sxia.utils.ast import get_inherited_classes
 from sxia.value import ClassValue, ModuleInstanceValue
 
-
-logger = logging.getLogger(__name__)
 
 def get_transformers_dir() -> str:
     """

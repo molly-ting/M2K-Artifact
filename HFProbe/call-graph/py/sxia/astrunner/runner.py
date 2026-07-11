@@ -2,8 +2,6 @@ import ast
 import copy
 import json
 import os
-import traceback
-import logging
 from typing import List, Optional, Union
 from sxia.analysis_types import PyCppBinding, TorchCall
 from sxia.type_info import resolve_ann
@@ -34,8 +32,6 @@ from sxia.utils.ast import (
 
 from sxia.torch_api import torch_apis
 from sxia.native_api import global_func_map
-
-logger = logging.getLogger(__name__)
 
 
 
@@ -87,9 +83,7 @@ def _handle_tensor_selection(tensor: Value, slice: list[tuple]) -> Value:
         new_tensor.ty = "torch.Tensor"
         new_tensor.value = {}
         new_shape = []
-        old_shape = tensor.value.get("shape")
-        if old_shape is None:
-            old_shape = []
+        old_shape = tensor.value.get("shape", [])
         for i, s in enumerate(slice):
             if isinstance(s, tuple):
                 start, end, step = s
@@ -133,44 +127,6 @@ def _handle_message_passing_collect(args, kwargs):
 def _handle_message_passing_inspector_distribute(args, kwargs):
     return args[1]
 
-def get_inherited_classes_by_value(cls: ClassInstanceValue) -> list[str]:
-    inherited_classes = set(get_inherited_classes(cls.def_at))
-    if cls.inheritance:
-        for cls_name in cls.inheritance:
-            if isinstance(cls_name, str):
-                inherited_classes.add(cls_name)
-            elif isinstance(cls_name, ClassValue):
-                inherited_classes.add(cls_name.ty)
-    return list(inherited_classes)
-
-def _torch_ops_name(name: str) -> Optional[str]:
-    if not name.startswith("torch.ops._"):
-        return None
-    # Need at least torch.ops.<namespace>.<op>.
-    if len(name.split(".")) < 4:
-        return None
-    if name.endswith(".default"):
-        return name[: -len(".default")]
-    return name
-
-def _find_torch_ops_calls(node: ast.AST) -> list[tuple[str, int]]:
-    calls = []
-    for child in ast.walk(node):
-        if isinstance(child, ast.Call):
-            name = _torch_ops_name(name_or_full_attr(child.func))
-            if name:
-                item = (name, getattr(child, "lineno", getattr(node, "lineno", 0)))
-                if item not in calls:
-                    calls.append(item)
-        elif isinstance(child, ast.Attribute):
-            attr_name = name_or_full_attr(child)
-            name = _torch_ops_name(attr_name)
-            if name:
-                item = (name, getattr(child, "lineno", getattr(node, "lineno", 0)))
-                if item not in calls:
-                    calls.append(item)
-    return calls
-
 def getTypeOfReturnValue(funcDef: ast.FunctionDef) -> Optional[str]:
     if not hasattr(funcDef, "returns"):
         return None
@@ -204,14 +160,7 @@ class FuncRunner(ast.NodeVisitor):
         call_graph=None,
     ):
         self.start_node = start_node
-        self.local_env = {}
-        if local_env:
-            for lkey in local_env:
-                if isinstance(local_env[lkey], list) and len(local_env[lkey]) > 20:
-                    self.local_env[lkey] = new_symbol(def_at=start_node)
-                else:
-                    self.local_env[lkey] = copy.deepcopy(local_env[lkey])
-
+        self.local_env = {} if local_env is None else copy.deepcopy(local_env)
         self.torch_calls = calls
         self._init_args = args or []
         self._init_kwargs = kwargs or {}
@@ -229,14 +178,6 @@ class FuncRunner(ast.NodeVisitor):
             if hasattr(start_node, "name")
             else type(start_node).__name__
         )
-        self_ty = None
-        if isinstance(self_value, list):
-            for candidate in self_value:
-                if getattr(candidate, "ty", None):
-                    self_ty = candidate.ty
-                    break
-        elif self_value is not None:
-            self_ty = getattr(self_value, "ty", None)
         
         self._visit_level = 0
         self._shape2tensor = {}
@@ -247,18 +188,7 @@ class FuncRunner(ast.NodeVisitor):
         if isinstance(self.start_node, ast.FunctionDef):
             className = None
             if self_value is not None:
-                if isinstance(self_value, list):
-                    for candidate in self_value:
-                        if getattr(candidate, "def_at", None):
-                            className = candidate.def_at.name
-                            break
-                        if getattr(candidate, "ty", None):
-                            className = candidate.ty
-                            break
-                elif getattr(self_value, "def_at", None):
-                    className = self_value.def_at.name
-                elif getattr(self_value, "ty", None):
-                    className = self_value.ty
+                className = self_value.def_at.name
             file_name = self._env.file_path.split("/")[-1].split(".")[0]
             if className:
                 self.cg_key = file_name+"-"+className+"-"+start_node.name
@@ -266,20 +196,10 @@ class FuncRunner(ast.NodeVisitor):
                 self.cg_key = file_name+"-"+start_node.name
             if self.cg_key not in self.call_graph:
                 self.call_graph[self.cg_key] = {"class": className, "function": start_node.name, "filepath": self._env.file_path, "loc": (start_node.lineno, start_node.end_lineno), "callees": [], "unknown": []}
-            
 
-    def _record_callee(self, function_name: str, filepath: str = None, line: int = None, class_name: str = None):
-        if self.cg_key and self.cg_key in self.call_graph:
-            item = {
-                "class": class_name,
-                "function": function_name,
-                "filepath": filepath or self._env.file_path,
-                "line": line,
-            }
-            if item not in self.call_graph[self.cg_key]["callees"]:
-                self.call_graph[self.cg_key]["callees"].append(item)
 
     def run(self):
+        # try:
         if isinstance(self.start_node, ast.ClassDef):
             assert self._self_value is None
             return self._run_cls(self.start_node)
@@ -304,6 +224,8 @@ class FuncRunner(ast.NodeVisitor):
             assert self._self_value is None
             return self._run_lambda(self.start_node)
 
+        # except AbortByReturn:
+        #     pass
         return self.return_value
 
     def _run_lambda(self, node: ast.Lambda):
@@ -314,14 +236,16 @@ class FuncRunner(ast.NodeVisitor):
     def _run_cls(self, node: ast.ClassDef):
         self_value = ClassInstanceValue(node, parent=self._env)
         self._self_value = self_value
-        base_classes = get_inherited_classes_by_value(self._self_value)
+        base_classes = get_inherited_classes(self._self_value.def_at)
         for base_cls in base_classes:
             self._self_value.inheritance.append(base_cls)
 
         # handle outmost assignment
         for stmt in node.body:
             if isinstance(stmt, ast.Pass):
+                # base_classes = get_inherited_classes(self._self_value.def_at)
                 for base_cls in base_classes:
+                    # self._self_value.inheritance.append(base_cls)
                     if base_cls.endswith("nn.Module") or base_cls.endswith(
                         "PreTrainedModel"
                     ) or base_cls.startswith("torch.nn"):
@@ -358,12 +282,16 @@ class FuncRunner(ast.NodeVisitor):
                             self_value.value[stmt.target.id] = new_symbol(
                                 def_at=node
                             )
+                else:
+                    pass
             elif isinstance(stmt, ast.Assign):
                 stmt_value = self._eval(stmt.value)
                 if len(stmt.targets) == 1:
                     target = stmt.targets[0]
                     if isinstance(target, ast.Name):
                         self_value.value[target.id] = stmt_value
+                    else:
+                        pass
                 else:
                     assert isinstance(stmt_value, list)
                     assert len(stmt_value) == len(stmt.targets)
@@ -399,28 +327,6 @@ class FuncRunner(ast.NodeVisitor):
                 call_graph=self.call_graph,
             )
             runner.run()
-        elif not any(base.endswith("CustomOp") for base in get_inherited_classes(node)):
-            base_val, init_value = self._resolve_super_method("__init__")
-            if init_value is not None:
-                old_def_at = self_value.def_at
-                if base_val is not None:
-                    existing_names = set(self_value.value)
-                    self_value.add_functions_from(base_val.def_at)
-                    for name, value in base_val.value.items():
-                        if name not in existing_names and isinstance(value, FuncValue):
-                            self_value.value[name] = value
-                    self_value.def_at = base_val.def_at
-                FuncRunner(
-                    init_value.def_at,
-                    args=self._init_args,
-                    kwargs=self._init_kwargs,
-                    self_value=self_value,
-                    env=_find_module(init_value),
-                    calls=self.torch_calls,
-                    resolve_import_dirs=self._resolve_import_dirs,
-                    call_graph=self.call_graph,
-                ).run()
-                self_value.def_at = old_def_at
         return self_value
 
     def _eval(self, node: ast.AST, update_to=None) -> Union[Value, List[Value]]:
@@ -463,13 +369,6 @@ class FuncRunner(ast.NodeVisitor):
             elif isinstance(node, ast.Constant):
                 return node.value
             elif isinstance(node, ast.Attribute):
-                torch_op_name = _torch_ops_name(name_or_full_attr(node))
-                if torch_op_name:
-                    return new_symbol(
-                        name=f"[op: {torch_op_name}]",
-                        def_at=node,
-                        ty=torch_op_name,
-                    )
                 if isinstance(node.value, ast.Name):
                     if node.value.id == "self":
                         if node.attr == "__class__":
@@ -488,6 +387,7 @@ class FuncRunner(ast.NodeVisitor):
                         return Value(None, ty=f"torch.{node.attr}", def_at=node)
                     elif node.value.id in self.local_env:
                         base_val = self.local_env[node.value.id]
+                        # this is to support omegaconfig (use dot way to access dict)
                         if isinstance(base_val, dict):
                             if update_to is not None:
                                 base_val[node.attr] = update_to
@@ -524,8 +424,6 @@ class FuncRunner(ast.NodeVisitor):
                                 if base_val.ty == "torch.Tensor":
                                     if node.attr == "shape":
                                         shape_arr = base_val.value.get("shape")
-                                        while isinstance(shape_arr, list):
-                                            shape_arr = shape_arr[0]
                                         self._shape2tensor[shape_arr] = base_val
 
                                         return shape_arr
@@ -565,10 +463,7 @@ class FuncRunner(ast.NodeVisitor):
                                 )
                             if isinstance(resolved, CppBindingValue):
                                 return CppBindingChildValue(node, name=f"{node.attr}")
-                            if resolved:
-                                return resolved.get(node.attr)
-                            else:
-                                return new_symbol(f"{base_val.value}.{node.attr}", def_at=node)
+                            return resolved.get(node.attr)
                         elif isinstance(base_val, ClassValue):
                             return base_val.value[node.attr]
                         elif isinstance(base_val, ModuleInstanceValue):
@@ -580,28 +475,9 @@ class FuncRunner(ast.NodeVisitor):
                     else:
                         return new_symbol(f"{node.value.id}.{node.attr}", def_at=node)
                 elif isinstance(node.value, ast.Attribute):
-                    if hasattr(node, "attr") and hasattr(node.value, "attr") and node.value.attr=="vllm" \
-                        and isinstance(node.value.value, ast.Attribute) and hasattr(node.value.value, "attr") \
-                            and node.value.value.attr == "ops" and isinstance(node.value.value.value, ast.Name) \
-                                and hasattr(node.value.value.value, "id") and node.value.value.value.id == "torch":
-                        function_name = node.attr
-                        if function_name == "moe_forward":
-                            function_name = "_moe_forward"
-                        if function_name == "moe_forward_shared":
-                            function_name = "_moe_forward_shared"
-                        if function_name in self._env.value:
-                            return self._env.value[function_name]
-                        else:
-                            resolved_result = env_resolve(
-                                self._env, function_name, self._resolve_import_dirs
-                            )
-                            if resolved_result is not None:
-                                return resolved_result
                     value = self._eval(node.value)
-                    if value is None:
-                        return new_symbol(def_at=node)
                     if isinstance(value, dict):
-                        return value.get(node.attr, new_symbol(def_at=node))
+                        return value[node.attr]
                     if isinstance(value, ast.ClassDef) and node.attr == "name":
                         return value.name
                     if isinstance(value, list):
@@ -613,38 +489,13 @@ class FuncRunner(ast.NodeVisitor):
                                 return_values.append(val[node.attr])
                             if isinstance(val, ast.ClassDef) and node.attr == "name":
                                 return_values.append(val.name)
-                            elif isinstance(val, Value) and hasattr(val.value, node.attr):
-                                return_values.append(getattr(val.value, node.attr))
+                            elif isinstance(val, Value) and node.attr in val.value:
+                                return_values.append(value.value[node.attr])
                         if return_values:
                             return return_values
                         else:
                             return new_symbol(def_at=node)
-                    if isinstance(value, Value):
-                        if not isinstance(value.value, dict) or node.attr not in value.value:
-                            return new_symbol(def_at=node)
                     return value.value[node.attr]
-                elif isinstance(node.value, ast.Subscript):
-                    value = self._eval(node.value)
-                    if isinstance(value, dict):
-                        return value.get(node.attr, new_symbol(def_at=node))
-                    if isinstance(value, list):
-                        return_values = []
-                        for val in value:
-                            if not val:
-                                continue
-                            if isinstance(val, dict) and node.attr in val:
-                                return_values.append(val[node.attr])
-                            elif isinstance(val, Value) and node.attr in val.value:
-                                return_values.append(val.value[node.attr])
-                        if return_values:
-                            return return_values
-                        return new_symbol(def_at=node)
-                    if isinstance(value, Value):
-                        if value.is_symbol():
-                            return new_symbol(f"{value}.{node.attr}", def_at=node)
-                        if isinstance(value.value, dict) and node.attr in value.value:
-                            return value.value[node.attr]
-                    return new_symbol(def_at=node)
                 elif isinstance(node.value, ast.Call):
                     ret_val = self._eval(node.value)
                     if isinstance(ret_val, list):
@@ -656,8 +507,6 @@ class FuncRunner(ast.NodeVisitor):
                                 return_values.append(rv.value[node.attr])
                         return return_values
                     else:
-                        if ret_val is None:
-                            return new_symbol(def_at=node)
                         if ret_val.is_symbol():
                             return new_symbol(
                                 f"ret_val.{node.attr}",
@@ -674,10 +523,9 @@ class FuncRunner(ast.NodeVisitor):
                                     return ret_val.value.value
                                 else:
                                     return new_symbol(def_at=node)
-                            if isinstance(ret_val, Value):
-                                if not isinstance(ret_val.value, dict) or node.attr not in ret_val.value:
-                                    return new_symbol(def_at=node)
                             return ret_val.value[node.attr]
+                else:
+                    pass
             elif isinstance(node, ast.Tuple):
                 val = []
                 for item in node.elts:
@@ -702,8 +550,6 @@ class FuncRunner(ast.NodeVisitor):
                     # it means that in order to proceed this program, the base_val has to be that long
                     if base_val.ty == "torch.Tensor.shape":
                         if isinstance(slice_val, int):
-                            if slice_val < 0:
-                                return new_symbol(def_at=node)
                             base_val.metadata.value["shape"] = tuple(
                                 [new_symbol() for _ in range(slice_val + 1)]
                             )
@@ -722,6 +568,7 @@ class FuncRunner(ast.NodeVisitor):
                             mod_list = list(base_val.get("_list").values())
 
                             return mod_list[slice_val[0] : slice_val[1] : slice_val[2]]
+
                     return base_val[slice_val[0] : slice_val[1] : slice_val[2]]
                 elif isinstance(slice_val, int):
                     if update_to is not None:
@@ -743,15 +590,6 @@ class FuncRunner(ast.NodeVisitor):
                 elif isinstance(base_val, Value) and base_val.ty == "torch.Tensor":
                     new_tensor = _handle_tensor_selection(base_val, slice_val)
                     return new_tensor
-                elif isinstance(base_val, Value):
-                    if isinstance(base_val.value, (list, tuple)) and isinstance(slice_val, int):
-                        try:
-                            return base_val.value[slice_val]
-                        except Exception:
-                            return new_symbol(def_at=node)
-                    if isinstance(base_val.value, dict):
-                        return base_val.value.get(slice_val, new_symbol(def_at=node))
-                    return new_symbol(def_at=node)
                 else:
                     return new_symbol(def_at=node)
             elif isinstance(node, ast.Slice):
@@ -772,8 +610,6 @@ class FuncRunner(ast.NodeVisitor):
                 return self._handle_unary_op(node)
             elif isinstance(node, ast.ListComp):
                 return self._handle_list_comp(node)
-            elif isinstance(node, ast.GeneratorExp):
-                return self._handle_list_comp(node)
             elif isinstance(node, ast.Dict):
                 return self._handle_dict(node)
             elif isinstance(node, ast.IfExp):
@@ -783,6 +619,7 @@ class FuncRunner(ast.NodeVisitor):
             elif isinstance(node, ast.Lambda):
                 return self._handle_lambda(node)
             else:
+                # raise NotImplementedError()
                 return new_symbol(def_at=node)
         except Exception:
             return new_symbol(def_at=node)
@@ -799,12 +636,15 @@ class FuncRunner(ast.NodeVisitor):
         return ret
 
     def _handle_lambda(self, node: ast.Lambda):
+        # if isinstance(node.body, ast.Call):
+        #     return self._handle_call(node.body)
         lambda_value = LambdaValue(def_at=node, local_env=self.local_env, env=self._env)
         return lambda_value
 
     def _handle_ifesp(self, node: ast.IfExp):
         test = self._eval(node.test)
         if isinstance(test, Value) and test.is_symbol():
+            # return new_symbol(def_at=node)
             return [self._eval(node.body), self._eval(node.orelse)]
         if to_primitive(test):
             return self._eval(node.body)
@@ -827,39 +667,13 @@ class FuncRunner(ast.NodeVisitor):
         self._visit_level += 1
         if self._visit_level == 1:
             return self.generic_visit(node)
+        else:
+            pass
 
     def visit_For(self, node):
         skip_generic_visit = False
         if isinstance(node.iter, ast.Call):
             if isinstance(node.iter.func, ast.Name):
-                if node.iter.func.id == "range":
-                    skip_generic_visit = True
-                    args = node.iter.args
-                    start = 0
-                    end = None
-                    step = 1
-                    if len(args) == 1:
-                        end = to_primitive(self._eval(args[0]))
-                    elif len(args) == 2:
-                        start = to_primitive(self._eval(args[0]))
-                        end = to_primitive(self._eval(args[1]))
-                    elif len(args) >= 3:
-                        start = to_primitive(self._eval(args[0]))
-                        end = to_primitive(self._eval(args[1]))
-                        step = to_primitive(self._eval(args[2]))
-
-                    if not isinstance(start, int) or not isinstance(end, int) or not isinstance(step, int):
-                        # Fallback to a single iteration when bounds are symbolic.
-                        start = 0
-                        end = 1
-                        step = 1
-
-                    if isinstance(node.target, ast.Name):
-                        for i in range(start, end, step):
-                            self._eval(node.target, i)
-                            for stmt in node.body:
-                                self.visit(stmt)
-                    return
                 if node.iter.func.id == "enumerate":
                     arg0 = node.iter.args[0]
                     arg0_val = self._eval(arg0)
@@ -869,19 +683,21 @@ class FuncRunner(ast.NodeVisitor):
                     ):
                         arg0_val = list(arg0_val.get("_list").values())
                     if isinstance(node.target, ast.Tuple):
-                        skip_generic_visit = True
-                        iter_items = arg0_val if isinstance(arg0_val, list) else [arg0_val]
-                        for idx, item in enumerate(iter_items):
-                            # enumerate's index
-                            self._eval(node.target.elts[0], idx)
-                            if isinstance(node.target.elts[1], ast.Tuple):
-                                for i, el in enumerate(node.target.elts[1].elts):
-                                    if isinstance(el, ast.Name):
-                                        self._eval(el, item[i])
-                            elif isinstance(node.target.elts[1], ast.Name):
-                                self._eval(node.target.elts[1], item)
-                            for stmt in node.body:
-                                self.visit(stmt)
+                        # enumerate's index
+                        index_elm = node.target.elts[0]
+                        self._eval(index_elm, 0)
+                        #     # for i, (x, y) in enumerate(...)
+                        if isinstance(node.target.elts[1], ast.Tuple):
+                            for i, el in enumerate(node.target.elts[1].elts):
+                                if isinstance(el, ast.Name):
+                                    self._eval(el, arg0_val[0][i])
+                                    # if arg0_ty.ty == "zip":
+                                    #     fn_ty[el.id] = arg0_ty.args[i].item
+                        elif isinstance(node.target.elts[1], ast.Name):
+                            if (isinstance(arg0_val, Value) and arg0_val.is_symbol()) or (isinstance(arg0_val, ClassInstanceValue) and not arg0_val.def_at):
+                                self._eval(node.target.elts[1], arg0_val)
+                            else:
+                                self._eval(node.target.elts[1], arg0_val[0])
                 elif node.iter.func.id == "dir":
                     skip_generic_visit = True
                     arg0_val = self._eval(node.iter)
@@ -897,20 +713,8 @@ class FuncRunner(ast.NodeVisitor):
                         for stmt in node.body:
                             self.visit(stmt)
 
-                elif node.iter.func.id == "islice":
-                    arg0 = node.iter.args[0]
-                    arg0_val = self._eval(arg0)
-                    if (
-                        isinstance(arg0_val, Value)
-                        and arg0_val.ty == "torch.nn.ModuleList"
-                    ):
-                        arg0_val = list(arg0_val.get("_list").values())
-                    skip_generic_visit = True
-                    iter_items = arg0_val if isinstance(arg0_val, list) else [arg0_val]
-                    for idx, item in enumerate(iter_items):
-                        self._eval(node.target, item)
-                        for stmt in node.body:
-                            self.visit(stmt)
+                else:
+                    pass
             elif isinstance(node.iter.func, ast.Attribute):
                 base_val = self._eval(node.iter.func.value)
 
@@ -928,6 +732,10 @@ class FuncRunner(ast.NodeVisitor):
                                 self._eval(node.target.elts[1], child)
                                 for stmt in node.body:
                                     self.visit(stmt)
+                            else:
+                                pass
+                        else:
+                            pass
         else:
             try:
                 iter_value = self._eval(node.iter)
@@ -957,7 +765,7 @@ class FuncRunner(ast.NodeVisitor):
             if isinstance(tmp_value, Value):
                 if tmp_value.is_symbol() or (isinstance(tmp_value.value, Value) and tmp_value.value.is_symbol()):
                     return_type = getTypeOfReturnValue(self.start_node)
-                    if return_type and not _torch_ops_name(tmp_value.ty or ""):
+                    if return_type:
                         import_val = getImport(self._env, return_type, self._resolve_import_dirs)
                         tmp_value.ty = return_type
                         if import_val:
@@ -967,11 +775,7 @@ class FuncRunner(ast.NodeVisitor):
                 if return_type:
                     import_val = getImport(self._env, return_type, self._resolve_import_dirs)
                     for v in tmp_value:
-                        if (
-                            isinstance(v, Value)
-                            and v.is_symbol()
-                            and not _torch_ops_name(v.ty or "")
-                        ):
+                        if isinstance(v, Value) and v.is_symbol():
                             v.ty = return_type
                             if import_val:
                                 v.metadata = import_val
@@ -993,8 +797,9 @@ class FuncRunner(ast.NodeVisitor):
                         self.return_value = [old_value, tmp_value]
             else:
                 self.return_value = tmp_value
+        # raise AbortByReturn()
 
-    def _handle_list_comp(self, node: Union[ast.ListComp, ast.GeneratorExp]):
+    def _handle_list_comp(self, node: ast.ListComp):
         if len(node.generators) > 1:
             return new_symbol(def_at=node)
 
@@ -1022,23 +827,19 @@ class FuncRunner(ast.NodeVisitor):
                     return new_symbol(def_at=node)
 
                 val = []
-                target = node.generators[0].target
-                for i in range(arr_len):
-                    if isinstance(target, ast.Name):
-                        self._eval(target, i)
+                for _ in range(arr_len):
                     val.append(self._eval(node.elt))
                 return val
             elif len(iterator.args) == 2:
                 start = to_primitive(self._eval(iterator.args[0]))
                 end = to_primitive(self._eval(iterator.args[1]))
                 if not isinstance(start, int) or not isinstance(end, int):
-                    start = 0
-                    end = 1
+                    # tmp = self._eval(node.elt)
+                    # if isinstance(tmp, ast.ClassDef):
+                    #     return [tmp]
+                    return new_symbol(def_at=node)
                 val = []
-                target = node.generators[0].target
-                for i in range(start, end):
-                    if isinstance(target, ast.Name):
-                        self._eval(target, i)
+                for _ in range(start, end):
                     val.append(self._eval(node.elt))
                 return val
             else:
@@ -1076,6 +877,8 @@ class FuncRunner(ast.NodeVisitor):
             return not to_primitive(operand)
         elif isinstance(op, ast.Invert):
             return ~to_primitive(operand)
+        else:
+            pass
 
     def _handle_bool_op(self, node: ast.BoolOp):
         super().generic_visit(node)
@@ -1108,68 +911,6 @@ class FuncRunner(ast.NodeVisitor):
             if isinstance(base, SuperValue) and node.attr == "__init__":
                 return True
         return False
-
-    def _is_super_method(self, node: ast.Attribute):
-        if (
-            isinstance(node.value, ast.Call)
-            and isinstance(node.value.func, ast.Name)
-            and node.value.func.id == "super"
-        ):
-            return True
-        if isinstance(node.value, ast.Name):
-            base = self._eval(node.value)
-            if isinstance(base, SuperValue):
-                return True
-        return False
-
-    def _resolve_super_method(self, method_name: str):
-        if not self._self_value or not getattr(self._self_value, "def_at", None):
-            return None, None
-
-        if isinstance(self._self_value, ClassInstanceValue):
-            base_classes = get_inherited_classes_by_value(self._self_value)
-        else:
-            base_classes = get_inherited_classes(self._self_value.def_at)
-        for base_cls in base_classes:
-            if (
-                base_cls.endswith("nn.Module")
-                or base_cls.endswith("PreTrainedModel")
-                or base_cls.startswith("torch.nn")
-            ):
-                continue
-
-            base_val = None
-            try:
-                base_val = self._env.get(base_cls)
-            except Exception:
-                pass
-
-            if isinstance(base_val, ImportValue):
-                base_val = resolve_import_value(
-                    self._env, base_val, self._resolve_import_dirs
-                )
-            if base_val is None:
-                base_val = env_resolve(self._env, base_cls, self._resolve_import_dirs)
-
-            if not isinstance(base_val, ClassValue):
-                continue
-
-            func = base_val.get(method_name) if method_name in base_val.value else None
-            if isinstance(func, FuncValue):
-                return base_val, func
-
-            if method_name == "forward":
-                if isinstance(base_val, ClassInstanceValue):
-                    base_inheritance = get_inherited_classes_by_value(base_val)
-                else:
-                    base_inheritance = get_inherited_classes(base_val.def_at)
-                if any("CustomOp" in base for base in base_inheritance):
-                    if "forward_cuda" in base_val.value:
-                        return base_val, base_val.value["forward_cuda"]
-                    if "forward_native" in base_val.value:
-                        return base_val, base_val.value["forward_native"]
-
-        return None, None
     
     def _handle_one_self_call(self, node, func: Value, args, kwargs, parts):
         self_value = None
@@ -1185,49 +926,9 @@ class FuncRunner(ast.NodeVisitor):
                 resolve_import_dirs=self._resolve_import_dirs,
                 call_graph=self.call_graph,
             ).run()
-
-        if isinstance(func, list):
-            return_values = []
-            for candidate in func:
-                if not candidate:
-                    continue
-                tmp_res = self._handle_one_self_call(node, candidate, args, kwargs, parts)
-                if tmp_res is None:
-                    continue
-                if isinstance(tmp_res, list):
-                    return_values.extend(tmp_res)
-                else:
-                    return_values.append(tmp_res)
-            if return_values:
-                if len(return_values) == 1:
-                    return return_values[0]
-                return return_values
-            return new_symbol(def_at=node)
-
-        if isinstance(func, ClassValue) and not isinstance(func, ClassInstanceValue):
-            new_env = _find_module(func)
-            if self.cg_key and self.cg_key in self.call_graph:
-                item = {
-                    "class": func.def_at.name,
-                    "function": "__init__",
-                    "filepath": new_env.file_path,
-                    "line": node.lineno,
-                }
-                if item not in self.call_graph[self.cg_key]["callees"]:
-                    self.call_graph[self.cg_key]["callees"].append(item)
-            return FuncRunner(
-                func.def_at,
-                args=args,
-                kwargs=kwargs,
-                self_value=None,
-                env=new_env,
-                calls=self.torch_calls,
-                resolve_import_dirs=self._resolve_import_dirs,
-                call_graph=self.call_graph,
-            ).run()
             
         if isinstance(func, ClassInstanceValue):
-            func_ty = (func.ty or "").lower()
+            func_ty = func.ty.lower()
             if func.ty != "torch.nn.LayerNorm" and func_ty.find("norm") != -1:
                 if len(args) == 1:
                     # if calling normalizing layer, like BatchNorm, LayerNorm
@@ -1237,12 +938,13 @@ class FuncRunner(ast.NodeVisitor):
 
             self_value = func
 
-            if any("CustomOp" in base for base in func.inheritance):
+            if "CustomOp" in func.inheritance != -1:
                 # vllm CustomOp
                 if "forward_cuda" in func.value:
                     func = func.value["forward_cuda"]
                 elif "forward" in func.value:
                     func = func.value["forward"]
+            # if it has forward, call forward, else report error and return symbol
             elif "forward" in func.value:
                 func = func.value["forward"]
             else:
@@ -1298,44 +1000,22 @@ class FuncRunner(ast.NodeVisitor):
             return new_symbol(def_at=node)
         elif func.is_symbol():
             if func.ty:
-                torch_op_name = _torch_ops_name(func.ty)
-                if torch_op_name:
-                    self._record_callee(torch_op_name, line=node.lineno)
-                    if torch_op_name in {
-                        "torch.ops.vllm.moe_forward",
-                        "torch.ops.vllm.moe_forward_shared",
-                    } and self._self_value and "forward_impl" in self._self_value.value:
-                        forward_impl = self._self_value.value["forward_impl"]
-                        if isinstance(forward_impl, FuncValue):
-                            impl_args = [
-                                new_symbol(name="layer", def_at=node),
-                                args[0] if len(args) > 0 else new_symbol(def_at=node),
-                                args[1] if len(args) > 1 else new_symbol(def_at=node),
-                                args[2] if len(args) > 2 else new_symbol(def_at=node),
-                            ]
-                            new_env = _find_module(forward_impl)
-                            self._record_callee(
-                                forward_impl.def_at.name,
-                                filepath=new_env.file_path,
-                                line=node.lineno,
-                                class_name=getattr(self._self_value.def_at, "name", None),
-                            )
-                            return FuncRunner(
-                                forward_impl.def_at,
-                                args=impl_args,
-                                kwargs={},
-                                self_value=self._self_value,
-                                env=new_env,
-                                calls=self.torch_calls,
-                                resolve_import_dirs=self._resolve_import_dirs,
-                                call_graph=self.call_graph,
-                            ).run()
-                    return new_symbol(def_at=node)
                 if self.cg_key and self.cg_key in self.call_graph:
                     item = {"class": None, "function": func.ty, "filepath": self._env.file_path, "line": node.lineno}
                     if item not in self.call_graph[self.cg_key]["callees"]:
                         self.call_graph[self.cg_key]["callees"].append(item)    
+                # new_env = self._env
+                # resolved_result = env_resolve(
+                #     self._env, func.ty, self._resolve_import_dirs
+                # )
+                # if resolved_result is not None:
+                #     new_env = _find_module(resolved_result)
                 
+                # if self.cg_key and self.cg_key in self.call_graph:
+                #     if resolved_result:
+                #         item = {"class": None, "function": node.func.id, "type": func.ty, "filepath": new_env.file_path, "line": node.lineno}
+                #         if item not in self.call_graph[self.cg_key]["unknown"]:
+                #             self.call_graph[self.cg_key]["unknown"].append(item)    
             return new_symbol(def_at=node)
         else:
             if len(parts) == 2:
@@ -1346,22 +1026,7 @@ class FuncRunner(ast.NodeVisitor):
         
         new_env=_find_module(func)
         if self.cg_key and self.cg_key in self.call_graph:
-            class_name = None
-            if isinstance(self_value, list):
-                for candidate in self_value:
-                    if getattr(candidate, "def_at", None):
-                        class_name = candidate.def_at.name
-                        break
-                    if getattr(candidate, "ty", None):
-                        class_name = candidate.ty
-                        break
-            else:
-                if getattr(self_value, "def_at", None):
-                    class_name = self_value.def_at.name
-                elif getattr(self_value, "ty", None):
-                    class_name = self_value.ty
-
-            item = {"class": class_name, "function": func.def_at.name, "filepath": new_env.file_path, "line": node.lineno}
+            item = {"class": self_value.def_at.name, "function": func.def_at.name, "filepath": new_env.file_path, "line": node.lineno}
             if item not in self.call_graph[self.cg_key]["callees"]:
                 self.call_graph[self.cg_key]["callees"].append(item)
         runner = FuncRunner(
@@ -1379,10 +1044,6 @@ class FuncRunner(ast.NodeVisitor):
     def _handle_one_name_call(self, node, base_val, args, kwargs):
         if base_val and isinstance(base_val, Value) and base_val.is_symbol():
             if base_val.ty:
-                torch_op_name = _torch_ops_name(base_val.ty)
-                if torch_op_name:
-                    self._record_callee(torch_op_name, line=node.lineno)
-                    return new_symbol(def_at=node)
                 new_env = self._env
                 resolved_result = env_resolve(
                     self._env, base_val.ty, self._resolve_import_dirs
@@ -1563,13 +1224,13 @@ class FuncRunner(ast.NodeVisitor):
 
         if isinstance(node.func, ast.Attribute):
             if self._is_super_init(node.func):
+                # Hard code to assign config to self.config
                 if "config" in self.local_env:
                     self._self_value.value["config"] = self.local_env["config"]
 
                 base_classes = get_inherited_classes(self._self_value.def_at)
                 for base_cls in base_classes:
-                    if base_cls not in self._self_value.inheritance:
-                        self._self_value.inheritance.append(base_cls)
+                    self._self_value.inheritance.append(base_cls)
                     if base_cls.endswith("nn.Module") or base_cls.endswith(
                         "PreTrainedModel"
                     ) or base_cls.startswith("torch.nn"):
@@ -1582,11 +1243,7 @@ class FuncRunner(ast.NodeVisitor):
                     init_fn = None
                     resolved = None
                     if isinstance(item, ClassValue):
-                        existing_names = set(self._self_value.value)
                         self._self_value.add_functions_from(item.def_at)
-                        for name, value in item.value.items():
-                            if name not in existing_names and isinstance(value, FuncValue):
-                                self._self_value.value[name] = value
 
                         try:
                             init_fn = get_func_from_cls(item.def_at, "__init__")
@@ -1604,11 +1261,7 @@ class FuncRunner(ast.NodeVisitor):
                             if resolved is not None and isinstance(
                                 resolved, ClassValue
                             ):
-                                existing_names = set(self._self_value.value)
                                 self._self_value.add_functions_from(resolved.def_at)
-                                for name, value in resolved.value.items():
-                                    if name not in existing_names and isinstance(value, FuncValue):
-                                        self._self_value.value[name] = value
 
                                 try:
                                     init_fn = get_func_from_cls(
@@ -1642,48 +1295,10 @@ class FuncRunner(ast.NodeVisitor):
                         self._self_value.def_at = old_def_at
 
                 return None
-            if self._is_super_method(node.func):
-                base_val, func = self._resolve_super_method(node.func.attr)
-                if func is not None:
-                    new_env = _find_module(func)
-                    self._record_callee(
-                        func.def_at.name,
-                        filepath=new_env.file_path,
-                        line=node.lineno,
-                        class_name=base_val.def_at.name if base_val else None,
-                    )
-
-                    old_def_at = self._self_value.def_at
-                    if base_val is not None:
-                        existing_names = set(self._self_value.value)
-                        self._self_value.add_functions_from(base_val.def_at)
-                        for name, value in base_val.value.items():
-                            if name not in existing_names and isinstance(value, FuncValue):
-                                self._self_value.value[name] = value
-                        self._self_value.def_at = base_val.def_at
-                    try:
-                        return FuncRunner(
-                            func.def_at,
-                            args=args,
-                            kwargs=kwargs,
-                            self_value=self._self_value,
-                            env=new_env,
-                            calls=self.torch_calls,
-                            resolve_import_dirs=self._resolve_import_dirs,
-                            call_graph=self.call_graph,
-                        ).run()
-                    finally:
-                        self._self_value.def_at = old_def_at
-
             callee_name = name_or_full_attr(node.func)
             full_callee_name = resolve_with_import(callee_name, self._env)
             if (isinstance(self.start_node, ast.ClassDef) or isinstance(self.start_node, ast.FunctionDef)) and callee_name == self.start_node.name:
                 return new_symbol(def_at=node)
-
-            torch_op_name = _torch_ops_name(full_callee_name)
-            if torch_op_name:
-                self._record_callee(torch_op_name, line=node.lineno)
-                return new_symbol(name=f"[return: {torch_op_name}]", def_at=node)
 
             if full_callee_name.startswith("logger."):
                 return None
@@ -1692,20 +1307,17 @@ class FuncRunner(ast.NodeVisitor):
                 return None
             elif full_callee_name.startswith("self.post_init"):
                 return None
-            self_inheritance = []
-            if isinstance(self._self_value, list):
-                for candidate in self._self_value:
-                    self_inheritance.extend(getattr(candidate, "inheritance", []))
-            elif self._self_value:
-                self_inheritance = getattr(self._self_value, "inheritance", [])
-
-            if self_inheritance and "MessagePassing" in self_inheritance:
+            elif self._self_value and "MessagePassing" in self._self_value.inheritance:
                 if full_callee_name.startswith("self._collect"):
                     return _handle_message_passing_collect(args, kwargs)
                 elif full_callee_name.startswith("self.inspector.distribute"):
                     return _handle_message_passing_inspector_distribute(args, kwargs)
 
             need_redirect = False
+            if full_callee_name.startswith("torch.ops.vllm."):
+                full_callee_name = full_callee_name.replace("torch.ops.vllm.", "")
+                if full_callee_name == "fused_marlin_moe":
+                    need_redirect = True
             if full_callee_name.startswith("vllm.platforms.current_platform.is"):
                 if "cuda" in full_callee_name:
                     if self.cg_key and "-Attention" in self.cg_key:
@@ -1717,9 +1329,11 @@ class FuncRunner(ast.NodeVisitor):
                     return False
                 
             if self.torch_calls is not None and (
+                # full_callee_name.startswith("torch.")
                 # or 
                 full_callee_name.find("cache_kernels") != -1
                 or full_callee_name.find("_cuda") != -1
+                # or full_callee_name.find("vllm._custom_ops") != -1
             ):
                 self.torch_calls.append(
                     TorchCall(
@@ -1741,20 +1355,7 @@ class FuncRunner(ast.NodeVisitor):
                     return new_symbol(def_at=node)
 
             parts = full_callee_name.split(".")
-            if (full_callee_name=="self.impl.forward" or "attn_layer.impl" in full_callee_name) and self.cg_key and "attention" in self.cg_key:
-                ty = "AttentionImplBase"
-                resolved_result = env_resolve(
-                    self._env, "AttentionBackend", self._resolve_import_dirs
-                )
-                if resolved_result is not None:
-                    new_env = _find_module(resolved_result)
-                if self.cg_key and self.cg_key in self.call_graph:
-                    item = {"class": None, "function": full_callee_name, "type": ty, "filepath": new_env.file_path, "line": node.lineno}
-                    if item not in self.call_graph[self.cg_key]["unknown"]:
-                        self.call_graph[self.cg_key]["unknown"].append(item)
-                return new_symbol(def_at=node)
-            
-            elif full_callee_name.startswith("self"):
+            if full_callee_name.startswith("self"):
                 func = None
                 try:
                     if len(parts) > 2:
@@ -1775,18 +1376,13 @@ class FuncRunner(ast.NodeVisitor):
                                     return return_values[0]
                                 return return_values
                         else:    
-                            if inst.ty is None:
-                                typed_method_sig = None
-                            else:
-                                typed_method_sig = ".".join([inst.ty] + parts[-1:])
+                            typed_method_sig = ".".join([inst.ty] + parts[-1:])
                             if typed_method_sig in torch_apis:
                                 return torch_apis[typed_method_sig](
                                     args, kwargs=kwargs, self_value=inst
                                 )
-                    if self._self_value is None:
-                        func = self._env.value.get(".".join(parts[1:]))
-                    else:
-                        func = self._self_value.get(".".join(parts[1:]))
+
+                    func = self._self_value.get(".".join(parts[1:]))
                 except Exception:
                     try:
                         ty = None
@@ -1794,12 +1390,8 @@ class FuncRunner(ast.NodeVisitor):
                         metadata = None
                         
                         if len(parts) == 3 and parts[1] == "kernel" and parts[2] == "apply_weights":
-                            if self._env.file_path and "scheme" in self._env.file_path:
-                                ty = "Int8ScaledMMLinearKernel"
-                                metadata = ImportValue(def_at=None, value="vllm.model_executor.kernels.linear.scaled_mm.ScaledMMLinearKernel.Int8ScaledMMLinearKernel")
-                            else:
-                                ty = "MPLinearKernel"
-                                metadata = ImportValue(def_at=None, value="vllm.model_executor.kernels.linear.mixed_precision.MPLinearKernel.MPLinearKernel")
+                            ty = "MPLinearKernel"
+                            metadata = ImportValue(def_at=None, value="vllm.model_executor.layers.quantization.kernels.mixed_precision.MPLinearKernel.MPLinearKernel")
                         else:
                             targets = self._self_value.get(parts[1])
                         
@@ -1813,18 +1405,13 @@ class FuncRunner(ast.NodeVisitor):
                                     metadata = target.metadata
                                     break
                                 elif isinstance(target.def_at, ast.ClassDef):
-                                    if isinstance(target, ClassInstanceValue):
-                                        t_bases.extend(get_inherited_classes_by_value(target))
-                                    else:
-                                        t_bases.extend(get_inherited_classes(target.def_at))
+                                    t_bases.extend(get_inherited_classes(target.def_at))
                                     t_bases = list(set(t_bases))
                         elif isinstance(targets, Value) and targets.is_symbol() and targets.ty:
                             ty = targets.ty
                             metadata = target.metadata
                         elif isinstance(targets, ClassValue) and targets.def_at:
                             t_bases = get_inherited_classes(targets.def_at)
-                        elif isinstance(targets, ClassInstanceValue):
-                            t_bases = get_inherited_classes_by_value(targets)
                         
                         new_env = self._env
                         if ty is not None:
@@ -1884,30 +1471,9 @@ class FuncRunner(ast.NodeVisitor):
                             def_at=node,
                             name=f"[return: {full_callee_name}]",
                         )
-                return self._handle_one_self_call(node, func, args, kwargs, parts)
+                else:
+                    return self._handle_one_self_call(node, func, args, kwargs, parts)
                 
-            elif len(parts) > 1 and parts[-1].startswith("forward"):
-                func = None
-                if parts[-1] in self._env.value:
-                    func = self._env.value[parts[-1]]
-                elif parts[-1] in self._self_value.value:
-                    func = self._self_value.value[parts[-1]]
-                if func and isinstance(func, FuncValue):
-                    new_env = _find_module(func)
-                    if self.cg_key and self.cg_key in self.call_graph:
-                        item = {"class": None, "function": func.def_at.name, "filepath": new_env.file_path, "line": node.lineno}
-                        if item not in self.call_graph[self.cg_key]["callees"]:
-                            self.call_graph[self.cg_key]["callees"].append(item)
-                    return FuncRunner(
-                        func.def_at,
-                        args=args,
-                        kwargs=kwargs,
-                        self_value=self._self_value,
-                        env=new_env,
-                        calls=self.torch_calls,
-                        resolve_import_dirs=self._resolve_import_dirs,
-                        call_graph=self.call_graph,
-                    ).run()
             elif parts[0] in self.local_env:
                 callee_self = self.local_env[parts[0]]
                 i = 1
@@ -2010,16 +1576,17 @@ class FuncRunner(ast.NodeVisitor):
                             return callee_self.value["size"]
                         elif callee_method == "shape":
                             return callee_self.value["shape"]
-                        elif callee_method == "stride":
-                            return new_symbol(def_at=node)
                         else:
+                            # raise NotImplementedError()
                             return new_symbol(def_at=node)
                     else:
+                        # raise NotImplementedError()
                         return new_symbol(def_at=node)
                 elif isinstance(callee_self, list):
                     if callee_method == "append":
                         return callee_self.append(args[0])
                     else:
+                        # raise NotImplementedError()
                         return new_symbol(def_at=node)
                 else:
                     if typed_method_sig:
@@ -2034,28 +1601,19 @@ class FuncRunner(ast.NodeVisitor):
                             item = {"class": None, "function": full_callee_name, "type": callee_self.ty, "filepath": new_env.file_path, "line": node.lineno}
                             if item not in self.call_graph[self.cg_key]["unknown"]:
                                 self.call_graph[self.cg_key]["unknown"].append(item)
+                    # raise NotImplementedError()
                     return new_symbol(def_at=node)
 
-            if full_callee_name.startswith("torch.ops._"):
-                if self.cg_key and self.cg_key in self.call_graph:
-                    item = {"class": None, "function": full_callee_name, "filepath": self._env.file_path, "line": node.lineno}
-                    if item not in self.call_graph[self.cg_key]["callees"]:
-                        self.call_graph[self.cg_key]["callees"].append(item)
+            if full_callee_name.startswith("torch"):
+                if full_callee_name.startswith("torch.ops._"):
+                    if self.cg_key and self.cg_key in self.call_graph:
+                        item = {"class": None, "function": full_callee_name, "filepath": self._env.file_path, "line": node.lineno}
+                        if item not in self.call_graph[self.cg_key]["callees"]:
+                            self.call_graph[self.cg_key]["callees"].append(item)
                 return new_symbol(name=f"[return: {full_callee_name}]", def_at=node)
             else:
-                vllm_dispatch = False
-                if full_callee_name.startswith("torch.ops.vllm."):
-                    vllm_dispatch = True
-                    full_callee_name = full_callee_name.replace("torch.ops.vllm.", "")
                 if full_callee_name == "to" and isinstance(node.func.value, ast.Call):
                     return self._handle_call(node.func.value)
-                if full_callee_name in {"wrap_modules", "get_offloader.wrap_modules"}:
-                    return args[0] if args else []
-                if full_callee_name in {"islice", "itertools.islice"} and args:
-                    iter_value = args[0]
-                    if isinstance(iter_value, Value) and iter_value.ty == "torch.nn.ModuleList":
-                        iter_value = list(iter_value.get("_list").values())
-                    return iter_value if isinstance(iter_value, list) else [iter_value]
                 if full_callee_name in global_func_map:
                     return global_func_map[full_callee_name](args, kwargs)
                 
@@ -2087,7 +1645,7 @@ class FuncRunner(ast.NodeVisitor):
                                         res.def_at,
                                         args=args,
                                         kwargs=kwargs,
-                                        self_value=self._self_value if vllm_dispatch else None,
+                                        self_value=None,
                                         env=new_env,
                                         calls=self.torch_calls,
                                         resolve_import_dirs=self._resolve_import_dirs,
@@ -2108,7 +1666,7 @@ class FuncRunner(ast.NodeVisitor):
                         resolved_result.def_at,
                         args=args,
                         kwargs=kwargs,
-                        self_value=self._self_value if vllm_dispatch else None,
+                        self_value=None,
                         env=new_env,
                         calls=self.torch_calls,
                         resolve_import_dirs=self._resolve_import_dirs,
@@ -2118,13 +1676,7 @@ class FuncRunner(ast.NodeVisitor):
                 return new_symbol(def_at=node, name=f"[return: {full_callee_name}]")
         elif isinstance(node.func, ast.Name):
             if (isinstance(self.start_node, ast.ClassDef) or isinstance(self.start_node, ast.FunctionDef)) and node.func.id == self.start_node.name:
-                is_recursive = True
-                if node.func.id in self._env.value and isinstance(self._env.value[node.func.id], list):
-                    for item in self._env.value[node.func.id]:
-                        if isinstance(item.def_at, ast.ImportFrom):
-                            is_recursive = False
-                if is_recursive:
-                    return new_symbol(def_at=node)
+                return new_symbol(def_at=node)
             # check if it is a local variable first
             if node.func.id in self.local_env:
                 base_val = self.local_env[node.func.id]
@@ -2144,6 +1696,7 @@ class FuncRunner(ast.NodeVisitor):
                     else:
                         return return_values
 
+            # like simply xxx(), node.func.id is xxx
             if node.func.id == "super":
                 return SuperValue(def_at=node, parent=self._self_value)
             elif node.func.id == "print":
@@ -2158,14 +1711,12 @@ class FuncRunner(ast.NodeVisitor):
             if node.func.id in global_func_map:
                 extra = {}
                 if node.func.id == "open":
+                    # FIXME: this is terrible design to pass cwd directory
                     # decouple this dependency
 
                     extra["base_dir"] = self._resolve_import_dirs[0]
                 return global_func_map[node.func.id](args, kwargs, **extra)
             if node.func.id == "hasattr":
-                if isinstance(node.args[0], ast.Name):
-                    if "config" in node.args[0].id:
-                        return new_symbol(def_at=node)
                 if isinstance(args[0], Value):
                     if args[0].is_symbol() or (isinstance(args[0].value, Value) and args[0].value.is_symbol()):
                         return new_symbol(def_at=node)
@@ -2194,15 +1745,8 @@ class FuncRunner(ast.NodeVisitor):
                     return new_symbol(def_at=node)
                 else:
                     return float(args[0].value)
-            elif node.func.id == "range":
-                return [args[0]]
 
             full_callee_name = resolve_with_import(node.func.id, self._env)
-            if full_callee_name in {"islice", "itertools.islice"} and args:
-                iter_value = args[0]
-                if isinstance(iter_value, Value) and iter_value.ty == "torch.nn.ModuleList":
-                    iter_value = list(iter_value.get("_list").values())
-                return iter_value if isinstance(iter_value, list) else [iter_value]
             if full_callee_name in global_func_map:
                 return global_func_map[full_callee_name](args, kwargs)
             if full_callee_name in torch_apis:
@@ -2214,6 +1758,11 @@ class FuncRunner(ast.NodeVisitor):
             )
 
             # could be class instantiation
+            # cls_val = None
+            # try:
+            #     cls_val = self._env.get(node.func.id)
+            # except Exception:
+            #     return new_symbol(name=f"[return: {node.func.id}]", def_at=node)
 
             if resolved_result is not None and (
                 isinstance(resolved_result, ClassValue)
@@ -2397,9 +1946,11 @@ class FuncRunner(ast.NodeVisitor):
                 elif method == "pop":
                     base.pop(args[0], args[1] if len(args) > 1 else None)
                 else:
+                    # raise NotImplementedError()
                     return new_symbol(def_at=node)
                 
             else:
+                # raise NotImplementedError()
                     return new_symbol(def_at=node)
         except Exception as ex:
             return new_symbol(def_at=node)
@@ -2431,7 +1982,10 @@ class FuncRunner(ast.NodeVisitor):
             if idx >= args_len - default_args_len:
                 if arg.arg not in self.local_env:
                     default_val = node.defaults[idx - args_len + default_args_len]
-                    self.local_env[arg.arg] = self._eval(default_val)
+                    if isinstance(default_val, ast.Constant):
+                        self.local_env[arg.arg] = new_symbol(def_at=node, ty=type(default_val.value))
+                    else:
+                        self.local_env[arg.arg] = self._eval(default_val)
 
         # second loop handle passed arguments and kwargs
         used_init_args_idx = 0
@@ -2454,12 +2008,15 @@ class FuncRunner(ast.NodeVisitor):
             started_args = self._init_args[used_init_args_idx:]
             self._started_args = started_args
 
+        # after known argument assignment, assign rest of passed kwargs to kwargs(if function declared )
         if node.kwarg is not None:
             self.local_env[node.kwarg.arg] = {}
             for key, value in self._init_kwargs.items():
                 if key not in used_init_kwargs:
                     self.local_env[node.kwarg.arg][key] = value
 
+            # if node.kwarg is not None:
+            #     self.local_env[node.kwarg.arg] = self._init_kwargs.get(node.kwarg, None)
 
         if node.kwonlyargs is not None:
             for (arg_index, arg) in enumerate(node.kwonlyargs):
@@ -2514,6 +2071,7 @@ class FuncRunner(ast.NodeVisitor):
                 break
 
     def _handle_compare(self, node: ast.Compare):
+        # super().generic_visit(node)
         assert len(node.ops) == 1
         assert len(node.comparators) == 1
         left_val = self._eval(node.left)
@@ -2617,9 +2175,6 @@ class FuncRunner(ast.NodeVisitor):
                 # FIXME: use symbolic expression to represent the value
                 return new_symbol(def_at=node)
         
-        if isinstance(left_val, (list, tuple, dict)) or isinstance(right_val, (list, tuple, dict)):
-            return new_symbol(def_at=node)
-
         if isinstance(op, ast.Add):
             return to_primitive(left_val) + to_primitive(right_val)
         elif isinstance(op, ast.Sub):
@@ -2648,6 +2203,8 @@ class FuncRunner(ast.NodeVisitor):
             return to_primitive(left_val) is to_primitive(right_val)
         elif isinstance(op, ast.IsNot):
             return to_primitive(left_val) is not to_primitive(right_val)
+        else:
+            pass
 
     def visit_AnnAssign(self, node):
         try:
@@ -2679,7 +2236,6 @@ class FuncRunner(ast.NodeVisitor):
                     ty = f"{tmp_val.id}.{ty}"
                 if ty:
                     value.ty = ty        
-            
 
             if isinstance(value, tuple) and value in self._shape2tensor:
                 tgt = node.targets[0]
@@ -2718,12 +2274,14 @@ class FuncRunner(ast.NodeVisitor):
 
         if test_value and ((
             (isinstance(test_value, Value) and not test_value.is_symbol())
+            # or not isinstance(test_value, Value)
         ) or isinstance(test_value, bool)):
             # run true branch
             for stmt in node.body:
                 self.visit(stmt)
         elif not test_value and ((
             (isinstance(test_value, Value) and not test_value.is_symbol())
+            # or not isinstance(test_value, Value)
         ) or isinstance(test_value, bool)):
             if node.orelse:
                 # run false branch
@@ -2768,6 +2326,7 @@ class TorchCallVisitor:
         # 1. init module
         self._env = ModuleInstanceValue.from_ast_module(self._init_mod)
         self._env.file_path = self._init_mod_filepath
+        # 1. init class with config ( x = cls(config=config) )
 
         self._main_self = FuncRunner(
             self._init_cls,
@@ -2783,45 +2342,18 @@ class TorchCallVisitor:
         if "config" not in self._main_self.value:
             self._main_self.value["config"] = self._config
 
-        def _find_func_in_bases(cls_def, env, visited):
-            key = (env.file_path if env else None, cls_def.name)
-            if key in visited:
-                return None
-            visited.add(key)
-
-            try:
-                return get_func_from_cls(cls_def, self._init_func)
-            except ValueError:
-                pass
-
-            for base_cls in get_inherited_classes(cls_def):
-                if not base_cls:
-                    continue
-                resolved = env_resolve(env, base_cls, self._resolve_import_dirs)
-                if isinstance(resolved, ClassValue):
-                    new_env = _find_module(resolved)
-                    func_def = _find_func_in_bases(resolved.def_at, new_env, visited)
-                    if func_def is not None:
-                        return func_def
-            return None
-
+        # 2. call function forward ( x.forward() )
         try:
             func = get_func_from_cls(self._init_cls, self._init_func)
         except ValueError:
-            func = None
-            # if not found in ast tree, maybe it is from base class or resolved from env
-            try:
-                func_value = self._main_self.get(self._init_func)
-                if isinstance(func_value, FuncValue):
-                    func = func_value.def_at
-            except Exception:
-                func = None
-
-            if func is None:
-                func = _find_func_in_bases(self._init_cls, self._env, set())
-
-            if func is None:
-                return
+            # if not found in ast tree, maybe it is from base class
+            func_value = self._main_self.get(self._init_func)
+            if isinstance(func_value, FuncValue):
+                func = func_value.def_at
+            else:
+                raise ValueError(
+                    f"Function {self._init_func} not found in class {self._init_cls.name}"
+                )
                 
         FuncRunner(
             func,
@@ -2883,9 +2415,7 @@ class TorchCallVisitor:
         )
         visitor.start()
         if not out_path:
-            current_path_string = os.path.abspath(__file__)
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(current_path_string))))
-            out_path = os.path.join(root_dir, "cgout", init_cls.name+"_"+init_func+".json")
+            out_path = os.path.join("/Users/molly/Workspace/pyanalyzer/cgout", init_cls.name+"_"+init_func+".json")
         with open(out_path, "w") as f:
             json.dump(visitor.call_graph, f, indent=4)
         return visitor.torch_calls

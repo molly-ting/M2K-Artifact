@@ -9,10 +9,10 @@ def find_op_lines(op_name, filePath):
         value = call_graph[key]
         for callee in value.get("callees", []):
             if callee["function"] and callee["function"].startswith("torch.ops._"):
-                if len(callee["function"].split("."))>4:
-                    func_name = callee["function"].split(".")[3]
-                else:
-                    func_name = callee["function"].split(".")[-1]
+                # if len(callee["function"].split("."))>4:
+                #     func_name = callee["function"].split(".")[3]
+                # else:
+                func_name = callee["function"].split(".")[-1]
                 if func_name == op_name:
                     if value["loc"][0] == callee["line"] or value["loc"][0] + 1 == callee["line"]:
                         continue
@@ -43,16 +43,17 @@ def findAllOps(filePath, call_op_map, dir):
         value = call_graph[key]
         for callee in value.get("callees", []):
             if callee["function"] and callee["function"].startswith("torch.ops._"):
-                if len(callee["function"].split("."))>4:
-                    func_name = callee["function"].split(".")[3]
-                else:
-                    func_name = callee["function"].split(".")[-1]
+                # if len(callee["function"].split("."))>4:
+                #     func_name = callee["function"].split(".")[3]
+                # else:
+                func_name = callee["function"].split(".")[-1]
                 ops.add(func_name)
                 
         if "unknown" in value and value["unknown"]:
             for call in value["unknown"]:
                 if call["type"]:
-                    call_type = call["type"].split(".")[-1]
+                    call_type = call["type"]
+                    # call_type = call["type"].split(".")[-1]
                     func = call["function"].split(".")[-1]
                     map_key = call_type+"-"+func
                     if map_key in call_op_map:
@@ -61,7 +62,7 @@ def findAllOps(filePath, call_op_map, dir):
                     elif os.path.isdir(dir+"/"+call_type):
                         for fname in os.listdir(dir+"/"+call_type):
                             if fname.endswith(func+".json"):
-                                sub_ops = findAllOps(dir+"/"+call_type+"/"+fname, call_op_map)
+                                sub_ops = findAllOps(dir+"/"+call_type+"/"+fname, call_op_map, dir)
                                 if map_key not in call_op_map:
                                     call_op_map[map_key] = {}
                                 call_op_map[map_key][fname] = sub_ops
@@ -69,7 +70,7 @@ def findAllOps(filePath, call_op_map, dir):
     return ops
 
 def handle_sructure(filepath, out_dir):
-    structure = filepath.split(".")[0].split("_forward")[0]
+    structure = filepath.split("/")[-1].split(".")[0].split("_forward")[0]
     if os.path.exists(os.path.join(out_dir, structure+".json")):
         return
     

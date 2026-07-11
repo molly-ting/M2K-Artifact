@@ -608,13 +608,3 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
 
     with open(outPath, "w") as wf:
         json.dump(final_cons, wf, indent=4)
-
-
-def test():
-    calls_map_path ="C:\\Users\\molly\\Workspace\\M2K-Artifact\\evaluation\\section-6-1-bug-detection\\intermediate_results\\vllm\\data\\Qwen_Qwen2-0.5B-Instruct\\dynamic_scaled_fp8_quant.json"
-    outPath = Path(root_dir) / "test.json"
-    with open(calls_map_path, "r") as rf:
-        calls_map = json.load(rf)
-    computeSymbolicArgsWithMap(calls_map, outPath)
-
-test()

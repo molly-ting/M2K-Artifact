@@ -1,17 +1,14 @@
 import ast
 from typing import Union
 import os
-import logging
 from sxia.value import (
     ClassValue,
     CppBindingValue,
     ImportValue,
     ModuleInstanceValue,
 )
-import traceback
 
 
-logger = logging.getLogger(__name__)
 
 def get_cls_from_mod(mod: ast.Module, cls_name: str) -> ast.ClassDef:
     cls_defs = [
@@ -222,10 +219,6 @@ def resolve_import_value(
         resolved = _resolve_import_value(dir, parts, resolve_dirs)
         if resolved:
             return resolved
-        if parts and parts[0] == os.path.basename(os.path.abspath(dir)):
-            resolved = _resolve_import_value(dir, parts[1:], resolve_dirs)
-            if resolved:
-                return resolved
     return None
 
 
@@ -318,11 +311,8 @@ def resolve_type_annotation(annotation: ast.expr) -> str:
         return annotation.id
     elif isinstance(annotation, ast.Subscript):
         base = resolve_type_annotation(annotation.value)
-        return base
-    elif isinstance(annotation, ast.BinOp) and isinstance(annotation.op, ast.BitOr):
-        left = resolve_type_annotation(annotation.left)
-        right = resolve_type_annotation(annotation.right)
-        return f"{left} | {right}"
+        index = resolve_type_annotation(annotation.slice)
+        return f"{base}[{index}]"
     elif isinstance(annotation, ast.Attribute):
         return f"{resolve_type_annotation(annotation.value)}.{annotation.attr}"
     else:
