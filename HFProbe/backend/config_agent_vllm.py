@@ -165,6 +165,7 @@ def runAgent(prompt):
             for t in result.traces:
                 print(f"{t.tool_name}: {t.output[:200]}")
 
+    print("GPT response:")
     print(result.final_output)
     return result.final_output, session.token_usage              
 
@@ -804,10 +805,10 @@ if __name__ == "__main__":
         "--seed-config-file", type=str, required=False, help="model default config for mutation"
     )
     parser.add_argument(
-        "--out-dir", type=str, required=False, help="Output directory"
+        "--profile-out-dir", type=str, required=False, help="Output directory"
     )
     parser.add_argument(
-        "--kernel-info-dir", type=str, required=False, help="Directory containing kernel info"
+        "--kernel-info-out", type=str, required=False, help="Directory containing kernel info"
     )
     parser.add_argument(
         "--kernel-info-file", type=str, required=False, help="File containing kernel info of the model"
@@ -828,14 +829,14 @@ if __name__ == "__main__":
 
     if args.model_id:
         if args.config_file:
-            test_model_with_one_config(args.model_id, args.config_file, args.out_dir)
+            test_model_with_one_config(args.model_id, args.config_file, args.profile_out_dir)
         elif args.mutate and not args.use_existent_config:
-            test_one(args.model_id, args.model_architecture, args.kernel_info_dir, args.out_dir, args.seed_config_file)
+            test_one(args.model_id, args.model_architecture, args.kernel_info_out, args.profile_out_dir, args.seed_config_file)
         elif args.mutate and args.use_existent_config:
-            test_one_with_configs(args.model_id, args.model_architecture, args.out_dir)
+            test_one_with_configs(args.model_id, args.model_architecture, args.profile_out_dir)
         else:
-            test_one_without_mutate_config(args.model_id, args.out_dir)
+            test_one_without_mutate_config(args.model_id, args.profile_out_dir)
     elif args.kernel_name and args.seed_config_file and args.model_architecture:
-        mutate_config_kernel(args.model_architecture, args.kernel_name, args.seed_config_file, args.kernel_info_file, args.out_dir)
+        mutate_config_kernel(args.model_architecture, args.kernel_name, args.seed_config_file, args.kernel_info_file, args.profile_out_dir)
     else:
-        main_vllm_benchmark(args.out_dir, use_exist_configs=args.use_existent_config, callgraph_path=args.kernel_info_dir)
+        main_vllm_benchmark(args.profile_out_dir, use_exist_configs=args.use_existent_config, callgraph_path=args.kernel_info_out)

@@ -1871,29 +1871,29 @@ int main(int argc, char **argv, char **envp) {
     *theStatisticManager->getStatisticByName("Forks");
 
   handler->getInfoStream()
-    << "KLEE: done: explored paths = " << 1 + forks << "\n";
+    << "cuKLEE: done: explored paths = " << 1 + forks << "\n";
 
   // Write some extra information in the info file which users won't
   // necessarily care about or understand.
   if (queries)
     handler->getInfoStream()
-      << "KLEE: done: avg. constructs per query = "
+      << "cuKLEE: done: avg. constructs per query = "
                              << queryConstructs / queries << "\n";
   handler->getInfoStream()
-    << "KLEE: done: total queries = " << queries << "\n"
-    << "KLEE: done: valid queries = " << queriesValid << "\n"
-    << "KLEE: done: invalid queries = " << queriesInvalid << "\n"
-    << "KLEE: done: query cex = " << queryCounterexamples << "\n";
+    << "cuKLEE: done: total queries = " << queries << "\n"
+    << "cuKLEE: done: valid queries = " << queriesValid << "\n"
+    << "cuKLEE: done: invalid queries = " << queriesInvalid << "\n"
+    << "cuKLEE: done: query cex = " << queryCounterexamples << "\n";
 
   std::stringstream stats;
   stats << '\n'
-        << "KLEE: done: total instructions = " << instructions << '\n'
-        << "KLEE: done: completed paths = " << handler->getNumPathsCompleted()
+        << "cuKLEE: done: total instructions = " << instructions << '\n'
+        << "cuKLEE: done: completed paths = " << handler->getNumPathsCompleted()
         << '\n'
-        << "KLEE: done: partially completed paths = "
+        << "cuKLEE: done: partially completed paths = "
         << handler->getNumPathsExplored() - handler->getNumPathsCompleted()
         << '\n'
-        << "KLEE: done: generated tests = " << handler->getNumTestCases()
+        << "cuKLEE: done: generated tests = " << handler->getNumTestCases()
         << '\n';
 
   bool useColors = llvm::errs().is_displayed();

@@ -9222,11 +9222,11 @@ void Executor::terminateStateOnError(ExecutionState &state,
   const InstructionInfo &ii = getLastNonKleeInternalInstruction(state, &lastInst);
   storeBuggyQuery(state, terminationType, message, ii.file.empty() ? -1 : ii.line, ii.assemblyLine);
   bool print_bug = true;
-  if (reason != StateTerminationType::Ptr && reason != StateTerminationType::Overflow && reason != StateTerminationType::RACE) {
+  if (terminationType != StateTerminationType::Ptr && terminationType != StateTerminationType::Overflow && terminationType != StateTerminationType::RACE) {
     print_bug = false;
   }
 
-  if (reason == StateTerminationType::Ptr && (message.find("out of bound") == std::string::npos) || (message.find("null pointer") != std::string::npos)) {
+  if (terminationType == StateTerminationType::Ptr && (message.find("out of bound") == std::string::npos) || (message.find("null pointer") != std::string::npos)) {
     print_bug = false;
   }
 
@@ -14015,8 +14015,9 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
         assemblyLine = assemblyLine.substr(0, assemblyLine.find('-'));
         klee_message("Bug Detected: assemblyLine %s: data race", assemblyLine.c_str());
       }
+    }
+    state.addressInLoop.erase(loopInfo->indexName);
   }
-  state.addressInLoop.erase(loopInfo->indexName);
 }
 
 void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<Expr> address, const MemoryObject *mo, bool isWrite) {

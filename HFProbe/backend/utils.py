@@ -107,7 +107,6 @@ def computeExpr(sizes, batches, seqLens):
     solution = solve(equations, (a, b, c, d))
     
     if not solution:
-        print("no solution")
         return None
     
     for sym in (a, b, c, d):
@@ -146,7 +145,6 @@ def computeExpr(sizes, batches, seqLens):
         if expr:
             expr += "+"
         expr += str(d_val)
-    print(expr)
     return expr
 
 def computeSymRanges(vals, batches, seqLens):   
@@ -181,7 +179,7 @@ def computeMaxMin(vals, batches, seqLens, isMax):
     
     if is_sLinear:
         if expr:
-            print(expr, '1*s', "error")
+            pass
         else:
             expr = '1*s'
             if k2:
@@ -189,7 +187,7 @@ def computeMaxMin(vals, batches, seqLens, isMax):
     
     if is_mulLinear:
         if expr:
-            print(expr, '1*s*b', "error")
+            pass
         else:
             expr = '1*s*b'
             if k3:
@@ -207,7 +205,6 @@ def computeMaxMin(vals, batches, seqLens, isMax):
 def computeTensorShape(to_compared, item0, k, batches, seqLens, tmp_v, func_name):
     for j in range(len(to_compared)):
         if len(item0["shape"]) != len(to_compared[j][k]["shape"]):
-            print(func_name, j, k, item0["shape"], len(to_compared[j][k]["shape"]))
             return None
     
     final_shape = []
@@ -234,7 +231,6 @@ def computeTensorShape(to_compared, item0, k, batches, seqLens, tmp_v, func_name
                     expr = "u" + str(symbol_index)
                     symbol_index+=1
                     tmp_v[sizes_tuple] = expr
-                print(func_name, "shape else", sizes, batches, seqLens)
             final_shape.append(expr)
     return final_shape
 
@@ -286,7 +282,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                 base_args[k]=to_compared[j][k]
                                 continue
                             if len(item0["shape"]) != len(to_compared[j][k]["shape"]):
-                                print(func_name, j, k, item0["shape"], len(to_compared[j][k]["shape"]))
                                 different_dim = True
                                 break
                         if different_dim:
@@ -320,7 +315,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                         tmp_v[sizes_tuple] = expr
                                         
                                     symRanges[expr] = computeSymRanges(sizes, batches, seqLens)
-                                    print(func_name, "shape else", sizes, batches, seqLens)
                                 final_shape.append(expr)
                         if symRanges:
                             to_add = {"shape": final_shape, "dtype": item0["dtype"], "type": "torch.Tensor", "symRanges": symRanges}
@@ -340,7 +334,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                             existsM = True
                             while j < len(to_compared):
                                 if "maxV" not in to_compared[j][k] or "minV" not in to_compared[j][k] or "dupV" not in to_compared[j][k]:
-                                    print(func_name, "max not exist")
                                     existsM = False
                                     break
                                 maxVals.append(to_compared[j][k]["maxV"])
@@ -382,7 +375,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                             different_dim = False
                             for j in range(len(to_compared)):
                                 if item0["shape"][0] != to_compared[j][k]["shape"][0]:
-                                    print(func_name, j, k, item0["shape"], to_compared[j][k]["shape"])
                                     different_dim = True
                                     break
                             if different_dim:
@@ -394,7 +386,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                 
                                 for j in range(len(to_compared)):
                                     if len(b_val["shape"]) != len(to_compared[j][k]["value"][t]["shape"]):
-                                        print(func_name, j, k, "value", t, b_val["shape"], len(to_compared[j][k]["value"][t]["shape"]))
                                         different_dim = True
                                         break
                                 if different_dim:
@@ -427,7 +418,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                                 tmp_v[sizes_tuple] = expr
                                             
                                             symRanges[expr] = computeSymRanges(sizes, batches, seqLens)
-                                            print(func_name, "list shape else", sizes, batches, seqLens)
                                         final_shape.append(expr)
                                 
                                 to_add = {"shape": final_shape, "dtype": b_val["dtype"], "type": "torch.Tensor"}
@@ -447,7 +437,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                     existsM = True
                                     while j < len(to_compared):
                                         if "maxV" not in to_compared[j][k]["value"][t] or "minV" not in to_compared[j][k]["value"][t] or "dupV" not in to_compared[j][k]["value"][t]:
-                                            print(func_name, "max not exist")
                                             existsM = False
                                             break
                                         maxVals.append(to_compared[j][k]["value"][t]["maxV"])
@@ -514,7 +503,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                         tmp_v[values_tuple] = expr
                                     
                                     symRanges[expr] = computeSymRanges(values, batches, seqLens)
-                                    print(func_name, "list else", values, batches, seqLens)
                                     
                                 to_add = {"shape": [expr], "dtype": item0["dtype"], "type": "list"}
                                 if symRanges:
@@ -533,7 +521,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                 existsM = True
                                 while j < len(to_compared):
                                     if "maxV" not in to_compared[j][k] or "minV" not in to_compared[j][k] or "dupV" not in to_compared[j][k]:
-                                        print(func_name, "max not exist")
                                         existsM = False
                                         break
                                     maxVals.append(to_compared[j][k]["maxV"])
@@ -596,7 +583,6 @@ def computeSymbolicArgsWithMap(calls_map, outPath): # calls_map: func_name: call
                                 
                                 if isinstance(base_value, int):
                                     symRanges[expr] = computeSymRanges(values, batches, seqLens)
-                                print(func_name, "value else", values, batches, seqLens)
                             if symRanges:
                                 final_args.append({"value": expr, "type": item0["type"], "symRanges": symRanges})
                             else:

@@ -122,9 +122,9 @@ class _KVProbeState:
 
 state__kvprobe = _KVProbeState()
 
-def _probe_log(msg):
-    ts = time.strftime("%H:%M:%S")
-    print(f"[BOS][KV-PROBE][{ts}][{state__kvprobe.phase}] {msg}", flush=True)
+# def _probe_log(msg):
+#     ts = time.strftime("%H:%M:%S")
+#     print(f"[BOS][KV-PROBE][{ts}][{state__kvprobe.phase}] {msg}", flush=True)
 
 def _wrap_alloc(fn_name, orig):
     def _inner(*args, **kwargs):
@@ -152,8 +152,6 @@ def _wrap_alloc(fn_name, orig):
         if hit_stack and numel >= _BOS_PROBE_MIN_NUMEL:
             state__kvprobe.summary["py_alloc_hits"] += 1
             state__kvprobe.summary["py_alloc_numel"] += numel
-            if os.getenv("BOS_PROBE_KV_DEBUG","0") == "1":
-                _probe_log(f"torch.{fn_name} size={size} numel={numel} kwargs={ {k:str(v) for k,v in kwargs.items() if k in ('dtype','device')} }")
 
         return out
     return _inner
@@ -186,8 +184,6 @@ def _wrap_kv_method(obj, meth_name):
     def _inner(*a, **k):
         state__kvprobe.summary["kv_method_calls"] += 1
         state__kvprobe.summary["kv_method_names"].add(f"{obj.__name__}.{meth_name}")
-        if os.getenv("BOS_PROBE_KV_DEBUG","0") == "1":
-            _probe_log(f"call {obj.__name__}.{meth_name}()")
         return orig(*a, **k)
     setattr(obj, meth_name, _inner)
     return orig
@@ -244,12 +240,6 @@ def kv_probe(phase: str):
         _unpatch_allocators()
         _unpatch_vllm_methods()
         state__kvprobe.phase = prev
-        # Print a summary at the end of each phase.
-        _probe_log(f"SUMMARY phase={phase} py_alloc_hits={state__kvprobe.summary['py_alloc_hits']}, "
-                   f"kv_methods={state__kvprobe.summary['kv_method_calls']}, "
-                   f"kv_method_set={sorted(state__kvprobe.summary['kv_method_names'])}, "
-                   f"py_alloc_numel={state__kvprobe.summary['py_alloc_numel']}, "
-                   f"py_alloc_time_s={state__kvprobe.summary.get('py_alloc_time_s',0.0):.6f},")
 
 
 # ===== Thin-KV / Fake-KV: thin allocation for vLLM KV cache =====
@@ -964,7 +954,7 @@ def _get_device_index_fake(
     return 0
     
 torch.library.Library._register_fake = patched_register_fake
-torch.cuda.set_device = lambda device: print(f"[mock] set_device({device})")
+torch.cuda.set_device = lambda device: None
 torch.cuda.current_device = lambda: 0
 torch.cuda.get_device_capability = lambda device=0: (9, 0)
 torch._C._cuda_resetPeakMemoryStats = lambda device: None
@@ -1014,7 +1004,7 @@ def fake_get_rng_state(device=None):
     return torch.zeros(dummy_size, dtype=torch.uint8)
 
 torch.cuda.get_rng_state = fake_get_rng_state
-torch.cuda.set_rng_state = lambda rng_state: print(f"[mock] set_rng_state.")
+torch.cuda.set_rng_state = lambda rng_state: None
 
 
 original_cuda_device = torch.cuda.device
@@ -1177,7 +1167,7 @@ class FakeMatmul:
         return self.forward(*args, **kwds)
     
     def hardware_aware_finetune(self, *args, **kwargs):
-        print("[FakeMatmul] hardware_aware_finetune called - no-op")
+        pass
     
 from dataclasses import dataclass
 from typing import Optional, Tuple, Union, Literal
@@ -1231,15 +1221,13 @@ class FakeGlobalOperatorCache:
         return self._dict.get(key, default)
     
     def add(self, key, value):
-        print(f"[FakeGlobalOperatorCache] Adding key {key}")
         self._dict[key] = value
 
     def load_from_database(self, path, *args, **kwargs):
-        print(f"[FakeGlobalOperatorCache] Pretending to load database from {path}")
-        # no-op or populate dummy data if needed
+        pass
 
     def save_into_database(self, database_path=None, target=None):
-        print(f"[FakeGlobalOperatorCache] Pretending to save database into {database_path}")
+        pass
 
 fake_bitblas_module = types.ModuleType("bitblas")
 fake_bitblas_module.__version__ = "0.1.0"
@@ -1269,17 +1257,16 @@ sys.modules["bitblas.quantization.utils"] = fake_quant_utils_module
 import vllm.platforms as platforms
 
 def current_platform_cuda_mock():
-    print("mock current platform as cuda platform")
+    print("patch current platform as cuda platform")
     return "vllm.platforms.cuda.CudaPlatform"
 
 def current_platform_rocm_mock():
-    print("mock current platform as rocm platform")
+    print("patch current platform as rocm platform")
     return "vllm.platforms.rocm.RocmPlatform"
 
 platforms._current_platform = None
 platforms.resolve_current_platform_cls_qualname = current_platform_cuda_mock
 platform = platforms.current_platform
-print(f"Forced platform: {platform.__class__.__name__}")
 
 import vllm._custom_ops as custom_ops
 custom_ops.current_platform = platform
@@ -1291,7 +1278,7 @@ _original_direct_register = vu.direct_register_custom_op
 
 def patched_register_custom_op(*args, **kwargs):
     kwargs["dispatch_key"] = "CPU"  # force dispatch_key
-    print("[patched] direct_register_custom_op: forcing dispatch_key='CPU'")
+    # print("[patched] direct_register_custom_op: forcing dispatch_key='CPU'")
     return _original_direct_register(*args, **kwargs)
 
 vu.direct_register_custom_op = patched_register_custom_op
@@ -1357,7 +1344,6 @@ class DummyGroup:
         return tensor
     
     def graph_capture(self, context):
-        print("[DummyGroup] Skipping graph capture")
         return DummyContextManager()
     
     def dispatch(
@@ -1391,13 +1377,13 @@ ps.GraphCaptureContext = DummyGraphCaptureContext
 
 class DummyCUDAMemoryPool:
     def __init__(self):
-        print("[patch] dummy CUDA memory pool")
+        pass
 
 dummy_pool = DummyCUDAMemoryPool()
 
 class DummyCUDAGraph:
     def __init__(self):
-        print("[patch] torch.cuda.CUDAGraph mocked")
+        pass
 
     def capture_begin(self, *args, **kwargs):
         pass
@@ -1572,15 +1558,15 @@ triton_scaled_mm.triton_scaled_mm = triton_scaled_mm_mock
 
 
 import vllm.worker.worker as worker
-worker.init_worker_distributed_environment = lambda *a, **k: print("[mock] skipping distributed init")
+worker.init_worker_distributed_environment = lambda *a, **k: None
 
 def no_op_assert_memory_footprint(self):
-    print("[patch] Skipping memory footprint assert during profiling.")
+    pass
 
 worker.Worker._assert_memory_footprint_increased_during_profiling = no_op_assert_memory_footprint
 
 def patched_raise_if_cache_size_invalid(*args, **kwargs):
-    print("[patched] Skipping cache size validation.")
+    pass
 
 worker.raise_if_cache_size_invalid = patched_raise_if_cache_size_invalid
 
@@ -1604,7 +1590,6 @@ def _record_and_cap_max_len(verified_max_model_len):
 
     if max_model_len is None:
         max_model_len = verified_max_model_len
-        print(f"[patch] Recorded max_model_len from ModelConfig: {max_model_len}")
         if max_model_len > 2048 and reduce_max_model_len:
             return 1024  # force max_model_len to 1024 to avoid OOM in fake CUDA mode
 

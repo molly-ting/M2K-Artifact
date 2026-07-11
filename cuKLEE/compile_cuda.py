@@ -137,7 +137,7 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
             continue
 
         if os.path.exists(host_bc_file) and os.path.exists(cuda_bc_file):
-            print(f"Combining {host_bc_file} and {cuda_bc_file} into {combined_bc_file}...")
+            # print(f"Combining {host_bc_file} and {cuda_bc_file} into {combined_bc_file}...")
             run_command([
                 "llvm-link-13",
                 "-o", combined_bc_file,
@@ -148,13 +148,8 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
                 "llvm-dis-13",
                 combined_bc_file
             ])
-        else:
-            print(f"Error: Missing .bc or -cuda.bc file for {cu_file}. Skipping combination.")
 
     os.chdir(original_dir)
-    if failed_files:
-        print(failed_files)
-    print("# of .cu:", len(cu_files), "# of failed:", len(failed_files))
 
 def compile_vllm():
     outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_compiled_files", "vllm_0_9_0")
@@ -373,14 +368,14 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--input-dir", type=str, required=False, help="Input directory containing .cu files"
+        "--cuda-source-dir", type=str, required=False, help="Input directory containing .cu files"
     )
     parser.add_argument(
-        "--out-dir", type=str, required=False, help="Output directory for compiled files"
+        "--compiled-kernel-dir", type=str, required=False, help="Output directory for compiled files"
     )
 
     parser.add_argument(
-        "--input-file", type=str, required=False, help="Input .cu file to compile"
+        "--cuda-file", type=str, required=False, help="Input .cu file to compile"
     )
     parser.add_argument(
         "--compile-paper", action=argparse.BooleanOptionalAction, default=False, required=False, help="Compile cuda files in research papers"
@@ -399,13 +394,13 @@ if __name__ == "__main__":
         compile_paper()
     elif args.compile_hf:
         compile_hf()
-    elif args.input_dir:
-        if not args.out_dir:
-            args.out_dir = args.input_dir
-        compileDir(args.out_dir, args.input_dir)
-    elif args.input_file:
-        if not args.out_dir:
-            args.out_dir = os.path.dirname(args.input_file)
-        os.makedirs(args.out_dir, exist_ok=True)
-        os.chdir(args.out_dir)
+    elif args.cuda_source_dir:
+        if not args.compiled_kernels_dir:
+            args.compiled_kernels_dir = args.cuda_source_dir
+        compileDir(args.compiled_kernels_dir, args.cuda_source_dir)
+    elif args.cuda_file:
+        if not args.compiled_kernels_dir:
+            args.compiled_kernels_dir = os.path.dirname(args.cuda_file)
+        os.makedirs(args.compiled_kernels_dir, exist_ok=True)
+        os.chdir(args.compiled_kernels_dir)
         compile_cu_file(args.input_file, root_path=os.path.dirname(args.input_file))

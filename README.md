@@ -40,16 +40,22 @@ Command:
 
 ```bash
 cd HFProbe/call-graph
-bash x scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
+bash x scan --vllm-model-arch=Qwen2ForCausalLM --kernel-info-out=opout
 ```
 
 `bash x scan` accepts the following options:
 
-- `--out=<dir>` — directory that stores information about the possibly-triggered kernels (default: `HFProbe/call-graph/opout`).
+- `--kernel-info-out=<dir>` — directory that stores information about the possibly-triggered kernels (default: `HFProbe/call-graph/opout`).
 - `--vllm-dir=<dir>` — directory of the vLLM repository (ensure not to contain "." in the absolute path); if unset, copy the installed vLLM to HFProbe/vllm (ensure the absolute path of HFProbe does not contain ".").
 - `--vllm-model-arch=<arch>` — model architecture of the target model; if unset, all vLLM model architectures are analyzed.
 
 Output:
+console output:
+```text
+Completed analysis for vllm model architecture Qwen2ForCausalLM!
+Kernel information is stored in opout.
+```
+opout/Qwen2ForCausalLM.json
 ``` json
 {
     "dynamic_scaled_int8_quant": {
@@ -72,40 +78,77 @@ cd ../..
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
 # run from the repository root
-python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=HFProbe/results/vllm
-# run with specific model config
-# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=HFProbe/results/vllm --config-file=example/dynamic_scaled_fp8_quant_config.json
-# run with multiple configs (configs are required to be stored under out-dir/config/model_architecture)
-# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --mutate --use-existent-config
+python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --profile-out-dir=HFProbe/results/vllm
+# run with model config example/config/dynamic_scaled_fp8_quant.json
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --profile-out-dir=HFProbe/results/vllm --config-file=example/config/dynamic_scaled_fp8_quant.json
+# run all configs in <profile-out-dir>/config/<model_architecture>
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --mutate --use-existent-config
 ```
 
-`config_agent_vllm.py` accepts the following options:
+`HFProbe.backend.config_agent_vllm` accepts the following options:
 
 - `--model-id=<modelID>` — the target model ID.
 - `--model-architecture=<arch>` — the target model architecture from model config.
 - `--seed-config-file=<file>` — the file path of model default config for mutation.
-- `--out-dir=<dir>` — the output directory (see the layout below).
-- `--kernel-info-dir=<dir>` — the output directory produced by the previous step.
+- `--profile-out-dir=<dir>` — the output directory (see the layout below).
+- `--kernel-info-out=<dir>` — the output directory produced by the previous step.
 - `--kernel-info-file=<file>` — the file containing kernel information produced by the previous step.
 - `--mutate` — mutate the configs (without this, only run the model with default config).
 - `--use-existent-config` — reuse existing ones.
-- `--config-file=<file>` — the file path of model config to run.
+- `--config-file=<file>` — the file path of model config to run, the file name should be the target kernel name.
 - `--kernel-name` — the kernel name to mutate config for.
 
 
 **Output:**
+console output:
+```text
+INFO 07-11 10:53:59 [__init__.py:247] No platform detected, vLLM is running on UnspecifiedPlatform
+patch current platform as cuda platform
+Running model  Qwen/Qwen2-0.5B-Instruct ...
+INFO 07-11 10:54:09 [__init__.py:31] Available plugins for group vllm.general_plugins:
+...
+INFO 07-11 10:54:42 [llm_engine.py:428] init engine (profile, create kv cache, warmup model) took 3.90 seconds
+batch_size=1, seq_len=1 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1198.72it/s]
+Processed prompts: 100%|██████████████████████████████████████| 1/1 [00:00<00:00,  1.12it/s, est. speed input: 1.12 toks/s, output: 17.98 toks/s]
+batch_size=1, seq_len=7 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2149.82it/s]
+Processed prompts: 100%|██████████████████████████████████████| 1/1 [00:00<00:00,  1.12it/s, est. speed input: 7.84 toks/s, output: 17.92 toks/s]
+batch_size=1, seq_len=17 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1475.83it/s]
+Processed prompts: 100%|█████████████████████████████████████| 1/1 [00:00<00:00,  1.14it/s, est. speed input: 19.31 toks/s, output: 18.17 toks/s]
+batch_size=3, seq_len=1 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 3491.37it/s]
+Processed prompts: 100%|██████████████████████████████████████| 3/3 [00:00<00:00,  3.05it/s, est. speed input: 3.05 toks/s, output: 48.77 toks/s]
+batch_size=3, seq_len=7 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 2478.90it/s]
+Processed prompts: 100%|█████████████████████████████████████| 3/3 [00:01<00:00,  2.86it/s, est. speed input: 20.03 toks/s, output: 45.77 toks/s]
+batch_size=3, seq_len=17 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:00<00:00, 1852.61it/s]
+Processed prompts: 100%|█████████████████████████████████████| 3/3 [00:01<00:00,  2.92it/s, est. speed input: 49.72 toks/s, output: 46.79 toks/s]
+batch_size=5, seq_len=1 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 3082.69it/s]
+Processed prompts: 100%|██████████████████████████████████████| 5/5 [00:01<00:00,  4.85it/s, est. speed input: 4.85 toks/s, output: 77.67 toks/s]
+batch_size=5, seq_len=7 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 2637.93it/s]
+Processed prompts: 100%|█████████████████████████████████████| 5/5 [00:01<00:00,  4.73it/s, est. speed input: 33.09 toks/s, output: 75.64 toks/s]
+batch_size=5, seq_len=17 ...
+Adding requests: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 2071.26it/s]
+Processed prompts: 100%|█████████████████████████████████████| 5/5 [00:01<00:00,  4.63it/s, est. speed input: 78.67 toks/s, output: 74.04 toks/s]
+[Qwen/Qwen2-0.5B-Instruct] Cache removed: .cache/huggingface/hub/models--Qwen--Qwen2-0.5B-Instruct/snapshots/c540970f9e29518b1d8f06ab8b24cba66ad77b6d
+```
 
 output directory
 ```text
 config/
-├── model_architecture/
-│   └── kernel_name.json  # Mutated config for the kernel
+├── <model_architecture>/
+│   └── <kernel_name>.json  # Mutated config for the kernel
 out/
-├── model_id/
-│   └── kernel_name.json  # Collected arguments using the mutated config
-└── model_id.json         # Collected arguments using the default config
+├── <model_id>/
+│   └── <kernel_name>.json  # Collected arguments using the mutated config
+└── <model_id>.json         # Collected arguments using the default config
 input/          # Generated input files for cuKLEE (in step 4)
-└── kernel_name.json 
+└── <kernel_name>.json 
 ```
 results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 ```json
@@ -150,12 +193,24 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 
 ```bash
 export OPENAI_API_KEY=<Openai API Key>
-python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=example/Qwen2ForCausalLM_model_config.json --kernel-info-file=example/Qwen2ForCausalLM_kernel_info.json
+python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=example/Qwen2ForCausalLM_model_config.json --kernel-info-file=example/Qwen2ForCausalLM_kernel_info.json
 # to mutate configs for all kernels and run profiling backend in one batch
-# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --kernel-info-dir=call-graph/opout --mutate --seed-config-file=example/Qwen2ForCausalLM_model_config.json
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --kernel-info-out=call-graph/opout --mutate --seed-config-file=example/Qwen2ForCausalLM_model_config.json
 ```
 
 **Output:**
+console output:
+```text
+prompt: For models using Qwen2ForCausalLM, analyze the python code in vllm. Generate model config to trigger ...
+****************************************
+GPT response:
+{
+    "architectures": [
+        "Qwen2ForCausalLM"
+    ],
+    ...
+}
+```
 results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```json
 {
@@ -199,24 +254,38 @@ results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```bash
 # compile cuda files to LLVM bitcode
 # running profiling backend will trigger multiple kernels. we have to compile all cuda files in vLLM.
-python3 ../cuKLEE/compile_cuda.py --input-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --out-dir=../cuKLEE/compiled/vllm
-# some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernels-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
-python3 input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=results/vllm --compiled-kernels-dir=../cuKLEE/compiled/vllm --cuda_source_dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
+python3 ../cuKLEE/compile_cuda.py --cuda-source-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --compiled-kernel-dir=../cuKLEE/compiled/vllm
+# some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernel-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
+python3 input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=results/vllm --compiled-kernel-dir=../cuKLEE/compiled/vllm --cuda-source-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
 
 `compile_cuda.py` accepts the following options:
-- `--input-dir=<dir>` — directory containing the CUDA files (the included header files should be put in this folder or cuKLEE/include).
-- `--out-dir=<dir>` — the output directory, if not set, use the input-dir.
+- `--cuda-source-dir=<dir>` — directory containing the CUDA files (the included header files should be put in this folder or cuKLEE/include).
+- `--compiled-kernel-dir=<dir>` — the output directory, if not set, use the input-dir.
 
 `input_generate.py` accepts the following options:
 
 - `--profile-out-dir=<dir>` — the `--out-dir` from the previous step.
-- `--compiled-kernels-dir=<dir>` — directory containing the compiled CUDA files.
+- `--compiled-kernel-dir=<dir>` — directory containing the compiled CUDA files.
 - `--cuda-source-dir=<dir>` — directory containing the CUDA and C++ files (or the repository directory).
 - `--vllm` — mark for vllm profiling.
 - `--add-memory-max-num-tokens` - add num_tokens limit of 288GB GPU memory.
 
 **Output:**
+console output:
+```
+Compiling CUDA files...
+Compiling common.cu...
+Running command: clang++ -g -x cuda --cuda-gpu-arch=sm_80 ... common.cu
+
+Running command: llvm-link-13 -o common_combined.bc common.bc common-cuda-nvptx64-nvidia-cuda-sm_80.bc
+
+Running command: llvm-dis-13 common_combined.bc
+...
+
+Done!
+The input files are stored in the directory: results/vllm/input
+```
 results/vllm/input/dynamic_scaled_fp8_quant.json
 ```json
 [
@@ -261,26 +330,66 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
 **Step 4: run cuKLEE** 
 ```bash
 cd ..
-cuKLEE --timeout=3600 --out-dir=example/out example/dynamic_scaled_fp8_quant.json
+mkdir example/out
+cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_quant.json
 # to run multiple files in a batch
-# python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --out-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
+# python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --cuklee-out-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
 ```
 
 `cuKLEE/run.py` accepts the following options:
 - `--input-dir=<dir>` — directory containing the input json files.
-- `--out-dir=<dir>` — directory containing z3 constraints for each bug.
+- `--cuklee-out-dir=<dir>` — directory containing z3 constraints for each bug.
 - `--log-dir=<dir>` — directory containing console output for each input file.
 
 **Expected output:** XXX
 console output:
 ```
+running opt-13 -load-pass-plugin libSignednessPropagationPass.so -passes=signedness-prop example/fp8_common_combined.bc > example/fp8_common_combined_modified.bc
+Pass applied. Modified file: example/fp8_common_combined_modified.bc
+running klee --disable-verify --warnings-only-to-file --single-object-resolution=true --external-calls=over-approx --entry-point=_Z24dynamic_scaled_fp8_quantRN2at6TensorERKS0_S1_ --cuda-type=caller --func-config=example/dynamic_scaled_fp8_quant.json --jindex=0 --output-dir=example/out example/fp8_common_combined_modified.bc
+cuKLEE: output directory is "example/out/_Z24dynamic_scaled_fp8_quantRN2at6TensorERKS0_S1_/klee-out-jindex-0-0"
+cuKLEE: Using Z3 solver backend
+...
+cuKLEE: Bug Detected: vllm-0.9.0/csrc/quantization/fp8/common.cu:19: integer overflow
+cuKLEE: Bug Detected: vllm-0.9.0/csrc/quantization/fp8/common.cuh:128: integer overflow
 
+cuKLEE: done: total instructions = 13680
+cuKLEE: done: completed paths = 5
+cuKLEE: done: partially completed paths = 22
+cuKLEE: done: generated tests = 0
 ```
-example/out:
+example/out/_Z24dynamic_scaled_fp8_quantRN2at6TensorERKS0_S1_/klee-out-jinex-0-0:
+19_18_119-asm-15118_4337_11163_io.txt:
 ```text
+19 - source code line of the bug
+18 - caller line
+119 - caller line
+15118 - assembly code line of the bug
+4337 - caller line
+11163 - caller line
+io - integer overflow
 ```
-xxx-io.txt:
 ```text
+(set-info :status unknown)
+(declare-fun |_arg_0.size[0]| () Int)
+(declare-fun |_arg_1.size[0]| () Int)
+(declare-fun batch_size () Int)
+(declare-fun seq_len () Int)
+(declare-fun blockIdx.x0 () Int)
+(declare-fun blockIdx.y0 () Int)
+...
+(assert
+ (<= seq_len 32768))
+(assert
+ (let ((?x37 (* batch_size seq_len)))
+ (<= ?x37 2864606)))
+(assert
+ (let ((?x37 (* batch_size seq_len)))
+ (= |_arg_0.size[0]| ?x37)))
+...
+(check-sat)
+(get-model)
+(reset)
 ```
 
 **Step 5: validate reported bugs** 

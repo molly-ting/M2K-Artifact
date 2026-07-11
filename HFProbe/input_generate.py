@@ -358,7 +358,7 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
 
     res = {}
     for name in os.listdir(input_dir):
-        path = os.path.join(input_dir, name)
+        model_file_path = os.path.join(input_dir, name)
         if name.endswith(".json"):
             if name.endswith("seq_con.json"):
                 continue
@@ -378,33 +378,32 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
                 model_id = name[:-5].replace("_", "/", 1)
                 max_token_num = get_max_token_vllm(model_id)
 
-            _read_vllm_output_file(path, kernel_map, compile_path, res, ignore_max, max_seq_len, max_token_num)
+            _read_vllm_output_file(model_file_path, kernel_map, compile_path, res, ignore_max, max_seq_len, max_token_num)
             continue
         
-        model_dir = path
         max_seq_len = None
         if has_seq_con:
-            seq_con_path = os.path.join(model_dir, "seq_con.json")
+            seq_con_path = os.path.join(model_file_path, "seq_con.json")
             if os.path.exists(seq_con_path):
                 with open(seq_con_path) as sf:
                     sf_data = json.load(sf)
                     if "seq_len" in sf_data:
                         max_seq_len = sf_data["seq_len"]
             else:
-                max_seq_len = get_max_model_len(model_name.replace("_", "/", 1))
+                max_seq_len = get_max_model_len(name.replace("_", "/", 1))
         
         max_token_num = None
         if has_token_con:
-            model_id = model_dir.replace("_", "/", 1)
+            model_id = name.replace("_", "/", 1)
             max_token_num = get_max_token_vllm(model_id)
 
-        for op_file in os.listdir(model_dir):
+        for op_file in os.listdir(model_file_path):
             if "seq_con" in op_file:
                 continue
 
             if op_file.endswith(".json"):
                 _read_vllm_output_file(
-                    os.path.join(model_dir, op_file),
+                    os.path.join(model_file_path, op_file),
                     kernel_map,
                     compile_path,
                     res,
@@ -696,6 +695,8 @@ if __name__ == "__main__":
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
         generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False, True, args.add_memory_max_num_tokens)
         generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False)
+        print("Done!")
+        print("The input files are stored in the directory: " + os.path.join(args.profile_out_dir, "input"))
     elif args.model_id:
         kernel_map_path = os.path.join(current_dir, "kernel_map", f"kernel_map_{args.model_id}.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)

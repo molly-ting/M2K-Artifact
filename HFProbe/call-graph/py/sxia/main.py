@@ -133,7 +133,7 @@ if __name__ == "__main__":
     subparsers = parser.add_subparsers(dest="command")
     scan_parser = subparsers.add_parser("scan", help="Scan a directory for python files")
     scan_parser.add_argument(
-        "--out", type=str, required=False, help="Output directory"
+        "--kernel-info-out", type=str, required=False, help="Output directory"
     )
     scan_parser.add_argument(
         "--vllm-dir",
@@ -160,9 +160,12 @@ if __name__ == "__main__":
                 vllm_dir = _copy_vllm_to_hfprobe(vllm_dir, root_dir)
             vllm_test_one(vllm_dir, args.vllm_model_arch, callgraph_dir)
             _run_indirect_fill(vllm_dir, callgraph_dir)
-            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
+            output_dir = args.kernel_info_out if args.kernel_info_out else os.path.join(root_dir, "opout")
+            collect_ops(input_dir=callgraph_dir, out_dir=output_dir)
             end_time = time.time()
             # print(f"Total time: {end_time - start_time:.2f} seconds")
+            print(f"Completed analysis for vllm model architecture {args.vllm_model_arch}!")
+            print(f"Kernel information is stored in {output_dir}.")
 
         elif args.vllm_dir:
             vllm_dir = args.vllm_dir
@@ -174,6 +177,9 @@ if __name__ == "__main__":
             indirect_targets = [os.path.join(callgraph_dir, "Qwen3MoeForCausalLM_forward.json"), os.path.join(callgraph_dir, "LinearMethodBase", "AWQMarlinLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "CompressedTensorsLinearMethod_apply.json"), os.path.join(callgraph_dir, "LinearMethodBase", "QuarkLinearMethod_apply.json"), os.path.join(callgraph_dir, "scheme", "QuarkW8A8Int8_apply_weights.json")]
             for target_file in indirect_targets:
                 indirect_fill(target_file=target_file)
-            collect_ops(input_dir=callgraph_dir, out_dir=args.out if args.out else os.path.join(root_dir, "opout"))
+            output_dir = args.kernel_info_out if args.kernel_info_out else os.path.join(root_dir, "opout")
+            collect_ops(input_dir=callgraph_dir, out_dir=output_dir)
             end_time = time.time()
             # print(f"Total time: {end_time - start_time:.2f} seconds")
+            print("Completed analysis!")
+            print(f"Kernel information is stored in {output_dir}.")
