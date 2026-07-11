@@ -178,7 +178,7 @@ def locate_cuda(op_to_impl, cu_files, cpp_files):
     b_to_cu_path.update(extend_res)
     return b_to_cu_path
 
-def find_kernel_rel(dir, out_path):
+def find_kernel_rel(dir, out_path=None, store_res=True):
     lib_dir = Path(dir)
     cpp_files = list(lib_dir.rglob("*.cpp"))
     cu_files = list(lib_dir.rglob("*.cu"))
@@ -244,10 +244,12 @@ def find_kernel_rel(dir, out_path):
     if not b_to_cu_path:
         return
 
-    model_name = dir.split("/")[-1]
-    if not out_path:
-        out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "kernel_map", f"kernel_map_{model_name}.json")
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    if store_res:
+        model_name = dir.split("/")[-1]
+        if not out_path:
+            out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "kernel_map", f"kernel_map_{model_name}.json")
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
-    with open(out_path, "w") as f:
-        json.dump(b_to_cu_path, f, indent=4)
+        with open(out_path, "w") as f:
+            json.dump(b_to_cu_path, f, indent=4)
+    return b_to_cu_path

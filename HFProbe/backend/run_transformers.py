@@ -873,21 +873,13 @@ HF_TOKEN       = os.getenv("HF_TOKEN")
 LOCAL_ONLY     = os.getenv("LOCAL_ONLY", "1") == "1"
 INCLUDE_WEIGHTS= os.getenv("INCLUDE_WEIGHTS", "1") == "1"
 NEW_TOKENS     = int(os.getenv("NEW_TOKENS", "2"))
-BATCH_SIZE_CONFIGS = [1, 3, 7]
-SEQ_LENS_CONFIGS = [9, 17, 33]
+BATCH_SIZE_CONFIGS = [1, 3, 5]
+SEQ_LENS_CONFIGS = [1, 7, 17]
 
 def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=None, is_op_suffix=False):
     if not output_dir:
-        output_dir = os.path.join(root_dir, "results", "hf-exp", "out")
+        output_dir = os.path.join(root_dir, "results", "huggingface", "out")
     os.makedirs(output_dir, exist_ok=True)
-    
-    output_root_dir = os.path.dirname(output_dir)
-    if is_op_suffix:
-        log_dir = os.path.join(output_root_dir, "logs")
-        log_dir = os.path.join(log_dir, model_id.replace('/', '_'))
-    else:
-        log_dir = os.path.join(output_root_dir, "hflogs")
-    os.makedirs(log_dir, exist_ok=True)
 
     if not is_op_suffix:
         filename = model_id.replace('/', '_')+".json"
@@ -929,14 +921,13 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
         
         for batch_size in BATCH_SIZE_CONFIGS:
             for seq_len in SEQ_LENS_CONFIGS:
-                print(f"\n--- Running: batch_size={batch_size}, seq_len={seq_len} ---")
                 # 1. Prepare batched inputs.
                 prompt_text = ("hi " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
             
                 # 2. Get the real token length.
                 real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"Target seq_len={seq_len}, actual token length={real_seq_len}")
+                print(f"\n--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
 
                 # 3. Call the modified run_once.
                 run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)
@@ -950,11 +941,9 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
 
                     total_calls_map.setdefault(func_name, {}).setdefault(call_stack, {}).setdefault(run_key, []).append(argCons)
                 data.append({"batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()})
-
-    print("\n--- All inference runs completed. Starting symbolic analysis... ---")
     
     if not data_dir:
-        data_dir = os.path.join(root_dir, "results", "hf-exp", "data")
+        data_dir = os.path.join(root_dir, "results", "huggingface", "data")
     os.makedirs(data_dir, exist_ok=True)
            
     with open(os.path.join(data_dir, filename), "w") as wf:
@@ -966,58 +955,6 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
         # Silence console output from computeSymbolicArgsWithMap.
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        # Write debug output to a file to avoid flooding the console.
-        dbg_path = os.path.join(log_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
-
-        print(f"\n[SUCCESS] Aggregated symbolic logs saved to: {agg_path}")
-        print(f"[INFO] Detailed debug output written to: {dbg_path}")
-
     except Exception as e:
-        dbg_path = os.path.join(log_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
+        pass
 
-        print(f"\n[ERROR] Failed to generate symbolic logs: {e}")
-        # If generation fails, save the raw map data for debugging.
-        fallback_path = os.path.join(log_dir, f"{model_id.replace('/', '_')}.raw_map.json")
-        # Convert tuple keys so the map can be serialized.
-        serializable_map = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in total_calls_map.items()}
-        with open(fallback_path, "w", encoding="utf-8") as f:
-            json.dump(serializable_map, f, indent=2, ensure_ascii=False)
-        print(f"[INFO] Raw collected data for debugging saved to: {fallback_path}")
-        print(f"[INFO] Detailed debug output written to: {dbg_path}")
-
-import traceback
-
-def testhf():
-    model_list_path = os.path.join(root_dir, "data", "hfmodels0.json")
-    if not os.path.exists(model_list_path):
-        model_list_path = os.path.join(root_dir, "data", "hfmodels.json")
-    with open(model_list_path, "r") as f:
-        model_list = json.load(f)
-        
-        from huggingface_hub import HfApi
-        api = HfApi()
-
-        for model_dir in model_list:
-            if model_dir.startswith("mgalkin") or model_dir.startswith("minchul"):
-                continue
-            if model_dir in ["smile2game_qwen-7b", "yzsydlc_qwen2", "ishishow_ishishow_safetensors", "leesws_RoadSafety-GPT-14b-chat", "BechirTrabelsi1_Falcon_OPT", "L1-m1ng_qwen-7b-inf", "TitanML_Qwen-72B-Chat"]:
-                continue
-            count = model_dir.count('_')
-            for i in range(1, count + 1):
-                parts = model_dir.split('_')
-                new_s = '_'.join(parts[:i]) + '/' + '_'.join(parts[i:])
-                try:
-                    files = api.list_repo_files(repo_id=new_s, token=HF_TOKEN)
-                    has_cuda = any(f.endswith(".cu") for f in files)
-                    print(model_dir, new_s, has_cuda)
-                    if has_cuda:
-                        run(new_s)
-                    break
-                except Exception as e:
-                    traceback.print_exc()
-                    print(f"  ⚠️ Error processing {new_s}: {e}")

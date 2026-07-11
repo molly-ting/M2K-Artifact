@@ -359,7 +359,9 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
     res = {}
     for name in os.listdir(input_dir):
         path = os.path.join(input_dir, name)
-        if name.endswith(".json") and not name.endswith("seq_con.json"):
+        if name.endswith(".json"):
+            if name.endswith("seq_con.json"):
+                continue
             max_seq_len = None
             if has_seq_con:
                 model_name = name[:-5] 

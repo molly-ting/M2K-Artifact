@@ -7,7 +7,7 @@ import sys
 
 CUDA_PATH = "/usr/local/cuda"  # Path to CUDA installation
 COMBINED_SUFFIX = "_combined.bc"  # Suffix for the combined .bc files
-project_path = Path(__file__).parent.parent
+project_path = Path(__file__).resolve().parent.parent
 
 def _resolve_signed_clang_path():
     signed_clang_path = os.getenv("SIGNED_CLANG_PATH")

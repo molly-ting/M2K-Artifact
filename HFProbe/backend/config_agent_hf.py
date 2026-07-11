@@ -1,3 +1,6 @@
+import argparse
+import shutil
+
 from agents import Agent, Runner, function_tool,WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
@@ -8,6 +11,7 @@ import run_transformers
 import tiktoken
 import traceback
 import time
+from ..wrapper import find_kernel_rel
 
 
 MODEL_PRICING = {
@@ -116,7 +120,7 @@ root_dir = os.path.dirname(os.path.dirname(current_path_string))
 
 structure_configs = []
 resCon = {}
-out_path = ""
+model_config_out_path = ""
 
 @function_tool
 def saveRes(config: str):
@@ -128,8 +132,8 @@ def saveRes(config: str):
     """
     # global structure_configs
     global resCon
-    global out_path
-    with open(out_path, "w") as f:
+    global model_config_out_path
+    with open(model_config_out_path, "w") as f:
         resCon = json.loads(config)
         json.dump(resCon, f)
     
@@ -162,19 +166,17 @@ def runAgent(prompt):
             print("\nTrace of completed tool calls:")
             for t in result.traces:
                 print(f"{t.tool_name}: {t.output[:200]}")
-        else:
-            print("No partial result captured.")
 
     print(result.final_output)
     return result.final_output, session.token_usage
 
 def generate_transformer(model_id, op_name, out_dir=None):
-    global out_path
+    global model_config_out_path
     if not out_dir:
-        out_dir = os.path.join(root_dir, f"results/hf-exp/config/{model_id.replace('/', '_')}")
+        out_dir = os.path.join(root_dir, f"results/huggingface/config/{model_id.replace('/', '_')}")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, op_name+".json")
-    if os.path.exists(out_path):
+    model_config_out_path = os.path.join(out_dir, op_name+".json")
+    if os.path.exists(model_config_out_path):
         return None, None
     
     model_repo = f"https://huggingface.co/{model_id}"
@@ -183,14 +185,11 @@ def generate_transformer(model_id, op_name, out_dir=None):
     """
     return runAgent(prompt_huggingface)
 
-def find_model_ops(model_id, repo_path):
-    mapping_path = f"{root_dir}/kernel_map/kernel_map_{model_id.replace('/', '_')}.json"
-    if not os.path.exists(mapping_path):
-        print("kernel map not exist!")
-        return None, None
-    with open(mapping_path, "r") as f:
-        kernel_map = json.load(f)
-    all_ops = set(kernel_map.keys())
+def find_model_ops(repo_path, kernel_map):
+    if not kernel_map:
+        all_ops = set()
+    else:
+        all_ops = set(kernel_map.keys())
     used_ops = set()
     
     for file in os.listdir(repo_path):
@@ -203,12 +202,14 @@ def find_model_ops(model_id, repo_path):
                     used_ops.add(op)
     return all_ops, used_ops
 
-def find_triggered_ops_hf(model_id, op_name=None):
+def find_triggered_ops_hf(model_id, op_name=None, out_dir=None):
     if "mgalkin/ultra" in model_id:
-        return find_triggered_ops_graph(model_id, op_name)
+        return find_triggered_ops_graph(model_id, op_name, out_dir)
     
     triggered_ops = set()
-    outPath = f"{root_dir}/results/hf-exp/out/{model_id.replace('/', '_')}"
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface/out"
+    outPath = f"{out_dir}/{model_id.replace('/', '_')}"
     if op_name:
         outPath += "/" + op_name
     outPath+=".json"
@@ -225,9 +226,12 @@ def find_triggered_ops_hf(model_id, op_name=None):
         triggered_ops.add(key.split(".")[-1])
     return triggered_ops
 
-def find_triggered_ops_graph(model_id, op_name=None):
+def find_triggered_ops_graph(model_id, op_name=None, out_dir=None):
     triggered_ops = set()
-    outPath = f"{root_dir}/results/hf-exp/out/{model_id.replace('/', '_')}"
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface/out"
+    outPath = f"{out_dir}/{model_id.replace('/', '_')}"
+
     if op_name:
         outPath += "/" + op_name
     outPath+=".json"
@@ -246,39 +250,47 @@ def find_triggered_ops_graph(model_id, op_name=None):
             triggered_ops.add(name.split(".")[-1])
     return triggered_ops
 
-def run_model(model_id, config_data, op_name):
+def run_model(model_id, config_data, op_name, out_dir=None):
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface"
+
     if "mgalkin/ultra" in model_id:
-        run_graph.run_ultra_with_config(model_id, config_data,  output_dir=f"{root_dir}/results/hf-exp/out", op_name=op_name)
+        run_graph.run_ultra_with_config(model_id, config_data,  output_dir=f"{out_dir}/out", op_name=op_name)
     else:
         if op_name:
-            run_transformers.run(model_id, config_data,  op_name, output_dir=f"{root_dir}/results/hf-exp/out", data_dir=f"{root_dir}/results/hf-exp/data", is_op_suffix=True)
+            run_transformers.run(model_id, config_data,  op_name, output_dir=f"{out_dir}/out", data_dir=f"{out_dir}/data", is_op_suffix=True)
         else:
-            run_transformers.run(model_id, None, output_dir=f"{root_dir}/results/hf-exp/out", data_dir=f"{root_dir}/results/hf-exp/data")
+            run_transformers.run(model_id, None, output_dir=f"{out_dir}/out", data_dir=f"{out_dir}/data")
 
-def handle_one_model_hf(model_id, repo_path=None):
+def handle_one_model_hf(model_id, out_dir=None):
     print(f"Processing model: {model_id}")
-    final_res_path = f"{root_dir}/results/hf-exp/config/{model_id.replace('/', '_')}/result.json"
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface"
+    os.makedirs(out_dir, exist_ok=True)
+
+    final_res_path = f"{out_dir}/config/{model_id.replace('/', '_')}/result.json"
     if os.path.exists(final_res_path):
         return
-
-    config_out_dir = f"{root_dir}/results/hf-exp/config/{model_id.replace('/', '_')}"
+    
+    model_cache_dir = run_transformers.snapshot_download(model_id, local_files_only=False, ignore_patterns=["*.bin", "**/*.bin", "*.safetensors", "**/*.safetensors"])
+    config_out_dir = f"{out_dir}/config/{model_id.replace('/', '_')}"
     os.makedirs(config_out_dir, exist_ok=True)
     cost_path = os.path.join(config_out_dir, "cost.json")
     cost_map = {}
     if os.path.exists(cost_path):
         with open(cost_path) as f:
             cost_map = json.load(f)
-            
-    all_ops, used_ops = find_model_ops(model_id, repo_path)
-    print(f"used ops for model {model_id}: {used_ops}")
-    if not all_ops:
-        return 
     
     start_time = time.time()
     try:
-        run_model(model_id, None, None)
+        run_model(model_id, None, None, out_dir)
     except:
         return
+    
+    kernel_map = find_kernel_rel(model_cache_dir)
+    all_ops, used_ops = find_model_ops(model_cache_dir, kernel_map)
+    if not all_ops:
+        return 
 
     triggered_ops = find_triggered_ops_hf(model_id)
     if not triggered_ops:
@@ -307,15 +319,15 @@ def handle_one_model_hf(model_id, repo_path=None):
             print(op_name, "can not be triggered.")
             continue
         
-        agg_path = f"{root_dir}/results/hf-exp/out/{model_id.replace('/', '_')}/{op_name}.json"
-        if os.path.exists(agg_path):
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{op_name}.json"
+        if os.path.exists(execute_res_path):
             print(op_name, "has been handled.")
             continue
 
         config_out_path = os.path.join(config_out_dir, op_name+".json")
         if not os.path.exists(config_out_path):
             time0 = time.time()
-            output, token_usage = generate_transformer(model_id, op_name)
+            output, token_usage = generate_transformer(model_id, op_name, config_out_dir)
             time1 = time.time()
             if token_usage:
                 cost_map[op_name] = {"input_token": token_usage["input"], "output_token": token_usage["output"], "money_cost": token_usage["cost"], "gpt_time_cost": time1 - time0}
@@ -338,9 +350,8 @@ def handle_one_model_hf(model_id, repo_path=None):
         
         time0 = time.time()
         try:
-            run_model(model_id, config_data, op_name)
+            run_model(model_id, config_data, op_name, out_dir)
         except:
-            traceback.print_exc()
             pass
 
         time1 = time.time()
@@ -367,12 +378,167 @@ def handle_one_model_hf(model_id, repo_path=None):
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
+    shutil.rmtree(model_cache_dir)
 
-def main_transformers():
-    with open(f"{root_dir}/data/hfmodels.json") as f:
+def main_transformers_benchmark(out_dir=None, use_exist_configs=False):
+    model_list_path = os.path.join(os.path.dirname(root_dir), "evaluation/section-6-1-bug-detection/benchmarks/huggingface/hfmodels.json")
+    with open(model_list_path) as f:
         model_list = json.load(f)
+    
+    if not out_dir:
+        out_dir = os.path.join(root_dir, "results/huggingface")
     
     for item in model_list:
         model_id = item.replace("_", "/", 1)
-        handle_one_model_hf(model_id)  
+        if use_exist_configs:
+            test_one_with_configs(model_id, out_dir)
+        else:
+            handle_one_model_hf(model_id, out_dir=out_dir)  
 
+def test_one_without_mutate_config(model_id, out_dir=None):
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface"
+    os.makedirs(out_dir, exist_ok=True)
+    
+    try:
+        run_model(model_id, None, None, out_dir)
+    except:
+        return
+
+def test_one_with_configs(model_id, out_dir=None):
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface"
+    os.makedirs(out_dir, exist_ok=True)
+
+    final_res_path = f"{out_dir}/config/{model_id.replace('/', '_')}/result.json"
+    if os.path.exists(final_res_path):
+        return
+    
+    start_time = time.time()
+    try:
+        run_model(model_id, None, None, out_dir)
+    except:
+        return
+    
+    config_out_dir = f"{out_dir}/config/{model_id.replace('/', '_')}"
+    if not os.path.exists(config_out_dir):
+        return
+
+    triggered_ops = find_triggered_ops_hf(model_id)
+    if not triggered_ops:
+        triggered_ops = set()
+    
+    initial_trigger = triggered_ops.copy()
+    for config_file in os.listdir(config_out_dir):
+        if not config_file.endswith(".json"):
+            continue
+        if "no_trigger" in config_file or "cost" in config_file or "result" in config_file:
+            continue
+
+        op_name = config_file[:-5]
+        execute_res_path = f"{out_dir}/out/{model_id.replace('/', '_')}/{op_name}.json"
+        if os.path.exists(execute_res_path):
+            print(f"{config_file} already executed.")
+            continue
+
+        config_out_path = os.path.join(config_out_dir, config_file)
+        config_data = None
+        with open(config_out_path) as cf:
+            config_data = json.load(cf)
+        
+        if not config_data:
+            continue
+        
+        try:
+            run_model(model_id, config_data, op_name, out_dir)
+        except:
+            pass
+        
+        new_triggered = find_triggered_ops_hf(model_id, op_name)
+        if new_triggered:
+            triggered_ops.update(new_triggered)
+            if op_name in new_triggered:
+                print(f"{op_name} is succesfully triggered!") 
+    
+    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
+    with open(final_res_path, "w") as resf:
+        json.dump(final_result, resf)
+
+def test_model_with_one_config(model_id, config_path, out_dir=None):
+    if not out_dir:
+        out_dir = f"{root_dir}/results/huggingface"
+    os.makedirs(out_dir, exist_ok=True)
+    
+    op_name = os.path.basename(config_path).replace(".json", "")
+    if not os.path.exists(config_path):
+        print(f"Config file {config_path} does not exist.")
+        return
+    
+    model_config = None
+    with open(config_path) as cf:
+        model_config = json.load(cf)
+        
+    try:
+        run_model(model_id, model_config, op_name, out_dir)
+    except:
+        pass
+        
+    new_triggered = find_triggered_ops_hf(model_id, op_name)
+    if new_triggered and op_name in new_triggered:
+        print(f"Kernel {op_name} is successfully triggered with the provided config.")
+    else:
+        print(f"Kernel {op_name} could not be triggered with the provided config.")
+
+def mutate_config_kernel(model_id, op_name, out_dir=None):
+    global model_config_out_path
+    
+    if not out_dir:
+        out_dir = os.path.join(root_dir, f"results/huggingface")
+    
+    out_config_dir = os.path.join(out_dir, "config", model_id.replace('/', '_'))
+    os.makedirs(out_config_dir, exist_ok=True)
+    model_config_out_path = os.path.join(out_config_dir, f"{op_name}.json")
+    if os.path.exists(model_config_out_path):
+        return None
+    
+    output, token_usage = generate_transformer(model_id, op_name, out_config_dir)
+    return output
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="run profiling backend on Huggingface models with Transformers."
+    )
+
+    parser.add_argument(
+        "--model-id", type=str, required=False, help="Model ID"
+    )
+    parser.add_argument(
+        "--out-dir", type=str, required=False, help="Output directory"
+    )
+    parser.add_argument(
+        "--mutate", action=argparse.BooleanOptionalAction, default=True, help="Whether to mutate model configs"
+    )
+    parser.add_argument(
+        "--use-existent-config", action=argparse.BooleanOptionalAction, default=True, help="Whether to load exisiting configs or to use GPT to mutate model configs"
+    )
+    parser.add_argument(
+        "--config-file", type=str, required=False, help="model config file to run profiling backend"
+    )
+    parser.add_argument(
+        "--kernel-name", type=str, required=False, help="kernel name to mutate config for"
+    )
+    args = parser.parse_args()
+
+    if args.model_id:
+        if args.kernel_name:
+            mutate_config_kernel(args.model_id, args.kernel_name, args.out_dir)
+        elif args.mutate and args.use_existent_config:
+            test_one_with_configs(args.model_id, args.out_dir)
+        elif args.mutate:
+            handle_one_model_hf(args.model_id, args.out_dir)
+        elif args.config_file:
+            test_model_with_one_config(args.model_id, args.config_file, args.out_dir)
+        else:
+            test_one_without_mutate_config(args.model_id, args.out_dir)
+    else:
+        main_transformers_benchmark(args.out_dir, args.use_existent_config)

@@ -969,14 +969,13 @@ def run(
 
         for batch_size in batch_sizes:
             for seq_len in seq_lens:
-                print(f"\n--- Running: batch_size={batch_size}, seq_len={seq_len} ---")
                 # 1. Prepare batched input
                 prompt_text = ("hi " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
             
                 # 2. Get the actual token length
                 real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"Target seq_len={seq_len}, actual token length={real_seq_len}")
+                print(f"\n--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
 
                 # 3. Call the modified run_once
                 run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)
@@ -990,8 +989,6 @@ def run(
 
                     total_calls_map.setdefault(func_name, {}).setdefault(call_stack, {}).setdefault(run_key, []).append(argCons)
                 data.append({"batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()})
-
-    print("\n--- All inference runs finished. Starting symbolic analysis... ---")
     
     if not data_dir:
         data_dir = os.path.join(result_dir, "data")
@@ -1001,7 +998,6 @@ def run(
         json.dump(data, wf)
 
     if record_only:
-        print(f"\n[SUCCESS] Saved recorded data to: {os.path.join(data_dir, filename)}")
         return {"agg_path": agg_path, "data_path": os.path.join(data_dir, filename)}
 
     buf = io.StringIO()  # Collect all prints from computeSymbolicArgsWithMap.
@@ -1011,56 +1007,6 @@ def run(
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
 
-        # Write debug output to a file to avoid flooding the console.
-        dbg_path = os.path.join(log_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
-
-        print(f"\n[SUCCESS] Saved aggregated symbolic logs to: {agg_path}")
-        print(f"[INFO] Detailed debug output written to: {dbg_path}")
-
     except Exception as e:
-        dbg_path = os.path.join(log_dir, "symbolic_debug.log")
-        with open(dbg_path, "w", encoding="utf-8") as f:
-            f.write(buf.getvalue())
+        pass
 
-        print(f"\n[ERROR] Failed to generate symbolic logs: {e}")
-        # On failure, save the raw map data for debugging.
-        fallback_path = os.path.join(log_dir, f"{model_id.replace('/', '_')}.raw_map.json")
-        # Convert tuple keys so they can be serialized.
-        serializable_map = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in total_calls_map.items()}
-        with open(fallback_path, "w", encoding="utf-8") as f:
-            json.dump(serializable_map, f, indent=2, ensure_ascii=False)
-        print(f"[INFO] Saved raw collected data for debugging to: {fallback_path}")
-        print(f"[INFO] Detailed debug output written to: {dbg_path}")
-
-import traceback
-
-def testhf(model_list_path=None):
-    if model_list_path is None:
-        model_list_path = os.path.join(root_dir, "data", "hfmodels0.json")
-    with open(model_list_path, "r") as f:
-        model_list = json.load(f)
-        
-        from huggingface_hub import HfApi
-        api = HfApi()
-
-        for model_dir in model_list:
-            if model_dir.startswith("mgalkin") or model_dir.startswith("minchul"):
-                continue
-            if model_dir in ["smile2game_qwen-7b", "yzsydlc_qwen2", "ishishow_ishishow_safetensors", "leesws_RoadSafety-GPT-14b-chat", "BechirTrabelsi1_Falcon_OPT", "L1-m1ng_qwen-7b-inf", "TitanML_Qwen-72B-Chat"]:
-                continue
-            count = model_dir.count('_')
-            for i in range(1, count + 1):
-                parts = model_dir.split('_')
-                new_s = '_'.join(parts[:i]) + '/' + '_'.join(parts[i:])
-                try:
-                    files = api.list_repo_files(repo_id=new_s, token=HF_TOKEN)
-                    has_cuda = any(f.endswith(".cu") for f in files)
-                    print(model_dir, new_s, has_cuda)
-                    if has_cuda:
-                        run(new_s)
-                    break
-                except Exception as e:
-                    traceback.print_exc()
-                    print(f"  ⚠️ Error processing {new_s}: {e}")

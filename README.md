@@ -75,22 +75,23 @@ cd ..
 python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm
 # run with specific model config
 # python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm --config-file=../example/dynamic_scaled_fp8_quant_config.json
+# run with multiple configs (configs are required to be stored under out-dir/config/model_architecture)
+# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --mutate --use-existent-config
 ```
 
 `config_agent_vllm.py` accepts the following options:
 
 - `--model-id=<modelID>` — the target model ID.
 - `--model-architecture=<arch>` — the target model architecture from model config.
-- `--seed-configs-dir=<dir>` — the directory containing model config examples.
 - `--seed-config-file=<file>` — the file path of model default config for mutation.
 - `--out-dir=<dir>` — the output directory (see the layout below).
 - `--kernel-info-dir=<dir>` — the output directory produced by the previous step.
 - `--kernel-info-file=<file>` — the file containing kernel information produced by the previous step.
-- `--mutate` — mutate the configs.
-- `--no-mutate` — do not mutate the configs.
+- `--mutate` — mutate the configs (without this, only run the model with default config).
 - `--use-existent-config` — reuse existing ones.
 - `--config-file=<file>` — the file path of model config to run.
 - `--kernel-name` — the kernel name to mutate config for.
+
 
 **Output:**
 
@@ -151,7 +152,7 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 export OPENAI_API_KEY=<Openai API Key>
 python3 backend/config_agent_vllm.py --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=../example/Qwen2ForCausalLM_model_config.json --kernel-info-file=../example/Qwen2ForCausalLM_kernel_info.json
 # to mutate configs for all kernels and run profiling backend in one batch
-# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-info-dir=call-graph/opout --mutate 
+# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-info-dir=call-graph/opout --mutate --seed-config-file=../example/Qwen2ForCausalLM_model_config.json
 ```
 
 **Output:**

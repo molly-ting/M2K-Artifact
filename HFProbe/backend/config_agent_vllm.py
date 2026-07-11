@@ -164,8 +164,6 @@ def runAgent(prompt):
             print("\nTrace of completed tool calls:")
             for t in result.traces:
                 print(f"{t.tool_name}: {t.output[:200]}")
-        else:
-            print("No partial result captured.")
 
     print(result.final_output)
     return result.final_output, session.token_usage              
@@ -374,15 +372,14 @@ def main_vllm_benchmark(out_dir=None, use_exist_configs=False, callgraph_path=No
         else:
             test_one_with_configs(model_id, structure, out_dir)
       
-def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
+def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_path=None):
     global config_out_path
     global structure_configs
 
-    if not data_dir:
-        data_dir = os.path.join(project_dir, "evaluation/section-6-1-bug-detection/vllm-configs-examples")
     if not out_dir:
         out_dir = os.path.join(root_dir, f"results/vllm")
     os.makedirs(out_dir, exist_ok=True)
+
     final_res_path = f"{out_dir}/config/{structure}/result.json"
     if os.path.exists(final_res_path):
         return
@@ -408,7 +405,8 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
     with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
         framework_configs = json.load(ff) 
     
-    config_example_path = os.path.join(data_dir, structure+".json")
+    if not config_example_path:
+        config_example_path = os.path.join(project_dir, "evaluation/section-6-1-bug-detection/vllm-configs-examples", structure+".json")
     if not os.path.exists(config_example_path):
         print(f"Config example for {structure} does not exist.")
         return
@@ -615,7 +613,6 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, data_dir=None):
        
         if triggered:
             print(f"Op name: {op_name} is successfully triggered.")
-        # break
     
     end_time = time.time()
     with open(cannot_tri_path, "w") as nwf:
@@ -757,7 +754,7 @@ def test_model_with_one_config(model_id, config_path, out_dir=None):
     else:
         print(f"Kernel {op_name} could not be triggered with the provided config.")
 
-def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file,out_dir=None):
+def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file, out_dir=None):
     global config_out_path
     
     if not out_dir:
@@ -767,7 +764,7 @@ def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file,
     os.makedirs(out_config_dir, exist_ok=True)
     config_out_path = os.path.join(out_config_dir, f"{op_name}.json")
     if os.path.exists(config_out_path):
-        return None, None
+        return None
     
     call_op_info = {}
     with open(kernel_info_file) as kf:
@@ -804,9 +801,6 @@ if __name__ == "__main__":
         "--model-architecture", type=str, required=False, help="Model architecture"
     )
     parser.add_argument(
-        "--seed-configs-dir", type=str, required=False, help="Data directory containing model config examples"
-    )
-    parser.add_argument(
         "--seed-config-file", type=str, required=False, help="model default config for mutation"
     )
     parser.add_argument(
@@ -836,7 +830,7 @@ if __name__ == "__main__":
         if args.config_file:
             test_model_with_one_config(args.model_id, args.config_file, args.out_dir)
         elif args.mutate and not args.use_existent_config:
-            test_one(args.model_id, args.model_architecture, args.kernel_info_dir, args.out_dir, args.seed_configs_dir)
+            test_one(args.model_id, args.model_architecture, args.kernel_info_dir, args.out_dir, args.seed_config_file)
         elif args.mutate and args.use_existent_config:
             test_one_with_configs(args.model_id, args.model_architecture, args.out_dir)
         else:

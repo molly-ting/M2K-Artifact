@@ -33,7 +33,7 @@ def clean(modelId):
         shutil.rmtree(model_cache_dir)
         print(f"[{modelId}] Cache removed: {model_cache_dir}")
     except Exception as e:
-        print(f"[{modelId}] Cache cleanup error:", e)
+        pass
   
 def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-out", loadDir=result_dir+"/vllm-load", dataDir=result_dir+"/vllm-data", is_op_suffix=False):
     global batch_size_configs

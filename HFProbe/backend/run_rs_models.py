@@ -13,7 +13,8 @@ import traceback
 
 current_path_string = os.path.abspath(__file__)
 root_dir = os.path.dirname(os.path.dirname(current_path_string))
-research_paper_dir = os.path.join(root_dir, "data", "research_paper")
+project_dir = os.path.dirname(root_dir)
+research_paper_dir = os.path.join(project_dir, "evaluation", "section-6-1-bug-detection", "benchmarks", "research_papers", "research_paper_models")
 default_rs_out_dir = os.path.join(root_dir, "results", "research_paper", "out")
 default_rs_data_dir = os.path.join(root_dir, "results", "research_paper", "data")
 
@@ -793,15 +794,12 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
         aqlm_num_codebooks = override_configs.get("num_codebooks", aqlm_num_codebooks)
         aqlm_in_group = override_configs.get("in_group_size", aqlm_in_group)
         aqlm_out_group = override_configs.get("out_group_size", aqlm_out_group)
-        print(f"[Config] AQLM Target: nbits={aqlm_nbits}, codebooks={aqlm_num_codebooks}, "
-              f"group={aqlm_in_group}x{aqlm_out_group}")
     # ===================================================
 
     repo_root = os.path.join(research_paper_dir, "AQLM")
     inference_lib_path = os.path.join(repo_root, "inference_lib", "src")
     if inference_lib_path not in sys.path:
         sys.path.insert(0, inference_lib_path)
-    print(f"[INFO] Importing AQLM from {inference_lib_path}")
 
     # --- 2. Import under NvccPatch protection ---
     # The global extension patch handles loading, so no additional load mock is needed.
@@ -809,9 +807,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
     with NvccPatch():
         try:
             from aqlm.inference import QuantizedLinear
-            print("[INFO] Successfully imported QuantizedLinear inside NvccPatch")
         except ImportError as e:
-            print(f"[Error] Import failed: {e}")
             return
 
     # --- 3. Prepare the model ---
@@ -862,14 +858,12 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
 
                     setattr(module, name, new_layer)
                 except Exception as e:
-                    print(f"[Replacement failed] {name}: {e}")
+                    pass
             else:
                 replace_linear_with_aqlm(child)
 
-    print("Replacing Linear layers...")
     with NvccPatch():
         replace_linear_with_aqlm(model)
-    print("Layer replacement completed.")
 
     # --- 5. Inference loop ---
     total_calls_map = defaultdict(dict)
@@ -901,11 +895,9 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
                         "batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()
                     })
                 except Exception as e:
-                    print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    traceback.print_exc()
+                    pass
 
     # --- 6. Save and analyze ---
-    print("\n--- Symbolic analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf)
 
@@ -913,12 +905,10 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-        print(f"\n[Success] Aggregated symbolic log saved to: {agg_path}")
         if os.path.exists(local_dir): shutil.rmtree(local_dir)
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolic log: {e}")
-        traceback.print_exc()
         if os.path.exists(local_dir): shutil.rmtree(local_dir)
+        pass
 
 
 def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
@@ -958,13 +948,10 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
         mcm_bits = override_configs.get("nbits", mcm_bits)
         mcm_group_size = override_configs.get("group_size", mcm_group_size)
 
-        print(f"[Config] MCM Target: nbits={mcm_bits}, group_size={mcm_group_size}")
-
     # --- 2. Add the repository path ---
     repo_root = os.path.join(research_paper_dir, "Mixture-Compressor-MoE")
     if repo_root not in sys.path:
         sys.path.insert(0, repo_root)
-    print(f"[INFO] Importing MCM from {repo_root}")
 
     # [FIX] Disable torch.compile.
     if hasattr(torch, "compile"):
@@ -975,7 +962,6 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
 
     # --- 3. [Core] Mock hqq_aten ---
     sys.modules["hqq_aten"] = cpp_mock
-    print("[INFO] Injected global cpp_mock as hqq_aten module.")
 
     # --- 4. Import core classes and apply monkey patches ---
     QLinear = None
@@ -996,11 +982,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
             QLinearModule.hqq_aten_is_available = True
             QLinear.backend = HQQBackend.ATEN
 
-            # 2. Replace QLinear.dequantize_aten directly.
-            print("[INFO] Monkey-patched QLinear.dequantize_aten to bypass axis check.")
-
         except ImportError as e:
-            print(f"[FATAL] Import failed: {e}")
             return
 
     # --- 5. Prepare the standard model ---
@@ -1079,14 +1061,12 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                     setattr(module, name, new_layer)
 
                 except Exception as e:
-                    print(f"[Replacement failed] {name}: {e}")
+                    pass
             else:
                 replace_linear_with_mcm(child)
 
-    print(f"Replacing Linear layers (MCM, bits={mcm_bits})...")
     with NvccPatch():
         replace_linear_with_mcm(model)
-    print("Layer replacement completed.")
 
     # --- 7. Inference loop ---
     total_calls_map = defaultdict(dict)
@@ -1109,12 +1089,6 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
 
                     if tensor_calls:
                         hqq_trace = [c['name'] for c in tensor_calls if "dequantize" in c['name']]
-                        if hqq_trace:
-                            print(f"[SUCCESS] Captured Kernels: {list(set(hqq_trace))}")
-                        else:
-                            print("[WARN] No dequantize kernels captured.")
-                    else:
-                        print("[WARN] tensor_calls is EMPTY.")
 
                     for call in tensor_calls:
                         func_name = call.get('name', 'unknown_function')
@@ -1129,11 +1103,8 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                         "calls": tensor_calls.copy()
                     })
                 except Exception as e:
-                    print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    traceback.print_exc()
+                    pass
 
-    # --- 8. Save and analyze ---
-    print("\n--- Symbolic analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf, indent=4)
 
@@ -1141,14 +1112,11 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        print(f"\n[Success] Aggregated symbolic log saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolic log: {e}")
-        traceback.print_exc()
         shutil.rmtree(local_dir)
+        pass
 
 def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     if not out_dir:
@@ -1175,15 +1143,12 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
         sys.path.insert(0, repo_root)
 
     sys.modules["any_precision_ext"] = cpp_mock
-    print("[INFO] Injected global cpp_mock as any_precision_ext module.")
 
     AnyPrecisionLinear = None
     with NvccPatch():
         try:
             from any_precision.modules.AnyPrecisionLinear import AnyPrecisionLinear
-            print("[INFO] Successfully imported AnyPrecisionLinear CLASS.")
         except ImportError as e:
-            print(f"[FATAL] Import failed: {e}")
             return
 
     model_id = 'meta-llama/Llama-2-7b-chat-hf'
@@ -1239,15 +1204,13 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
                     setattr(module, name, new_layer)
 
                 except Exception as e:
-                    print(f"[Replacement failed] {name}: {e}")
+                    pass
             else:
                 replace_linear_with_anyprecision(child)
 
-    print(f"Replacing Linear layers (AnyPrecision, bits={target_bits})...")
     with NvccPatch():
         replace_linear_with_anyprecision(model)
 
-    print("~~~~~~~ Mock Warmup ~~~~~~~")
     with NvccPatch():
         try:
             run_once(model, tokenizer, config, ["Warmup"], new_tokens=1)
@@ -1262,7 +1225,7 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
             for seq_len in SEQ_LENS_CONFIGS:
                 print(f"\n--- AnyPrecision Running: b={batch_size}, s={seq_len} ---")
 
-                prompt_text = ("hi " * seq_len).strip()
+                prompt_text = ("word " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
                 tensor_calls.clear()
 
@@ -1271,9 +1234,6 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
 
                     inputs = tokenizer(prompts, return_tensors="pt")
                     real_seq_len = inputs["input_ids"].shape[1]
-
-                    if not tensor_calls:
-                        print("[WARN] tensor_calls is EMPTY! Mock might be missed.")
 
                     for call in tensor_calls:
                         func_name = call.get('name', 'unknown_function')
@@ -1288,10 +1248,8 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
                         "calls": tensor_calls.copy()
                     })
                 except Exception as e:
-                    print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    traceback.print_exc()
+                    pass
 
-    print("\n--- Symbolic analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf, indent=4)
 
@@ -1299,11 +1257,9 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        print(f"\n[Success] Aggregated symbolic log saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolic log: {e}")
-        traceback.print_exc()
-        if os.path.exists(local_dir): shutil.rmtree(local_dir)
+        if os.path.exists(local_dir): 
+            shutil.rmtree(local_dir)
+        pass

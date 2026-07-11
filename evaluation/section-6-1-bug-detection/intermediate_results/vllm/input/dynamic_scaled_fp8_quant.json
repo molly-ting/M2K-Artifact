@@ -3620,17 +3620,11 @@
         "args": [
             {
                 "shape": [
-                    "u0",
+                    "1*b*s",
                     896
                 ],
                 "dtype": "torch.float8_e4m3fn",
-                "type": "torch.Tensor",
-                "symRanges": {
-                    "u0": [
-                        17,
-                        161
-                    ]
-                }
+                "type": "torch.Tensor"
             },
             {
                 "shape": [

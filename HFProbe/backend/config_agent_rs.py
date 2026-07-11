@@ -8,6 +8,7 @@ import tiktoken
 import traceback
 import time
 from pathlib import Path
+from ..wrapper import find_kernel_rel
 
 
 MODEL_PRICING = {
@@ -98,7 +99,7 @@ class MyCustomSession(Session):
         self.token_usage = {"input": 0, "output": 0, "cost": 0.0}
 
 resCon = {}
-out_path = ""
+config_out_path = ""
 HFPROBE_PATH = Path(__file__).resolve().parent.parent
 
 @function_tool
@@ -110,8 +111,8 @@ def saveRes(config: str):
         config: The model config in JSON string format.
     """
     global resCon
-    global out_path
-    with open(out_path, "w") as f:
+    global config_out_path
+    with open(config_out_path, "w") as f:
         resCon = json.loads(config)
         json.dump(resCon, f)
     
@@ -144,22 +145,20 @@ def runAgent(prompt):
             print("\nTrace of completed tool calls:")
             for t in result.traces:
                 print(f"{t.tool_name}: {t.output[:200]}")
-        else:
-            print("No partial result captured.")
 
     print(result.final_output)
-    print(f"input token: {session.token_usage['input']}, output token: {session.token_usage['output']}, cost: ${session.token_usage['cost']}")
     return result.final_output, session.token_usage
 
-def generate_transformer(model_id, op_name, framework_repo):
-    global out_path
-    if "pv-tuning" in framework_repo:
-        out_dir = f"{HFPROBE_PATH}/results/research_paper/config/AQLM"
-    else:
-        out_dir = f"{HFPROBE_PATH}/results/research_paper/config/{framework_repo.split('/')[-1].split('.')[0]}"
+def generate_config(model_id, op_name, framework_repo, out_dir=None):
+    global config_out_path
+    if not out_dir:
+        if "pv-tuning" in framework_repo:
+            out_dir = f"{HFPROBE_PATH}/results/research_paper/config/AQLM"
+        else:
+            out_dir = f"{HFPROBE_PATH}/results/research_paper/config/{framework_repo.split('/')[-1].split('.')[0]}"
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, op_name+".json")
-    if os.path.exists(out_path):
+    config_out_path = os.path.join(out_dir, op_name+".json")
+    if os.path.exists(config_out_path):
         return None, None
     
     model_repo = f"https://huggingface.co/{model_id}"
@@ -168,14 +167,12 @@ def generate_transformer(model_id, op_name, framework_repo):
     """
     return runAgent(prompt_huggingface)
 
-def find_model_ops(framework_name, repo_path):
-    mapping_path = HFPROBE_PATH / "kernel_map" / f"kernel_map_{framework_name}.json"
-    if not os.path.exists(mapping_path):
-        print("kernel map not exist!")
-        return None, None
-    with open(mapping_path, "r") as f:
-        kernel_map = json.load(f)
-    all_ops = set(kernel_map.keys())
+def find_model_ops(repo_path):
+    kernel_map = find_kernel_rel(repo_path)
+    if not kernel_map:
+        all_ops = set()
+    else:
+        all_ops = set(kernel_map.keys())
     used_ops = set()
     
     for file in os.listdir(repo_path):
@@ -188,9 +185,11 @@ def find_model_ops(framework_name, repo_path):
                     used_ops.add(op)
     return all_ops, used_ops
 
-def find_triggered_ops_hf(framework_name, op_name=None):    
+def find_triggered_ops_hf(framework_name, op_name=None, out_dir=None):    
     triggered_ops = set()
-    outPath = f"{HFPROBE_PATH}/results/research_paper/out/{framework_name.replace('/', '_')}"
+    if not out_dir:
+        out_dir = f"{HFPROBE_PATH}/results/research_paper/out"
+    outPath = f"{out_dir}/{framework_name.replace('/', '_')}"
     if op_name:
         outPath += "/" + op_name
     outPath += ".json"
@@ -214,24 +213,29 @@ def find_triggered_ops_hf(framework_name, op_name=None):
                 triggered_ops.add(key.split("::")[-1])
     return triggered_ops
 
-def run_model(framework_name, config_data, op_name):
+def run_model(framework_name, config_data, op_name, out_dir=None):
+    if not out_dir:
+        out_dir = f"{HFPROBE_PATH}/results/research_paper"
+        
     if framework_name == "ShiftAddLLM":
-        run_rs_models.testShiftAdd(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", op_name=op_name)
+        run_rs_models.testShiftAdd(override_configs=config_data, out_dir=f"{out_dir}/out", op_name=op_name)
     elif framework_name == "Mixture-Compressor-MoE":
-        run_rs_models.testMCM(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
+        run_rs_models.testMCM(override_configs=config_data, out_dir=f"{out_dir}/out", data_dir=f"{out_dir}/data", op_name=op_name)
     elif framework_name == "AQLM":
-        run_rs_models.testAqlmManual(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
+        run_rs_models.testAqlmManual(override_configs=config_data, out_dir=f"{out_dir}/out", data_dir=f"{out_dir}/data", op_name=op_name)
     elif framework_name == "any-precision-llm":
-        run_rs_models.testAnyPrecision(override_configs=config_data, out_dir=f"{HFPROBE_PATH}/results/research_paper/out", data_dir=f"{HFPROBE_PATH}/results/research_paper/data", op_name=op_name)
+        run_rs_models.testAnyPrecision(override_configs=config_data, out_dir=f"{out_dir}/out", data_dir=f"{out_dir}/data", op_name=op_name)
 
 repo_url_map = {"ShiftAddLLM": "https://github.com/GATECH-EIC/ShiftAddLLM", "AQLM": "https://github.com/Vahe1994/AQLM/tree/pv-tuning",
                  "any-precision-llm": "https://github.com/SNU-ARC/any-precision-llm", "Mixture-Compressor-MoE": "https://github.com/Aaronhuang-778/Mixture-Compressor-MoE"}
 model_map = {"ShiftAddLLM": "facebook/opt-125m", "AQLM": "meta-llama/Llama-2-7b-hf",
              "any-precision-llm": "meta-llama/Llama-2-7b-chat-hf", "Mixture-Compressor-MoE": "meta-llama/Llama-2-7b-hf"}
 
-def handle_one_model_hf(model_id, framework_name, repo_url):
+def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     print(f"Processing framework: {framework_name}")
-    config_out_dir = f"{HFPROBE_PATH}/results/research_paper/config/{framework_name}"
+    if not out_dir:
+        out_dir = f"{HFPROBE_PATH}/results/research_paper"
+    config_out_dir = f"{out_dir}/config/{framework_name}"
     os.makedirs(config_out_dir, exist_ok=True)
     final_res_path = os.path.join(config_out_dir, "result.json")   
     if os.path.exists(final_res_path):
@@ -242,13 +246,6 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     if os.path.exists(cost_path):
         with open(cost_path) as cf:
             cost_map = json.load(cf)
-            
-    repo_path = HFPROBE_PATH / "data" / "research_paper" / framework_name
-    all_ops, used_ops = find_model_ops(framework_name, repo_path)
-    print(f"used ops for framework {framework_name}: {used_ops}")
-    print(f"all ops for framework {framework_name}: {all_ops}")
-    if not all_ops:
-        return 
     
     start_time = time.time()
     try:
@@ -256,10 +253,15 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
     except:
         traceback.print_exc()
         return
+    
+    repo_path = os.path.join(os.path.dirname(HFPROBE_PATH), "evaluation/section-6-1-bug-detection/benchmarks/research_papers/research_paper_models", framework_name)
+    all_ops, used_ops = find_model_ops(repo_path) 
+    if not all_ops:
+        return 
 
     triggered_ops = find_triggered_ops_hf(framework_name)
-    if triggered_ops is None:
-        return
+    if not triggered_ops:
+        triggered_ops = set()
    
     cannot_tri_path = os.path.join(config_out_dir, "no_trigger.json")   
     cannot_tri = []
@@ -268,8 +270,6 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
             cannot_tri = json.load(nf)
         print("ops cannot be triggered:", cannot_tri)
     
-    if not triggered_ops:
-        triggered_ops = set()
     initial_trigger = triggered_ops.copy()
     if used_ops:
         target_ops = used_ops
@@ -286,26 +286,26 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
             print(op_name, "can not be triggered.")
             continue
         
-        agg_path = f"{HFPROBE_PATH}/results/research_paper/out/{framework_name}/{op_name}.json"
-        if os.path.exists(agg_path):
+        execute_res_path = f"{out_dir}/out/{framework_name}/{op_name}.json"
+        if os.path.exists(execute_res_path):
             print(op_name, "has been handled.")
             continue
 
         config_out_path = os.path.join(config_out_dir, op_name+".json")
-        print(f"Generating config for framework {framework_name} to trigger op {op_name}")
-        time0 = time.time()
-        output, token_usage = generate_transformer(model_id, op_name, repo_url)
-        time1 = time.time()
-        if token_usage:
-            cost_map[op_name] = {"input_token": token_usage["input"], "output_token": token_usage["output"], "money_cost": token_usage["cost"], "gpt_time_cost": time1 - time0}
-            with open(cost_path, "w") as nwf:
-                json.dump(cost_map, nwf)
-        
-        if output and (output.startswith("No") or output.startswith("no")):
-            cannot_tri.append(op_name)
-            with open(cannot_tri_path, "w") as nwf:
-                json.dump(cannot_tri, nwf)
-            continue
+        if not os.path.exists(config_out_path):
+            time0 = time.time()
+            output, token_usage = generate_config(model_id, op_name, repo_url, config_out_dir)
+            time1 = time.time()
+            if token_usage:
+                cost_map[op_name] = {"input_token": token_usage["input"], "output_token": token_usage["output"], "money_cost": token_usage["cost"], "gpt_time_cost": time1 - time0}
+                with open(cost_path, "w") as nwf:
+                    json.dump(cost_map, nwf)
+            
+            if output and (output.startswith("No") or output.startswith("no")):
+                cannot_tri.append(op_name)
+                with open(cannot_tri_path, "w") as nwf:
+                    json.dump(cannot_tri, nwf)
+                continue
         
         config_data = {}
         if os.path.exists(config_out_path):
@@ -317,10 +317,11 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
         
         time0 = time.time()
         try:
-            run_model(framework_name, config_data, op_name)
+            run_model(framework_name, config_data, op_name, out_dir)
         except:
             traceback.print_exc()
             pass
+
         time1 = time.time()
         if op_name not in cost_map:
             cost_map[op_name] = {}
@@ -348,4 +349,7 @@ def handle_one_model_hf(model_id, framework_name, repo_url):
  
 def run_all_models():
     for framework_name in model_map:
-        handle_one_model_hf(model_map[framework_name], framework_name, repo_url_map[framework_name])
+        handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name])
+
+if __name__ == "__main__":
+    run_all_models()
