@@ -170,10 +170,8 @@ def runVllm(modelId, framework_config, model_config, op_name):
         if "illegal memory access" in err_str:
             bug_res.append((modelId, op_name, batch_size, seq_len))
             print("Caught CUDA illegal memory access!")
-        traceback.print_exc()
         pass
     except:
-        traceback.print_exc()
         pass
     
     if framework_config:

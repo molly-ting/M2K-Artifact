@@ -91,7 +91,6 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, batch_siz
     try:
         res = run.testRepro(model_id, batch_size, seq_len, config, op_name, out_path)
     except:
-        run.traceback.print_exc()
         pass
         
     if framework_config:

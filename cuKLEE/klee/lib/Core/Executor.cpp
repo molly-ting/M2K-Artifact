@@ -14030,8 +14030,8 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
         klee_message("Bug Detected: assemblyLine %s: data race", assemblyLine.c_str());
       }
     }
-    state.addressInLoop.erase(loopInfo->indexName);
   }
+  state.addressInLoop.erase(loopInfo->indexName);
 }
 
 void Executor::storeAddressInLoop(ExecutionState &state, KInstruction *ki, ref<Expr> address, const MemoryObject *mo, bool isWrite) {

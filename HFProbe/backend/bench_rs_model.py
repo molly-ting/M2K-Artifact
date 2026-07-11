@@ -672,8 +672,6 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
             shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolized log: {e}")
-        traceback.print_exc()
         if os.path.exists(local_dir):
             shutil.rmtree(local_dir)
 
@@ -920,8 +918,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
                         "calls": tensor_calls.copy()
                     })
                 except Exception as e:
-                    print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    traceback.print_exc()
+                    pass
 
     # --- 8. Save and analyze ---
     print("\n--- Symbolization analysis... ---")
@@ -932,13 +929,10 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        print(f"\n[Success] Aggregated symbolized log has been saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolized log: {e}")
-        traceback.print_exc()
+        pass
         shutil.rmtree(local_dir)
 
 def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name=None):
@@ -1052,11 +1046,9 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
                         "calls": tensor_calls.copy()
                     })
                 except Exception as e:
-                    print(f"[ERROR] Failed at b={batch_size}, s={seq_len}: {e}")
-                    traceback.print_exc()
+                    pass
 
     # --- 8. Save and analyze ---
-    print("\n--- Symbolization analysis... ---")
     with open(rs_data_path, "w") as wf:
         json.dump(data, wf, indent=4)
 
@@ -1064,13 +1056,10 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
-
-        print(f"\n[Success] Aggregated symbolized log has been saved to: {agg_path}")
         shutil.rmtree(local_dir)
 
     except Exception as e:
-        print(f"\n[Error] Failed to generate symbolized log: {e}")
-        traceback.print_exc()
+        pass
         shutil.rmtree(local_dir)
 
 if __name__ == "__main__":

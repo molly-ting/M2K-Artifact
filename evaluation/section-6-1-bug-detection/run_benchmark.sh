@@ -1,5 +1,7 @@
 cd "$(dirname "$0")/../.."
-python3 HFProbe/call-graph/x --scan --out-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout 
+cd HFProbe/call-graph
+bash x scan --kernel-info-out=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout 
+cd ../..
 python3 -m HFProbe.backend.config_agent_vllm --kernel-info-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout --out-dir=evaluation/section-6-1-bug-detection/new_results/vllm
 python3 -m HFProbe.backend.config_agent_hf --out-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
 python3 -m HFProbe.backend.config_agent_rs --out-dir=evaluation/section-6-1-bug-detection/new_results/papers

@@ -343,7 +343,6 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
         run_vllm.handleVLLMModel(model_id, config, op_name, f"{out_dir}/out", f"{out_dir}/load", f"{out_dir}/data", True)
         tmp_triggered_ops = findTriggeredOps(model_id, op_name, f"{out_dir}/out", f"{out_dir}/load")
     except:
-        traceback.print_exc()
         pass
         
     if framework_config:
@@ -651,8 +650,8 @@ def test_one_with_configs(model_id, structure, out_dir=None):
         out_dir = os.path.join(root_dir, f"results/vllm")
     os.makedirs(out_dir, exist_ok=True)
     final_res_path = f"{out_dir}/config/{structure}/result.json"
-    if os.path.exists(final_res_path):
-        return
+    # if os.path.exists(final_res_path):
+    #     return
     
     tmp_config = {"dtype": "float16"}
 
@@ -833,6 +832,10 @@ if __name__ == "__main__":
         elif args.mutate and not args.use_existent_config:
             test_one(args.model_id, args.model_architecture, args.kernel_info_out, args.profile_out_dir, args.seed_config_file)
         elif args.mutate and args.use_existent_config:
+            config_dir = os.path.join(args.profile_out_dir, "config", args.model_architecture)
+            result_path = os.path.join(config_dir, "result.json")
+            if os.path.exists(result_path):
+                os.remove(result_path)
             test_one_with_configs(args.model_id, args.model_architecture, args.profile_out_dir)
         else:
             test_one_without_mutate_config(args.model_id, args.profile_out_dir)

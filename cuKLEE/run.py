@@ -28,7 +28,7 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         print(f"Running cuKLEE on {json_file}")
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", f"--max-entry={MAX_ENTRIES}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--cuklee-out-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
         
         print(f"Output saved to {log_file}")
     
@@ -56,7 +56,7 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
         print(f"Running cuKLEE on {bc_file}")
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--cuklee-out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
         
         print(f"Output saved to {log_file}")
     
@@ -96,13 +96,13 @@ if __name__ == "__main__":
         "--input-dir", type=str, required=True, help="Input directory containing .json files or .bc files"
     )
     parser.add_argument(
-        "--out-dir", type=str, required=False, help="Output directory"
+        "--cuklee-out-dir", type=str, required=False, help="Output directory"
     )
     parser.add_argument(
         "--log-dir", type=str, required=False, help="Log directory"
     )
     parser.add_argument(
-        "--is-json", action=argparse.BooleanOptionalAction, default=True, required=True, default=True, help="Whether the input files are JSON"
+        "--is-json", action=argparse.BooleanOptionalAction, default=True, help="Whether the input files are JSON"
     )
     parser.add_argument(
         "--threads", type=int, required=False, default=5, help="Number of threads to use"
@@ -115,7 +115,7 @@ if __name__ == "__main__":
             exit(1)
         
         current_dirpath = os.path.dirname(os.path.abspath(__file__))
-        output_directory = args.out_dir or os.path.join(current_dirpath, "output")
+        output_directory = args.cuklee_out_dir or os.path.join(current_dirpath, "output")
         log_directory = args.log_dir or os.path.join(current_dirpath, "vllm_log")
         os.makedirs(output_directory, exist_ok=True)
         threads = args.threads if args.threads is not None else 5

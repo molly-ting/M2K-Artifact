@@ -167,8 +167,8 @@ if __name__ == "__main__":
             print(f"Completed analysis for vllm model architecture {args.vllm_model_arch}!")
             print(f"Kernel information is stored in {output_dir}.")
 
-        elif args.vllm_dir:
-            vllm_dir = args.vllm_dir
+        else:
+            vllm_dir = args.vllm_dir if args.vllm_dir else _get_vllm_dir()
             if "." in vllm_dir:
                 vllm_dir = _copy_vllm_to_hfprobe(vllm_dir, root_dir)
             start_time = time.time()

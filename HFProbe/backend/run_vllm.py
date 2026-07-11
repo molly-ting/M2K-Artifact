@@ -102,15 +102,12 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-o
                         with open(loadOutPath, "w") as wf:
                             json.dump(tmp_calls, wf)
     except Exception as e: 
-        traceback.print_exc()
-        print(e)
         clean(modelId)
         framework.tensor_calls.clear()
         framework.calls_map.clear()
         failed_models.append(modelId)
         return
     except MemoryError:
-        print("Caught MemoryError - likely trying to allocate too much RAM")
         clean(modelId)
         framework.tensor_calls.clear()
         framework.calls_map.clear()
@@ -208,12 +205,9 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
                         **configs
                     )
     except Exception as e: 
-        traceback.print_exc()
-        print(e)
         clean(modelId)
         return -1 
     except MemoryError:
-        print("Caught MemoryError - likely trying to allocate too much RAM")
         clean(modelId)
         return -3
     

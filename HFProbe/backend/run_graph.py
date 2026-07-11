@@ -651,7 +651,6 @@ def run_ultra(model_id):
                             trust_remote_code=True,
                         ).eval()
                 except Exception as e:
-                    traceback.print_exc()
                     continue
                 from models_hf.mgalkin_ultra_3g.ultra import datasets
                 for dName in TRANSDUCTIVE:
@@ -756,7 +755,6 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
                     device_map="cpu",
                 ).eval()
         except Exception as e:
-            traceback.print_exc()
             return
 
         from models_hf.mgalkin_ultra_3g.ultra import datasets
@@ -801,7 +799,6 @@ def run_ultra_with_config(model_id, override_configs=None, output_dir=None, op_n
                     t_pred = model(test_data, t_batch)
                     h_pred = model(test_data, h_batch)
                 except:
-                    traceback.print_exc()
                     continue
 
                 data.append({"batch_size": batch_size, "dataset": dName, "calls": tensor_calls.copy()})

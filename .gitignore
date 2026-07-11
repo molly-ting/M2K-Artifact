@@ -1,5 +1,7 @@
 cuKLEE/build
 cuKLEE/klee/build
+cuKLEE/compiled
+cuKLEE/results
 */__pycache__
 **/__pycache__/
 .dockerignore
@@ -11,4 +13,5 @@ HFProbe/vllm
 HFProbe/results
 HFProbe/validation/*_results.json
 example/out
-example/*_modified.bc
+**/*_modified.bc
+.vscode

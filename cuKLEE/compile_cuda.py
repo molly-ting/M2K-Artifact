@@ -25,7 +25,6 @@ signed_clang_path = _resolve_signed_clang_path()
 try:
     import torch
     TORCH_INCLUDE = os.path.join(os.path.dirname(torch.__file__), "include")
-    print(TORCH_INCLUDE)
     if not os.path.exists(TORCH_INCLUDE):
         raise FileNotFoundError(f"PyTorch include directory not found at {TORCH_INCLUDE}")
 except ImportError:
@@ -48,19 +47,19 @@ OPENMP_INCLUDE_DIR = _resolve_first_existing_path(OPENMP_INCLUDE_DIRS)
 
 
 # Utility function to run shell commands
-def run_command(command, cwd=None):
+def run_command(command, cwd=None, print_error=True):
     print(f"Running command: {' '.join(command)}")
     result = subprocess.run(command, cwd=cwd, text=True, capture_output=True)
     if result.returncode != 0:
-        print(f"Error: Command failed with return code {result.returncode}")
-        print(f"Stdout: {result.stdout}")
-        print(f"Stderr: {result.stderr}")
+        if print_error:
+            print(f"Error: Command failed with return code {result.returncode}")
+            print(f"Stdout: {result.stdout}")
+            print(f"Stderr: {result.stderr}")
         return False
     else:
-        print(result.stdout)
         return True
 
-def compile_cu_file(cu_file, root_path):
+def compile_cu_file(cu_file, root_path=None):
     print(f"Compiling {cu_file}...")
     if not root_path:
         root_path = os.path.dirname(cu_file)
@@ -100,12 +99,15 @@ def compile_cu_file(cu_file, root_path):
 
 
 def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
-    os.makedirs(outputDir, exist_ok=True)
+    output_path = Path(outputDir).expanduser().resolve()
+    input_path = Path(inputDir).expanduser().resolve()
+
+    os.makedirs(output_path, exist_ok=True)
     original_dir = os.getcwd()
-    os.chdir(outputDir)
+    os.chdir(output_path)
 
     print("Compiling CUDA files...")
-    cu_files = list(Path(inputDir).rglob("*.cu"))
+    cu_files = list(input_path.rglob("*.cu"))
     if not cu_files:
         print("No .cu files found in the source directory.")
         sys.exit(1)
@@ -120,7 +122,7 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
 
         if contain_dirname:
             parent_dir = cu_file.parent.name
-            output_prefix = filename if parent_dir == "csrc" else parent_dir + "_" + filename 
+            output_prefix = filename if parent_dir == input_path.name else parent_dir + "_" + filename 
         else:
             output_prefix = filename
 
@@ -129,7 +131,7 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
         combined_bc_file = f"{output_prefix}{COMBINED_SUFFIX}"
 
         if not os.path.exists(host_bc_file):
-            if not compile_cu_file(str(cu_file)):
+            if not compile_cu_file(str(cu_file), root_path=str(input_path)):
                 failed_files.append(str(cu_file))
                 continue
 
@@ -143,11 +145,11 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
                 "-o", combined_bc_file,
                 host_bc_file,
                 cuda_bc_file
-            ])
+            ], print_error=False)
             run_command([
                 "llvm-dis-13",
                 combined_bc_file
-            ])
+            ], print_error=False)
 
     os.chdir(original_dir)
 
@@ -395,12 +397,12 @@ if __name__ == "__main__":
     elif args.compile_hf:
         compile_hf()
     elif args.cuda_source_dir:
-        if not args.compiled_kernels_dir:
-            args.compiled_kernels_dir = args.cuda_source_dir
-        compileDir(args.compiled_kernels_dir, args.cuda_source_dir)
+        if not args.compiled_kernel_dir:
+            args.compiled_kernel_dir = args.cuda_source_dir
+        compileDir(args.compiled_kernel_dir, args.cuda_source_dir)
     elif args.cuda_file:
-        if not args.compiled_kernels_dir:
-            args.compiled_kernels_dir = os.path.dirname(args.cuda_file)
-        os.makedirs(args.compiled_kernels_dir, exist_ok=True)
-        os.chdir(args.compiled_kernels_dir)
+        if not args.compiled_kernel_dir:
+            args.compiled_kernel_dir = os.path.dirname(args.cuda_file)
+        os.makedirs(args.compiled_kernel_dir, exist_ok=True)
+        os.chdir(args.compiled_kernel_dir)
         compile_cu_file(args.input_file, root_path=os.path.dirname(args.input_file))

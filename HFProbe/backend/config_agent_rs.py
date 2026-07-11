@@ -258,7 +258,6 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     try:
         run_model(framework_name, None, None)
     except:
-        traceback.print_exc()
         return
     
     repo_path = os.path.join(os.path.dirname(HFPROBE_PATH), "evaluation/section-6-1-bug-detection/benchmarks/research_papers/research_paper_models", framework_name)
@@ -326,7 +325,6 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
         try:
             run_model(framework_name, config_data, op_name, out_dir)
         except:
-            traceback.print_exc()
             pass
 
         time1 = time.time()

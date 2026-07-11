@@ -1,5 +1,6 @@
 import argparse
 import os, json
+from pathlib import Path
 from huggingface_hub import HfApi, hf_hub_download
 import requests
 
@@ -186,16 +187,21 @@ def remove_ignored(obj, ignored=None):
     # Case 3: Other (int, str, float, None…) → return as-is
     return obj
 
-def _vllm_input_file_path(compile_path, kernel_info):
+def _vllm_input_file_path(compile_path, cuda_source_dir, kernel_info):
     file_path = kernel_info["file_path"]
     cuda_file_name = os.path.basename(file_path)
     cuda_file_name = os.path.splitext(cuda_file_name)[0] + "_combined.bc"
 
-    parent_dir = os.path.basename(os.path.dirname(file_path))
-    if parent_dir != "csrc":
+    parent_path = Path(file_path).expanduser().resolve().parent
+    source_path = Path(cuda_source_dir).expanduser().resolve()
+    parent_dir = parent_path.name
+    if parent_path != source_path and parent_dir != "csrc" and parent_dir != "cuda_files":
         cuda_file_name = parent_dir + "_" + cuda_file_name
 
-    return os.path.join(compile_path, cuda_file_name)
+    res_path = os.path.join(compile_path, cuda_file_name)
+    if os.path.exists(res_path):
+        return res_path
+    return None
 
 def _numeric_value(value):
     if isinstance(value, bool):
@@ -277,7 +283,7 @@ def _append_or_merge_vllm_input(items, item, ignore_max):
     items.append(item)
     return True
 
-def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, max_seq_len=None, max_token_num=None):
+def _read_vllm_output_file(filepath, kernel_map, compile_path, cuda_source_dir, res, ignore_max, max_seq_len=None, max_token_num=None):
     if not os.path.exists(filepath):
         return
 
@@ -296,21 +302,25 @@ def _read_vllm_output_file(filepath, kernel_map, compile_path, res, ignore_max, 
         cuda_func = kernel_info["func_name"]
         if cuda_func not in res:
             res[cuda_func] = []
-
+        input_file_path = _vllm_input_file_path(compile_path, cuda_source_dir, kernel_info)
+        if not input_file_path:
+            continue
+        
         for args in arg_constraints:
             item = {
                 "py_function": py_func_name,
                 "cuda_function": cuda_func,
-                "input_file_path": _vllm_input_file_path(compile_path, kernel_info),
+                "input_file_path": input_file_path,
                 "args": args,
             }
+            
             if max_seq_len is not None:
                 item["seq_len"] = max_seq_len
             if max_token_num is not None:
                 item["num_tokens"] = max_token_num
             _append_or_merge_vllm_input(res[cuda_func], item, ignore_max)
 
-def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
+def _read_vllm_load_file(filepath, kernel_map, compile_path, cuda_source_dir, res, ignore_max):
     if not os.path.exists(filepath):
         return
 
@@ -334,19 +344,25 @@ def _read_vllm_load_file(filepath, kernel_map, compile_path, res, ignore_max):
         cuda_func = kernel_info["func_name"]
         if cuda_func not in res:
             res[cuda_func] = []
-
+        input_file_path = _vllm_input_file_path(compile_path, cuda_source_dir, kernel_info)
+        if not input_file_path:
+            continue
+        
         tmp = {
             "py_function": py_func_name,
             "cuda_function": cuda_func,
-            "input_file_path": _vllm_input_file_path(compile_path, kernel_info),
+            "input_file_path": input_file_path,
             "args": item["args"],
         }
         _append_or_merge_vllm_input(res[cuda_func], tmp, ignore_max)
 
-def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=None, ignore_max=True, has_seq_con=False, has_token_con=False):
+def generate_vllm_inputs(result_dir=None, compile_path=None, cuda_source_dir=None, kernel_map_path=None, ignore_max=True, has_seq_con=False, has_token_con=False):
     if compile_path is None:
         compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "compiled_files")
     
+    if cuda_source_dir is None:
+        cuda_source_dir = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
+
     if result_dir is None:
         result_dir = os.path.join(current_dir, "results", "vllm")
 
@@ -382,7 +398,7 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
                 model_id = name[:-5].replace("_", "/", 1)
                 max_token_num = get_max_token_vllm(model_id)
 
-            _read_vllm_output_file(model_file_path, kernel_map, compile_path, res, ignore_max, max_seq_len, max_token_num)
+            _read_vllm_output_file(model_file_path, kernel_map, compile_path, cuda_source_dir, res, ignore_max, max_seq_len, max_token_num)
             continue
         
         max_seq_len = None
@@ -410,6 +426,7 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
                     os.path.join(model_file_path, op_file),
                     kernel_map,
                     compile_path,
+                    cuda_source_dir,
                     res,
                     ignore_max,
                     max_seq_len,
@@ -429,14 +446,19 @@ def generate_vllm_inputs(result_dir=None, compile_path=None, kernel_map_path=Non
         else:
             write_data = items
 
+        if not write_data:
+            continue
         with open(out_filepath, "w") as wf:
             json.dump(write_data, wf, indent=4)
 
     return res
 
-def generate_vllm_input_load(result_dir, compile_path, kernel_map_path=None, ignore_max=True):
+def generate_vllm_input_load(result_dir, compile_path, cuda_source_dir=None, kernel_map_path=None, ignore_max=True):
     if compile_path is None:
         compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "compiled_files")
+
+    if cuda_source_dir is None:
+        cuda_source_dir = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
     
     if result_dir is None:
         result_dir = os.path.join(current_dir, "results", "vllm")
@@ -463,6 +485,7 @@ def generate_vllm_input_load(result_dir, compile_path, kernel_map_path=None, ign
                 os.path.join(root, file),
                 kernel_map,
                 compile_path,
+                cuda_source_dir,
                 res,
                 ignore_max,
             )
@@ -483,6 +506,8 @@ def generate_vllm_input_load(result_dir, compile_path, kernel_map_path=None, ign
         else:
             write_data = items
 
+        if not write_data:
+            continue
         with open(out_filepath, "w") as wf:
             json.dump(write_data, wf, indent=4)
 
@@ -546,6 +571,8 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=No
             file_path = kernel_info["file_path"]
             cuda_file_name = os.path.basename(file_path).split(".")[0] + "_combined.bc"
             input_file_path = os.path.join(compile_path, cuda_file_name)
+            if not os.path.exists(input_file_path):
+                continue
 
             if cuda_func not in res:
                 res[cuda_func] = []
@@ -599,7 +626,9 @@ def generate_one_hf(model_id, compile_path, kernel_map_path=None, result_dir=Non
             for item in res[func]:
                 if item not in write_data:
                     write_data.append(item)
-                
+        
+        if not write_data:
+            continue
         with open(out_filepath, "w") as wf:
             json.dump(write_data, wf, indent=4)
 
@@ -690,15 +719,15 @@ if __name__ == "__main__":
     elif args.vllm_benchmark:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.profile_out_dir, kernel_map_path)
-        generate_vllm_inputs(None, None, kernel_map_path, True, False)
-        generate_vllm_input_load(None, None, True)
+        generate_vllm_inputs(None, None, None, kernel_map_path, True, False)
+        generate_vllm_input_load(None, None, None, kernel_map_path, True)
     elif args.hf_benchmark:
         generate_all_hf(None, args.profile_out_dir)
     elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)
-        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False, True, args.add_memory_max_num_tokens)
-        generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, kernel_map_path, False)
+        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, args.cuda_source_dir, kernel_map_path, False, True, args.add_memory_max_num_tokens)
+        generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, args.cuda_source_dir, kernel_map_path, False)
         print("Done!")
         print("The input files are stored in the directory: " + os.path.join(args.profile_out_dir, "input"))
     elif args.model_id:

@@ -91,8 +91,6 @@ def get_hf_max_model_len():
                 filename="config.json"
             )
         except:
-            print(f"Failed to download config for {model_id}")
-            traceback.print_exc()
             continue
 
         with open(path) as f:
