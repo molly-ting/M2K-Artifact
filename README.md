@@ -19,7 +19,7 @@ This document provides instructions for reproducing the experimental results rep
 
 ### Option-1: Native installation
 ```bash
-./setup.sh
+bash setup.sh
 ```
 ### Option-2: Containerized installation 
 ```bash
@@ -68,6 +68,7 @@ Output:
 **Command:**
 
 ```bash
+cd ../..
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
 # run from the repository root
