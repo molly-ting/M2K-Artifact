@@ -9705,6 +9705,20 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       specialFunctionHandler->handle(state, func->function, target, arguments))
     return;
 
+  StringRef externalName = callable->getName();
+  if (externalName == "__cxa_atexit" || externalName == "atexit" ||
+      externalName == "__cxa_thread_atexit_impl" ||
+      externalName == "__cxa_finalize") {
+    // klee_warning_once(callable->getValue(),
+    //                   "ignoring external destructor registration: %s",
+    //                   externalName.str().c_str());
+    Type *resultType = target->inst->getType();
+    if (!resultType->isVoidTy())
+      bindLocal(target, state,
+                ConstantExpr::create(0, getWidthForLLVMType(resultType)));
+    return;
+  }
+
   if (ExternalCalls == ExternalCallPolicy::None &&
       !okExternals.count(callable->getName().str())) {
     klee_warning("Disallowed call to external function: %s\n",

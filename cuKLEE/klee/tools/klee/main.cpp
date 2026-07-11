@@ -1892,8 +1892,6 @@ int main(int argc, char **argv, char **envp) {
         << '\n'
         << "cuKLEE: done: partially completed paths = "
         << handler->getNumPathsExplored() - handler->getNumPathsCompleted()
-        << '\n'
-        << "cuKLEE: done: generated tests = " << handler->getNumTestCases()
         << '\n';
 
   bool useColors = llvm::errs().is_displayed();

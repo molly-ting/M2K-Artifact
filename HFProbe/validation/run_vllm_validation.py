@@ -1,9 +1,19 @@
 import argparse
 import os, json
-from ..backend import run_vllm as run
+import sys
 import ast
-from ..input_generate import get_max_token_vllm, get_max_model_len
-from .verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
+
+if __package__ is None or __package__ == "":
+    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    if root_dir not in sys.path:
+        sys.path.insert(0, root_dir)
+    from HFProbe.backend import run_vllm as run
+    from HFProbe.input_generate import get_max_token_vllm, get_max_model_len
+    from HFProbe.validation.verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
+else:
+    from ..backend import run_vllm as run
+    from ..input_generate import get_max_token_vllm, get_max_model_len
+    from .verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
 
 
 possible_len_keys = [
@@ -24,6 +34,8 @@ possible_len_keys = [
     "max_seq_length",
     "seq_len",
 ]
+
+executed_configs = []
 
 def run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir, rerun=False, run_benchmark_existent=False):
     out_path = f"{result_dir}/validation/{model_id.replace('/', '_')}/{op_name}-{lineno}-{index}.json"
@@ -66,8 +78,7 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, batch_siz
     max_num_batched_tokens=batch_size*seq_len
     if max_model_len and max_num_batched_tokens > max_model_len:
         config["max_num_batched_tokens"] = max_num_batched_tokens
-    if batch_size > 128:
-        config["max_num_seqs"] = batch_size
+    config["max_num_seqs"] = batch_size
     
     if run_benchmark_existent:
         if op_name == "advance_step_flashinfer":
@@ -92,9 +103,11 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(current_dir)
     
 def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, result_dir):
+    global executed_configs
+    
     klee_function_out_path = None
     for dirname in os.listdir(klee_out_dir):
-        if len(op_name) + op_name in dirname:
+        if str(len(op_name)) + op_name in dirname:
             klee_function_out_path = os.path.join(klee_out_dir, dirname)
             break
     
@@ -119,9 +132,10 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
     with open(config_file) as cf:
         model_config = json.load(cf)
 
+    record = {}
     res = {}
     for lineno in os.listdir(constraint_path):
-        if not lineno.endswith(".txt"):
+        if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
 
         smt_file_path = os.path.join(constraint_path, lineno)
@@ -130,9 +144,16 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
             print("no solution found for batch_size and seq_len")
             continue
         
-        print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
-        params_data = run_vllm_config(fcon, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir)
-
+        if batch_size ==-1 or seq_len == -1:
+            continue
+        
+        if (config_file, op_name, batch_size, seq_len) in record:
+            params_data = record[(config_file, op_name, batch_size, seq_len)]
+        else:
+            print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
+            params_data = run_vllm_config(fcon, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir)
+            record[(config_file, op_name, batch_size, seq_len)] = params_data
+        
         if params_data and isinstance(params_data, int):
             error_msg = "model config is invalid"
             res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
@@ -193,13 +214,16 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
 
     res = {}
     for lineno in os.listdir(constraint_path):
-        if not lineno.endswith(".txt"):
+        if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
 
         smt_file_path = os.path.join(constraint_path, lineno)
         batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
             res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file}
+            continue
+        
+        if batch_size ==-1 or seq_len == -1:
             continue
         
         print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")

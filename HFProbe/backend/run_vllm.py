@@ -58,6 +58,8 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-o
     
     if seq_lens_configs[0] > 1024:
         framework.reduce_max_model_len = False
+    else:
+        framework.reduce_max_model_len = True
         
     print("Running model ", modelId, "...")
     if "max_num_seqs" not in configs:
@@ -182,11 +184,15 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
         configs["enable_chunked_prefill"] = False
     if "num_gpu_blocks_override" not in configs:
         configs["num_gpu_blocks_override"] = max(30, 2*batch_size*seq_len//16)
+    if not "max_num_batched_tokens" in configs:
+        configs["max_num_batched_tokens"] = max(batch_size*seq_len+1, 4096)
 
     max_token = None
     if "sampling" in configs:
         max_token = configs["sampling"]["max_tokens"]
         configs.pop("sampling")
+    
+    framework.reduce_max_model_len = False
         
     try:
         with framework.fast_dummy_init(mode=os.getenv("BOS_FAST_DUMMY_INIT", "empty")):
@@ -199,7 +205,6 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
                         gpu_memory_utilization=1.0,
                         trust_remote_code=True,
                         hf_token=framework.HF_TOKEN,
-                        max_num_batched_tokens=max(batch_size*seq_len+1, 4096),
                         **configs
                     )
     except Exception as e: 

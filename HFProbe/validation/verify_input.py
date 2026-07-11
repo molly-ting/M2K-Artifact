@@ -95,6 +95,22 @@ def compare_json_arrays(arr1, arr2, symvals):
     return True
 
 processed = {}
+def add_smt2_constraints(solver, content):
+    if hasattr(z3, "parse_smt2_string"):
+        solver.add(z3.parse_smt2_string(content))
+        return True
+
+    if hasattr(solver, "from_string"):
+        solver.from_string(content)
+        return True
+
+    z3_path = getattr(z3, "__file__", "<unknown>")
+    print(
+        "The installed z3 Python module does not support parsing SMT-LIB "
+        f"strings. Imported z3 from {z3_path}."
+    )
+    return False
+
 def solve_with_bounds(smt_file, N1, N2):
     global processed
     
@@ -110,12 +126,10 @@ def solve_with_bounds(smt_file, N1, N2):
     content = content.replace("(get-model)", "")
     content = content.replace("(reset)", "")
     
-    constraints = z3.parse_smt2_string(content)
-
-    tactic = z3.Then("simplify", "purify-arith", "nlsat")
-    s = tactic.solver()
+    s = z3.Solver()
     s.set(timeout=30000)
-    s.add(constraints)
+    if not add_smt2_constraints(s, content):
+        return -1, -1
 
     # Declare variables
     batch_size = z3.Int('batch_size')
@@ -147,12 +161,10 @@ def solve_with_bounds(smt_file, num_tokens, max_model_len=None):
     content = content.replace("(get-model)", "")
     content = content.replace("(reset)", "")
     
-    constraints = z3.parse_smt2_string(content)
-
-    tactic = z3.Then("simplify", "purify-arith", "nlsat")
-    s = tactic.solver()
+    s = z3.Solver()
     s.set(timeout=30000)
-    s.add(constraints)
+    if not add_smt2_constraints(s, content):
+        return -1, -1
 
     # Declare variables
     batch_size = z3.Int('batch_size')

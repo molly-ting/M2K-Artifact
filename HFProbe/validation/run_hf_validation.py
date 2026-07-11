@@ -35,7 +35,7 @@ def run_case(model_id, override_configs, op_name, batch_size, seq_len, lineno, i
 def hf_validate_one(klee_out_dir, cuda_func, py_func, index, model_id, config_file, result_dir):
     klee_function_out_path = None
     for dirname in os.listdir(klee_out_dir):
-        if len(cuda_func) + cuda_func in dirname:
+        if str(len(cuda_func)) + cuda_func in dirname:
             klee_function_out_path = os.path.join(klee_out_dir, dirname)
             break
     
@@ -55,13 +55,16 @@ def hf_validate_one(klee_out_dir, cuda_func, py_func, index, model_id, config_fi
 
     res = {}
     for lineno in os.listdir(constraint_path):
-        if not lineno.endswith(".txt"):
+        if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
 
         smt_file_path = os.path.join(constraint_path, lineno)
         batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
             print("no solution found for batch_size and seq_len")
+            continue
+        
+        if batch_size ==-1 or seq_len == -1:
             continue
         
         print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
@@ -118,13 +121,16 @@ def hf_validate_one_inner(klee_function_out_dir, cuda_func, py_func, index, mode
 
     res = {}
     for lineno in os.listdir(constraint_path):
-        if not lineno.endswith(".txt"):
+        if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
 
         smt_file_path = os.path.join(constraint_path, lineno)
         batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
             res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file}
+            continue
+        
+        if batch_size ==-1 or seq_len == -1:
             continue
         
         print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")

@@ -42,6 +42,7 @@ Command:
 cd HFProbe/call-graph
 bash x scan --vllm-model-arch=Qwen2ForCausalLM --kernel-info-out=opout
 ```
+(take ~2min)
 
 `bash x scan` accepts the following options:
 
@@ -254,9 +255,9 @@ results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```bash
 # compile cuda files to LLVM bitcode
 # running profiling backend will trigger multiple kernels. we have to compile all cuda files in vLLM.
-python3 ../cuKLEE/compile_cuda.py --cuda-source-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --compiled-kernel-dir=../cuKLEE/compiled/vllm
-# some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernel-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
-python3 input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=results/vllm --compiled-kernel-dir=../cuKLEE/compiled/vllm --cuda-source-dir=../evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
+python3 cuKLEE/compile_cuda.py --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --compiled-kernel-dir=cuKLEE/compiled/vllm
+# some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernel-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
+python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=HFProbe/results/vllm --compiled-kernel-dir=cuKLEE/compiled/vllm --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
 
 `compile_cuda.py` accepts the following options:
@@ -329,7 +330,6 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
 
 **Step 4: run cuKLEE** 
 ```bash
-cd ..
 mkdir example/out
 cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_quant.json
 # to run multiple files in a batch
@@ -394,9 +394,10 @@ io - integer overflow
 
 **Step 5: validate reported bugs** 
 ```bash
-# if you haven't run previous HFProbe steps, copy example/dynamic_scaled_fp8_quant.json to HFProbee/results/vllm/input 
-python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/results/vllm --cuklee-out-dir=example/out --kernel-name=dynamic_scaled_fp8_quant --index=0 --model-id=Qwen/Qwen2-0.5B-Instruct --config-file=example/dynamic_scaled_fp8_quant_config.json
+# if you haven't run previous HFProbe steps, copy example/dynamic_scaled_fp8_quant.json to HFProbe/results/vllm/input 
+python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/results/vllm --cuklee-out-dir=example/out --kernel-name=dynamic_scaled_fp8_quant --index=0 --model-id=Qwen/Qwen2-0.5B-Instruct --config-file=example/config/dynamic_scaled_fp8_quant.json
 ```
+(take ~26min)
 
 `run_vllm_validation.py` accepts the following options:
 - `--profile-out-dir=<dir>` — out-dir of step 2.
@@ -409,16 +410,40 @@ python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/resu
 **Expected output:** 
 console output
 ```text
+INFO 07-11 13:12:01 [__init__.py:247] No platform detected, vLLM is running on UnspecifiedPlatform
+patch current platform as cuda platform
+Running model Qwen/Qwen2-0.5B-Instruct with example/config/dynamic_scaled_fp8_quant.json, batch_size: 65 seq_len: 32264.
+INFO 07-11 13:12:13 [__init__.py:31] Available plugins for group vllm.general_plugins:
+...
+INFO 07-11 13:18:45 [llm_engine.py:428] init engine (profile, create kv cache, warmup model) took 362.18 seconds
+real_seq_len=32264 ...
+Adding requests: 100%|█████████████████████████████████████| 65/65 [00:11<00:00,  5.56it/s]
+Processed prompts: 100%|█| 65/65 [05:51<00:00,  5.41s/it, est. speed input: 5960.85 toks/s]
+Running model Qwen/Qwen2-0.5B-Instruct with batch_size: 65 seq_len: 32264 config_file: example/config/dynamic_scaled_fp8_quant.json can trigger bug 19_18_119-asm-15118_4337_11163_io.txt for dynamic_scaled_fp8_quant.
+Running model Qwen/Qwen2-0.5B-Instruct with example/config/dynamic_scaled_fp8_quant.json, batch_size: 64 seq_len: 32768.
+INFO 07-11 13:25:01 [config.py:520] Overriding HF config with 
+...
+INFO 07-11 13:31:10 [llm_engine.py:428] init engine (profile, create kv cache, warmup model) took 364.53 seconds
+real_seq_len=32768 ...
+Adding requests: 100%|█████████████████████████████████████| 64/64 [00:11<00:00,  5.43it/s]
+Processed prompts: 100%|█| 64/64 [06:07<00:00,  5.74s/it, est. speed input: 5704.52 toks/s, output: 0.17]
+Running model Qwen/Qwen2-0.5B-Instruct with batch_size: 64 seq_len: 32768 config_file: example/config/dynamic_scaled_fp8_quant.json can trigger bug 128_24_18-asm-15242_15133_4337_io.txt for dynamic_scaled_fp8_quant.
 ```
-validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_config_0__validate_results.json
+validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json
 ```json
 {
-    "": {
-        "status": "success", 
-        "batch_size": , 
-        "seq_len": , 
-        "config": "example/dynamic_scaled_fp8_quant_config.json"
-    }
+  "19_18_119-asm-15118_4337_11163_io.txt": {
+    "status": "success",
+    "batch_size": 65,
+    "seq_len": 32264,
+    "config": "example/config/dynamic_scaled_fp8_quant.json"
+  },
+  "128_24_18-asm-15242_15133_4337_io.txt": {
+    "status": "success",
+    "batch_size": 64,
+    "seq_len": 32768,
+    "config": "example/config/dynamic_scaled_fp8_quant.json"
+  }
 }
 ```
 

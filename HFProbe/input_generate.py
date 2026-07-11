@@ -2,7 +2,11 @@ import argparse
 import os, json
 from huggingface_hub import HfApi, hf_hub_download
 import requests
-import wrapper
+
+try:
+    from . import wrapper
+except ImportError:
+    import wrapper
 
 vllm_ignored = {"maxV", "minV", "symRanges"}
 
