@@ -898,9 +898,9 @@ def fake_memory_efficient_attention(q, k, v, *args, **kwargs):
     out = torch.zeros((B, Mq, H, Kv), dtype=q.dtype, device=q.device)
     return out
 
-import xformers.ops as xops
-xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forward
-xops.memory_efficient_attention = fake_memory_efficient_attention
+# import xformers.ops as xops
+# xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forward
+# xops.memory_efficient_attention = fake_memory_efficient_attention
 
 from .vllm_kernel_mock import *
 
@@ -1049,6 +1049,30 @@ fake_allocator = types.SimpleNamespace(
     python_unmap_and_release=lambda *args, **kwargs: None, 
 )
 sys.modules["vllm.cumem_allocator"] = fake_allocator
+# try to fix
+class DummyCuMemAllocator:
+    @classmethod
+    def get_instance(cls):
+        return cls()
+
+    def get_current_usage(self):
+        return 0
+
+    @contextlib.contextmanager
+    def use_memory_pool(self, tag=None):
+        yield
+
+    def sleep(self, offload_tags=None):
+        pass
+
+    def wake_up(self, tags=None):
+        pass
+
+
+fake_cumem_module = types.ModuleType("vllm.device_allocator.cumem")
+fake_cumem_module.CuMemAllocator = DummyCuMemAllocator
+sys.modules["vllm.device_allocator.cumem"] = fake_cumem_module
+# fix end
 
 class FakeQuantizationUtils:
     @staticmethod
@@ -1402,7 +1426,7 @@ def dummy_autotune(*args, **kwargs):
 triton.autotune = dummy_autotune
 
 
-import flashinfer.jit.core as fjitcore
+# import flashinfer.jit.core as fjitcore
 
 class DummyPlan:
     def __init__(self):
@@ -1424,7 +1448,7 @@ def dummy_build_and_load(self, *args, **kwargs):
     self.block_sparse_indices_to_vector_sparse_offsets = DummyFunc()
     return self
 
-fjitcore.JitSpec.build_and_load = dummy_build_and_load
+# fjitcore.JitSpec.build_and_load = dummy_build_and_load
 
 
 import vllm.attention.ops.triton_unified_attention as triton_attn
@@ -1524,7 +1548,8 @@ def fake_device_loading_context(module, target_device):
 import vllm.model_executor.model_loader.utils as utils
 utils.device_loading_context = fake_device_loading_context
 
-import vllm.config.model as model_config_mod
+# import vllm.config.model as model_config_mod
+import vllm.config as model_config_mod
 
 original_get_and_verify_max_len = model_config_mod.ModelConfig.get_and_verify_max_len
 
