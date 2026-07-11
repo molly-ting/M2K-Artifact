@@ -46,7 +46,7 @@ bash x scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
 `bash x scan` accepts the following options:
 
 - `--out=<dir>` — directory that stores information about the possibly-triggered kernels (default: `HFProbe/call-graph/opout`).
-- `--vllm-dir=<dir>` — directory of the vLLM repository; if unset, the installed vLLM path is used.
+- `--vllm-dir=<dir>` — directory of the vLLM repository (ensure not to contain "." in the absolute path); if unset, copy the installed vLLM to HFProbe/vllm (ensure the absolute path of HFProbe does not contain ".").
 - `--vllm-model-arch=<arch>` — model architecture of the target model; if unset, all vLLM model architectures are analyzed.
 
 Output:

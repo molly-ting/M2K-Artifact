@@ -17,6 +17,47 @@ os.environ["XDG_CONFIG_HOME"] = os.path.join(root_dir, ".config")
 os.environ["GIT_LFS_SKIP_SMUDGE"] = "1"
 HF_TOKEN = os.getenv("HF_TOKEN")
 
+# def _patch_transformers_duplicate_aimv2_registration():
+#     try:
+#         from transformers.models.auto.configuration_auto import AutoConfig, CONFIG_MAPPING
+#     except Exception:
+#         return
+
+#     if getattr(AutoConfig, "_hfprobe_aimv2_register_patch", False):
+#         return
+
+#     original_register = AutoConfig.register
+
+#     def register_with_aimv2_compat(model_type, config, exist_ok=False):
+#         try:
+#             return original_register(model_type, config, exist_ok=exist_ok)
+#         except ValueError as exc:
+#             if model_type == "aimv2" and model_type in CONFIG_MAPPING:
+#                 return None
+#             raise exc
+
+#     AutoConfig.register = staticmethod(register_with_aimv2_compat)
+#     AutoConfig._hfprobe_aimv2_register_patch = True
+
+
+# _patch_transformers_duplicate_aimv2_registration()
+
+# def _patch_transformers_special_tokens_extended():
+#     try:
+#         from transformers.tokenization_utils_base import PreTrainedTokenizerBase
+#     except Exception:
+#         return
+
+#     if hasattr(PreTrainedTokenizerBase, "all_special_tokens_extended"):
+#         return
+
+#     PreTrainedTokenizerBase.all_special_tokens_extended = property(
+#         lambda self: self.all_special_tokens
+#     )
+
+
+# _patch_transformers_special_tokens_extended()
+
 import torch
 from torch import Tensor
 import functools
@@ -898,9 +939,9 @@ def fake_memory_efficient_attention(q, k, v, *args, **kwargs):
     out = torch.zeros((B, Mq, H, Kv), dtype=q.dtype, device=q.device)
     return out
 
-# import xformers.ops as xops
-# xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forward
-# xops.memory_efficient_attention = fake_memory_efficient_attention
+import xformers.ops as xops
+xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forward
+xops.memory_efficient_attention = fake_memory_efficient_attention
 
 from .vllm_kernel_mock import *
 
@@ -1050,28 +1091,28 @@ fake_allocator = types.SimpleNamespace(
 )
 sys.modules["vllm.cumem_allocator"] = fake_allocator
 # try to fix
-class DummyCuMemAllocator:
-    @classmethod
-    def get_instance(cls):
-        return cls()
+# class DummyCuMemAllocator:
+#     @classmethod
+#     def get_instance(cls):
+#         return cls()
 
-    def get_current_usage(self):
-        return 0
+#     def get_current_usage(self):
+#         return 0
 
-    @contextlib.contextmanager
-    def use_memory_pool(self, tag=None):
-        yield
+#     @contextlib.contextmanager
+#     def use_memory_pool(self, tag=None):
+#         yield
 
-    def sleep(self, offload_tags=None):
-        pass
+#     def sleep(self, offload_tags=None):
+#         pass
 
-    def wake_up(self, tags=None):
-        pass
+#     def wake_up(self, tags=None):
+#         pass
 
 
-fake_cumem_module = types.ModuleType("vllm.device_allocator.cumem")
-fake_cumem_module.CuMemAllocator = DummyCuMemAllocator
-sys.modules["vllm.device_allocator.cumem"] = fake_cumem_module
+# fake_cumem_module = types.ModuleType("vllm.device_allocator.cumem")
+# fake_cumem_module.CuMemAllocator = DummyCuMemAllocator
+# sys.modules["vllm.device_allocator.cumem"] = fake_cumem_module
 # fix end
 
 class FakeQuantizationUtils:
@@ -1426,7 +1467,10 @@ def dummy_autotune(*args, **kwargs):
 triton.autotune = dummy_autotune
 
 
-# import flashinfer.jit.core as fjitcore
+try:
+    import flashinfer.jit.core as fjitcore
+except ModuleNotFoundError:
+    fjitcore = None
 
 class DummyPlan:
     def __init__(self):
@@ -1448,7 +1492,8 @@ def dummy_build_and_load(self, *args, **kwargs):
     self.block_sparse_indices_to_vector_sparse_offsets = DummyFunc()
     return self
 
-# fjitcore.JitSpec.build_and_load = dummy_build_and_load
+if fjitcore is not None:
+    fjitcore.JitSpec.build_and_load = dummy_build_and_load
 
 
 import vllm.attention.ops.triton_unified_attention as triton_attn
@@ -1548,29 +1593,44 @@ def fake_device_loading_context(module, target_device):
 import vllm.model_executor.model_loader.utils as utils
 utils.device_loading_context = fake_device_loading_context
 
-# import vllm.config.model as model_config_mod
-import vllm.config as model_config_mod
+try:
+    import vllm.config.model as model_config_mod
+except ModuleNotFoundError:
+    import vllm.config as model_config_mod
 
-original_get_and_verify_max_len = model_config_mod.ModelConfig.get_and_verify_max_len
-
-def patched_get_and_verify_max_len(self, *args, **kwargs):
+def _record_and_cap_max_len(verified_max_model_len):
     global max_model_len
     global reduce_max_model_len
-
-    verified_max_model_len = original_get_and_verify_max_len(
-        self, *args, **kwargs
-    )
 
     if max_model_len is None:
         max_model_len = verified_max_model_len
         print(f"[patch] Recorded max_model_len from ModelConfig: {max_model_len}")
         if max_model_len > 2048 and reduce_max_model_len:
-            verified_max_model_len = 1024  # force max_model_len to 1024 to avoid OOM in fake CUDA mode
+            return 1024  # force max_model_len to 1024 to avoid OOM in fake CUDA mode
 
     return verified_max_model_len
 
-model_config_mod.ModelConfig.get_and_verify_max_len = patched_get_and_verify_max_len
 
+if hasattr(model_config_mod.ModelConfig, "get_and_verify_max_len"):
+    original_get_and_verify_max_len = model_config_mod.ModelConfig.get_and_verify_max_len
+
+    def patched_get_and_verify_max_len(self, *args, **kwargs):
+        verified_max_model_len = original_get_and_verify_max_len(
+            self, *args, **kwargs
+        )
+
+        return _record_and_cap_max_len(verified_max_model_len)
+
+    model_config_mod.ModelConfig.get_and_verify_max_len = patched_get_and_verify_max_len
+elif hasattr(model_config_mod, "_get_and_verify_max_len"):
+    original_get_and_verify_max_len = model_config_mod._get_and_verify_max_len
+
+    def patched_get_and_verify_max_len(*args, **kwargs):
+        verified_max_model_len = original_get_and_verify_max_len(*args, **kwargs)
+        return _record_and_cap_max_len(verified_max_model_len)
+
+    model_config_mod._get_and_verify_max_len = patched_get_and_verify_max_len
+    
 import vllm.model_executor.layers.mamba.ops.mamba_ssm as mamba_ssm
 
 def dummy_selective_state_update(*args, **kwargs):
@@ -1606,15 +1666,17 @@ def _patched_run_in_subprocess(fn):
         # Build patched command
         cmd = registry._SUBPROCESS_COMMAND.copy()
         # inject our patch loader before "-m"
-        path_repr = repr(current_path_string)
         module_repr = repr(cmd[2])
+        repo_root = os.path.dirname(os.path.dirname(os.path.dirname(current_path_string)))
+        repo_root_repr = repr(repo_root)
         bootstrap = (
-            f"import runpy; "
-            f"globals()['__file__']={path_repr}; "
-            f"exec(open({path_repr}).read(), globals(), globals()); "
+            "import runpy, sys; "
+            f"sys.path.insert(0, {repo_root_repr}); "
+            "import HFProbe.backend.framework; "
             f"runpy._run_module_as_main({module_repr})"
         )
         cmd = [cmd[0], "-c", bootstrap]
+        # cmd = [cmd[0], "-c", f"exec(open('{current_path_string}').read()); import runpy; runpy._run_module_as_main('{cmd[2]}')"]
         returned = subprocess.run(cmd, input=input_bytes, capture_output=True)
 
         try:

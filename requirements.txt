@@ -9,15 +9,17 @@ triton==3.3.0
 huggingface_hub
 transformers_stream_generator
 accelerate
-bitblas>=0.1.0
+jsonpickle
 tvm
-numpy<2.0
-bitsandbytes
 torchao
 tensorflow
-flashinfer-python
 torch==2.7.0
-flash_attn==2.7.3
 sympy
 openai-agents
 tiktoken
+bitblas>=0.1.0
+numpy<2.0
+xformers
+bitsandbytes
+flashinfer-python
+# flash_attn==2.7.3

@@ -172,7 +172,6 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-o
 
     computeSymbolicArgsWithMap(total_calls_map, outPath)
     clean(modelId)
-   
 
 def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
     if os.environ.get("VLLM_USE_V1", "0") != "1":
