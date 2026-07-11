@@ -1,5 +1,5 @@
 import os, json
-from torchmock.torchmocks import *
+from .torchmock.torchmocks import *
 import contextlib, torch, torch.nn.init as _init
 from typing import Any
 
@@ -902,7 +902,7 @@ import xformers.ops as xops
 xops.memory_efficient_attention_forward = fake_memory_efficient_attention_forward
 xops.memory_efficient_attention = fake_memory_efficient_attention
 
-from vllm_kernel_mock import *
+from .vllm_kernel_mock import *
 
 import torch.library
 _orig_register_fake = torch.library.Library._register_fake

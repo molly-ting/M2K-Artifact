@@ -5,7 +5,7 @@ from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
 import json, os
 from typing import Dict, List, Optional
-import run_rs_models
+from . import run_rs_models
 import tiktoken
 import traceback
 import time

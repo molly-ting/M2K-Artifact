@@ -6,7 +6,7 @@ from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
 import json, os
 from typing import Dict, List, Optional
-import HFProbe.backend.run_vllm as run_vllm
+from . import run_vllm
 import tiktoken
 import traceback
 import time

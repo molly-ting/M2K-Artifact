@@ -1,5 +1,5 @@
-import framework
-from utils import *
+from . import framework
+from .utils import *
 from datetime import datetime, timezone
 import json
 import shutil

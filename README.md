@@ -70,13 +70,12 @@ Output:
 ```bash
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
-# enter HFProbe directory
-cd ..
-python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm
+# run from the repository root
+python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=HFProbe/results/vllm
 # run with specific model config
-# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=results/vllm --config-file=../example/dynamic_scaled_fp8_quant_config.json
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --out-dir=HFProbe/results/vllm --config-file=example/dynamic_scaled_fp8_quant_config.json
 # run with multiple configs (configs are required to be stored under out-dir/config/model_architecture)
-# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --mutate --use-existent-config
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --mutate --use-existent-config
 ```
 
 `config_agent_vllm.py` accepts the following options:
@@ -150,9 +149,9 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 
 ```bash
 export OPENAI_API_KEY=<Openai API Key>
-python3 backend/config_agent_vllm.py --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=../example/Qwen2ForCausalLM_model_config.json --kernel-info-file=../example/Qwen2ForCausalLM_kernel_info.json
+python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=example/Qwen2ForCausalLM_model_config.json --kernel-info-file=example/Qwen2ForCausalLM_kernel_info.json
 # to mutate configs for all kernels and run profiling backend in one batch
-# python3 backend/config_agent_vllm.py --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=results/vllm --kernel-info-dir=call-graph/opout --mutate --seed-config-file=../example/Qwen2ForCausalLM_model_config.json
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --out-dir=HFProbe/results/vllm --kernel-info-dir=call-graph/opout --mutate --seed-config-file=example/Qwen2ForCausalLM_model_config.json
 ```
 
 **Output:**

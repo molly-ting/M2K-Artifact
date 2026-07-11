@@ -1,6 +1,6 @@
 """
 use the following command format to run the script:
-BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python run_transformers.py
+BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python -m HFProbe.backend.run_transformers
 """
 import os, glob, torch, sys, inspect
 from pathlib import Path
@@ -11,7 +11,7 @@ import types
 import torch.nn.functional as F
 from huggingface_hub import snapshot_download, list_repo_files
 import io, contextlib
-from utils import computeSymbolicArgsWithMap
+from .utils import computeSymbolicArgsWithMap
 from collections import defaultdict
 
 tensor_calls = []
@@ -191,7 +191,7 @@ def retrieve_stack(stack):
     return tuple(call_stack)
 
 # mock cpp extension load
-from cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
+from .cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
 
 def _on_called(method, *args, **kwargs):
     global tensor_calls
@@ -209,7 +209,7 @@ cpp_mock = LoadedCppExtensionMock(_on_called)
 mock_torch_utils_cpp_extension(cpp_mock)
 
 # --- Import and apply patches ---
-import cuda_patches 
+from . import cuda_patches
 def patch_torch_cpp_extension():
     """Intercept JIT extension loading and return a logging wrapper without running real CUDA."""
     print("[INFO] Patching torch.utils.cpp_extension for custom kernel capture...")
@@ -720,9 +720,9 @@ def prepare_snapshot_and_stage_sources(model_id: str,
     return local_dir
 
 if os.getenv("BOS_FAKE_CUDA", "1") == "1":
-    import cuda_patches
+    from . import cuda_patches
 
-from torchmock.torchmocks import *
+from .torchmock.torchmocks import *
 mock()
 if os.getenv("BOS_BIN_HOOK", "1") == "1":
     patch_binary_imports()
@@ -957,4 +957,3 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
             computeSymbolicArgsWithMap(total_calls_map, agg_path)
     except Exception as e:
         pass
-

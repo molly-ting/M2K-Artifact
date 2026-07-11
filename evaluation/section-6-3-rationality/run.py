@@ -290,7 +290,8 @@ def run_wo_m():
     for model_id, architecture in model_architectures.items():
         run_command([
             "python3",
-            "HFProbe/backend/config_agent_vllm.py",
+            "-m",
+            "HFProbe.backend.config_agent_vllm",
             f"--model-id={model_id}",
             f"--model-architecture={architecture}",
             f"--out-dir={profile_dir}",
@@ -315,7 +316,8 @@ def run_wo_m():
 
     run_command([
         "python3",
-        "HFProbe/validation/run_vllm_validation.py",
+        "-m",
+        "HFProbe.validation.run_vllm_validation",
         "--dir",
         f"--klee-out-dir={cuklee_out_dir}",
         f"--profile-dir={profile_dir}",
@@ -363,7 +365,8 @@ def run_wo_v():
 
     run_command([
         "python3",
-        "HFProbe/backend/config_agent_vllm.py",
+        "-m",
+        "HFProbe.backend.config_agent_vllm",
         f"----kernel-info-dir={kernel_info_dir}",
         f"--out-dir={profile_dir}",
     ])

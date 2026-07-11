@@ -1,13 +1,13 @@
 """
 use the following command format to run the script:
-BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python run_rs_models.py
+BOS_HIGHLEVEL=null BOS_BIN_HOOK=1 BOS_CE_MODE=bypass LOCAL_ONLY=1 python -m HFProbe.backend.run_rs_models
 """
 import os, torch, sys, inspect
 import shutil, subprocess, json
 import types
 from huggingface_hub import snapshot_download, list_repo_files
 import io, contextlib
-from utils import computeSymbolicArgsWithMap
+from .utils import computeSymbolicArgsWithMap
 from collections import defaultdict
 import traceback
 
@@ -159,7 +159,7 @@ def retrieve_stack(stack):
     return tuple(call_stack)
 
 # mock cpp extension load
-from cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
+from .cpp_load import mock_torch_utils_cpp_extension, LoadedCppExtensionMock
 
 def _on_called(method, *args, **kwargs):
     global tensor_calls
@@ -342,9 +342,9 @@ def prepare_snapshot_and_stage_sources(model_id: str,
     return local_dir
 
 if os.getenv("BOS_FAKE_CUDA", "1") == "1":
-    import cuda_patches
+    from . import cuda_patches
 
-from torchmock.torchmocks import *
+from .torchmock.torchmocks import *
 mock()
 
 # # =============================================================================

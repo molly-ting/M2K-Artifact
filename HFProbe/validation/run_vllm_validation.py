@@ -1,9 +1,9 @@
 import argparse
 import os, json
-import backend.run_vllm as run
+from ..backend import run_vllm as run
 import ast
 from ..input_generate import get_max_token_vllm, get_max_model_len
-from verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
+from .verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
 
 
 possible_len_keys = [

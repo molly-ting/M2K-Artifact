@@ -1,8 +1,8 @@
 cd "$(dirname "$0")/../.."
 python3 HFProbe/call-graph/x --scan --out-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout 
-python3 HFProbe/backend/config_agent_vllm.py --kernel-info-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout --out-dir=evaluation/section-6-1-bug-detection/new_results/vllm
-python3 HFProbe/backend/config_agent_hf.py --out-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
-python3 HFProbe/backend/config_agent_rs.py --out-dir=evaluation/section-6-1-bug-detection/new_results/papers
+python3 -m HFProbe.backend.config_agent_vllm --kernel-info-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout --out-dir=evaluation/section-6-1-bug-detection/new_results/vllm
+python3 -m HFProbe.backend.config_agent_hf --out-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
+python3 -m HFProbe.backend.config_agent_rs --out-dir=evaluation/section-6-1-bug-detection/new_results/papers
 
 # skip compiling cuda files as they are already included in the benchmark folder and can be large in size.
 # python3 cuKLEE/compile_cuda.py --compile-vllm
@@ -17,5 +17,5 @@ python3 cuKLEE/run.py --input-dir=evaluation/section-6-1-bug-detection/new_resul
 python3 cuKLEE/run.py --input-dir=evaluation/section-6-1-bug-detection/new_results/huggingface/input --out-dir=cuKLEE/results/huggingface/out --log-dir=cuKLEE/results/huggingface/log
 python3 cuKLEE/run.py --input-dir=evaluation/section-6-1-bug-detection/new_results/papers/input --out-dir=cuKLEE/results/papers/out --log-dir=cuKLEE/results/papers/log
 
-python3 HFProbe/validation/run_vllm_validation.py --dir --klee-out-dir=cuKLEE/results/vllm/out --profile-dir=evaluation/section-6-1-bug-detection/new_results/vllm
+python3 -m HFProbe.validation.run_vllm_validation --dir --klee-out-dir=cuKLEE/results/vllm/out --profile-dir=evaluation/section-6-1-bug-detection/new_results/vllm
 python3 HFProbe/validation/run_hf_validation.py --dir --klee-out-dir=cuKLEE/results/huggingface/out --profile-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
