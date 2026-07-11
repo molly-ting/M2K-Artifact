@@ -40,10 +40,10 @@ Command:
 
 ```bash
 cd HFProbe/call-graph
-bash x --scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
+bash x scan --vllm-model-arch=Qwen2ForCausalLM --out=opout
 ```
 
-`bash x --scan` accepts the following options:
+`bash x scan` accepts the following options:
 
 - `--out=<dir>` — directory that stores information about the possibly-triggered kernels (default: `HFProbe/call-graph/opout`).
 - `--vllm-dir=<dir>` — directory of the vLLM repository; if unset, the installed vLLM path is used.
