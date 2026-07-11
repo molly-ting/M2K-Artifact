@@ -245,8 +245,145 @@ def run_wo_c():
         with open(f"{current_dir}/bug_results.json", "w") as bf:
             json.dump(bug_res, bf)
 
-# todo: run_wo_m: read results of results/vllm/model.json
-# todo: run_wo_v: read results without validation
+def run_wo_m():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    profile_dir = os.path.join(current_dir, "wo_m", "profile")
+    cuklee_out_dir = os.path.join(current_dir, "wo_m", "cuklee", "out")
+    cuklee_log_dir = os.path.join(current_dir, "wo_m", "cuklee", "log")
+
+    model_path = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "vllm_models.json",
+    )
+    compiled_kernels_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "compiled_files",
+    )
+    cuda_source_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "cuda_files",
+    )
+
+    os.makedirs(profile_dir, exist_ok=True)
+    os.makedirs(cuklee_out_dir, exist_ok=True)
+    os.makedirs(cuklee_log_dir, exist_ok=True)
+
+    with open(model_path, "r") as mf:
+        model_architectures = json.load(mf)
+
+    def run_command(command):
+        print("Running:", " ".join(command))
+        subprocess.run(command, cwd=project_dir, check=True)
+
+    for model_id, architecture in model_architectures.items():
+        run_command([
+            "python3",
+            "HFProbe/backend/config_agent_vllm.py",
+            f"--model-id={model_id}",
+            f"--model-architecture={architecture}",
+            f"--out-dir={profile_dir}",
+        ])
+
+    run_command([
+        "python3",
+        "HFProbe/input_generate.py",
+        "--vllm",
+        f"--profile-out-dir={profile_dir}",
+        f"--compiled-kernel-dir={compiled_kernels_dir}",
+        f"--cuda-source-dir={cuda_source_dir}",
+    ])
+
+    run_command([
+        "python3",
+        "cuKLEE/run.py",
+        f"--input-dir={os.path.join(profile_dir, 'input')}",
+        f"--out-dir={cuklee_out_dir}",
+        f"--log-dir={cuklee_log_dir}",
+    ])
+
+    run_command([
+        "python3",
+        "HFProbe/validation/run_vllm_validation.py",
+        "--dir",
+        f"--klee-out-dir={cuklee_out_dir}",
+        f"--profile-dir={profile_dir}",
+    ])
+    
+def run_wo_v():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    profile_dir = os.path.join(current_dir, "wo_v", "profile")
+    cuklee_out_dir = os.path.join(current_dir, "wo_v", "cuklee", "out")
+    cuklee_log_dir = os.path.join(current_dir, "wo_v", "cuklee", "log")
+
+    compiled_kernels_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "compiled_files",
+    )
+    cuda_source_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "cuda_files",
+    )
+    kernel_info_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "intermediate_results",
+        "call-graph_results",
+        "kernels_vllm_0.9.0"
+    )
+
+    os.makedirs(profile_dir, exist_ok=True)
+    os.makedirs(cuklee_out_dir, exist_ok=True)
+    os.makedirs(cuklee_log_dir, exist_ok=True)
+
+
+    def run_command(command):
+        print("Running:", " ".join(command))
+        subprocess.run(command, cwd=project_dir, check=True)
+
+    run_command([
+        "python3",
+        "HFProbe/backend/config_agent_vllm.py",
+        f"----kernel-info-dir={kernel_info_dir}",
+        f"--out-dir={profile_dir}",
+    ])
+
+    run_command([
+        "python3",
+        "HFProbe/input_generate.py",
+        "--vllm",
+        f"--profile-out-dir={profile_dir}",
+        f"--compiled-kernel-dir={compiled_kernels_dir}",
+        f"--cuda-source-dir={cuda_source_dir}",
+    ])
+
+    run_command([
+        "python3",
+        "cuKLEE/run.py",
+        f"--input-dir={os.path.join(profile_dir, 'input')}",
+        f"--out-dir={cuklee_out_dir}",
+        f"--log-dir={cuklee_log_dir}",
+    ])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -262,3 +399,7 @@ if __name__ == "__main__":
         run_wo_H()
     elif args.without == "C":
         run_wo_c()
+    elif args.without == "M":
+        run_wo_m()
+    elif args.without == "V":
+        run_wo_v()

@@ -2,10 +2,99 @@ import z3
 import os, re, json, time
 
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+project_dir = os.path.dirname(root_dir)
 
-# TODO: read vllm_exp_out for solution.json
+def eval_expr(expr, symvals):
+    """Evaluate symbolic expression safely."""
+    if isinstance(expr, (int, float)):
+        return expr
+    if isinstance(expr, str):
+        try:
+            return eval(expr, {}, symvals)
+        except NameError:
+            return expr  # unresolved symbol like 'u0'
+    return expr
+
+def in_range(symbol, value, sym_ranges):
+    """Check if value falls within symbol range."""
+    if symbol not in sym_ranges:
+        return False
+    low, high = sym_ranges[symbol]
+    return low <= value <= high
+
+def compare_shapes(shape1, shape2, symvals, sym_ranges):
+    if len(shape1) != len(shape2):
+        return False
+
+    for d1, d2 in zip(shape1, shape2):
+        v1 = eval_expr(d1, symvals)
+
+        if isinstance(v1, str):
+            # unresolved symbol → use range
+            if not in_range(v1, d2, sym_ranges):
+                return False
+        else:
+            if int(v1) != int(d2):
+                return False
+
+    return True
+
+def compare_tensor(t1, t2, symvals):
+    if t1["type"] != t2["type"]:
+        return False
+    
+    if "dtype" in t1 and "dtype" in t2 and t1["dtype"] != t2["dtype"]:
+        if not ("float16" in t1["dtype"] and "float16" in t2["dtype"]):
+            return False
+
+    sym_ranges = t1.get("symRanges", {})
+
+    # Compare shapes
+    if "shape" in t1 and "shape" in t2:
+        if not compare_shapes(t1["shape"], t2["shape"], symvals, sym_ranges):
+            return False
+    
+    if "value" in t1 and "value" in t2:
+        if t1["value"] in sym_ranges:
+            if not in_range(t1["value"], t2["value"], sym_ranges):
+                return False
+        else:   
+            v1 = eval_expr(t1["value"], symvals)
+            v2 = t2["value"]
+            if isinstance(v1, int):
+                if int(v1) != int(v2):
+                    return False
+            if isinstance(v1, float) and float(v1) != float(v2):
+                return False
+            if v1 != v2:
+                return False
+
+    # Optional: compare min/max
+    for key in ["maxV", "minV"]:
+        if key in t1 and key in t2:
+            if not isinstance(t1[key], str) and not isinstance(t2[key], str):
+                continue
+            
+            v1 = eval_expr(t1[key], symvals)
+            v2 = t2[key]
+            if isinstance(v1, str):
+                return False
+            if int(v1) != int(v2):
+                return False
+
+    return True
+
+def compare_json_arrays(arr1, arr2, symvals):
+    if len(arr1) != len(arr2):
+        return False
+
+    for t1, t2 in zip(arr1, arr2):
+        if not compare_tensor(t1, t2, symvals):
+            return False
+
+    return True
+
 processed = {}
-
 def solve_with_bounds(smt_file, N1, N2):
     global processed
     
@@ -51,6 +140,41 @@ def solve_with_bounds(smt_file, N1, N2):
         processed[smt_file][(N1, N2)] = (None, None)
         return None, None
 
+def solve_with_bounds(smt_file, num_tokens, max_model_len=None):        
+    with open(smt_file, "r") as f:
+        content = f.read()
+    content = content.replace("(check-sat)", "")  
+    content = content.replace("(get-model)", "")
+    content = content.replace("(reset)", "")
+    
+    constraints = z3.parse_smt2_string(content)
+
+    tactic = z3.Then("simplify", "purify-arith", "nlsat")
+    s = tactic.solver()
+    s.set(timeout=30000)
+    s.add(constraints)
+
+    # Declare variables
+    batch_size = z3.Int('batch_size')
+    seq_len = z3.Int('seq_len')
+
+    # Add new constraints
+    if num_tokens:
+        s.add(batch_size * seq_len <= num_tokens)
+    if max_model_len:
+        s.add(seq_len <= max_model_len)
+    result = s.check()
+
+    if result == z3.sat:
+        model = s.model()
+        bs_val = model.evaluate(batch_size, model_completion=True)
+        sl_val = model.evaluate(seq_len, model_completion=True)
+        return bs_val.as_long(), sl_val.as_long()
+    elif result == z3.unknown:
+        return None, None
+    else:
+        return None, None
+
 def _read_itanium_name_component(mangled, index):
     if index >= len(mangled) or not mangled[index].isdigit():
         return None, index
@@ -89,8 +213,7 @@ def getFuncName(str):
         name, _ = _read_itanium_name_component(str, index)
         if name is not None:
             return name
-
-    print(str, "does not match the expected pattern.")
+        
     return None
 
 vllm_ignored = {"maxV", "minV", "symRanges"}
@@ -130,15 +253,12 @@ def locate_index(item, file_path, ignored=None):
     
     return -2
 
-def scan_one_model(res, kernel_map, model_id, model_file, input_dir, config_dir, solution_file, ignored=None):
+def scan_one_out_file(res, kernel_map, model_id, model_file, input_dir, config_dir, ignored=None):
     if "mgalkin" in model_file and "ultra" in model_file:
         return
     
     with open(model_file) as rf:
         data = json.load(rf)
-    
-    with open(solution_file) as rf:
-        solution = json.load(rf)
     
     config_file = None
     if not model_file.endswith(model_id + ".json"):
@@ -150,258 +270,77 @@ def scan_one_model(res, kernel_map, model_id, model_file, input_dir, config_dir,
             if op_name not in kernel_map:
                 continue
             
-            cuda_func = kernel_map[op_name]["func_name"]
-            if cuda_func not in solution:
-                continue
-            
+            cuda_func = kernel_map[op_name]["func_name"]            
             if cuda_func not in res:
                 res[cuda_func] = {}
+            res[cuda_func]["py_func"] = op_name
 
-            i=0
             for item in data[key]:
                 index = locate_index(item, input_dir+"/"+cuda_func+".json", ignored)
                 if index >= 0:
-                    if str(index) in solution[cuda_func]:
-                        for lineno in solution[cuda_func][str(index)]:
-                            if lineno not in res[cuda_func]:
-                                res[cuda_func][lineno] = {}
-                            if model_id not in res[cuda_func][lineno]:
-                                res[cuda_func][lineno][model_id] = {}
-                            
-                            if index in res[cuda_func][lineno][model_id]:
-                                continue
-                                    
-                            res[cuda_func][lineno][model_id][index] = solution[cuda_func][str(index)][lineno]
-                            if config_file is not None:
-                                res[cuda_func][lineno][model_id][index]["config"] = config_file
-                i += 1
+                    if index not in res[cuda_func]:
+                        res[cuda_func][index] = {}
+                    if model_id not in res[cuda_func][index]:
+                        res[cuda_func][index][model_id] = {}
+                    if config_file is not None:
+                        res[cuda_func][index][model_id]["config"] = config_file
 
-def generate_vllm_input_check(read_dir, input_dir, config_dir, solution_file, outpath, ignored=None):
-    with open(f"{root_dir}/kernel_map/kernel_map_vllm.json") as rf:
+def init_vllm_input_check(profile_out_dir, kernel_map_path, model_arch_map_path, outpath, ignored=vllm_ignored):
+    if not kernel_map_path:
+        kernel_map_path = f"{project_dir}/evaluation/section-6-1-bug-detection/intermediate_results/kernel_map/kernel_map_vllm.json"
+    with open(kernel_map_path) as rf:
         kernel_map = json.load(rf)
     
+    if not model_arch_map_path:
+        model_arch_map_path = f"{project_dir}/evaluation/section-6-1-bug-detection/benchmarks/vllm/vllm_models.json"
+    with open(model_arch_map_path) as mf:
+        model_arch_map = json.load(mf)
+    
     res = {}
-    for model_id in os.listdir(read_dir):
-        real_model_id = model_id[:-5] if model_id.endswith(".json") else model_id
+    read_dir = os.path.join(profile_out_dir, "out")
+    input_dir = os.path.join(profile_out_dir, "input")
+    for filename in os.listdir(read_dir):
+        if "seq_con.json" in filename:
+            continue
+
+        model_id = filename[:-5] if filename.endswith(".json") else filename
+        config_dir = os.path.join(profile_out_dir, "config", model_arch_map[model_id.replace("_", "/", 1)])
         
-        if model_id.endswith(".json"):
-            scan_one_model(res, kernel_map, real_model_id, read_dir+"/"+model_id, input_dir, config_dir, solution_file, ignored)
+        if filename.endswith(".json"):
+            scan_one_out_file(res, kernel_map, model_id, read_dir+"/"+filename, input_dir, config_dir, ignored)
         else:
-            for file in os.listdir(read_dir+"/"+real_model_id):
-                scan_one_model(res, kernel_map, real_model_id, read_dir+"/"+real_model_id+"/"+file, input_dir, config_dir, solution_file, ignored)
+            for subfile in os.listdir(read_dir+"/"+model_id):
+                if "seq_con.json" in subfile:
+                    continue
+                scan_one_out_file(res, kernel_map, model_id, read_dir+"/"+model_id+"/"+subfile, input_dir, config_dir, ignored)
     
     with open(outpath, "w") as wf:
         json.dump(res, wf, indent=4)
+    
+    return res
 
-def generate_hf_input_check(read_dir, input_dir, config_dir, solution_file, outpath, ignored=None):
+def init_hf_input_check(profile_out_dir, kernel_map_dir, outpath):
+    if not kernel_map_dir:
+        kernel_map_dir = f"{project_dir}/evaluation/section-6-1-bug-detection/intermediate_results/kernel_map"
+    
     res = {}
+    read_dir = os.path.join(profile_out_dir, "out")
+    input_dir = os.path.join(profile_out_dir, "input")
+
     for model_id in os.listdir(read_dir):
         real_model_id = model_id[:-5] if model_id.endswith(".json") else model_id
+        config_dir = os.path.join(profile_out_dir, "config", model_id)
 
-        with open(f"{root_dir}/kernel_map/kernel_map_{real_model_id}.json") as rf:
+        with open(f"{kernel_map_dir}/kernel_map_{real_model_id}.json") as rf:
             kernel_map = json.load(rf)
         
         if model_id.endswith(".json"):
-            scan_one_model(res, kernel_map, real_model_id, read_dir+"/"+model_id, input_dir, config_dir, solution_file, ignored)
+            scan_one_out_file(res, kernel_map, real_model_id, read_dir+"/"+model_id, input_dir, config_dir)
         else:
             for file in os.listdir(read_dir+"/"+real_model_id):
-                scan_one_model(res, kernel_map, real_model_id, read_dir+"/"+real_model_id+"/"+file, input_dir, config_dir, solution_file, ignored)
+                scan_one_out_file(res, kernel_map, real_model_id, read_dir+"/"+real_model_id+"/"+file, input_dir, config_dir)
     
     with open(outpath, "w") as wf:
         json.dump(res, wf, indent=4)
-
-
-def solve_vllm_model_bs(target_dir, result_file, output_dir):
-    data = {}
-    if os.path.exists(result_file):
-        with open(result_file, "r") as f:
-            data = json.load(f)
     
-    with open(f"{root_dir}/data/vllm_text_model_structures_map.json") as mf:
-        structure_model_map = json.load(mf)
-    
-    with open(f"{root_dir}/data/vllm_other_model_structures_map.json") as mf:
-        other_structure_model_map = json.load(mf)
-        structure_model_map.update(other_structure_model_map)
-    
-    with open(f"{output_dir}/model_max_len.json", "r") as f:
-        model_max_len = json.load(f)
-    
-    res = {}
-    for subdir in os.listdir(target_dir):
-        if not os.path.isdir(os.path.join(target_dir, subdir)):
-            continue
-        
-        function_name = getFuncName(subdir)
-        if function_name is None or function_name not in data:
-            print(f"Function name {function_name} not found in data.")
-            continue
-        
-        for lineno in data[function_name]:
-            for model_str in data[function_name][lineno]:
-                model_id = model_str.replace("_", "/", 1)
-                max_seq_len = None
-                if model_id in model_max_len:
-                    max_seq_len = model_max_len[model_id]
-                
-                if model_id not in structure_model_map:
-                    print(f"Model ID {model_id} not found in structure_model_map.")
-                    # continue
-                
-                if max_seq_len is None:
-                    if function_name not in res:
-                        res[function_name] = {}
-                    if lineno not in res[function_name]:
-                        res[function_name][lineno] = {}
-                    res[function_name][lineno][model_str] = data[function_name][lineno][model_str]
-                    continue
-                        
-                for index in data[function_name][lineno][model_str]:
-                    smt_file = f"{target_dir}/{subdir}/klee-out-jindex-{index}-0/{lineno}.txt"
-                    if not os.path.exists(smt_file):
-                        print(f"SMT file {smt_file} does not exist.")
-                        continue
-                    
-                    config_file = None
-                    if "config" in data[function_name][lineno][model_str][index]:
-                        config_file = data[function_name][lineno][model_str][index]["config"]
-                        if not config_file.startswith("/") or not os.path.exists(config_file):
-                            config_file  = f"{output_dir}/config/" + structure_model_map[model_id] + "/" + config_file.split("/")[-1]
-                        
-                    batch_size, seq_len = None, None
-                    for N1 in [128, 256, 512, 1000]:
-                        for N2 in [max_seq_len/4, max_seq_len/2, max_seq_len]:
-                            batch_size, seq_len = solve_with_bounds(smt_file, N1, N2)
-                            if batch_size is not None and seq_len is not None:
-                                if function_name not in res:
-                                    res[function_name] = {}
-                                if lineno not in res[function_name]:
-                                    res[function_name][lineno] = {}
-                                if model_str not in res[function_name][lineno]:
-                                    res[function_name][lineno][model_str] = {}
-                                if index not in res[function_name][lineno][model_str]:
-                                    res[function_name][lineno][model_str][index] = {}
-                                res[function_name][lineno][model_str][index] = {
-                                    "batch_size": batch_size,
-                                    "seq_len": seq_len,
-                                }
-                                if config_file:
-                                    res[function_name][lineno][model_str][index]["config"] = config_file
-                                break
-                            
-                        if batch_size is not None and seq_len is not None:
-                            break
-    
-    with open(result_file, "w") as f:
-        json.dump(res, f, indent=4)                                     
-
-solve_vllm_model_bs()
-
-def solve_hf_model_bs():
-    start_time = time.time()
-    with open("hf_exp_out/input_check0.json", "r") as f:
-        data = json.load(f)
-    
-    with open("hf_exp_out/model_max_len.json", "r") as f:
-        model_max_len = json.load(f)
-    
-    res = {}
-    # if os.path.exists("hf_exp_out/input_check.json"):
-    #     with open("hf_exp_out/input_check.json", "r") as f:
-    #         res = json.load(f)
-    
-    target_dir = "hf_exp_out"
-    for subdir in os.listdir(target_dir):
-        if not os.path.isdir(os.path.join(target_dir, subdir)):
-            continue
-        
-        if "rspmm_" in subdir:
-            continue
-        
-        function_name = getFuncName(subdir)
-        if function_name is None or function_name not in data:
-            print(f"Function name {function_name} not found in data.")
-            continue
-        
-        for lineno in data[function_name]:
-            for model_str in data[function_name][lineno]:
-                model_id = model_str.replace("_", "/", 1)
-                max_seq_len = None
-                if model_id not in model_max_len:
-                    print(f"Model ID {model_id} not found in model_max_len.")
-                    # continue
-                else:
-                    max_seq_len = model_max_len[model_id]
-                
-                if max_seq_len is None:
-                    # if function_name not in res:
-                    #     res[function_name] = {}
-                    # if lineno not in res[function_name]:
-                    #     res[function_name][lineno] = {}
-                    # res[function_name][lineno][model_str] = data[function_name][lineno][model_str]
-                    # print(f"Max sequence length for model {model_id} is not available. Skipping SMT solving for {function_name} {lineno} {model_str}.")
-                    continue
-                        
-                for index in data[function_name][lineno][model_str]:
-                    smt_file = f"{target_dir}/{subdir}/klee-out-jindex-{index}-0/{lineno}.txt"
-                    if not os.path.exists(smt_file):
-                        print(f"SMT file {smt_file} does not exist.")
-                        continue
-                    
-                    if function_name in res and lineno in res[function_name] and model_str in res[function_name][lineno] and index in res[function_name][lineno][model_str]:
-                        # print(f"Already have results for {function_name} {lineno} {model_str} {index}, skipping SMT solving.")
-                        if res[function_name][lineno][model_str][index]["seq_len"] <= max_seq_len:
-                            # print(f"Existing seq_len {res[function_name][lineno][model_str][index]['seq_len']} is valid for max_seq_len {max_seq_len}, skipping SMT solving for {function_name} {lineno} {model_str} {index}.")
-                            continue
-                    
-                    config_file = None
-                    if "config" in data[function_name][lineno][model_str][index]:
-                        config_file = data[function_name][lineno][model_str][index]["config"]
-                        config_file  = "./hf-exp/config/" + model_str + "/" + config_file.split("/")[-1]
-                        
-                    batch_size, seq_len = None, None
-                    for N1 in [128, 256, 512, 1000]:
-                        for N2 in [max_seq_len/4, max_seq_len/2, max_seq_len]:
-                            print(f"Solving SMT for {function_name} {lineno} {model_str} {index} with bounds N1={N1}, N2={N2}...")
-                            batch_size, seq_len = solve_with_bounds(smt_file, N1, N2)
-                            if batch_size is not None and seq_len is not None:
-                                if function_name not in res:
-                                    res[function_name] = {}
-                                if lineno not in res[function_name]:
-                                    res[function_name][lineno] = {}
-                                if model_str not in res[function_name][lineno]:
-                                    res[function_name][lineno][model_str] = {}
-                                res[function_name][lineno][model_str][index] = {
-                                    "batch_size": batch_size,
-                                    "seq_len": seq_len,
-                                }
-                                if config_file:
-                                    res[function_name][lineno][model_str][index]["config"] = config_file
-                                # with open("hf_exp_out/input_check.json", "w") as f:
-                                #     json.dump(res, f, indent=4) 
-                                # print(f"Found valid batch_size and seq_len for {function_name} {lineno} {model_str} {index}: batch_size={batch_size}, seq_len={seq_len}.")
-                                break
-                            
-                        if batch_size is not None and seq_len is not None:
-                            break
-                    
-                    # if not batch_size or not seq_len:
-                    #     print(f"Could not find valid batch_size and seq_len for {function_name} {lineno} {model_str} {index}.")
-                    #     if function_name not in res:
-                    #         res[function_name] = {}
-                    #     if lineno not in res[function_name]:
-                    #         res[function_name][lineno] = {}
-                    #     if model_str not in res[function_name][lineno]:
-                    #         res[function_name][lineno][model_str] = {}
-                    #     res[function_name][lineno][model_str][index] = data[function_name][lineno][model_str][index]
-                    #     if config_file:
-                    #         res[function_name][lineno][model_str][index]["config"] = config_file
-                    #     with open("hf_exp_out/input_check.json", "w") as f:
-                    #         json.dump(res, f, indent=4) 
-    
-    # with open("hf_exp_out/input_check.json", "w") as f:
-    #     json.dump(res, f, indent=4)                
-    end_time = time.time() # 5.16s
-    print(f"Total time taken for solving HF model SMT problems: {end_time - start_time} seconds.")                    
-
-# solve_hf_model_bs()
+    return res

@@ -639,11 +639,12 @@ def generate_all_hf(compile_path, result_dir=None, kernel_map_dir=None, has_seq_
                 max_token_num = get_max_token_hf(model_id.replace("_", "/", 1))
             _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
 
-def generate_research_paper_input():
-    compile_path = os.path.join(os.path.dirname(current_dir), "compile", "papers")
-    result_dir = os.path.dirname(__file__) + "/results/research_paper"
+def generate_research_paper_input(out_dir):
+    if not out_dir:
+        out_dir = current_dir + "/results/research_paper"
+    compile_path = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "research_papers", "compiled_files")
     kernel_map_dir = os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "intermediate_results", "kernel_map")
-    generate_all_hf(compile_path, result_dir, kernel_map_dir)
+    generate_all_hf(compile_path, out_dir, kernel_map_dir)
 
 
 if __name__ == "__main__":
@@ -682,14 +683,14 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.research_paper:
-        generate_research_paper_input()
+        generate_research_paper_input(args.profile_out_dir)
     elif args.vllm_benchmark:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.profile_out_dir, kernel_map_path)
         generate_vllm_inputs(None, None, kernel_map_path, True, False)
         generate_vllm_input_load(None, None, True)
     elif args.hf_benchmark:
-        generate_all_hf(None, None)
+        generate_all_hf(None, args.profile_out_dir)
     elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)

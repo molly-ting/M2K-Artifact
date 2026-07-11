@@ -3,98 +3,8 @@ import os, json
 import backend.run_vllm as run
 import ast
 from ..input_generate import get_max_token_vllm, get_max_model_len
+from verify_input import solve_with_bounds, getFuncName, init_vllm_input_check, compare_json_arrays
 
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-def eval_expr(expr, symvals):
-    """Evaluate symbolic expression safely."""
-    if isinstance(expr, (int, float)):
-        return expr
-    if isinstance(expr, str):
-        try:
-            return eval(expr, {}, symvals)
-        except NameError:
-            return expr  # unresolved symbol like 'u0'
-    return expr
-
-def in_range(symbol, value, sym_ranges):
-    """Check if value falls within symbol range."""
-    if symbol not in sym_ranges:
-        return False
-    low, high = sym_ranges[symbol]
-    return low <= value <= high
-
-def compare_shapes(shape1, shape2, symvals, sym_ranges):
-    if len(shape1) != len(shape2):
-        return False
-
-    for d1, d2 in zip(shape1, shape2):
-        v1 = eval_expr(d1, symvals)
-
-        if isinstance(v1, str):
-            # unresolved symbol → use range
-            if not in_range(v1, d2, sym_ranges):
-                return False
-        else:
-            if int(v1) != int(d2):
-                return False
-
-    return True
-
-def compare_tensor(t1, t2, symvals):
-    if t1["type"] != t2["type"]:
-        return False
-    
-    if "dtype" in t1 and "dtype" in t2 and t1["dtype"] != t2["dtype"]:
-        if not ("float16" in t1["dtype"] and "float16" in t2["dtype"]):
-            return False
-
-    sym_ranges = t1.get("symRanges", {})
-
-    # Compare shapes
-    if "shape" in t1 and "shape" in t2:
-        if not compare_shapes(t1["shape"], t2["shape"], symvals, sym_ranges):
-            return False
-    
-    if "value" in t1 and "value" in t2:
-        if t1["value"] in sym_ranges:
-            if not in_range(t1["value"], t2["value"], sym_ranges):
-                return False
-        else:   
-            v1 = eval_expr(t1["value"], symvals)
-            v2 = t2["value"]
-            if isinstance(v1, int):
-                if int(v1) != int(v2):
-                    return False
-            if isinstance(v1, float) and float(v1) != float(v2):
-                return False
-            if v1 != v2:
-                return False
-
-    # Optional: compare min/max
-    for key in ["maxV", "minV"]:
-        if key in t1 and key in t2:
-            if not isinstance(t1[key], str) and not isinstance(t2[key], str):
-                continue
-            
-            v1 = eval_expr(t1[key], symvals)
-            v2 = t2[key]
-            if isinstance(v1, str):
-                return False
-            if int(v1) != int(v2):
-                return False
-
-    return True
-
-def compare_json_arrays(arr1, arr2, symvals):
-    if len(arr1) != len(arr2):
-        return False
-
-    for t1, t2 in zip(arr1, arr2):
-        if not compare_tensor(t1, t2, symvals):
-            return False
-
-    return True
 
 possible_len_keys = [
     # OPT
@@ -178,42 +88,8 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, batch_siz
     
     return res
 
-import z3
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(current_dir)
-
-def solve_with_bounds(smt_file, num_tokens):        
-    with open(smt_file, "r") as f:
-        content = f.read()
-    content = content.replace("(check-sat)", "")  
-    content = content.replace("(get-model)", "")
-    content = content.replace("(reset)", "")
-    
-    constraints = z3.parse_smt2_string(content)
-
-    tactic = z3.Then("simplify", "purify-arith", "nlsat")
-    s = tactic.solver()
-    s.set(timeout=30000)
-    s.add(constraints)
-
-    # Declare variables
-    batch_size = z3.Int('batch_size')
-    seq_len = z3.Int('seq_len')
-
-    # Add new constraints
-    s.add(batch_size * seq_len <= num_tokens)
-    result = s.check()
-
-    if result == z3.sat:
-        model = s.model()
-        bs_val = model.evaluate(batch_size, model_completion=True)
-        sl_val = model.evaluate(seq_len, model_completion=True)
-        return bs_val.as_long(), sl_val.as_long()
-    elif result == z3.unknown:
-        return None, None
-    else:
-        return None, None
     
 def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, result_dir):
     klee_function_out_path = None
@@ -221,6 +97,10 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
         if len(op_name) + op_name in dirname:
             klee_function_out_path = os.path.join(klee_out_dir, dirname)
             break
+    
+    if not klee_function_out_path:
+        print("no constraints files found")
+        return
     
     if not index:
         index = 0
@@ -245,8 +125,9 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
             continue
 
         smt_file_path = os.path.join(constraint_path, lineno)
-        batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens)
+        batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
+            print("no solution found for batch_size and seq_len")
             continue
         
         print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
@@ -296,142 +177,121 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
     with open(f"{current_dir}/{model_id.replace('/', '_')}_{op_name}_{index}_validate_results.json", "w") as wf:
         json.dump(res, wf, indent=2)
 
-def vllm_input_check(input_file, output_file, result_dir):
-    with open(input_file) as rf:
-        input_check = json.load(rf)
+def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, config_file, framework_config, profile_dir):
+    if not klee_function_out_dir:
+        return
     
-    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
-        framework_configs = json.load(ff) 
+    if not index:
+        index = 0
+    constraint_path = os.path.join(klee_function_out_dir, f"klee-out-jindex-{index}-0")
+    max_num_tokens = get_max_token_vllm(model_id)
+    max_model_len = get_max_model_len(model_id)
     
-    with open(f"{result_dir}/model_max_len.json", "r") as f:
-        model_max_len = json.load(f)
-        
-    with open(f"{result_dir}/token_limit_by_gpu.json", "r") as f:
-        vllm_token_limit = json.load(f)
-    
-    generated_configs_path = f"{result_dir}/config/diff.json"
-    with open(generated_configs_path) as f:
-        generated_configs = json.load(f)
-    
-    with open(f"{root_dir}/data/vllm_text_model_structures_map.json") as mf:
-        structure_model_map = json.load(mf)
-    
-    with open(f"{root_dir}/data/vllm_other_model_structures_map.json") as mf:
-        other_structure_model_map = json.load(mf)
-        structure_model_map.update(other_structure_model_map)
-    
+    model_config = None
+    with open(config_file) as cf:
+        model_config = json.load(cf)
+
     res = {}
-    if os.path.exists(output_file):
-        with open(output_file) as rf:
-            res = json.load(rf)
+    for lineno in os.listdir(constraint_path):
+        if not lineno.endswith(".txt"):
+            continue
+
+        smt_file_path = os.path.join(constraint_path, lineno)
+        batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
+        if batch_size is None or seq_len is None:
+            res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file}
+            continue
         
-    for cuda_func in input_check:
-        for lineno in input_check[cuda_func]:
-            for model_str in input_check[cuda_func][lineno]:
-                for index in input_check[cuda_func][lineno][model_str]:
-                    if cuda_func not in res:
-                        res[cuda_func] = {}
-                    if lineno not in res[cuda_func]:
-                        res[cuda_func][lineno] = {}
-                    if model_str not in res[cuda_func][lineno]:
-                        res[cuda_func][lineno][model_str] = {}
-                    if index in res[cuda_func][lineno][model_str]:
-                        continue
-                    
-                    item = input_check[cuda_func][lineno][model_str][index]
-                    batch_size = item["batch_size"]
-                    seq_len = item["seq_len"]
-                    
-                    op_name = cuda_func
-                    framework_config = None
-                    if op_name in framework_configs:
-                        framework_config = framework_configs[op_name]
-                    
-                    if op_name == "aqlm_dequant" and seq_len == 1:
-                        seq_len = 8
-                    
-                    if op_name == "gather_cache" and batch_size == 1 and seq_len == 1:
-                        seq_len = framework_config["seq_len"][1]
-                    
-                    # TODO: write script to modify the json file
-                    if op_name == "rms_norm":
-                        batch_size = batch_size * 2
-                    
-                    model_id = model_str.replace("_", "/", 1)
-                    model_config = None
-                    if "config" in item:
-                        config_path = item["config"]
-                        if "LM" not in item["config"] and "Generation" not in item["config"] and "Ovis" not in item["config"]:
-                            config_path = f"{result_dir}/config/" + structure_model_map[model_id] + item["config"].split("/")[-1]
-                        if not config_path.startswith("/"):
-                            config_path = os.path.join(os.path.dirname(root_dir), config_path)
-                        if os.path.exists(config_path):
-                            with open(config_path) as cf:
-                                model_config = json.load(cf)
-                    
-                    error_msg = None        
-                    if model_id in vllm_token_limit and batch_size * seq_len > vllm_token_limit[model_id]["288"]:
-                        res[cuda_func][lineno][model_str][index] = "May OOM due to large num_tokens"
-                        continue
+        print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
+        params_data = run_vllm_config(framework_config, model_config, model_id, cuda_func, batch_size, seq_len, max_model_len, lineno, index, profile_dir)
 
-                    print(f"Running model {model_id} with {item['config'] if 'config' in item else 'default config'} batch_size: {batch_size} seq_len: {seq_len} for bug {op_name} {lineno} index {index}.")
-                    params_data = run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, model_max_len[model_id], lineno, index, result_dir)
+        if params_data and isinstance(params_data, int):
+            error_msg = "model config is invalid"
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            continue
+        elif params_data is None:
+            error_msg = "kernel is not triggered"
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            continue
+
+        i = int(index)
+        with open(f"{profile_dir}/input/{cuda_func}.json") as f:
+            op_param_data = json.load(f)
+        target_params = op_param_data[i]["args"]
+        
+        match_found = False
+        for key in params_data:
+            for bs in params_data[key]:
+                if isinstance(bs, tuple):
+                    b, s = bs
+                else:
+                    b, s = ast.literal_eval(bs)
                     
-                    if not params_data and op_name in generated_configs:
-                        model_config = generated_configs[op_name][-1]
-                        params_data = run_vllm_config(framework_config, model_config, model_id, op_name, batch_size, seq_len, model_max_len[model_id], lineno, index, result_dir)
-                        
-                    if params_data and params_data == -2:
-                        error_msg = "Seq len mismatch"
-                    elif params_data and params_data == -4:
-                        error_msg = "Config invalid"
-                    elif params_data and isinstance(params_data, int):
-                        error_msg = "Error model loading"
-                    elif params_data is None:
-                        error_msg = f"{op_name} not triggered"
-                    
-                    if error_msg:
-                        res[cuda_func][lineno][model_str][index] = error_msg
-                        with open(output_file, "w") as wf:
-                            json.dump(res, wf, indent=2)
-                        continue
-                    
-                    i = int(index)
-                    with open(f"{result_dir}/input/{op_name}.json") as f:
-                        op_param_data = json.load(f)
-                    target_params = op_param_data[i]["args"]
-                    
-                    match_found = False
-                    for key in params_data:
-                        for bs in params_data[key]:
-                            if isinstance(bs, tuple):
-                                b, s = bs
-                            else:
-                                b, s = ast.literal_eval(bs)
-                                
-                            if not batch_size == int(b) or seq_len != int(s):
-                                continue
-                            
-                            for t in params_data[key][bs]:
-                                if compare_json_arrays(target_params, t, {"s": seq_len, "b": batch_size}):
-                                    res[cuda_func][lineno][model_str][index] = "Pass"
-                                    match_found = True
-                                    break
-                        if match_found:
-                            break
-                    
-                    if not match_found:
-                        res[cuda_func][lineno][model_str][index] = "Parameter mismatch"
-                        print(f"Parameter mismatch for {model_id} {batch_size} {seq_len} {op_name} at line {lineno} index {index}.")
-                        
-                    with open(output_file, "w") as wf:
-                        json.dump(res, wf, indent=2)
+                if not batch_size == int(b) or seq_len != int(s):
+                    continue
+                
+                for t in params_data[key][bs]:
+                    if compare_json_arrays(target_params, t, {"s": seq_len, "b": batch_size}):
+                        match_found = True
+                        break
+            if match_found:
+                break
+        
+        if match_found:
+            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+        else:
+            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
     
-    with open(output_file, "w") as wf:
-        json.dump(res, wf, indent=2)
+    return res
 
-# vllm_input_check("./vllm-exp/input_check_TP.json", "./vllm-exp/input_check_results.json")
-# vllm_input_check("./vllm-exp/input_check_FP.json", "./vllm-exp/input_check_FP_results.json")
+def vllm_benchmark_validate(klee_out_dir, profile_dir):
+    result_path = os.path.join(profile_dir, "vllm_benchmark_validation_results.json")
+    res = {}
+    if os.path.exists(result_path):
+        with open(result_path) as rf:
+            res = json.load(rf)
+    if not res:
+        res = init_vllm_input_check(profile_dir, None, None, result_path)
+    
+    klee_func_out_map = {}
+    for dirname in os.listdir(klee_out_dir):
+        cuda_func = getFuncName(dirname)
+        klee_func_out_map[cuda_func] = dirname
+
+    with open(f"{root_dir}/backend/framework_config.json", "r") as ff:
+        framework_configs = json.load(ff)
+    
+    for cuda_func in res:
+        py_func = res[cuda_func]["py_func"]
+        fcon = None
+        if py_func in framework_configs:
+            fcon = framework_configs[py_func]
+
+        for index in res[cuda_func]:
+            if "py_func" in index:
+                continue
+
+            for model_id in res[cuda_func][index]:
+                config_file = None
+                if "config" in res[cuda_func][index][model_id]:
+                    config_file = res[cuda_func][index][model_id]["config"]
+
+                klee_func_name = None
+                if cuda_func in klee_func_out_map:
+                    klee_func_name = klee_func_out_map[cuda_func]
+                else:
+                    for dirname in os.listdir(klee_out_dir):
+                        if len(cuda_func) + cuda_func in dirname:
+                            klee_func_name = dirname
+                            klee_func_out_map[cuda_func] = dirname
+                            break
+
+                klee_function_out_dir = os.path.join(klee_out_dir, klee_func_name) if klee_func_name else None
+                validate_res = vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, config_file, fcon, profile_dir)
+                res[cuda_func][index][model_id] = validate_res
+
+    with open(result_path, "w") as wf:
+        json.dump(res, wf, indent=4)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -456,7 +316,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--config-file", type=str, required=False, help="target model config file"
     )
+    parser.add_argument(
+        "--dir", action=argparse.BooleanOptionalAction, default=False, help="Whether to run on directory of cuKLEE output or on a single kernel"
+    )
 
     args = parser.parse_args()
-    if args.kernel_name and args.model_id and args.config_file:
+    if args.dir:
+        vllm_benchmark_validate(args.cuklee_out_dir, args.profile_out_dir)
+    elif args.kernel_name and args.model_id and args.config_file:
         vllm_validate_one(args.cuklee_out_dir, args.kernel_name, args.index, args.model_id, args.config_file, args.profile_out_dir)

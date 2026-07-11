@@ -1,3 +1,5 @@
+import argparse
+
 from agents import Agent, Runner, function_tool, WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
@@ -168,7 +170,12 @@ def generate_config(model_id, op_name, framework_repo, out_dir=None):
     return runAgent(prompt_huggingface)
 
 def find_model_ops(repo_path):
-    kernel_map = find_kernel_rel(repo_path)
+    kernel_map_path = os.path.join(os.path.dirname(repo_path), "evaluation/section-6-1-bug-detection/intermediate_results", "kernel_map", f"kernel_map_{Path(repo_path).name}.json")
+    if os.path.exists(kernel_map_path):
+        with open(kernel_map_path) as kf:
+            kernel_map = json.load(kf)
+    else:
+        kernel_map = find_kernel_rel(repo_path, None, False)
     if not kernel_map:
         all_ops = set()
     else:
@@ -347,9 +354,15 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
  
-def run_all_models():
+def run_all_models(out_dir=None):
     for framework_name in model_map:
-        handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name])
+        handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name], out_dir)
 
 if __name__ == "__main__":
-    run_all_models()
+    parser = argparse.ArgumentParser(
+        description="run profiling backend on research paper frameworks"
+    )
+    parser.add_argument("--out-dir", type=str, required=False, help="output directory")
+
+    args = parser.parse_args()
+    run_all_models(out_dir=args.out_dir)

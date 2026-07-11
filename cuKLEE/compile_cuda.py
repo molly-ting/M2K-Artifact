@@ -176,8 +176,8 @@ def compile_vllm():
 
 def compile_paper():
     original_dir = os.getcwd()
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_compiled_files", "papers")
-    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_cuda_files", "papers")
+    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "research_papers", "compiled_files")
+    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "research_papers", "cuda_files")
     for dname in os.listdir(inputDir):
         dir_path = os.path.join(inputDir, dname)
         out_model_dir = os.path.join(outputDir, dname)
@@ -276,8 +276,8 @@ def _sanitize_cuda_source(cu_file, out_dir):
 
 def compile_hf():
     original_dir = os.getcwd()
-    targetDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_cuda_files", "huggingface")
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_compiled_files", "huggingface")
+    targetDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "huggingface", "cuda_files")
+    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "huggingface", "compiled_files")
     os.makedirs(outputDir, exist_ok=True)
 
     for dname in os.listdir(targetDir):
@@ -285,6 +285,9 @@ def compile_hf():
         out_model_dir = os.path.join(outputDir, dname)
         os.makedirs(out_model_dir, exist_ok=True)
         os.chdir(out_model_dir)
+        has_cpp_file = False
+        cpp_bc_files = []
+        combined_bc_files = []
 
         for file in os.listdir(dir_path):
             if file.endswith(".cu"):
@@ -292,6 +295,7 @@ def compile_hf():
                 host_bc_file = f"{output_prefix}.bc"
                 cuda_bc_file = f"{output_prefix}-cuda-nvptx64-nvidia-cuda-sm_80.bc"
                 combined_bc_file = f"{output_prefix}{COMBINED_SUFFIX}"
+                combined_bc_files.append(combined_bc_file)
                 if not os.path.exists(cuda_bc_file) or not os.path.exists(host_bc_file):
                     sanitized_file = _sanitize_cuda_source(os.path.join(dir_path, file), out_model_dir)
                     success = compile_cu_file(str(sanitized_file), root_path=dir_path)
@@ -313,9 +317,11 @@ def compile_hf():
                     combined_bc_file
                 ])
 
-            if "mgalkin" in dname and file.endswith(".cpp"):
+            if file.endswith(".cpp"):
                 output_prefix = out_model_dir+"/"+file[:file.find(".cpp")]
                 cpp_bc_file = f"{output_prefix}_cpp.bc"
+                has_cpp_file = True
+                cpp_bc_files.append(cpp_bc_file)
                 if os.path.exists(cpp_bc_file):
                     continue
 
@@ -335,21 +341,28 @@ def compile_hf():
                     "-I", f"{CUDA_PATH}/include"
                 ])
         
-        if "mgalkin" in dname:
+        if has_cpp_file:
             target_files = []
-            for file in os.listdir(out_model_dir):
-                if file.endswith(COMBINED_SUFFIX) or file.endswith("_cpp.bc"):
-                    target_files.append(os.path.join(out_model_dir, file))
+            for combined_bc_file in combined_bc_files:
+                if not os.path.exists(combined_bc_file):
+                    continue
+                target_files.append(combined_bc_file)
+
+            merged_combined_bc_file = None
+            for cpp_bc_file in cpp_bc_files:
+                if not os.path.exists(cpp_bc_file):
+                    continue
+                target_files.append(cpp_bc_file)
+                merged_combined_bc_file = cpp_bc_file[:-7] + COMBINED_SUFFIX
 
             if target_files:
-                combined_bc_file = os.path.join(out_model_dir, f"rspmm{COMBINED_SUFFIX}")
                 run_command([
                     "llvm-link-13",
-                    "-o", combined_bc_file] + target_files)
+                    "-o", merged_combined_bc_file] + target_files)
                 
                 run_command([
                     "llvm-dis-13",
-                    combined_bc_file
+                    merged_combined_bc_file
                 ])
     os.chdir(original_dir)
 

@@ -910,6 +910,7 @@ def run(
     output_dir=None,
     data_dir=None,
     is_op_suffix=False,
+    out_path=None,
     batch_size_configs=None,
     seq_lens_configs=None,
     record_only=False,
@@ -990,12 +991,16 @@ def run(
                     total_calls_map.setdefault(func_name, {}).setdefault(call_stack, {}).setdefault(run_key, []).append(argCons)
                 data.append({"batch_size": batch_size, "seq_len": real_seq_len, "calls": tensor_calls.copy()})
     
-    if not data_dir:
-        data_dir = os.path.join(result_dir, "data")
-    os.makedirs(data_dir, exist_ok=True)
-           
-    with open(os.path.join(data_dir, filename), "w") as wf:
-        json.dump(data, wf)
+    if out_path:
+        with open(out_path, "w") as wf:
+            json.dump(data, wf)
+    else:
+        if not data_dir:
+            data_dir = os.path.join(result_dir, "data")
+        os.makedirs(data_dir, exist_ok=True)
+            
+        with open(os.path.join(data_dir, filename), "w") as wf:
+            json.dump(data, wf)
 
     if record_only:
         return {"agg_path": agg_path, "data_path": os.path.join(data_dir, filename)}

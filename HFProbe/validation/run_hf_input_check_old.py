@@ -266,5 +266,5 @@ def main():
     print(f"[OK] wrote results to {summary_path}")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

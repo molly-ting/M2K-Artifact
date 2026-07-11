@@ -118,6 +118,5 @@ if __name__ == "__main__":
         output_directory = args.out_dir or os.path.join(current_dirpath, "output")
         log_directory = args.log_dir or os.path.join(current_dirpath, "vllm_log")
         os.makedirs(output_directory, exist_ok=True)
-        isJson = args.is_json if args.is_json is not None else True
         threads = args.threads if args.threads is not None else 5
-        main(args.input_dir, log_directory, output_directory, isJson, threads) 
+        main(args.input_dir, log_directory, output_directory, args.is_json, threads) 

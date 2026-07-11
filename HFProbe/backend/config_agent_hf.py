@@ -287,7 +287,12 @@ def handle_one_model_hf(model_id, out_dir=None):
     except:
         return
     
-    kernel_map = find_kernel_rel(model_cache_dir)
+    kernel_map_path = os.path.join(os.path.dirname(root_dir), "evaluation/section-6-1-bug-detection/intermediate_results", "kernel_map", f"kernel_map_{model_id.replace('/', '_')}.json")
+    if os.path.exists(kernel_map_path):
+        with open(kernel_map_path) as kf:
+            kernel_map = json.load(kf)
+    else:
+        kernel_map = find_kernel_rel(model_cache_dir, None, False)
     all_ops, used_ops = find_model_ops(model_cache_dir, kernel_map)
     if not all_ops:
         return 

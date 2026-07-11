@@ -257,6 +257,7 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
                 retry_count += 1
                 if retry_count >= max_retry_times:
                     break
+        print(f"real_seq_len={seq_len_real} ...")
     
         with framework.enable_thin_kv():
             with framework.torch.inference_mode():

@@ -377,3 +377,15 @@ python3 run.py --without=H
 cd evaluation/section-6-3-rationality
 python3 run.py --without=C
 ```
+
+(3) without configuration mutation
+```bash
+cd evaluation/section-6-3-rationality
+python3 run.py --without=M
+```
+
+(4) without validation
+```bash
+cd evaluation/section-6-3-rationality
+python3 run.py --without=V
+```
