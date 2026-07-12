@@ -496,17 +496,67 @@ python3 run_cuKLEE.py
 
 (2) run GKLEE
 ```bash
-XXX
+cd evaluation/section-6-2-coverage/gklee
+./run.sh
+```
+
+#### GKLEE results
+
+Results are stored in `evaluation/section-6-2-coverage/gklee/results/<input>/`:
+
+- `compile.log` contains the `gklee-nvcc` output. Inspect this file if an input
+  fails to compile.
+- `gklee.log` contains the verification output. `KLEE: ERROR` reports a
+  detected issue and includes its generated-source location and error type,
+  such as `memory error: out of bound pointer`. `KLEE: done` reports the final
+  instruction, path, and generated-test counts.
+- The runner prints status `124` for a timeout and status `127` when a required
+  command is unavailable. A timed-out log is incomplete and must not be
+  interpreted as verification success.
+
+```bash
+grep -R -E "KLEE: ERROR|KLEE: done" \
+  evaluation/section-6-2-coverage/gklee/results
 ```
 
 (3) run Honeycomb
 ```bash
-XXX
+cd evaluation/section-6-2-coverage/honeycomb
+./run.sh
+```
+
+#### Honeycomb results
+
+Each result is stored in
+`evaluation/section-6-2-coverage/honeycomb/results/<input>.log`. The last line
+has the form `Generates N remarks`. `0 remarks` means Honeycomb did not report
+a policy violation; a nonzero value means that the listed remarks require
+inspection. Status `124` printed by the runner means the input timed out.
+
+```bash
+grep -R -E "Generates [0-9]+ remarks" \
+  evaluation/section-6-2-coverage/honeycomb/results
 ```
 
 (4) run ESBMC
 ```bash
-XXX
+cd evaluation/section-6-2-coverage/esbmc
+./run.sh
+```
+
+#### ESBMC results
+
+Each result is stored in
+`evaluation/section-6-2-coverage/esbmc/results/<input>.log`.
+`VERIFICATION FAILED` means ESBMC found a counterexample; the preceding
+`Violated property` and state trace identify the property, source location,
+and failing execution. `VERIFICATION SUCCESSFUL` means no violation was found
+within the explored bounds. Status `124` printed by the runner means timeout;
+the corresponding partial log must not be interpreted as verification success.
+
+```bash
+grep -R -E "Violated property|VERIFICATION (FAILED|SUCCESSFUL)" \
+  evaluation/section-6-2-coverage/esbmc/results
 ```
 
 ## 7. Rationality of Components (Section 6.3)

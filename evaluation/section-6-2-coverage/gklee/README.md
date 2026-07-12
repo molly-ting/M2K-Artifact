@@ -1,1 +1,0 @@
-docker run -u $(id -u):$(id -g) -v .:/workspace -it --rm gklee
