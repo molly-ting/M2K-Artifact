@@ -606,29 +606,21 @@ grep -R -E "Violated property|VERIFICATION (FAILED|SUCCESSFUL)" \
 ```
 
 ## 7. Rationality of Components (Section 6.3)
-raw data of Figure 7:
-https://docs.google.com/spreadsheets/d/1U1pOweiJk0VcZwBj4QxeKP3aVPtgs8R0a0nLiU30i3E/edit?gid=0#gid=0
 
-(1) without HFProbe
+**Command:**
+
 ```bash
 cd evaluation/section-6-3-rationality
 python3 run.py --without=H
-```
-
-(2) without cuKLEE
-```bash
-cd evaluation/section-6-3-rationality
 python3 run.py --without=C
-```
-
-(3) without configuration mutation
-```bash
-cd evaluation/section-6-3-rationality
 python3 run.py --without=M
-```
-
-(4) without validation
-```bash
-cd evaluation/section-6-3-rationality
 python3 run.py --without=V
 ```
+(take ~XXXmin)
+
+**Console output:**
+```bash
+XXX
+```
+
+The analysis results are stored in the  `XXX` directory. We provide the labeled results in the `YYYY` directory. A summary of the results is available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=650464833#gid=650464833).
