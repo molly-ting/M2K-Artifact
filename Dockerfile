@@ -13,18 +13,18 @@ RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     apt-get clean
 
 RUN apt-get update && apt-get -y install g++ \
-	gcc \
-	cmake \
-	git \
-	ninja-build \
-	wget \
-	curl \
-	lld \
-	python3 \
-	python3-pip \
-	software-properties-common \
-	lldb-13 \
-	gdb
+    gcc \
+    cmake \
+    git \
+    ninja-build \
+    wget \
+    curl \
+    lld \
+    python3 \
+    python3-pip \
+    software-properties-common \
+    lldb-13 \
+    gdb
 
 RUN add-apt-repository universe
 
@@ -39,8 +39,8 @@ ENV LLVM_DIR=/usr/lib/llvm-13
 ENV PATH="$LLVM_DIR/bin:$PATH"
 
 RUN git clone --progress --depth 1 --branch signed \
-	https://github.com/molly-ting/llvm-project.git \
-	/home/llvm-project
+    https://github.com/molly-ting/llvm-project.git \
+    /home/llvm-project
 WORKDIR /home/llvm-project
 RUN mkdir build
 WORKDIR /home/llvm-project/build
@@ -50,8 +50,8 @@ ENV SIGNED_CLANG_PATH=/home/llvm-project/build/bin
 
 WORKDIR /home
 RUN [ ! -d /home/z3 ] && git clone --progress --depth 1 --branch z3-4.12.2 \
-	https://github.com/Z3Prover/z3.git \
-	/home/z3
+    https://github.com/Z3Prover/z3.git \
+    /home/z3
 WORKDIR /home/z3
 RUN python3 scripts/mk_make.py
 WORKDIR /home/z3/build
@@ -63,9 +63,31 @@ RUN apt install -y nano
 
 WORKDIR /home/M2K-Artifact
 COPY . /home/M2K-Artifact
-RUN python3 -m pip install --no-cache-dir \
-    -r HFProbe/call-graph/py/requirements.txt \
-    -r HFProbe/requirements.txt
+RUN python3 -m pip install --no-cache-dir --progress-bar on \
+    --upgrade pip setuptools wheel packaging psutil
+
+RUN wget --progress=bar:force:noscroll \
+    -O /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    https://download.pytorch.org/whl/cpu/torch-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    && python3 -m pip install --no-cache-dir \
+    /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    && rm /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+
+RUN wget --progress=bar:force:noscroll \
+    -O /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    https://download.pytorch.org/whl/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    && wget --progress=bar:force:noscroll \
+    -O /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    https://download.pytorch.org/whl/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    && python3 -m pip install --no-cache-dir \
+    /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    && rm /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+
+RUN python3 -m pip install --no-cache-dir --progress-bar on \
+    --prefer-binary \
+    -r requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j8
 ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
