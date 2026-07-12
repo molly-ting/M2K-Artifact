@@ -211,8 +211,8 @@ python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausal
 
 (take ~2min)
 
-**Output:**
-console output:
+**Console Output:**
+
 ```text
 prompt: For models using Qwen2ForCausalLM, analyze the python code in vllm. Generate model config to trigger ...
 ****************************************
@@ -223,7 +223,8 @@ GPT response:
     ],
     ...
 }
-Mutated config for kernel dynamic_scaled_fp8_quant is saved at HFProbe/results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json.
+
+The config file generated from mutation to trigger kernel dynamic_scaled_fp8_quant is saved at HFProbe/results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json.
 ```
 results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```json
@@ -471,7 +472,8 @@ validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.
 ```
 
 ## 4. Kernel Memory Bugs in Inference Systems (Section 2.3)
-https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=0#gid=0
+
+In Section 2.3, we collect 20 CUDA kernel bugs from the vLLM repository and analyze their characteristics. The pull requests and labels for each bug are available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=0#gid=0). The column names match the `Breakdown` column in Table 1. 
 
 ## 5. Bug Detection in the Wild (Section 6.1)
 raw data of Table 5:
