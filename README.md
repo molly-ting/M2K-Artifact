@@ -57,7 +57,7 @@ Completed analysis for vllm model architecture Qwen2ForCausalLM!
 Kernel information is stored in opout.
 ```
 
-The file dopout/Qwen2ForCausalLM.json contains information about all CUDA kernels invoked by the Qwen2ForCausalLM model. For example, the excerpt below from dopout/Qwen2ForCausalLM.json shows that the dynamic_scaled_int8_quant kernel is invoked by the model from vllm/_custom_ops.py, with the corresponding call site spanning lines 1258--1293.
+The file `dopout/Qwen2ForCausalLM.json` contains information about all CUDA kernels invoked by the Qwen2ForCausalLM model. For example, the excerpt below from `dopout/Qwen2ForCausalLM.json` shows that the dynamic_scaled_int8_quant kernel is invoked by the model from `vllm/_custom_ops.py`, with the corresponding call site spanning lines 1258--1293.
 
 ``` json
 {
