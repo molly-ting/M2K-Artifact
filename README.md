@@ -477,12 +477,46 @@ https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9
 
 
 ```bash
-XXX
+evaluation/section-6-1-bug-detection/run_benchmark.sh
 ```
 
-
 **Expected output:** XXX
+cuKLEE input json files: evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface/papers>/input/<kernel_name>
 
+console output of cuKLEE: cuKLEE/results/<vllm/huggingface/papers>/log/<kernel_name>_cuklee_output.log
+
+constraints of bugs: cuKLEE/results/<vllm/huggingface/papers>/out/<mangled_kernel_name>/klee-out-jindex-<index>-0/<source_code_line>-asm-<asmbely_line>_<io/oob/dr>.txt
+
+validation result: evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json
+```json
+{
+    "dynamic_scaled_fp8_quant": {     // cuda kernel name
+        "py_func": "dynamic_scaled_fp8_quant",  // bound python function
+        "0": {   // index in the input/dynamic_scaled_fp8_quant.json 
+            "Qwen_Qwen2-0.5B-Instruct": {  // modelID
+                "19_18_119-asm-15118_4337_11163_io.txt": { // buggy constraint file, cuKLEE/results/vllm/out/_Z24dynamic_scaled_fp8_quantRN2at6TensorERKS0_S1_/klee-out-jindex-0-0/19_18_119-asm-15118_4337_11163_io.txt
+                    "status": "success", // verify to be TP
+                    "batch_size": 65,    // batch_size to trigger the bug
+                    "seq_len": 32264,    // seq_len to trigger the bug
+                    "config": "example/config/dynamic_scaled_fp8_quant.json"  // model config to run the model with
+                },
+            }
+        },
+    },
+    "rms_norm": {
+        "py_func": "rms_norm",
+        "0": {
+            "nvidia_Llama-3_3-Nemotron-Super-49B-v1": {
+                "26_21_154-asm-19295_4239_2774_io.txt": {
+                    "status": "failed",
+                    "reason": "no solution for token limit",  // the num_tokens (batch_size * seq_len) to trigger this bug exceeds the max num_tokens this model can handle on 288GB GPU
+                    "config": "evaluation/section-6-1-bug-detection/new_results/vllm/config/DeciLMForCausalLM/cutlass_scaled_mm_supports_fp4.json"
+                }
+            }
+        },
+    }
+}
+```
 
 ## 6. Coverage and Advancement (Section 6.2)
 raw data of Table 6:

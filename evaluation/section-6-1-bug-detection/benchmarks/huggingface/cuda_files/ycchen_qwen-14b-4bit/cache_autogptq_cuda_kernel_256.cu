@@ -302,7 +302,7 @@ void vecquant8matmul_batched_column_compression_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant8matmul_batched_cuda", ([&] {
+    vec.scalar_type(), "vecquant8matmul_batched_cuda", ([&] {
       VecQuant8BatchMatMulColumnCompressionKernel<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<int>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<int>(),
@@ -410,7 +410,7 @@ void vecquant8matmul_batched_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant8matmul_batched_cuda", ([&] {
+    vec.scalar_type(), "vecquant8matmul_batched_cuda", ([&] {
       VecQuant8BatchMatMulKernel<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<int>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<int>(),
@@ -533,7 +533,7 @@ void vecquant8matmul_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant8matmul_cuda", ([&] {
+    vec.scalar_type(), "vecquant8matmul_cuda", ([&] {
       VecQuant8MatMulKernel<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<int>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<int>(), g_idx.data<int>(),
@@ -623,7 +623,7 @@ void vecquant4matmul_batched_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant4matmul_batched_cuda", ([&] {
+    vec.scalar_type(), "vecquant4matmul_batched_cuda", ([&] {
       VecQuant4BatchMatMulKernel<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<int>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<int>(),
@@ -743,7 +743,7 @@ void vecquant4matmul_batched_column_compression_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant4matmul_batched_cuda", ([&] {
+    vec.scalar_type(), "vecquant4matmul_batched_cuda", ([&] {
       VecQuant4BatchMatMulColumnCompressionKernel<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<int>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<int>(),
@@ -852,7 +852,7 @@ void vecquant8matmul_batched_old_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant8matmul_batched_old_cuda", ([&] {
+    vec.scalar_type(), "vecquant8matmul_batched_old_cuda", ([&] {
       VecQuant8BatchMatMulKernel_old<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<uint8_t>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<scalar_t>(),
@@ -1156,7 +1156,7 @@ void vecquant8matmul_batched_column_compression_old_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant8matmul_batched_column_compression_old_cuda", ([&] {
+    vec.scalar_type(), "vecquant8matmul_batched_column_compression_old_cuda", ([&] {
       VecQuant8BatchMatMulColumnCompressionKernel_old<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<uint8_t>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<scalar_t>(),
@@ -1262,7 +1262,7 @@ void vecquant4matmul_batched_old_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant4matmul_batched_old_cuda", ([&] {
+    vec.scalar_type(), "vecquant4matmul_batched_old_cuda", ([&] {
       VecQuant4BatchMatMulKernel_old<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<uint8_t>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<scalar_t>(),
@@ -1374,7 +1374,7 @@ void vecquant4matmul_batched_column_compression_old_cuda(
   dim3 threads(BLOCKWIDTH);
 
   AT_DISPATCH_FLOATING_TYPES(
-    vec.type(), "vecquant4matmul_batched_column_compression_old_cuda", ([&] {
+    vec.scalar_type(), "vecquant4matmul_batched_column_compression_old_cuda", ([&] {
       VecQuant4BatchMatMulColumnCompressionKernel_old<<<blocks, threads>>>(
         vec.data<scalar_t>(), mat.data<uint8_t>(), mul.data<scalar_t>(),
         scales.data<scalar_t>(), zeros.data<scalar_t>(),

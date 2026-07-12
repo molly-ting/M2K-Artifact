@@ -199,17 +199,24 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
 
 def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, config_file, framework_config, profile_dir):
     if not klee_function_out_dir:
-        return
+        return None
+
+    if not "/" in model_id:
+        model_id = model_id.replace('_', '/', 1)
     
     if not index:
         index = 0
     constraint_path = os.path.join(klee_function_out_dir, f"klee-out-jindex-{index}-0")
+    if not os.path.exists(constraint_path):
+        return None
+    
     max_num_tokens = get_max_token_vllm(model_id)
     max_model_len = get_max_model_len(model_id)
     
     model_config = None
-    with open(config_file) as cf:
-        model_config = json.load(cf)
+    if config_file and os.path.exists(config_file):
+        with open(config_file) as cf:
+            model_config = json.load(cf)
 
     res = {}
     for lineno in os.listdir(constraint_path):
@@ -268,7 +275,7 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
     return res
 
 def vllm_benchmark_validate(klee_out_dir, profile_dir):
-    result_path = os.path.join(profile_dir, "vllm_benchmark_validation_results.json")
+    result_path = os.path.join(profile_dir, "benchmark_validation_results.json")
     res = {}
     if os.path.exists(result_path):
         with open(result_path) as rf:
@@ -291,11 +298,14 @@ def vllm_benchmark_validate(klee_out_dir, profile_dir):
             fcon = framework_configs[py_func]
 
         for index in res[cuda_func]:
-            if "py_func" in index:
+            if isinstance(index, str) and index == "py_func":
                 continue
 
             for model_id in res[cuda_func][index]:
                 config_file = None
+                if not res[cuda_func][index][model_id]:
+                    continue
+
                 if "config" in res[cuda_func][index][model_id]:
                     config_file = res[cuda_func][index][model_id]["config"]
 
@@ -304,7 +314,7 @@ def vllm_benchmark_validate(klee_out_dir, profile_dir):
                     klee_func_name = klee_func_out_map[cuda_func]
                 else:
                     for dirname in os.listdir(klee_out_dir):
-                        if len(cuda_func) + cuda_func in dirname:
+                        if str(len(cuda_func)) + cuda_func in dirname:
                             klee_func_name = dirname
                             klee_func_out_map[cuda_func] = dirname
                             break

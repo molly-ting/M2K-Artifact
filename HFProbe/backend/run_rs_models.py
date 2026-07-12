@@ -235,9 +235,8 @@ class _WrappingLoader(importlib.abc.Loader):
         try:
             if self.wrap_pred(self.name):
                 _wrap_module_functions(module, self.name)
-                print(f"[BIN-HOOK] wrapped module: {self.name}")
         except Exception as e:
-            print(f"[BIN-HOOK] wrap failed for {self.name}: {e}")
+            pass
 
 class _WrappingFinder(importlib.abc.MetaPathFinder):
     def __init__(self, wrap_pred):
@@ -276,7 +275,7 @@ def patch_binary_imports(name_patterns=(
     if any(isinstance(f, _WrappingFinder) for f in sys.meta_path):
         return
     sys.meta_path.insert(0, _WrappingFinder(_pred))
-    print("[INFO] Binary import hook installed for:", pats)
+    # print("[INFO] Binary import hook installed for:", pats)
 
 # ---- generic wrapper ----
 import types
@@ -294,7 +293,6 @@ def createEmptyModelBin(modelId, cache_dir):
         return
 
     dst_path = os.path.join(cache_dir, "pytorch_model.bin")
-    print(f"Creating dummy file: {dst_path}")
     with open(dst_path, "wb") as f:
         f.write(b"")
 
@@ -311,7 +309,6 @@ def copy_config_to_modules_if_needed(cache_dir):
             dst = os.path.join(module_dir, relative_path)
             dst_dir = os.path.dirname(dst)
             if not os.path.exists(dst):
-                print(f"Copying {src} to {dst}")
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
@@ -380,6 +377,9 @@ fake_dynamo.config = types.SimpleNamespace()
 # 5. Register modules in sys.modules.
 sys.modules["torch._dynamo"] = fake_dynamo
 sys.modules["torch._dynamo.device_interface"] = types.ModuleType("torch._dynamo.device_interface")
+fake_dynamo_utils = types.ModuleType("torch._dynamo.utils")
+fake_dynamo_utils.is_compile_supported = lambda *args, **kwargs: False
+sys.modules["torch._dynamo.utils"] = fake_dynamo_utils
 
 fake_trace_wrapped = types.ModuleType("torch._dynamo._trace_wrapped_higher_order_op")
 
@@ -419,7 +419,6 @@ def _dummy_load_pretrained_model(
     weights_only=True,
 ):
     if state_dict is None:
-        print("Generating dummy weights for", cls.__name__)
         dummy_dict = {
             name: torch.zeros_like(param, device="cpu")
             for name, param in model.named_parameters()
@@ -578,7 +577,7 @@ def testShiftAdd(override_configs=None, out_dir=None, op_name=None):
 
     inputs = tokenizer(["word"], return_tensors="pt", add_special_tokens=False)
     tokens = inputs["input_ids"]
-    print(len(tokens), len(tokens[0]))
+    # print(len(tokens), len(tokens[0]))
 
     model.generate(**inputs)
     data = [{"batch_size": 1, "seq_len": 1, "calls": tensor_calls.copy()}]
@@ -595,7 +594,7 @@ def testShiftAdd(override_configs=None, out_dir=None, op_name=None):
         out_path = os.path.join(out_dir, "ShiftAddLLM.json")
 
     with open(out_path, "w") as output_file:
-        json.dump(data, output_file)
+        json.dump(data, output_file, indent=4)
     shutil.rmtree(local_dir)
 
 
@@ -609,7 +608,6 @@ def testKVQuant():
         model_id,
         ignore_patterns=["*.bin", "*.safetensors"],
     )
-    print(f"Model {model_id} downloaded to {local_dir}")
 
     output_dir = default_rs_out_dir
     data_dir = default_rs_data_dir
@@ -634,7 +632,7 @@ def testKVQuant():
         model.model.set_devices()
 
         for seq_len in SEQ_LENS_CONFIGS:
-            print(f"\n--- Running: batch_size=1, seq_len={seq_len} ---")
+            print(f"--- Running: batch_size=1, seq_len={seq_len} ---")
             prompt_text = ("hi " * seq_len).strip()
             prompts = [prompt_text]
             real_seq_len = len(
@@ -643,7 +641,7 @@ def testKVQuant():
             try:
                 run_once(model, tokenizer, config, prompts, new_tokens=NEW_TOKENS)
             except Exception as error:
-                print(error)
+                pass
 
             for call in tensor_calls:
                 func_name = call.get("name", "unknown_function")
@@ -734,7 +732,7 @@ def testQuaRot(override_configs=None, out_dir=None, op_name=None):
     prompts = [prompt_text] * 3
     inputs = tokenizer(prompts, return_tensors="pt", add_special_tokens=False)
     tokens = inputs["input_ids"]
-    print(len(tokens), len(tokens[0]))
+    # print(len(tokens), len(tokens[0]))
 
     run_once(model, tokenizer, config, prompts, new_tokens=NEW_TOKENS)
     data = [{"batch_size": 3, "seq_len": 9, "calls": tensor_calls.copy()}]
@@ -872,7 +870,7 @@ def testAqlmManual(override_configs=None, out_dir=None, data_dir=None, op_name=N
     with NvccPatch():
         for batch_size in BATCH_SIZE_CONFIGS:
             for seq_len in SEQ_LENS_CONFIGS:
-                print(f"\n--- AQLM Manual Running: b={batch_size}, s={seq_len} ---")
+                print(f"--- AQLM Running: b={batch_size}, s={seq_len} ---")
 
                 prompt_text = ("hi " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
@@ -1075,7 +1073,7 @@ def testMCM(override_configs=None, out_dir=None, data_dir=None, op_name=None):
     with NvccPatch():
         for batch_size in BATCH_SIZE_CONFIGS:
             for seq_len in SEQ_LENS_CONFIGS:
-                print(f"\n--- MCM Running: b={batch_size}, s={seq_len} ---")
+                print(f"--- MCM Running: b={batch_size}, s={seq_len} ---")
 
                 prompt_text = ("hi " * seq_len).strip()
                 prompts = [prompt_text] * batch_size
@@ -1223,7 +1221,7 @@ def testAnyPrecision(override_configs=None, out_dir=None, data_dir=None, op_name
     with NvccPatch():
         for batch_size in BATCH_SIZE_CONFIGS:
             for seq_len in SEQ_LENS_CONFIGS:
-                print(f"\n--- AnyPrecision Running: b={batch_size}, s={seq_len} ---")
+                print(f"--- AnyPrecision Running: b={batch_size}, s={seq_len} ---")
 
                 prompt_text = ("word " * seq_len).strip()
                 prompts = [prompt_text] * batch_size

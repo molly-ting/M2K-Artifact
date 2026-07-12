@@ -521,7 +521,7 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=No
     with open(filepath) as f:
         data = json.load(f)
 
-    if "mgalkin" in filepath and "ultra" in filepath:
+    if ("mgalkin" in filepath and "ultra" in filepath) or "ShiftAddLLM" in filepath:
         for item in data:
             for call in item["calls"]:
                 func_name = call["name"]
@@ -584,6 +584,10 @@ def _read_hf_output_file(filepath, kernel_map, compile_path, res, max_seq_len=No
                     "input_file_path": input_file_path,
                     "args": argCons,
                 }
+                if max_seq_len is not None:
+                    item["seq_len"] = max_seq_len
+                if max_token_num is not None:
+                    item["num_tokens"] = max_token_num
                 if item not in res[cuda_func]:
                     res[cuda_func].append(item)
 
@@ -669,7 +673,29 @@ def generate_all_hf(compile_path, result_dir=None, kernel_map_dir=None, has_seq_
             max_token_num = None
             if has_token_con:
                 max_token_num = get_max_token_hf(model_id.replace("_", "/", 1))
-            _read_hf_output_file(os.path.join(result_dir, "out", file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
+            
+            for op_file in os.listdir(os.path.join(result_dir, "out", model_id)):
+                if op_file.endswith(".json"):
+                    _read_hf_output_file(os.path.join(result_dir, "out", model_id, op_file), kernel_map, os.path.join(compile_path, model_id), res, max_seq_len, max_token_num)
+    
+    for func in res:    
+        out_filepath = result_dir+"/input/"+func+".json"
+        write_data = []
+        if os.path.exists(out_filepath):
+            with open(out_filepath, "r") as rf:
+                write_data = json.load(rf)
+        
+        if not write_data:
+            write_data = res[func]
+        else:
+            for item in res[func]:
+                if item not in write_data:
+                    write_data.append(item)
+        
+        if not write_data:
+            continue
+        with open(out_filepath, "w") as wf:
+            json.dump(write_data, wf, indent=4)
 
 def generate_research_paper_input(out_dir):
     if not out_dir:
@@ -717,12 +743,14 @@ if __name__ == "__main__":
     if args.research_paper:
         generate_research_paper_input(args.profile_out_dir)
     elif args.vllm_benchmark:
-        kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
-        wrapper.find_kernel_rel(args.profile_out_dir, kernel_map_path)
-        generate_vllm_inputs(None, None, None, kernel_map_path, True, False)
-        generate_vllm_input_load(None, None, None, kernel_map_path, True)
+        kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")    
+        cuda_source_dir = args.cuda_source_dir if args.cuda_source_dir else os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
+        if not os.path.exists(kernel_map_path):
+            wrapper.find_kernel_rel(cuda_source_dir, kernel_map_path)
+        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, cuda_source_dir, kernel_map_path, True, False)
+        generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, cuda_source_dir, kernel_map_path, True)
     elif args.hf_benchmark:
-        generate_all_hf(None, args.profile_out_dir)
+        generate_all_hf(args.compiled_kernel_dir, args.profile_out_dir, has_seq_con=True)
     elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)

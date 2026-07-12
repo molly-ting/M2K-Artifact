@@ -79,9 +79,9 @@ def compile_cu_file(cu_file, root_path=None):
         *(["-I", str(OPENMP_INCLUDE_DIR)] if OPENMP_INCLUDE_DIR is not None else []),
         "-I", root_path,
         "-I", "/usr/include/python3.10",
-        "-I", f"{project_path}/compile/include/cutlass/include",
-        "-I", f"{project_path}/compile/include",
-        "-I", f"{project_path}/compile/include/cutlass/examples",
+        "-I", f"{project_path}/cuKLEE/include/cutlass/include",
+        "-I", f"{project_path}/cuKLEE/include",
+        "-I", f"{project_path}/cuKLEE/include/cutlass/examples",
     ]
 
     if "cutlass" in cu_file:
@@ -135,6 +135,16 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
                 failed_files.append(str(cu_file))
                 continue
 
+            origin_host_path = Path("./"+filename+".bc")
+            if origin_host_path.is_file() and output_prefix != filename:
+                origin_host_path.rename(origin_host_path.with_name(host_bc_file))
+                print(f"Renamed: {origin_host_path} → {host_bc_file}")
+            
+            origin_cuda_path = Path("./"+filename+"-cuda-nvptx64-nvidia-cuda-sm_80.bc")
+            if origin_cuda_path.is_file() and output_prefix != filename:
+                origin_cuda_path.rename(origin_cuda_path.with_name(cuda_bc_file))
+                print(f"Renamed: {origin_cuda_path} → {cuda_bc_file}")
+
         if os.path.exists(combined_bc_file):
             continue
 
@@ -154,8 +164,8 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
     os.chdir(original_dir)
 
 def compile_vllm():
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_compiled_files", "vllm_0_9_0")
-    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark_cuda_files", "vllm_0_9_0", "csrc")
+    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "vllm")
+    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
     compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True)
     original_dir = os.getcwd()
     os.chdir(outputDir)
@@ -173,8 +183,8 @@ def compile_vllm():
 
 def compile_paper():
     original_dir = os.getcwd()
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "research_papers", "compiled_files")
-    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "research_papers", "cuda_files")
+    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "papers")
+    inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "research_papers", "cuda_files")
     for dname in os.listdir(inputDir):
         dir_path = os.path.join(inputDir, dname)
         out_model_dir = os.path.join(outputDir, dname)
@@ -211,7 +221,7 @@ def compile_paper():
 
             if file.endswith(".cpp"):
                 has_cpp_file = True
-                output_prefix = dir_path+"/"+file[:file.find(".cpp")]
+                output_prefix = out_model_dir+"/"+file[:file.find(".cpp")]
                 cpp_bc_file = f"{output_prefix}_cpp.bc"
                 cpp_bc_files.append(cpp_bc_file)
                 if os.path.exists(cpp_bc_file):
@@ -264,17 +274,14 @@ def _sanitize_cuda_source(cu_file, out_dir):
     if "vec.type()" not in source_text:
         return source_path
 
-    sanitized_root = Path(out_dir) / ".sanitized_sources"
-    sanitized_root.mkdir(parents=True, exist_ok=True)
-    sanitized_path = sanitized_root / source_path.name
     sanitized_text = source_text.replace("vec.type()", "vec.scalar_type()")
-    sanitized_path.write_text(sanitized_text)
-    return sanitized_path
+    source_path.write_text(sanitized_text)
+    return source_path
 
 def compile_hf():
     original_dir = os.getcwd()
-    targetDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "huggingface", "cuda_files")
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmark", "huggingface", "compiled_files")
+    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "huggingface")
+    targetDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "huggingface", "cuda_files")
     os.makedirs(outputDir, exist_ok=True)
 
     for dname in os.listdir(targetDir):

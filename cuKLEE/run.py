@@ -16,11 +16,11 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         # Create a log file for this specific KLEE run (output and error)
         if useDirName:
             dir_name = os.path.basename(os.path.dirname(json_file))
-            log_file = os.path.join(logDir, dir_name + '_klee_output.log')
+            log_file = os.path.join(logDir, dir_name + '_cuklee_output.log')
             outputdir = os.path.join(outputdir, dir_name)
             os.makedirs(outputdir, exist_ok=True)
         else:
-            log_file = os.path.join(logDir, os.path.splitext(os.path.basename(json_file))[0] + '_klee_output.log')
+            log_file = os.path.join(logDir, os.path.splitext(os.path.basename(json_file))[0] + '_cuklee_output.log')
         if os.path.exists(log_file):
             print(f"Log file {log_file} already exists. Skipping run for {json_file}.")
             return True         
@@ -45,7 +45,7 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
     try:
         os.makedirs(logDir, exist_ok=True)
 
-        log_file = os.path.join(logDir, os.path.splitext(os.path.basename(bc_file))[0] + '_klee_output.log')
+        log_file = os.path.join(logDir, os.path.splitext(os.path.basename(bc_file))[0] + '_cuklee_output.log')
         if os.path.exists(log_file):
             print(f"Log file {log_file} already exists. Skipping run for {bc_file}.")
             return True         

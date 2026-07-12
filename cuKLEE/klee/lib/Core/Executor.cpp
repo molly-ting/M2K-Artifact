@@ -4319,8 +4319,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
       if (state.symbolicArrayMap.find(symName) != state.symbolicArrayMap.end()) {
         bindLocal(ki, state, ConstantExpr::create(0, Expr::Bool));
         return;
-      } else {
-        llvm::outs() << "optional<Generator>.has_value(): not symbolic object\n";
       }
     } else if (f->getName().find("8optional")!=std::string::npos && (f->getName().find("9has_value")!=std::string::npos || f->getName().find("IN2at6TensorEEcvbEv")!=std::string::npos)) {
       if (isa<ConstantExpr>(arguments[0])) {
@@ -4360,8 +4358,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
           bindLocal(ki, state, boolCond);
         }
         return;
-      } else {
-        llvm::outs() << "optional.has_value(): not symbolic object\n";
       }
     } else if (f->getName().find("8optional")!=std::string::npos && (f->getName().find("5value")!=std::string::npos || f->getName().find("2at6TensorEEptEv")!=std::string::npos)) {
       if (isa<ConstantExpr>(arguments[0])) {
@@ -4397,8 +4393,6 @@ void Executor::executeCall(ExecutionState &state, KInstruction *ki, Function *f,
         }
         bindLocal(ki, state, arguments[0]);
         return;
-      } else {
-        llvm::outs() << "optional.value(): not symbolic object\n";
       }
     } else if (f->getName().find("8optionalIN2at6TensorEEC2ERKS2_")!=std::string::npos) {
       bool success;
@@ -7957,11 +7951,53 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     Type *srcType = ci->getSrcTy();
     Type *destType = ci->getDestTy();
 
+    if (!srcType->isIntegerTy() || !destType->isIntegerTy() || destType->getIntegerBitWidth() >= 64 || isa<ConstantExpr>(srcValue) || isLoopCheck || srcType->getIntegerBitWidth() >= 64) {
       bindLocal(ki, state, result);
+      break; // Not an integer truncation, no need to check for overflow
+    }
 
+    unsigned destBitWidth = destType->getIntegerBitWidth();
+    ref<Expr> minValueCheck;
+    ref<Expr> maxValueCheck;
+    ref<ReadExpr> readArg = ReadExpr::extractReadExpr(srcValue);
+    if (readArg && readArg->updates.root && !readArg->updates.root->name.empty()) {
+      std::string argName = readArg->updates.root->name;
+      if (isIntArgSigned.find(argName) != isIntArgSigned.end()) {
+        if (isIntArgSigned[argName]) {
+          // if (destBitWidth <= 64) {
+            // ref<ConstantExpr> minValueExpr = ConstantExpr::alloc(-(1LL << (destBitWidth-1)), srcValue->getWidth());   
+            ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << (destBitWidth-1)) - 1, srcValue->getWidth());
+            // minValueCheck = SgeExpr::create(srcValue, minValueExpr);
+            maxValueCheck = SleExpr::create(srcValue, maxValueExpr);
+            minValueCheck = ConstantExpr::create(1, Expr::Bool);
+        } else {
+          ref<Expr> minValueExpr = ConstantExpr::create(0, srcValue->getWidth());
+          ref<Expr> maxValueExpr = ConstantExpr::create((1ULL << destBitWidth) - 1, srcValue->getWidth()); 
+          minValueCheck = UgeExpr::create(srcValue, minValueExpr);
+          maxValueCheck = UleExpr::create(srcValue, maxValueExpr);
+        }
+      }
+    }
 
-    //   else
+    ref<Expr> overflowCheck;
+    if(!minValueCheck || !maxValueCheck) {
+      if (destBitWidth == 1)
+        overflowCheck = AndExpr::create(UgeExpr::create(srcValue, ConstantExpr::create(0, srcValue->getWidth())), UleExpr::create(srcValue, ConstantExpr::create(1, srcValue->getWidth())));
+      else
+        overflowCheck = UleExpr::create(srcValue, ConstantExpr::create((1ULL << destBitWidth) - 1, srcValue->getWidth()));
+    } else
+      overflowCheck = AndExpr::create(minValueCheck, maxValueCheck);
 
+    StatePair branches = fork(state, overflowCheck, true, BranchType::Trunc);
+    ExecutionState *bound = branches.first;
+    if (bound) {
+      bindLocal(ki, state, result);
+    }
+
+    ExecutionState *unbound = branches.second;
+    if(unbound) {
+      terminateStateOnProgramError(*unbound, "integer overflow", StateTerminationType::Overflow);
+    }
 
     break;
   }

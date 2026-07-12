@@ -663,7 +663,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
             dst = os.path.join(module_dir, relative_path)
             dst_dir = os.path.dirname(dst)
             if not os.path.exists(dst):
-                print(f"Copying {src} to {dst}")
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
@@ -680,7 +679,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                 dst = os.path.join(module_dir_2, relative_path)
                 dst_dir = os.path.dirname(dst)
                 if not os.path.exists(dst):
-                    print(f"Copying {src} to {dst}")
                     if not os.path.exists(dst_dir):
                         os.makedirs(dst_dir)
                     shutil.copy(src, dst)
@@ -698,7 +696,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                 dst = os.path.join(module_dir_2, relative_path)
                 dst_dir = os.path.dirname(dst)
                 if not os.path.exists(dst):
-                    print(f"Copying {src} to {dst}")
                     if not os.path.exists(dst_dir):
                         os.makedirs(dst_dir)
                     shutil.copy(src, dst)
@@ -942,7 +939,7 @@ def run(
     local_dir = prepare_snapshot_and_stage_sources(
         model_id=model_id,
         hf_token=HF_TOKEN or None,
-        local_only=LOCAL_ONLY,
+        local_only=False,
         include_weights=False
     )
 
@@ -960,7 +957,7 @@ def run(
                         local_dir_2 = prepare_snapshot_and_stage_sources(
                             model_id=use_model_id,
                             hf_token=HF_TOKEN or None,
-                            local_only=LOCAL_ONLY,
+                            local_only=False,
                             include_weights=False
                         )
         model, tok = load_model_and_tokenizer(local_dir, cfg)

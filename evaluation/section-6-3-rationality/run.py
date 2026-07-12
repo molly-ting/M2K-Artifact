@@ -98,7 +98,7 @@ def runVllm(modelId, framework_config, model_config, op_name):
                 os.environ[k] = framework_config["envs"][k]
         
         if "vllmconfig" in framework_config:
-            config = framework_config["vllmconfig"]
+            configs = framework_config["vllmconfig"]
         if "batch_size" in framework_config:
             batch_size_configs = framework_config["batch_size"]
         if "seq_len" in framework_config:
@@ -115,13 +115,13 @@ def runVllm(modelId, framework_config, model_config, op_name):
             if key in model_config:
                 model_config.pop(key)
 
-        config["hf_overrides"] = model_config
+        configs["hf_overrides"] = model_config
         if "quantization_config" in model_config:
-            if "quant_method" in model_config["quantization_config"] and "quantization" not in config:
+            if "quant_method" in model_config["quantization_config"] and "quantization" not in configs:
                 quant_method = model_config["quantization_config"]["quant_method"]
-                config["quantization"] = quant_method
+                configs["quantization"] = quant_method
                 if op_name == "moe_wna16_gemm":
-                    config["quantization"] = "moe_wna16"
+                    configs["quantization"] = "moe_wna16"
             else:
                 batch_size_configs = [1, 3, 5]
                 seq_lens_configs = [1, 7, 17]
@@ -130,7 +130,7 @@ def runVllm(modelId, framework_config, model_config, op_name):
                 os.environ.update(env_old)
                 return False, None
     
-    config["dtype"] = "float16"
+    configs["dtype"] = "float16"
 
     print("Running model ", modelId, "...")
     if "max_num_seqs" not in configs:
@@ -180,11 +180,11 @@ def runVllm(modelId, framework_config, model_config, op_name):
         seq_lens_configs = [1, 7, 17]
 
 
-def run_wo_c():
+def run_wo_C():
     global bug_res
     current_dir = os.path.dirname(os.path.abspath(__file__))
     eval_dir = os.path.dirname(current_dir)
-    config_path = f"{eval_dir}/evaluation/section-6-1-bug-detection/HFProbe_results/vllm/config"
+    config_path = f"{eval_dir}/section-6-1-bug-detection/intermediate_results/vllm/config"
 
     with open(f"{current_dir}/vllm_models.json") as mf:
         structure_model_map = json.load(mf)
@@ -199,6 +199,11 @@ def run_wo_c():
 
     for model_id in structure_model_map:     
         structure = structure_model_map[model_id]
+
+        if model_id == "mosaicml/mpt-7b":
+            model_id = "k0t1k/mosaicml-mpt-7b-instruct-lora"
+        if model_id == "databricks/dbrx-instruct":
+            model_id = "alpindale/dbrx-instruct"
 
         if not os.path.exists(os.path.join(config_path, structure)):
             continue
@@ -215,6 +220,8 @@ def run_wo_c():
                     triggered_ops.update(set(trigger_data["initial"]))
                 if "new" in trigger_data:
                     triggered_ops.update(set(trigger_data["new"]))
+                if "final" in trigger_data:
+                    triggered_ops.update(set(trigger_data["final"]))
         else:
             triggered_ops = set(framework_configs.keys())
         
@@ -243,7 +250,7 @@ def run_wo_c():
         with open(f"{current_dir}/bug_results.json", "w") as bf:
             json.dump(bug_res, bf)
 
-def run_wo_m():
+def run_wo_M():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     profile_dir = os.path.join(current_dir, "wo_m", "profile")
     cuklee_out_dir = os.path.join(current_dir, "wo_m", "cuklee", "out")
@@ -321,7 +328,7 @@ def run_wo_m():
         f"--profile-dir={profile_dir}",
     ])
     
-def run_wo_v():
+def run_wo_V():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     profile_dir = os.path.join(current_dir, "wo_v", "profile")
     cuklee_out_dir = os.path.join(current_dir, "wo_v", "cuklee", "out")
@@ -392,15 +399,15 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--without", type=enum, required=True, choices=["H", "C", "M", "V"], help="Run without H, C, M, or V"
+        "--without", required=True, choices=["H", "C", "M", "V"], help="Run without H, C, M, or V"
     )
 
     args = parser.parse_args()
     if args.without == "H":
         run_wo_H()
     elif args.without == "C":
-        run_wo_c()
+        run_wo_C()
     elif args.without == "M":
-        run_wo_m()
+        run_wo_M()
     elif args.without == "V":
-        run_wo_v()
+        run_wo_V()

@@ -339,7 +339,6 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
             triggered_ops.update(new_triggered)
             if op_name in new_triggered:
                 print(f"{op_name} is succesfully triggered!")
-        break
     
     end_time = time.time()
     with open(cannot_tri_path, "w") as nwf:

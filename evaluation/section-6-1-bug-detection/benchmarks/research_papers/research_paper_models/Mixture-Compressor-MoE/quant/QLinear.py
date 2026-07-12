@@ -330,9 +330,9 @@ class QLinear(nn.Module):
                     "ATEN/CUDA backend not availabe. Make sure you install the hqq_aten library."
                 )
                 return
-            print(
-                "Warning: the ATEN/CUDA backend only supports axis=0 and GPU runtime."
-            )
+            # print(
+            #     "Warning: the ATEN/CUDA backend only supports axis=0 and GPU runtime."
+            # )
         QLinear.backend = backend
         cls.forward = getattr(cls, backend.value)
 

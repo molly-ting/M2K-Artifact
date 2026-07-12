@@ -1,12 +1,28 @@
 import argparse
 import os, json
+import sys
 import ast
-from ..input_generate import get_max_token_vllm, get_max_model_len
-from verify_input import solve_with_bounds, getFuncName, init_hf_input_check, compare_json_arrays
-import run_transformers_check as rt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(current_dir)
+project_dir = os.path.dirname(root_dir)
+backend_dir = os.path.join(root_dir, "backend")
+
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
+
+if __package__ is None or __package__ == "":
+    if project_dir not in sys.path:
+        sys.path.insert(0, project_dir)
+    from HFProbe.input_generate import get_max_token_vllm, get_max_model_len
+    from HFProbe.validation.verify_input import solve_with_bounds, getFuncName, init_hf_input_check, compare_json_arrays
+    import run_transformers_check as rt
+else:
+    from ..input_generate import get_max_token_vllm, get_max_model_len
+    from .verify_input import solve_with_bounds, getFuncName, init_hf_input_check, compare_json_arrays
+    from . import run_transformers_check as rt
 
 def run_case(model_id, override_configs, op_name, batch_size, seq_len, lineno, index, result_dir):
     out_path = f"{result_dir}/validation/{model_id.replace('/', '_')}/{op_name}-{lineno}-{index}.json"
@@ -50,8 +66,9 @@ def hf_validate_one(klee_out_dir, cuda_func, py_func, index, model_id, config_fi
     max_model_len = get_max_model_len(model_id)
     
     model_config = None
-    with open(config_file) as cf:
-        model_config = json.load(cf)
+    if os.path.exists(config_file):
+        with open(config_file) as cf:
+            model_config = json.load(cf)
 
     res = {}
     for lineno in os.listdir(constraint_path):
@@ -108,16 +125,23 @@ def hf_validate_one(klee_out_dir, cuda_func, py_func, index, model_id, config_fi
 def hf_validate_one_inner(klee_function_out_dir, cuda_func, py_func, index, model_id, config_file, result_dir):
     if not klee_function_out_dir:
         return
+
+    if not "/" in model_id:
+        model_id = model_id.replace('_', '/', 1)
     
     if not index:
         index = 0
     constraint_path = os.path.join(klee_function_out_dir, f"klee-out-jindex-{index}-0")
+    if not os.path.exists(constraint_path):
+        return None
+    
     max_num_tokens = get_max_token_vllm(model_id)
     max_model_len = get_max_model_len(model_id)
     
     model_config = None
-    with open(config_file) as cf:
-        model_config = json.load(cf)
+    if config_file and os.path.exists(config_file):
+        with open(config_file) as cf:
+            model_config = json.load(cf)
 
     res = {}
     for lineno in os.listdir(constraint_path):
@@ -169,13 +193,13 @@ def hf_validate_one_inner(klee_function_out_dir, cuda_func, py_func, index, mode
     return res
 
 def hf_benchmark_validate(klee_out_dir, profile_dir):
-    result_path = os.path.join(profile_dir, "hf_benchmark_validation_results.json")
+    result_path = os.path.join(profile_dir, "benchmark_validation_results.json")
     res = {}
     if os.path.exists(result_path):
         with open(result_path) as rf:
             res = json.load(rf)
     if not res:
-        res = init_hf_input_check(profile_dir, None, None, result_path)
+        res = init_hf_input_check(profile_dir, None, result_path)
     
     klee_func_out_map = {}
     for dirname in os.listdir(klee_out_dir):
@@ -183,12 +207,16 @@ def hf_benchmark_validate(klee_out_dir, profile_dir):
         klee_func_out_map[cuda_func] = dirname
     
     for cuda_func in res:
+        py_func = res[cuda_func].get("py_func", cuda_func)
         for index in res[cuda_func]:
-            if "py_func" in index:
+            if isinstance(index, str) and index == "py_func":
                 continue
 
             for model_id in res[cuda_func][index]:
                 config_file = None
+                if not res[cuda_func][index][model_id]:
+                    continue
+
                 if "config" in res[cuda_func][index][model_id]:
                     config_file = res[cuda_func][index][model_id]["config"]
 
@@ -197,13 +225,13 @@ def hf_benchmark_validate(klee_out_dir, profile_dir):
                     klee_func_name = klee_func_out_map[cuda_func]
                 else:
                     for dirname in os.listdir(klee_out_dir):
-                        if len(cuda_func) + cuda_func in dirname:
+                        if str(len(cuda_func)) + cuda_func in dirname:
                             klee_func_name = dirname
                             klee_func_out_map[cuda_func] = dirname
                             break
 
                 klee_function_out_dir = os.path.join(klee_out_dir, klee_func_name) if klee_func_name else None
-                validate_res = hf_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, config_file, profile_dir)
+                validate_res = hf_validate_one_inner(klee_function_out_dir, cuda_func, py_func, index, model_id, config_file, profile_dir)
                 res[cuda_func][index][model_id] = validate_res
 
     with open(result_path, "w") as wf:
