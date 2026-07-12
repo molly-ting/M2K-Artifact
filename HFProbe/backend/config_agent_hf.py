@@ -4,6 +4,7 @@ import shutil
 from agents import Agent, Runner, function_tool,WebSearchTool
 from agents.memory import Session
 from agents.exceptions import MaxTurnsExceeded
+from huggingface_hub.errors import HfHubHTTPError, RepositoryNotFoundError
 import json, os
 from typing import Dict, List, Optional
 from . import run_graph
@@ -118,6 +119,15 @@ possible_len_keys = [
 current_path_string = os.path.abspath(__file__)
 root_dir = os.path.dirname(os.path.dirname(current_path_string))
 
+def _handle_repository_not_found(model_id):
+    print(f"Repository not found for model {model_id}.")
+
+def _handle_repository_access_error(model_id, exc):
+    response = getattr(exc, "response", None)
+    status_code = getattr(response, "status_code", None)
+    if status_code in (401, 403):
+        print(f"No access to repository for model {model_id} (HTTP {status_code}).")
+
 structure_configs = []
 resCon = {}
 model_config_out_path = ""
@@ -135,7 +145,7 @@ def saveRes(config: str):
     global model_config_out_path
     with open(model_config_out_path, "w") as f:
         resCon = json.loads(config)
-        json.dump(resCon, f)
+        json.dump(resCon, f, indent=4)
     
 testAgent = Agent(
     name="LLMConfigAgent",
@@ -167,6 +177,7 @@ def runAgent(prompt):
             for t in result.traces:
                 print(f"{t.tool_name}: {t.output[:200]}")
 
+    print("GPT response:")
     print(result.final_output)
     return result.final_output, session.token_usage
 
@@ -183,6 +194,8 @@ def generate_transformer(model_id, op_name, out_dir=None):
     prompt_huggingface = f"""
     For large language model {model_id} on huggingface, check its python code and config.json, generate configs to trigger its custom kernel {op_name}, so that I can use this config in transformers framework to test it. The repo url is {model_repo}. If this kernel cannot be trigger with any config values, answer "No, it cannot be triggered." Otherwise, answer the new config.json. 
     """
+    print("prompt:", prompt_huggingface)
+    print("****************************************")
     return runAgent(prompt_huggingface)
 
 def find_model_ops(repo_path, kernel_map):
@@ -284,6 +297,12 @@ def handle_one_model_hf(model_id, out_dir=None):
     start_time = time.time()
     try:
         run_model(model_id, None, None, out_dir)
+    except RepositoryNotFoundError as e:
+        _handle_repository_not_found(model_id)
+        return
+    except HfHubHTTPError as e:
+        _handle_repository_access_error(model_id, e)
+        return
     except:
         return
     
@@ -293,11 +312,12 @@ def handle_one_model_hf(model_id, out_dir=None):
             kernel_map = json.load(kf)
     else:
         kernel_map = find_kernel_rel(model_cache_dir, None, False)
+
     all_ops, used_ops = find_model_ops(model_cache_dir, kernel_map)
     if not all_ops:
         return 
 
-    triggered_ops = find_triggered_ops_hf(model_id)
+    triggered_ops = find_triggered_ops_hf(model_id, out_dir=out_dir+"/out")
     if not triggered_ops:
         triggered_ops = set()
    
@@ -356,6 +376,12 @@ def handle_one_model_hf(model_id, out_dir=None):
         time0 = time.time()
         try:
             run_model(model_id, config_data, op_name, out_dir)
+        except RepositoryNotFoundError as e:
+            _handle_repository_not_found(model_id)
+            pass
+        except HfHubHTTPError as e:
+            _handle_repository_access_error(model_id, e)
+            pass
         except:
             pass
 
@@ -366,12 +392,12 @@ def handle_one_model_hf(model_id, out_dir=None):
         with open(cost_path, "w") as nwf:
             json.dump(cost_map, nwf, indent=4)   
         
-        new_triggered = find_triggered_ops_hf(model_id, op_name)
+        new_triggered = find_triggered_ops_hf(model_id, op_name, out_dir=out_dir+"/out")
         if new_triggered:
             triggered_ops.update(new_triggered)
             if op_name in new_triggered:
                 print(f"{op_name} is succesfully triggered!")
-    
+
     end_time = time.time()
     with open(cannot_tri_path, "w") as nwf:
         json.dump(cannot_tri, nwf)  
@@ -407,6 +433,12 @@ def test_one_without_mutate_config(model_id, out_dir=None):
     
     try:
         run_model(model_id, None, None, out_dir)
+    except RepositoryNotFoundError as e:
+        _handle_repository_not_found(model_id)
+        return
+    except HfHubHTTPError as e:
+        _handle_repository_access_error(model_id, e)
+        return
     except:
         return
 
@@ -416,12 +448,18 @@ def test_one_with_configs(model_id, out_dir=None):
     os.makedirs(out_dir, exist_ok=True)
 
     final_res_path = f"{out_dir}/config/{model_id.replace('/', '_')}/result.json"
-    if os.path.exists(final_res_path):
-        return
+    # if os.path.exists(final_res_path):
+    #     return
     
     start_time = time.time()
     try:
         run_model(model_id, None, None, out_dir)
+    except RepositoryNotFoundError as e:
+        _handle_repository_not_found(model_id)
+        return
+    except HfHubHTTPError as e:
+        _handle_repository_access_error(model_id, e)
+        return
     except:
         return
     
@@ -429,7 +467,7 @@ def test_one_with_configs(model_id, out_dir=None):
     if not os.path.exists(config_out_dir):
         return
 
-    triggered_ops = find_triggered_ops_hf(model_id)
+    triggered_ops = find_triggered_ops_hf(model_id, out_dir=out_dir+"/out")
     if not triggered_ops:
         triggered_ops = set()
     
@@ -456,10 +494,16 @@ def test_one_with_configs(model_id, out_dir=None):
         
         try:
             run_model(model_id, config_data, op_name, out_dir)
+        except RepositoryNotFoundError as e:
+            _handle_repository_not_found(model_id)
+            pass
+        except HfHubHTTPError as e:
+            _handle_repository_access_error(model_id, e)
+            pass
         except:
             pass
         
-        new_triggered = find_triggered_ops_hf(model_id, op_name)
+        new_triggered = find_triggered_ops_hf(model_id, op_name, out_dir=out_dir+"/out")
         if new_triggered:
             triggered_ops.update(new_triggered)
             if op_name in new_triggered:
@@ -485,10 +529,16 @@ def test_model_with_one_config(model_id, config_path, out_dir=None):
         
     try:
         run_model(model_id, model_config, op_name, out_dir)
+    except RepositoryNotFoundError as e:
+        _handle_repository_not_found(model_id)
+        pass
+    except HfHubHTTPError as e:
+        _handle_repository_access_error(model_id, e)
+        pass
     except:
         pass
         
-    new_triggered = find_triggered_ops_hf(model_id, op_name)
+    new_triggered = find_triggered_ops_hf(model_id, op_name, out_dir=out_dir+"/out")
     if new_triggered and op_name in new_triggered:
         print(f"Kernel {op_name} is successfully triggered with the provided config.")
     else:
@@ -507,6 +557,8 @@ def mutate_config_kernel(model_id, op_name, out_dir=None):
         return None
     
     output, token_usage = generate_transformer(model_id, op_name, out_config_dir)
+    if os.path.exists(model_config_out_path):
+        print(f"Mutated config for kernel {op_name} is saved at {model_config_out_path}.")
     return output
 
 if __name__ == "__main__":
@@ -518,13 +570,13 @@ if __name__ == "__main__":
         "--model-id", type=str, required=False, help="Model ID"
     )
     parser.add_argument(
-        "--out-dir", type=str, required=False, help="Output directory"
+        "--profile-out-dir", type=str, required=False, help="Output directory"
     )
     parser.add_argument(
-        "--mutate", action=argparse.BooleanOptionalAction, default=True, help="Whether to mutate model configs"
+        "--mutate", action=argparse.BooleanOptionalAction, default=False, help="Whether to mutate model configs"
     )
     parser.add_argument(
-        "--use-existent-config", action=argparse.BooleanOptionalAction, default=True, help="Whether to load exisiting configs or to use GPT to mutate model configs"
+        "--use-existent-config", action=argparse.BooleanOptionalAction, default=False, help="Whether to load exisiting configs or to use GPT to mutate model configs"
     )
     parser.add_argument(
         "--config-file", type=str, required=False, help="model config file to run profiling backend"
@@ -536,14 +588,14 @@ if __name__ == "__main__":
 
     if args.model_id:
         if args.kernel_name:
-            mutate_config_kernel(args.model_id, args.kernel_name, args.out_dir)
+            mutate_config_kernel(args.model_id, args.kernel_name, args.profile_out_dir)
         elif args.mutate and args.use_existent_config:
-            test_one_with_configs(args.model_id, args.out_dir)
+            test_one_with_configs(args.model_id, args.profile_out_dir)
         elif args.mutate:
-            handle_one_model_hf(args.model_id, args.out_dir)
+            handle_one_model_hf(args.model_id, args.profile_out_dir)
         elif args.config_file:
-            test_model_with_one_config(args.model_id, args.config_file, args.out_dir)
+            test_model_with_one_config(args.model_id, args.config_file, args.profile_out_dir)
         else:
-            test_one_without_mutate_config(args.model_id, args.out_dir)
+            test_one_without_mutate_config(args.model_id, args.profile_out_dir)
     else:
-        main_transformers_benchmark(args.out_dir, args.use_existent_config)
+        main_transformers_benchmark(args.profile_out_dir, args.use_existent_config)

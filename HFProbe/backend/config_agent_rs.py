@@ -339,6 +339,7 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
             triggered_ops.update(new_triggered)
             if op_name in new_triggered:
                 print(f"{op_name} is succesfully triggered!")
+        break
     
     end_time = time.time()
     with open(cannot_tri_path, "w") as nwf:
@@ -360,7 +361,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="run profiling backend on research paper frameworks"
     )
-    parser.add_argument("--out-dir", type=str, required=False, help="output directory")
+    parser.add_argument("--profile-out-dir", type=str, required=False, help="output directory")
 
     args = parser.parse_args()
-    run_all_models(out_dir=args.out_dir)
+    run_all_models(out_dir=args.profile_out_dir)

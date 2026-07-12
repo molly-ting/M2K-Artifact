@@ -12,6 +12,7 @@ from vllm import LLM, SamplingParams
 from vllm.config import LoadFormat
 
 from huggingface_hub import snapshot_download
+from huggingface_hub.errors import GatedRepoError, HfHubHTTPError, RepositoryNotFoundError
 
 
 current_path_string = os.path.abspath(__file__)
@@ -25,6 +26,20 @@ oom_models = []
 failed_models = []
 batch_size_configs = [1, 3, 5]
 seq_lens_configs = [1, 7, 17]
+
+def _handle_repository_not_found(model_id):
+    print(f"Repository not found for model {model_id}.")
+
+def _handle_repository_access_error(model_id, exc):
+    response = getattr(exc, "response", None)
+    status_code = getattr(response, "status_code", None)
+    if status_code in (401, 403):
+        print(f"No access to repository for model {model_id} (HTTP {status_code}).")
+
+def _is_repository_access_error(exc):
+    response = getattr(exc, "response", None)
+    status_code = getattr(response, "status_code", None)
+    return status_code in (401, 403)
 
 def clean(modelId):
     # --- Cleanup HuggingFace cache ---
@@ -61,7 +76,7 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-o
     else:
         framework.reduce_max_model_len = True
         
-    print("Running model ", modelId, "...")
+    print("Running model", modelId, "...")
     if "max_num_seqs" not in configs:
         configs["max_num_seqs"] = 5
     if "num_gpu_blocks_override" not in configs:
@@ -101,6 +116,30 @@ def handleVLLMModel(modelId, configs={}, suffix=None, outdir=result_dir+"/vllm-o
                         tmp_calls = framework.tensor_calls.copy()
                         with open(loadOutPath, "w") as wf:
                             json.dump(tmp_calls, wf)
+    except GatedRepoError as e:
+        clean(modelId)
+        framework.tensor_calls.clear()
+        framework.calls_map.clear()
+        _handle_repository_access_error(modelId, e)
+        failed_models.append(modelId)
+        return
+    except RepositoryNotFoundError as e:
+        clean(modelId)
+        framework.tensor_calls.clear()
+        framework.calls_map.clear()
+        if _is_repository_access_error(e):
+            _handle_repository_access_error(modelId, e)
+        else:
+            _handle_repository_not_found(modelId)
+        failed_models.append(modelId)
+        return
+    except HfHubHTTPError as e:
+        clean(modelId)
+        framework.tensor_calls.clear()
+        framework.calls_map.clear()
+        _handle_repository_access_error(modelId, e)
+        failed_models.append(modelId)
+        return
     except Exception as e: 
         clean(modelId)
         framework.tensor_calls.clear()
@@ -204,6 +243,21 @@ def testRepro(modelId, batch_size, seq_len, configs, op_name, outpath):
                         hf_token=framework.HF_TOKEN,
                         **configs
                     )
+    except GatedRepoError as e:
+        clean(modelId)
+        _handle_repository_access_error(modelId, e)
+        return -1
+    except RepositoryNotFoundError as e:
+        clean(modelId)
+        if _is_repository_access_error(e):
+            _handle_repository_access_error(modelId, e)
+        else:
+            _handle_repository_not_found(modelId)
+        return -1
+    except HfHubHTTPError as e:
+        clean(modelId)
+        _handle_repository_access_error(modelId, e)
+        return -1
     except Exception as e: 
         clean(modelId)
         return -1 

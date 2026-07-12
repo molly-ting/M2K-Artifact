@@ -636,7 +636,6 @@ def createEmptyModelBin(modelId, cache_dir):
         return
     
     dst_path = os.path.join(cache_dir, "pytorch_model.bin")
-    print(f"Creating dummy file: {dst_path}")
     with open(dst_path, "wb") as f:
         f.write(b"")
 
@@ -653,7 +652,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
             dst = os.path.join(module_dir, relative_path)
             dst_dir = os.path.dirname(dst)
             if not os.path.exists(dst):
-                print(f"Copying {src} to {dst}")
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir)
                 shutil.copy(src, dst)
@@ -670,7 +668,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                 dst = os.path.join(module_dir_2, relative_path)
                 dst_dir = os.path.dirname(dst)
                 if not os.path.exists(dst):
-                    print(f"Copying {src} to {dst}")
                     if not os.path.exists(dst_dir):
                         os.makedirs(dst_dir)
                     shutil.copy(src, dst)
@@ -688,7 +685,6 @@ def copy_config_to_modules_if_needed(cache_dir, model_id):
                 dst = os.path.join(module_dir_2, relative_path)
                 dst_dir = os.path.dirname(dst)
                 if not os.path.exists(dst):
-                    print(f"Copying {src} to {dst}")
                     if not os.path.exists(dst_dir):
                         os.makedirs(dst_dir)
                     shutil.copy(src, dst)
@@ -750,7 +746,6 @@ def _dummy_load_pretrained_model(
     weights_only=True,
 ):
     if state_dict is None:
-        print("Generating dummy weights for", cls.__name__)
         dummy_dict = {
             name: torch.zeros_like(param, device="cpu")
             for name, param in model.named_parameters()
@@ -786,7 +781,7 @@ from transformers import (
 )
 
 # === Build config ===
-def build_config(local_dir: str, override_configs):
+def build_config(local_dir: str, override_configs, strip_quantization: bool = False):
     cfg = AutoConfig.from_pretrained(local_dir, trust_remote_code=True)
     if override_configs:
         if "architectures" in override_configs:
@@ -795,6 +790,10 @@ def build_config(local_dir: str, override_configs):
             override_configs.pop("_name_or_path")
         if "auto_map" in override_configs:
             override_configs.pop("auto_map")
+        if strip_quantization:
+            for key in ("quantization_config", "quantize_config"):
+                if key in override_configs:
+                    override_configs.pop(key)
         
         for k in override_configs:
             if hasattr(cfg, k):
@@ -802,7 +801,35 @@ def build_config(local_dir: str, override_configs):
                     setattr(cfg, k, override_configs[k])
                 except Exception:
                     pass
+    if strip_quantization:
+        for key in ("quantization_config", "quantize_config"):
+            if hasattr(cfg, key):
+                try:
+                    delattr(cfg, key)
+                except Exception:
+                    try:
+                        setattr(cfg, key, None)
+                    except Exception:
+                        pass
     return cfg
+
+def _is_qwen_config(cfg, model_id: str = ""):
+    model_type = str(getattr(cfg, "model_type", "")).lower()
+    architectures = " ".join(str(x).lower() for x in getattr(cfg, "architectures", []) or [])
+    return "qwen" in model_id.lower() or "qwen" in model_type or "qwen" in architectures
+
+def _force_qwen_fp32(cfg, model_id: str):
+    if not _is_qwen_config(cfg, model_id):
+        return
+
+    # Qwen remote code can create a bf16 attention mask and then fill it with
+    # torch.finfo(float32).min, which overflows bf16. Profiling uses dummy
+    # weights, so prefer fp32 stability over mixed-precision behavior here.
+    for name, value in (("bf16", False), ("fp16", False), ("fp32", True)):
+        if hasattr(cfg, name):
+            setattr(cfg, name, value)
+    if hasattr(cfg, "use_flash_attn"):
+        cfg.use_flash_attn = False
 
 # === Load tokenizer and model; infer Seq2Seq/CausalLM and fall back to AutoModel on failure ===
 def load_model_and_tokenizer(local_dir: str, cfg):
@@ -905,7 +932,8 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
 
     # Fake the nvcc/CUDA environment, then load, trigger, and write results.
     with NvccPatch():
-        cfg = build_config(local_dir, override_configs)
+        cfg = build_config(local_dir, override_configs, strip_quantization=True)
+        _force_qwen_fp32(cfg, model_id)
         if hasattr(cfg, "auto_map"):
             if hasattr(cfg.auto_map, "AutoModelForCausalLM"):
                 if "--" in cfg.auto_map.AutoModelForCausalLM:
@@ -927,7 +955,7 @@ def run(model_id, override_configs=None, suffix=None, output_dir=None, data_dir=
             
                 # 2. Get the real token length.
                 real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"\n--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
+                print(f"--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
 
                 # 3. Call the modified run_once.
                 run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)

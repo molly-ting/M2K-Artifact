@@ -133,7 +133,7 @@ def saveRes(config: str):
     global config_out_path
     with open(config_out_path, "w") as f:
         resCon = json.loads(config)
-        json.dump(resCon, f)
+        json.dump(resCon, f, indent=4)
     
 testAgent = Agent(
     name="LLMConfigAgent",
@@ -211,6 +211,7 @@ def generate_vllm(model_structure, op_name, config_example, framework_config=Non
 
 vllm_path = None
 def read_code_snippet(filePath, start_line, end_line):       
+    global vllm_path
     code_snippet = ""
     if not filePath.startswith("/"):
         if not vllm_path:
@@ -291,7 +292,7 @@ def save_diff_config(op, config, config_dir):
         data[op] = [config]
     
     with open(outFilePath, "w") as wf:
-        json.dump(data, wf)
+        json.dump(data, wf, indent=4)
         
 def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
     if not out_dir:
@@ -356,7 +357,7 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
 
 def main_vllm_benchmark(out_dir=None, use_exist_configs=False, callgraph_path=None):
     global structure_configs
-    with open(f"{project_dir}/evaluation/section-6-1-bug-detection/vllm_models.json") as mf:
+    with open(f"{project_dir}/evaluation/section-6-1-bug-detection/benchmarks/vllm/vllm_models.json") as mf:
         structure_model_map = json.load(mf)
     
     if not out_dir:
@@ -396,7 +397,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_
     if not triggered_ops:
         return
     print("triggered_ops", triggered_ops)
-    
+
     if not opout_path or not os.path.exists(opout_path):
         return
     with open(opout_path) as opf:
@@ -406,7 +407,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_
         framework_configs = json.load(ff) 
     
     if not config_example_path:
-        config_example_path = os.path.join(project_dir, "evaluation/section-6-1-bug-detection/vllm-configs-examples", structure+".json")
+        config_example_path = os.path.join(project_dir, "evaluation/section-6-1-bug-detection/benchmarks/vllm/configs-examples", structure+".json")
     if not os.path.exists(config_example_path):
         print(f"Config example for {structure} does not exist.")
         return
@@ -581,7 +582,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_
         if "No, it cannot be triggered.".lower() in output.lower():
             cannot_tri.append(op_name)
             with open(cannot_tri_path, "w") as nwf:
-                json.dump(cannot_tri, nwf)   
+                json.dump(cannot_tri, nwf, indent=4)   
             continue
         
         if not os.path.exists(model_config_out_path):
@@ -616,7 +617,7 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_
     
     end_time = time.time()
     with open(cannot_tri_path, "w") as nwf:
-        json.dump(cannot_tri, nwf)    
+        json.dump(cannot_tri, nwf, indent=4)    
 
     if "total" not in cost_map: 
         cost_map["total"] = {"input_token": input_token_num, "output_token": out_token_num, "money_cost": money_cost, "time_cost": end_time-start_time}
@@ -627,11 +628,11 @@ def test_one(model_id, structure, opout_path=None, out_dir=None, config_example_
         cost_map["total"]["time_cost"] += end_time-start_time
             
     with open(cost_path, "w") as nwf:
-        json.dump(cost_map, nwf)   
+        json.dump(cost_map, nwf, indent=4)   
     
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
-        json.dump(final_result, resf)
+        json.dump(final_result, resf, indent=4)
 
 def test_one_without_mutate_config(model_id, out_dir=None):
     if not out_dir:
@@ -725,7 +726,7 @@ def test_one_with_configs(model_id, structure, out_dir=None):
 
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
-        json.dump(final_result, resf)
+        json.dump(final_result, resf, indent=4)
 
 def test_model_with_one_config(model_id, config_path, out_dir=None):
     if not out_dir:
@@ -787,6 +788,8 @@ def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file,
         fcon = framework_configs[op_name]
     
     output, token_usage = generate_vllm(structure, op_name, config_example, fcon, code_sinppet, out_dir=out_config_dir) 
+    if os.path.exists(config_out_path):
+        print(f"Mutated config for kernel {op_name} is saved at {config_out_path}.")
     return output
         
 if __name__ == "__main__":
@@ -813,10 +816,10 @@ if __name__ == "__main__":
         "--kernel-info-file", type=str, required=False, help="File containing kernel info of the model"
     )
     parser.add_argument(
-        "--mutate", action=argparse.BooleanOptionalAction, default=True, help="Whether to mutate model configs"
+        "--mutate", action=argparse.BooleanOptionalAction, default=False, help="Whether to mutate model configs"
     )
     parser.add_argument(
-        "--use-existent-config", action=argparse.BooleanOptionalAction, default=True, help="Whether to load exisiting configs or to use GPT to mutate model configs"
+        "--use-existent-config", action=argparse.BooleanOptionalAction, default=False, help="Whether to load exisiting configs or to use GPT to mutate model configs"
     )
     parser.add_argument(
         "--config-file", type=str, required=False, help="model config file to run profiling backend"
@@ -830,7 +833,7 @@ if __name__ == "__main__":
         if args.config_file:
             test_model_with_one_config(args.model_id, args.config_file, args.profile_out_dir)
         elif args.mutate and not args.use_existent_config:
-            test_one(args.model_id, args.model_architecture, args.kernel_info_out, args.profile_out_dir, args.seed_config_file)
+            test_one(args.model_id, args.model_architecture, args.kernel_info_file, args.profile_out_dir, args.seed_config_file)
         elif args.mutate and args.use_existent_config:
             config_dir = os.path.join(args.profile_out_dir, "config", args.model_architecture)
             result_path = os.path.join(config_dir, "result.json")

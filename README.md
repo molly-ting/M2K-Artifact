@@ -23,8 +23,8 @@ bash setup.sh
 ```
 ### Option-2: Containerized installation 
 ```bash
-docker build -t m2k-env .
-docker run -it m2k-env
+docker build --platform=linux/amd64 -t m2k-env .
+docker run --platform=linux/amd64 -it m2k-env
 ```
 
 
@@ -196,8 +196,10 @@ results/vllm/out/Qwen_Qwen2-0.5B-Instruct.json
 export OPENAI_API_KEY=<Openai API Key>
 python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --kernel-name=dynamic_scaled_fp8_quant --seed-config-file=example/Qwen2ForCausalLM_model_config.json --kernel-info-file=example/Qwen2ForCausalLM_kernel_info.json
 # to mutate configs for all kernels and run profiling backend in one batch
-# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --kernel-info-out=call-graph/opout --mutate --seed-config-file=example/Qwen2ForCausalLM_model_config.json
+# python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --kernel-info-file=example/Qwen2ForCausalLM_kernel_info.json --mutate --seed-config-file=example/Qwen2ForCausalLM_model_config.json
 ```
+
+(take ~2min)
 
 **Output:**
 console output:
@@ -211,6 +213,7 @@ GPT response:
     ],
     ...
 }
+Mutated config for kernel dynamic_scaled_fp8_quant is saved at HFProbe/results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json.
 ```
 results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```json
@@ -407,6 +410,16 @@ python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/resu
 - `--model-id=<modelID>` — the target model ID.
 - `--config-file=<filepath>` — the model config file generated in step 3.
 
+possible issue:
+```text
+AttributeError: module 'z3' has no attribute 'parse_smt2_string'
+```
+solution:
+```bash
+python3 -m pip uninstall z3
+python3 -m pip install --force-reinstall z3-solver
+```
+
 **Expected output:** 
 console output
 ```text
@@ -457,7 +470,7 @@ https://docs.google.com/spreadsheets/d/1C2WeuZRo7ewz1nr3dsw7G8LmE-2AknD0vNDZIXwU
 raw data of Figure 5:
 https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=292022127#gid=292022127
 
-**Estimated time:** XXX
+**Estimated time:** over one month
 
 
 **Steps:**

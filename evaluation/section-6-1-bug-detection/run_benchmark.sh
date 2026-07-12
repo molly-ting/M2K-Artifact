@@ -1,10 +1,10 @@
 cd "$(dirname "$0")/../.."
 cd HFProbe/call-graph
-bash x scan --kernel-info-out=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout 
+bash x scan --kernel-info-out=opout 
 cd ../..
-python3 -m HFProbe.backend.config_agent_vllm --kernel-info-dir=evaluation/section-6-1-bug-detection/new_results/call-graph_result/opout --out-dir=evaluation/section-6-1-bug-detection/new_results/vllm
-python3 -m HFProbe.backend.config_agent_hf --out-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
-python3 -m HFProbe.backend.config_agent_rs --out-dir=evaluation/section-6-1-bug-detection/new_results/papers
+python3 -m HFProbe.backend.config_agent_vllm --kernel-info-out=HFProbe/call-graph/opout --profile-out-dir=evaluation/section-6-1-bug-detection/new_results/vllm
+python3 -m HFProbe.backend.config_agent_hf --profile-out-dir=evaluation/section-6-1-bug-detection/new_results/huggingface
+python3 -m HFProbe.backend.config_agent_rs --profile-out-dir=evaluation/section-6-1-bug-detection/new_results/papers
 
 # skip compiling cuda files as they are already included in the benchmark folder and can be large in size.
 # python3 cuKLEE/compile_cuda.py --compile-vllm
