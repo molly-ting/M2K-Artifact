@@ -218,16 +218,10 @@ create_python_venv() {
     https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
     https://mirrors.aliyun.com/pytorch-wheels/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl
 
-  local cpu_requirements
-  cpu_requirements="${VENV_DIR}/requirements.cpu.txt"
-  grep -Ev '^(torch|flash_attn|triton|bitblas|tvm|bitsandbytes|torchao|tensorflow|flashinfer-python)' \
-    "${PROJECT_DIR}/requirements.txt" >"${cpu_requirements}"
-
   "${VENV_DIR}/bin/python" -m pip install \
     -i https://mirrors.aliyun.com/pypi/simple/ \
     --prefer-binary \
-    -r "${cpu_requirements}"
-  rm -f "${cpu_requirements}"
+    -r "${PROJECT_DIR}/requirements.txt"
   "${VENV_DIR}/bin/python" -m pip check
 }
 
