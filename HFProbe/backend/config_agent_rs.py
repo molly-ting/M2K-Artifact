@@ -256,7 +256,7 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     
     start_time = time.time()
     try:
-        run_model(framework_name, None, None)
+        run_model(framework_name, None, None, out_dir)
     except:
         return
     
@@ -265,7 +265,7 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     if not all_ops:
         return 
 
-    triggered_ops = find_triggered_ops_hf(framework_name)
+    triggered_ops = find_triggered_ops_hf(framework_name, out_dir=f"{out_dir}/out")
     if not triggered_ops:
         triggered_ops = set()
    
@@ -334,7 +334,7 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
         with open(cost_path, "w") as nwf:
             json.dump(cost_map, nwf)
         
-        new_triggered = find_triggered_ops_hf(framework_name, op_name)
+        new_triggered = find_triggered_ops_hf(framework_name, op_name, f"{out_dir}/out")
         if new_triggered:
             triggered_ops.update(new_triggered)
             if op_name in new_triggered:
@@ -351,16 +351,80 @@ def handle_one_model_rs(model_id, framework_name, repo_url, out_dir=None):
     final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf)
- 
-def run_all_models(out_dir=None):
+
+def test_one_with_configs(framework_name, out_dir=None):
+    print(f"Processing framework: {framework_name}")
+    if not out_dir:
+        out_dir = f"{HFPROBE_PATH}/results/research_paper"
+    config_out_dir = f"{out_dir}/config/{framework_name}"
+    final_res_path = os.path.join(config_out_dir, "result.json")   
+    
+    start_time = time.time()
+    try:
+        run_model(framework_name, None, None, out_dir)
+    except:
+        return
+
+    if not os.path.exists(config_out_dir):
+        return
+
+    triggered_ops = find_triggered_ops_hf(framework_name, out_dir=f"{out_dir}/out")
+    if not triggered_ops:
+        triggered_ops = set()
+    
+    initial_trigger = triggered_ops.copy()
+    for config_file in os.listdir(config_out_dir):
+        if not config_file.endswith(".json"):
+            continue
+        if "no_trigger" in config_file or "cost" in config_file or "result" in config_file:
+            continue
+        
+        op_name = config_file[:-5]
+        execute_res_path = f"{out_dir}/out/{framework_name}/{op_name}.json"
+        if os.path.exists(execute_res_path):
+            print(op_name, "has been handled.")
+            continue
+
+        config_out_path = os.path.join(config_out_dir, op_name+".json")
+        config_data = {}
+        with open(config_out_path) as cf:
+            config_data = json.load(cf)
+    
+        if not config_data:
+            continue
+        
+        time0 = time.time()
+        try:
+            run_model(framework_name, config_data, op_name, out_dir)
+        except:
+            pass
+
+        time1 = time.time()
+        new_triggered = find_triggered_ops_hf(framework_name, op_name, f"{out_dir}/out")
+        if new_triggered:
+            triggered_ops.update(new_triggered)
+            if op_name in new_triggered:
+                print(f"{op_name} is succesfully triggered!")
+    
+    final_result = {"initial": list(initial_trigger), "initial_num": len(initial_trigger), "final": list(triggered_ops), "final_num": len(triggered_ops)}
+    with open(final_res_path, "w") as resf:
+        json.dump(final_result, resf)
+
+def run_all_models(out_dir=None, use_existent_config=False):
     for framework_name in model_map:
-        handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name], out_dir)
+        if use_existent_config:
+            test_one_with_configs(framework_name, out_dir)
+        else:
+            handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name], out_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="run profiling backend on research paper frameworks"
     )
+    parser.add_argument(
+        "--use-existent-config", action=argparse.BooleanOptionalAction, default=False, help="Whether to load exisiting configs or to use GPT to mutate model configs"
+    )
     parser.add_argument("--profile-out-dir", type=str, required=False, help="output directory")
 
     args = parser.parse_args()
-    run_all_models(out_dir=args.profile_out_dir)
+    run_all_models(out_dir=args.profile_out_dir, use_existent_config=args.use_existent_config)

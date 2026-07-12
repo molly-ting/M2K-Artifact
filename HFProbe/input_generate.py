@@ -730,13 +730,13 @@ if __name__ == "__main__":
         "--compiled-kernel-dir", type=str, required=False, help="directory containing vLLM compiled cuda files"
     )
     parser.add_argument(
-        "--vllm", action=argparse.BooleanOptionalAction, default=True, help="Whether is vLLM output or HuggingFace output"
+        "--vllm", action=argparse.BooleanOptionalAction, default=False, help="Whether is vLLM output or HuggingFace output"
     )
     parser.add_argument(
         "--model-id", type=str, required=False, help="Model ID for HuggingFace output"
     )   
     parser.add_argument(
-        "--add-memory-max-num-tokens", action=argparse.BooleanOptionalAction, default=True, help="add num_tokens limit of 288GB GPU memory"
+        "--add-memory-max-num-tokens", action=argparse.BooleanOptionalAction, default=False, help="add num_tokens limit of 288GB GPU memory"
     ) 
 
     args = parser.parse_args()

@@ -21,6 +21,7 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
             os.makedirs(outputdir, exist_ok=True)
         else:
             log_file = os.path.join(logDir, os.path.splitext(os.path.basename(json_file))[0] + '_cuklee_output.log')
+            
         if os.path.exists(log_file):
             print(f"Log file {log_file} already exists. Skipping run for {json_file}.")
             return True         

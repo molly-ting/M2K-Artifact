@@ -281,5 +281,5 @@ def compute_hf_token_limit_by_gpu():
             if gpu_memory not in res[model_id]:
                 res[model_id][gpu_memory] = token_limit
     
-    with open(f"{root_dir}/results/hf/token_limit_by_gpu.json", "w") as wf:
+    with open(f"{root_dir}/results/huggingface/token_limit_by_gpu.json", "w") as wf:
         json.dump(res, wf, indent=4)

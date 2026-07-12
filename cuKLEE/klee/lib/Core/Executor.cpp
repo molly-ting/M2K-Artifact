@@ -634,9 +634,9 @@ void Executor::saveLoopInfo(const llvm::Loop *L, ExecutionState &state) {
 
           if (headerBranch->isUnconditional()) {
             state.loopInfoMap[L->getLoopLatch()] = new KLoopInfo(header, false, numBlocks == 2, std::move(bodyBlocks));
-            if (!state.loopInfoMap[L->getLoopLatch()]->backedge) {
-              llvm::outs() << "loop backage null\n";
-            }
+            // if (!state.loopInfoMap[L->getLoopLatch()]->backedge) {
+            //   llvm::outs() << "loop backage null\n";
+            // }
           } else {
             // continue block can also be latches: pick the last latch block
             SmallVector<llvm::BasicBlock*, 4> latches;
@@ -11431,7 +11431,6 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
   }
 
   if (callable->getName().find("19maybe_wrap_dim_slow") != std::string::npos) {
-    llvm::outs() << arguments[0] << " " << arguments[1] << " " << arguments[2] << "\n";
     terminateStateOnProgramError(state, "input tensor dim invalid", StateTerminationType::InvalidInput);
     return;
   }
@@ -13422,7 +13421,6 @@ void Executor::executeAlloc(ExecutionState &state,
     // collapses the size expression with a select.
 
     size = optimizer.optimizeExpr(size, true);
-    llvm::outs() << "alloc size " << size << "\n";
     unsigned id = 0;
     std::string symName = "_alloc_0";
     while (!state.arrayNames.insert(symName).second) {
@@ -13447,7 +13445,6 @@ void Executor::executeAlloc(ExecutionState &state,
     SymArrayMemoryObject *symmo = new SymArrayMemoryObject(mo->address, array, pair.first, sizeExpr);
     symmo->shapeSize = ConstantExpr::create(1, sizeExpr->getWidth());
     state.symbolicArrayMap[symName] = symmo;
-    llvm::outs() << mo->address << " " << array->getName() << "\n";
 
     ObjectState *os = bindObjectInState(state, mo, isLocal);
     if (zeroMemory) {
@@ -13809,18 +13806,12 @@ void Executor::executeCudaMemcpy(ExecutionState &state,
       return;
     } else if (auto checkce = dyn_cast<ConstantExpr>(check)) {
       if (checkce->isZero()) {
-        llvm::outs() << "srcAddress " << srcAddress << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
+        // llvm::outs() << "srcAddress " << srcAddress << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
         terminateStateOnProgramError(state, "cannot handle memory operation", StateTerminationType::ReportError);
         return;
       }
     }
   }
-  
-
-
-      
-
-
 }
 
 bool Executor::exprContainsConstant(ref<Expr> expr, uint64_t target) {
@@ -14573,7 +14564,7 @@ void Executor::executeMemoryOperation(ExecutionState &state,
         
         ExecutionState *unbound = branches.second;
         if (unbound) {
-          llvm::outs() << address << " " << mo->name << " " << sizeConstraint << "\n";
+          // llvm::outs() << address << " " << mo->name << " " << sizeConstraint << "\n";
           terminateStateOnProgramError(*unbound, "out of bound pointer", StateTerminationType::Ptr);
         }
         return;
@@ -14627,7 +14618,7 @@ void Executor::executeMemoryOperation(ExecutionState &state,
         return;
       } 
       else if (!isa<ConstantExpr>(address)) {
-        llvm::outs() << mo->name << " address " << address << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
+        // llvm::outs() << mo->name << " address " << address << " mo->address: " << mo->address << " offset " << offset << " bytes " << bytes << " size " << mo->size << "\n";
         terminateStateOnProgramError(state, "cannot handle memory operation", StateTerminationType::ReportError);
         return;
       }

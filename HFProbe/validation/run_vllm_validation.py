@@ -137,10 +137,15 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
         if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
 
+        buggy_source_line = lineno.split("-")[0].split("_")[0]
         smt_file_path = os.path.join(constraint_path, lineno)
         batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
-            print("no solution found for batch_size and seq_len")
+            res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file, "buggy_line": buggy_source_line}
+            if max_num_tokens:
+                print(f"no solution found for batch_size and seq_len for {max_num_tokens} token limit.")
+            else:
+                print(f"no solution found for batch_size and seq_len.")
             continue
         
         if batch_size ==-1 or seq_len == -1:
@@ -152,15 +157,15 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
             print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
             params_data = run_vllm_config(fcon, model_config, model_id, op_name, batch_size, seq_len, max_model_len, lineno, index, result_dir)
             record[(config_file, op_name, batch_size, seq_len)] = params_data
-        
+                
         if params_data and isinstance(params_data, int):
             error_msg = "model config is invalid"
-            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file, "buggy_line": buggy_source_line}
             print(f"config_file: {config_file} is not valid for model {model_id}.")
             continue
         elif params_data is None:
             error_msg = f"{op_name} is not triggered"
-            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file, "buggy_line": buggy_source_line}
             print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} cannot trigger {op_name}.")
             continue
 
@@ -188,10 +193,10 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
                 break
         
         if match_found:
-            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file, "buggy_line": buggy_source_line}
             print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} can trigger bug {lineno} for {op_name}.")
         else:
-            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file, "buggy_line": buggy_source_line}
             print(f"Running model {model_id} with batch_size: {batch_size} seq_len: {seq_len} config_file: {config_file} can trigger {op_name}, but cannot trigger bug {lineno} due to different parameters.")
 
     with open(f"{current_dir}/{model_id.replace('/', '_')}_{op_name}_{index}_validate_results.json", "w") as wf:
@@ -224,11 +229,12 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
     for lineno in os.listdir(constraint_path):
         if not lineno.endswith("io.txt") and not lineno.endswith("oob.txt") and not lineno.endswith("dr.txt"):
             continue
-
+        
+        buggy_source_line = lineno.split("-")[0].split("_")[0]
         smt_file_path = os.path.join(constraint_path, lineno)
         batch_size, seq_len = solve_with_bounds(smt_file_path, max_num_tokens, max_model_len)
         if batch_size is None or seq_len is None:
-            res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file}
+            res[lineno] = {"status": "failed", "reason": "no solution for token limit", "config": config_file, "buggy_line": buggy_source_line}
             continue
         
         if batch_size ==-1 or seq_len == -1:
@@ -242,11 +248,11 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
 
         if params_data and isinstance(params_data, int):
             error_msg = "model config is invalid"
-            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file, "buggy_line": buggy_source_line}
             continue
         elif params_data is None:
             error_msg = "kernel is not triggered"
-            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file}
+            res[lineno] = {"status": "failed", "reason": error_msg, "config": config_file, "buggy_line": buggy_source_line}
             continue
 
         i = int(index)
@@ -273,10 +279,10 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
                 break
         
         if match_found:
-            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
+            res[lineno] = {"status": "success", "batch_size": batch_size, "seq_len": seq_len, "config": config_file, "buggy_line": buggy_source_line}
         else:
-            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file}
-    
+            res[lineno] = {"status": "failed", "reason": "Parameter mismatch", "batch_size": batch_size, "seq_len": seq_len, "config": config_file, "buggy_line": buggy_source_line}
+
     return res
 
 def vllm_benchmark_validate(klee_out_dir, profile_dir):

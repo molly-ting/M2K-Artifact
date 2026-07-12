@@ -1,3 +1,5 @@
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import time
 import os
 import subprocess
 from pathlib import Path
@@ -8,7 +10,7 @@ CUDA_PATH = "/usr/local/cuda"  # Path to CUDA installation
 COMBINED_SUFFIX = "_combined.bc"  # Suffix for the combined .bc files
 project_path = Path(__file__).resolve().parent.parent.parent.parent
 compile_include_path = os.path.join(project_path, "cuKLEE", "include")
-current_dir = Path(__file__).resolve().parent
+current_section_dir = Path(__file__).resolve().parent.parent
 signed_clang_path = os.getenv("SIGNED_CLANG_PATH", "clang++-13")
 
 # Manually define PyTorch include paths
@@ -42,17 +44,18 @@ def run_command(command, cwd=None):
     print(f"Running command: {' '.join(command)}")
     result = subprocess.run(command, cwd=cwd, text=True, capture_output=True)
     if result.returncode != 0:
-        print(f"Error: Command failed with return code {result.returncode}")
-        print(f"Stdout: {result.stdout}")
-        print(f"Stderr: {result.stderr}")
+        # print(f"Error: Command failed with return code {result.returncode}")
+        # print(f"Stdout: {result.stdout}")
+        # print(f"Stderr: {result.stderr}")
         return False
     else:
-        print(result.stdout)
         return True
 
 
 def compile_cu_file(cu_file, root_path):
     print(f"Compiling {cu_file}...")
+    if not root_path:
+        root_path = os.path.dirname(cu_file)
 
     clang_command = [
         signed_clang_path,
@@ -87,9 +90,9 @@ def compile_cu_file(cu_file, root_path):
     
     return run_command(clang_command)
 
-def compile_coverage():
+def compile_original():
     original_dir = os.getcwd()
-    root_dir = os.path.join(current_dir, "input_files")
+    root_dir = os.path.join(current_section_dir, "benchmarks", "original")
     for dname in os.listdir(root_dir):
         dir_path = os.path.join(root_dir, dname)
         cu_dir = dir_path
@@ -112,7 +115,7 @@ def compile_coverage():
                 cuda_bc_file = f"{output_prefix}-cuda-nvptx64-nvidia-cuda-sm_80.bc"
                 combined_bc_file = f"{output_prefix}{COMBINED_SUFFIX}"
                 if not os.path.exists(cuda_bc_file) or not os.path.exists(host_bc_file):
-                    success = compile_cu_file(os.path.join(cu_dir, file), depPath=cu_dir)
+                    success = compile_cu_file(os.path.join(cu_dir, file), root_path=cu_dir)
                     if not success:
                         print(f"Failed to compile {file} in {dir_path}")
                         continue
@@ -133,6 +136,38 @@ def compile_coverage():
 
     os.chdir(original_dir)
 
+def compile_simplified():
+    original_dir = os.getcwd()
+    root_dir = os.path.join(current_section_dir, "benchmarks", "cuKLEE-simplified")
+    os.chdir(root_dir)
+    for file in os.listdir(root_dir):
+        if file.endswith(".cu"):
+            output_prefix = root_dir+"/"+file[:file.find(".cu")]
+            host_bc_file = f"{output_prefix}.bc"
+            cuda_bc_file = f"{output_prefix}-cuda-nvptx64-nvidia-cuda-sm_80.bc"
+            combined_bc_file = f"{output_prefix}{COMBINED_SUFFIX}"
+            if not os.path.exists(cuda_bc_file) or not os.path.exists(host_bc_file):
+                success = compile_cu_file(os.path.join(root_dir, file), root_path=root_dir)
+                if not success:
+                    print(f"Failed to compile {file}")
+                    continue
+
+            if os.path.exists(combined_bc_file):
+                continue
+
+            run_command([
+                "llvm-link-13",
+                "-o", combined_bc_file,
+                host_bc_file,
+                cuda_bc_file
+            ])
+            run_command([
+                "llvm-dis-13",
+                combined_bc_file
+            ])
+
+    os.chdir(original_dir)
+
 
 import subprocess
 import logging
@@ -148,17 +183,20 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         # Create a log file for this specific KLEE run (output and error)
         if useDirName:
             dir_name = os.path.basename(os.path.dirname(json_file))
-            log_file = os.path.join(logDir, dir_name + '_klee_output.log')
+            log_file = os.path.join(logDir, dir_name + '_cuklee_output.log')
             outputdir = os.path.join(outputdir, dir_name)
             os.makedirs(outputdir, exist_ok=True)
         else:
-            log_file = os.path.join(logDir, os.path.splitext(os.path.basename(json_file))[0] + '_klee_output.log')
+            log_file = os.path.join(logDir, os.path.splitext(os.path.basename(json_file))[0] + '_cuklee_output.log')
+
         if os.path.exists(log_file):
+            print(f"Log file {log_file} already exists. Skipping run for {json_file}.")
             return True         
         
+        print(f"Running cuKLEE on {json_file}")
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--cuklee-out-dir={outputdir}", json_file], stdout=output_file, stderr=output_file, timeout=TIMEOUT_LIMIT, check=True)
         
         print(f"Output saved to {log_file}")
     
@@ -170,31 +208,83 @@ def run_klee_on_json_file(json_file, logDir, outputdir, useDirName=False):
         pass
     return True
 
+def run_klee_on_bc_file(bc_file, logDir, outputdir):
+    one_timeout = 3600
+    try:
+        os.makedirs(logDir, exist_ok=True)
+
+        log_file = os.path.join(logDir, os.path.splitext(os.path.basename(bc_file))[0] + '_cuklee_output.log')
+        if os.path.exists(log_file):
+            print(f"Log file {log_file} already exists. Skipping run for {bc_file}.")
+            return True         
+
+        outputdir = os.path.join(outputdir, os.path.splitext(os.path.basename(bc_file))[0])
+        os.makedirs(outputdir, exist_ok=True)
+        
+        print(f"Running cuKLEE on {bc_file}")
+        # Run KLEE and capture its output and error in the log file
+        with open(log_file, 'w') as output_file:
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--cuklee-out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
+        
+        print(f"Output saved to {log_file}")
+    
+    except Exception as e:
+        pass
+    except subprocess.TimeoutExpired:
+        pass
+    except subprocess.CalledProcessError as e:
+        pass
+    return True
+
+def main(input_files, logDir, outputdir, isJson=True, max_processes=5, useDirName=False):
+    
+    with ProcessPoolExecutor(max_processes) as executor:
+        if isJson:
+            future_to_file = {executor.submit(run_klee_on_json_file, json_file, logDir, outputdir, useDirName): json_file for json_file in input_files} # if json_file not in filter_files
+        else:
+            future_to_file = {executor.submit(run_klee_on_bc_file, bc_file, logDir, outputdir): bc_file for bc_file in input_files} # if bc_file not in filter_files
+        
+        for future in as_completed(future_to_file):
+            json_file = future_to_file[future]
+            try:
+                success = future.result()
+            except Exception as e:
+                pass
+
 def run_original():
-    input_dir = os.path.join(current_dir, "input_files")
-    logDir = os.path.join(current_dir, "cuKLEE-log")
-    outputdir = os.path.join(current_dir, "cuKLEE-output")
+    compile_original()
+    input_dir = os.path.join(current_section_dir, "benchmarks", "original")
+    logDir = os.path.join(current_section_dir, "cuKLEE/log-original")
+    outputdir = os.path.join(current_section_dir, "cuKLEE/output-original")
+    input_files = []
 
     for dname in os.listdir(input_dir):
-        if dname == "simplified":
-            continue
         dir_path = os.path.join(input_dir, dname)
         for file in os.listdir(dir_path):
             if file.endswith(".json"):
                 json_file = os.path.join(dir_path, file)
-                run_klee_on_json_file(json_file, logDir, outputdir, useDirName=True)
+                input_files.append(json_file)
+
+    main(input_files, logDir, outputdir, isJson=True, useDirName=True)
 
 def run_simplified():
-    input_dir = os.path.join(current_dir, "input_files", "simplified")
-    logDir = os.path.join(current_dir, "cuKLEE-log", "simplified")
-    outputdir = os.path.join(current_dir, "cuKLEE-output", "simplified")
+    compile_simplified()
+    input_dir = os.path.join(current_section_dir, "benchmarks", "cuKLEE-simplified")
+    logDir = os.path.join(current_section_dir, "cuKLEE/log-simplified")
+    outputdir = os.path.join(current_section_dir, "cuKLEE/output-simplified")
+    processed = []
 
     for file in os.listdir(input_dir):
         if file.endswith(".json"):
             json_file = os.path.join(input_dir, file)
             run_klee_on_json_file(json_file, logDir, outputdir)
+            processed.append(file.split('.')[0])
+        elif file.endswith(COMBINED_SUFFIX):
+            bc_file = os.path.join(input_dir, file)
+            if file.split('_combined')[0][4:] not in processed:
+                run_klee_on_bc_file(bc_file, logDir, outputdir)
+
 
 if __name__ == "__main__":
-    compile_coverage()
     run_original()
     run_simplified()

@@ -68,6 +68,7 @@ def extract_path_model_pairs(vllm_dir: str) -> dict[str, str]:
 def analyze_vllm_model(
     cls_name: str, py_file: str, vllm_dir: str, config: dict, func_name: str = None, out_path: str = None
 ):
+    print(f"Analyzing {cls_name} in vLLM...")
     # first, construct VllmConfig from config dictionary
     vllm_config = ClassInstanceValue(None)
     vllm_config.ty = "vllm.config.VllmConfig"

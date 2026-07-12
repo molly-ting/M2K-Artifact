@@ -8,6 +8,7 @@ import traceback
 import torch
 
 import os
+import shutil
 import subprocess
 import logging
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -19,16 +20,18 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
     try:
         os.makedirs(logDir, exist_ok=True)
 
-        log_file = os.path.join(logDir, os.path.splitext(os.path.basename(bc_file))[0] + '_klee_output.log')
+        log_file = os.path.join(logDir, os.path.splitext(os.path.basename(bc_file))[0] + '_cuklee_output.log')
         if os.path.exists(log_file):
+            print(f"Log file {log_file} already exists. Skipping run for {bc_file}.")
             return True         
 
         outputdir = os.path.join(outputdir, os.path.splitext(os.path.basename(bc_file))[0])
         os.makedirs(outputdir, exist_ok=True)
         
+        print(f"Running cuKLEE on {bc_file}")
         # Run KLEE and capture its output and error in the log file
         with open(log_file, 'w') as output_file:
-            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
+            subprocess.run(['cuKLEE', f"--timeout={one_timeout}", f"--cuklee-out-dir={outputdir}", bc_file], stdout=output_file, stderr=output_file, check=True) 
         
         print(f"Output saved to {log_file}")
     
@@ -42,13 +45,19 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
 
 def run_wo_H():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    eval_dir = os.path.dirname(current_dir)
-    input_dirpath = os.path.join(eval_dir, "evaluation/section-6-1-bug-detection/benchmark_compiled_files/vllm_0_9_0")
-    output_directory = os.path.join(current_dir, "vllm_0_9_0_output")
-    log_directory = os.path.join(current_dir, "vllm_0_9_0_log")
+    compiled_kernels_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "benchmarks",
+        "vllm",
+        "compiled_files",
+    )
+    output_directory = os.path.join(current_dir, "vllm/output")
+    log_directory = os.path.join(current_dir, "vllm/log")
     os.makedirs(output_directory, exist_ok=True)
     os.makedirs(log_directory, exist_ok=True)
-    input_files = [os.path.join(input_dirpath, filename) for filename in os.listdir(input_dirpath) if filename.endswith('_combined.bc')]
+    input_files = [os.path.join(compiled_kernels_dir, filename) for filename in os.listdir(compiled_kernels_dir) if filename.endswith('_combined.bc')]
     
     with ProcessPoolExecutor(5) as executor:
         future_to_file = {executor.submit(run_klee_on_bc_file, bc_file, log_directory, output_directory): bc_file for bc_file in input_files}
@@ -200,11 +209,6 @@ def run_wo_C():
     for model_id in structure_model_map:     
         structure = structure_model_map[model_id]
 
-        if model_id == "mosaicml/mpt-7b":
-            model_id = "k0t1k/mosaicml-mpt-7b-instruct-lora"
-        if model_id == "databricks/dbrx-instruct":
-            model_id = "alpindale/dbrx-instruct"
-
         if not os.path.exists(os.path.join(config_path, structure)):
             continue
 
@@ -298,8 +302,7 @@ def run_wo_M():
             "-m",
             "HFProbe.backend.config_agent_vllm",
             f"--model-id={model_id}",
-            f"--model-architecture={architecture}",
-            f"--out-dir={profile_dir}",
+            f"--profile-out-dir={profile_dir}",
         ])
 
     run_command([
@@ -315,17 +318,16 @@ def run_wo_M():
         "python3",
         "cuKLEE/run.py",
         f"--input-dir={os.path.join(profile_dir, 'input')}",
-        f"--out-dir={cuklee_out_dir}",
+        f"--cuklee-out-dir={cuklee_out_dir}",
         f"--log-dir={cuklee_log_dir}",
     ])
 
     run_command([
         "python3",
-        "-m",
-        "HFProbe.validation.run_vllm_validation",
+        "HFProbe/validation/run_vllm_validation.py",
         "--dir",
-        f"--klee-out-dir={cuklee_out_dir}",
-        f"--profile-dir={profile_dir}",
+        f"--cuklee-out-dir={cuklee_out_dir}",
+        f"--profile-out-dir={profile_dir}",
     ])
     
 def run_wo_V():
@@ -334,22 +336,22 @@ def run_wo_V():
     cuklee_out_dir = os.path.join(current_dir, "wo_v", "cuklee", "out")
     cuklee_log_dir = os.path.join(current_dir, "wo_v", "cuklee", "log")
 
-    compiled_kernels_dir = os.path.join(
-        project_dir,
-        "evaluation",
-        "section-6-1-bug-detection",
-        "benchmarks",
-        "vllm",
-        "compiled_files",
-    )
-    cuda_source_dir = os.path.join(
-        project_dir,
-        "evaluation",
-        "section-6-1-bug-detection",
-        "benchmarks",
-        "vllm",
-        "cuda_files",
-    )
+    # compiled_kernels_dir = os.path.join(
+    #     project_dir,
+    #     "evaluation",
+    #     "section-6-1-bug-detection",
+    #     "benchmarks",
+    #     "vllm",
+    #     "compiled_files",
+    # )
+    # cuda_source_dir = os.path.join(
+    #     project_dir,
+    #     "evaluation",
+    #     "section-6-1-bug-detection",
+    #     "benchmarks",
+    #     "vllm",
+    #     "cuda_files",
+    # )
     kernel_info_dir = os.path.join(
         project_dir,
         "evaluation",
@@ -358,10 +360,19 @@ def run_wo_V():
         "call-graph_results",
         "kernels_vllm_0.9.0"
     )
+    config_dir = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "intermediate_results",
+        "vllm",
+        "config",
+    )
 
     os.makedirs(profile_dir, exist_ok=True)
     os.makedirs(cuklee_out_dir, exist_ok=True)
     os.makedirs(cuklee_log_dir, exist_ok=True)
+    shutil.copytree(config_dir, os.path.join(profile_dir, "config"), dirs_exist_ok=True)
 
 
     def run_command(command):
@@ -372,24 +383,23 @@ def run_wo_V():
         "python3",
         "-m",
         "HFProbe.backend.config_agent_vllm",
-        f"----kernel-info-dir={kernel_info_dir}",
-        f"--out-dir={profile_dir}",
+        f"--kernel-info-out={kernel_info_dir}",
+        f"--profile-out-dir={profile_dir}",
+        "--use-existent-config"
     ])
 
     run_command([
         "python3",
         "HFProbe/input_generate.py",
-        "--vllm",
-        f"--profile-out-dir={profile_dir}",
-        f"--compiled-kernel-dir={compiled_kernels_dir}",
-        f"--cuda-source-dir={cuda_source_dir}",
+        "--vllm-benchmark",
+        f"--profile-out-dir={profile_dir}"
     ])
 
     run_command([
         "python3",
         "cuKLEE/run.py",
         f"--input-dir={os.path.join(profile_dir, 'input')}",
-        f"--out-dir={cuklee_out_dir}",
+        f"--cuklee-out-dir={cuklee_out_dir}",
         f"--log-dir={cuklee_log_dir}",
     ])
 

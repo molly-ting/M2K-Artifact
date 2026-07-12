@@ -1,0 +1,136 @@
+{
+    "moe_align_block_size": [
+        {
+            "model": "allenai_OLMoE-1B-7B-0924-Instruct",
+            "config": "config/OlmoeForCausalLM/awq_dequantize.json"
+        },
+        {
+            "model": "openbmb_MiniCPM-2B-sft-bf16",
+            "config": "config/MiniCPMForCausalLM/moe_align_block_size.json"
+        }
+    ],
+    "aqlm_dequant": [
+        {
+            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
+            "config": "config/ExaoneForCausalLM/aqlm_dequant.json"
+        }
+    ],
+    "causal_conv1d_fwd": [
+        {
+            "model": "ibm-granite_granite-4.0-tiny-preview",
+            "config": null
+        }
+    ],
+    "marlin_gemm": [
+        {
+            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
+            "config": "config/ExaoneForCausalLM/marlin_gemm.json"
+        },
+        {
+            "model": "mistralai_Mixtral-8x7B-Instruct-v0.1",
+            "config": "config/MixtralForCausalLM/marlin_gemm.json"
+        }
+    ],
+    "rms_norm": [
+        {
+            "model": "royokong_e5-v",
+            "config": null
+        }
+    ],
+    "aqlm_gemm": [
+        {
+            "model": "EleutherAI_pythia-70m",
+            "config": "config/GPTNeoXForCausalLM/aqlm_dequant.json"
+        }
+    ],
+    "dynamic_scaled_fp8_quant": [
+        {
+            "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
+            "config": "config/Qwen2MoeForCausalLM/dynamic_per_token_scaled_fp8_quant.json"
+        }
+    ],
+    "moe_wna16_gemm": [
+        {
+            "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
+            "config": "config/Qwen2MoeForCausalLM/moe_wna16_gemm.json"
+        }
+    ],
+    "static_scaled_fp8_quant": [
+        {
+            "model": "Qwen_Qwen2-0.5B-Instruct",
+            "config": "config/Qwen2ForCausalLM/static_scaled_fp8_quant.json"
+        }
+    ],
+    "gather_cache": [
+        {
+            "model": "deepseek-ai_DeepSeek-V2-Lite-Chat",
+            "config": "config/DeepseekV2ForCausalLM/gather_cache.json"
+        }
+    ],
+    "gptq_marlin_gemm": [
+        {
+            "model": "deepseek-ai_DeepSeek-V2-Lite-Chat",
+            "config": "config/DeepseekV2ForCausalLM/moe_wna16_marlin_gemm.json"
+        }
+    ],
+    "gptq_marlin_24_gemm": [
+        {
+            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
+            "config": "config/ExaoneForCausalLM/gptq_marlin_24_gemm.json"
+        },
+        {
+            "model": "bigcode_starcoder",
+            "config": "config/GPTBigCodeForCausalLM/gptq_marlin_24_gemm.json"
+        }
+    ],
+    "marlin_qqq_gemm": [
+        {
+            "model": "openbmb_MiniCPM-2B-sft-bf16",
+            "config": "config/MiniCPMForCausalLM/marlin_qqq_gemm.json"
+        },
+        {
+            "model": "facebook_opt-125m",
+            "config": "config/OPTForCausalLM/marlin_qqq_gemm.json"
+        }
+    ],
+    "sgl_moe_align_block_size": [
+        {
+            "model": "kebeliu_DeepSeek-R1-tiny",
+            "config": null
+        }
+    ],
+    "selective_scan_fwd": [
+        {
+            "model": "ai21labs_AI21-Jamba-Mini-1.5",
+            "config": "config/JambaForCausalLM/advance_step_flashattn.json"
+        }
+    ],
+    "advance_step_flashattn": [
+        {
+            "model": "meta-llama_Llama-3.2-1B-Instruct",
+            "config": "config/advance_step_flashattn.json"
+        }
+    ],
+    "advance_step_flashinfer": [
+        {
+            "model": "Qwen_Qwen3-30B-A3B",
+            "config": "config/advance_step_flashinfer.json"
+        }
+    ],
+    "rotary_embedding": [
+        {
+            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
+            "config": null
+        }
+    ],
+    "moe_wna16_marlin_gemm": [
+        {
+            "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
+            "config": "config/Qwen2MoeForCausalLM/machete_mm.json"
+        },
+        {
+            "model": "Qwen_Qwen3-30B-A3B",
+            "config": "config/Qwen3MoeForCausalLM/marlin_gemm.json"
+        }
+    ]
+}
