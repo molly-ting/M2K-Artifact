@@ -4,10 +4,10 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
 DEPS_DIR="${PROJECT_DIR}/.deps"
 VENV_DIR="${PROJECT_DIR}/.venv"
-ENV_FILE="${PROJECT_DIR}/scripts/env.sh"
 CUKLEE_BUILD_DIR="${PROJECT_DIR}/cuKLEE/build"
 LLVM_PROJECT_DIR="${DEPS_DIR}/llvm-project"
 Z3_DIR="${DEPS_DIR}/z3"
+Z3_REF="z3-4.12.2"
 
 APT_PACKAGES=(
   tzdata
@@ -23,6 +23,7 @@ APT_PACKAGES=(
   python3
   python3-pip
   python3-venv
+  python3.10-venv
   software-properties-common
   lldb-13
   gdb
@@ -158,10 +159,16 @@ ensure_z3() {
 
   mkdir -p "${DEPS_DIR}"
   if [[ ! -d "${Z3_DIR}/.git" ]]; then
-    log 'Cloning Z3'
-    git clone https://github.com/Z3Prover/z3.git "${Z3_DIR}"
+    log "Cloning Z3 ${Z3_REF}"
+    git clone --depth 1 --branch "${Z3_REF}" \
+      https://github.com/Z3Prover/z3.git "${Z3_DIR}"
   else
-    log 'Z3 source already exists'
+    log "Checking out Z3 ${Z3_REF}"
+    git -C "${Z3_DIR}" fetch --depth 1 origin \
+      "refs/tags/${Z3_REF}:refs/tags/${Z3_REF}"
+    git -C "${Z3_DIR}" checkout --detach "${Z3_REF}"
+    git -C "${Z3_DIR}" reset --hard "${Z3_REF}"
+    git -C "${Z3_DIR}" clean -fdx
   fi
 
   if [[ ! -f "${Z3_DIR}/build/libz3.so" ]]; then
@@ -182,30 +189,45 @@ ensure_signed_clang() {
   mkdir -p "${DEPS_DIR}"
   if [[ ! -d "${LLVM_PROJECT_DIR}/.git" ]]; then
     log 'Cloning signed LLVM project'
-    git clone https://github.com/molly-ting/llvm-project.git "${LLVM_PROJECT_DIR}"
+    git clone --depth 1 --branch signed \
+      https://github.com/molly-ting/llvm-project.git "${LLVM_PROJECT_DIR}"
   fi
 
   log 'Checking out signed LLVM branch'
   git -C "${LLVM_PROJECT_DIR}" checkout signed
 
   log 'Building signed clang'
-  cmake -S "${LLVM_PROJECT_DIR}" -B "${LLVM_PROJECT_DIR}/build"
+  cmake -S "${LLVM_PROJECT_DIR}/llvm" -B "${LLVM_PROJECT_DIR}/build"
   cmake --build "${LLVM_PROJECT_DIR}/build" -j"$(nproc)"
 }
 
 create_python_venv() {
   if [[ ! -d "${VENV_DIR}" ]]; then
     log "Creating Python virtual environment at ${VENV_DIR}"
-    python3 -m venv "${VENV_DIR}"
+    python3.10 -m venv "${VENV_DIR}"
   else
     log 'Python virtual environment already exists'
   fi
 
   log 'Installing Python requirements'
   "${VENV_DIR}/bin/python" -m pip install --upgrade pip
+
+  log 'Installing CPU PyTorch packages'
+  "${VENV_DIR}/bin/python" -m pip install --no-cache-dir --progress-bar on \
+    https://mirrors.aliyun.com/pytorch-wheels/cpu/torch-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
+    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl
+
+  local cpu_requirements
+  cpu_requirements="${VENV_DIR}/requirements.cpu.txt"
+  grep -Ev '^(torch|flash_attn|triton|bitblas|tvm|bitsandbytes|torchao|tensorflow|flashinfer-python)' \
+    "${PROJECT_DIR}/requirements.txt" >"${cpu_requirements}"
+
   "${VENV_DIR}/bin/python" -m pip install \
-    -r "${PROJECT_DIR}/HFProbe/call-graph/py/requirements.txt" \
-    -r "${PROJECT_DIR}/HFProbe/requirements.txt"
+    -i https://mirrors.aliyun.com/pypi/simple/ \
+    --prefer-binary \
+    -r "${cpu_requirements}"
+  rm -f "${cpu_requirements}"
   "${VENV_DIR}/bin/python" -m pip check
 }
 
@@ -217,21 +239,6 @@ build_cuklee() {
   cmake --build "${CUKLEE_BUILD_DIR}" -j"$(nproc)"
 }
 
-write_env_file() {
-  log "Writing ${ENV_FILE}"
-  cat >"${ENV_FILE}" <<EOF
-#!/usr/bin/env bash
-# Source this file after running ./setup.sh:
-#   source scripts/env.sh
-
-export LLVM_DIR=/usr/lib/llvm-13
-export SIGNED_CLANG_PATH="${LLVM_PROJECT_DIR}/build/bin"
-export PATH="${CUKLEE_BUILD_DIR}:\${LLVM_DIR}/bin:\$PATH"
-source "${VENV_DIR}/bin/activate"
-EOF
-  chmod +x "${ENV_FILE}"
-}
-
 main() {
   cd "${PROJECT_DIR}"
 
@@ -241,10 +248,9 @@ main() {
   ensure_signed_clang
   create_python_venv
   build_cuklee
-  write_env_file
 
   log 'Setup complete'
-  log 'Run this before using the artifact: source scripts/env.sh'
+  log 'Run this before using the artifact: source env.sh'
 }
 
 main "$@"
