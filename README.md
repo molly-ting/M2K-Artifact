@@ -50,13 +50,15 @@ bash x scan --vllm-model-arch=Qwen2ForCausalLM --kernel-info-out=opout
 - `--vllm-dir=<dir>` — directory of the vLLM repository (ensure not to contain "." in the absolute path); if unset, copy the installed vLLM to HFProbe/vllm (ensure the absolute path of HFProbe does not contain ".").
 - `--vllm-model-arch=<arch>` — model architecture of the target model; if unset, all vLLM model architectures are analyzed.
 
-Output:
-console output:
+Console Output:
+
 ```text
 Completed analysis for vllm model architecture Qwen2ForCausalLM!
 Kernel information is stored in opout.
 ```
-opout/Qwen2ForCausalLM.json
+
+The file dopout/Qwen2ForCausalLM.json contains information about all CUDA kernels invoked by the Qwen2ForCausalLM model. For example, the excerpt below from dopout/Qwen2ForCausalLM.json shows that the dynamic_scaled_int8_quant kernel is invoked by the model from vllm/_custom_ops.py, with the corresponding call site spanning lines 1258--1293.
+
 ``` json
 {
     "dynamic_scaled_int8_quant": {
