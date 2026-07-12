@@ -392,9 +392,9 @@ class _WrappingLoader(importlib.abc.Loader):
         try:
             if self.wrap_pred(self.name):
                 _wrap_module_functions(module, self.name)
-                print(f"[BIN-HOOK] wrapped module: {self.name}")
+                # print(f"[BIN-HOOK] wrapped module: {self.name}")
         except Exception as e:
-            print(f"[BIN-HOOK] wrap failed for {self.name}: {e}")
+            pass
 
 class _WrappingFinder(importlib.abc.MetaPathFinder):
     def __init__(self, wrap_pred):
@@ -432,7 +432,7 @@ def patch_binary_imports(name_patterns=(
     if any(isinstance(f, _WrappingFinder) for f in sys.meta_path):
         return
     sys.meta_path.insert(0, _WrappingFinder(_pred))
-    print("[INFO] Binary import hook installed for:", pats)
+    # print("[INFO] Binary import hook installed for:", pats)
 
 import torch as _torch
 import torch.nn.functional as _F
@@ -638,7 +638,7 @@ def createEmptyModelBin(modelId, cache_dir):
             files = list_repo_files(modelId)
             hasModelBin = any(f == "pytorch_model.bin" for f in files)
         except Exception as e:
-            print(f"[WARN] list_repo_files failed for {modelId}: {e}; skip dummy pytorch_model.bin probe")
+            # print(f"[WARN] list_repo_files failed for {modelId}: {e}; skip dummy pytorch_model.bin probe")
             return
     if not hasModelBin:
         return
@@ -646,7 +646,7 @@ def createEmptyModelBin(modelId, cache_dir):
     dst_path = os.path.join(cache_dir, "pytorch_model.bin")
     if os.path.exists(dst_path):
         return
-    print(f"Creating dummy file: {dst_path}")
+
     with open(dst_path, "wb") as f:
         f.write(b"")
 
@@ -757,7 +757,6 @@ def _dummy_load_pretrained_model(
     weights_only=True,
 ):
     if state_dict is None:
-        print("Generating dummy weights for", cls.__name__)
         dummy_dict = {
             name: torch.zeros_like(param, device="cpu")
             for name, param in model.named_parameters()
@@ -824,6 +823,24 @@ def build_config(local_dir: str, override_configs, strip_quantization: bool = Fa
                     except Exception:
                         pass
     return cfg
+
+def _is_qwen_config(cfg, model_id: str = ""):
+    model_type = str(getattr(cfg, "model_type", "")).lower()
+    architectures = " ".join(str(x).lower() for x in getattr(cfg, "architectures", []) or [])
+    return "qwen" in model_id.lower() or "qwen" in model_type or "qwen" in architectures
+
+def _force_qwen_fp32(cfg, model_id: str):
+    if not _is_qwen_config(cfg, model_id):
+        return
+
+    # Qwen remote code can create a bf16 attention mask and then fill it with
+    # torch.finfo(float32).min, which overflows bf16. Profiling uses dummy
+    # weights, so prefer fp32 stability over mixed-precision behavior here.
+    for name, value in (("bf16", False), ("fp16", False), ("fp32", True)):
+        if hasattr(cfg, name):
+            setattr(cfg, name, value)
+    if hasattr(cfg, "use_flash_attn"):
+        cfg.use_flash_attn = False
 
 # === Load tokenizer and model (auto-detect Seq2Seq/CausalLM; fall back to AutoModel on failure) ===
 def load_model_and_tokenizer(local_dir: str, cfg):
@@ -917,12 +934,12 @@ def run(
     os.makedirs(output_dir, exist_ok=True)
     
     output_root_dir = os.path.dirname(output_dir)
-    if is_op_suffix:
-        log_dir = os.path.join(output_root_dir, "logs")
-        log_dir = os.path.join(log_dir, model_id.replace('/', '_'))
-    else:
-        log_dir = os.path.join(output_root_dir, "hflogs")
-    os.makedirs(log_dir, exist_ok=True)
+    # if is_op_suffix:
+    #     log_dir = os.path.join(output_root_dir, "logs")
+    #     log_dir = os.path.join(log_dir, model_id.replace('/', '_'))
+    # else:
+    #     log_dir = os.path.join(output_root_dir, "hflogs")
+    # os.makedirs(log_dir, exist_ok=True)
 
     if not is_op_suffix:
         filename = model_id.replace('/', '_')+".json"
@@ -949,6 +966,7 @@ def run(
     # Fake the nvcc/CUDA environment, then load, trigger, and write outputs.
     with NvccPatch():
         cfg = build_config(local_dir, override_configs, strip_quantization=record_only)
+        _force_qwen_fp32(cfg, model_id)
         if hasattr(cfg, "auto_map"):
             if hasattr(cfg.auto_map, "AutoModelForCausalLM"):
                 if "--" in cfg.auto_map.AutoModelForCausalLM:
@@ -973,7 +991,7 @@ def run(
             
                 # 2. Get the actual token length
                 real_seq_len = len(tok(prompt_text, return_tensors="pt")["input_ids"][0])
-                print(f"\n--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
+                print(f"--- Running: batch_size={batch_size}, seq_len={real_seq_len} ---")
 
                 # 3. Call the modified run_once
                 run_once(model, tok, cfg, prompts, new_tokens=NEW_TOKENS)
@@ -999,8 +1017,8 @@ def run(
         with open(os.path.join(data_dir, filename), "w") as wf:
             json.dump(data, wf)
 
-    if record_only:
-        return {"agg_path": agg_path, "data_path": os.path.join(data_dir, filename)}
+    # if record_only:
+    #     return {"agg_path": agg_path, "data_path": os.path.join(data_dir, filename)}
 
     buf = io.StringIO()  # Collect all prints from computeSymbolicArgsWithMap.
 

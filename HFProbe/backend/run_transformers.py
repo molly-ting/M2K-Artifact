@@ -399,7 +399,8 @@ class _WrappingLoader(importlib.abc.Loader):
                 _wrap_module_functions(module, self.name)
                 print(f"[BIN-HOOK] wrapped module: {self.name}")
         except Exception as e:
-            print(f"[BIN-HOOK] wrap failed for {self.name}: {e}")
+            # print(f"[BIN-HOOK] wrap failed for {self.name}: {e}")
+            pass
 
 class _WrappingFinder(importlib.abc.MetaPathFinder):
     def __init__(self, wrap_pred):

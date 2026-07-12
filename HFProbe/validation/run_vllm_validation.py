@@ -198,6 +198,8 @@ def vllm_validate_one(klee_out_dir, op_name, index, model_id, config_file, resul
         json.dump(res, wf, indent=2)
 
 def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, config_file, framework_config, profile_dir):
+    global executed_configs
+
     if not klee_function_out_dir:
         return None
 
@@ -231,9 +233,12 @@ def vllm_validate_one_inner(klee_function_out_dir, cuda_func, index, model_id, c
         
         if batch_size ==-1 or seq_len == -1:
             continue
-        
-        print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
-        params_data = run_vllm_config(framework_config, model_config, model_id, cuda_func, batch_size, seq_len, max_model_len, lineno, index, profile_dir)
+
+        if (config_file, cuda_func, batch_size, seq_len) in executed_configs:
+            params_data = executed_configs[(config_file, cuda_func, batch_size, seq_len)]
+        else:
+            print(f"Running model {model_id} with {config_file}, batch_size: {batch_size} seq_len: {seq_len}.")
+            params_data = run_vllm_config(framework_config, model_config, model_id, cuda_func, batch_size, seq_len, max_model_len, lineno, index, profile_dir)
 
         if params_data and isinstance(params_data, int):
             error_msg = "model config is invalid"

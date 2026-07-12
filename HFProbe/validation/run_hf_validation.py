@@ -25,7 +25,9 @@ else:
     from . import run_transformers_check as rt
 
 def run_case(model_id, override_configs, op_name, batch_size, seq_len, lineno, index, result_dir):
-    out_path = f"{result_dir}/validation/{model_id.replace('/', '_')}/{op_name}-{lineno}-{index}.json"
+    out_dir = os.path.join(result_dir, "validation", model_id.replace('/', '_'))
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = f"{out_dir}/{op_name}-{lineno}-{index}.json"
     if os.path.exists(out_path):
         with open(out_path) as f:
             return json.load(f)
