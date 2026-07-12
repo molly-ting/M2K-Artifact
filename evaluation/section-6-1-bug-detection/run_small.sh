@@ -1,8 +1,8 @@
 cd "$(dirname "$0")/../.."
 
 python3 evaluation/section-6-1-bug-detection/run_small_HFProbe.py
-python3 -m HFProbe.backend.config_agent_hf --use-existent-config --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/huggingface
-python3 -m HFProbe.backend.config_agent_rs --use-existent-config --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/papers
+python3 -m HFProbe.backend.config_agent_hf --run-small --use-existent-config --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/huggingface
+python3 -m HFProbe.backend.config_agent_rs --run-small --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/papers
 
 python3 HFProbe/input_generate.py --vllm-benchmark --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/vllm
 python3 HFProbe/input_generate.py --hf-benchmark --profile-out-dir=evaluation/section-6-1-bug-detection/small_dataset_results/huggingface

@@ -411,7 +411,7 @@ def handle_one_model_hf(model_id, out_dir=None):
         json.dump(final_result, resf)
     shutil.rmtree(model_cache_dir)
 
-def main_transformers_benchmark(out_dir=None, use_exist_configs=False):
+def main_transformers_benchmark(out_dir=None, use_exist_configs=False, run_small=False):
     model_list_path = os.path.join(os.path.dirname(root_dir), "evaluation/section-6-1-bug-detection/benchmarks/huggingface/hfmodels.json")
     with open(model_list_path) as f:
         model_list = json.load(f)
@@ -421,6 +421,9 @@ def main_transformers_benchmark(out_dir=None, use_exist_configs=False):
     
     for item in model_list:
         model_id = item.replace("_", "/", 1)
+        if run_small and model_id.startswith("mgalkin"):
+            continue
+        
         if use_exist_configs:
             test_one_with_configs(model_id, out_dir)
         else:
@@ -584,6 +587,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--kernel-name", type=str, required=False, help="kernel name to mutate config for"
     )
+    parser.add_argument(
+        "--run-small", action=argparse.BooleanOptionalAction, default=False, help="run the small dataset"
+    )
     args = parser.parse_args()
 
     if args.model_id:
@@ -598,4 +604,4 @@ if __name__ == "__main__":
         else:
             test_one_without_mutate_config(args.model_id, args.profile_out_dir)
     else:
-        main_transformers_benchmark(args.profile_out_dir, args.use_existent_config)
+        main_transformers_benchmark(args.profile_out_dir, args.use_existent_config, args.run_small)

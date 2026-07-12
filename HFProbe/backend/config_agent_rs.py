@@ -417,6 +417,9 @@ def run_all_models(out_dir=None, use_existent_config=False):
         else:
             handle_one_model_rs(model_map[framework_name], framework_name, repo_url_map[framework_name], out_dir)
 
+def run_small(out_dir=None):
+    test_one_with_configs("ShiftAddLLM", out_dir)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="run profiling backend on research paper frameworks"
@@ -424,7 +427,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--use-existent-config", action=argparse.BooleanOptionalAction, default=False, help="Whether to load exisiting configs or to use GPT to mutate model configs"
     )
+    parser.add_argument(
+        "--run-small", action=argparse.BooleanOptionalAction, default=False, help="run the small dataset"
+    )
     parser.add_argument("--profile-out-dir", type=str, required=False, help="output directory")
 
     args = parser.parse_args()
-    run_all_models(out_dir=args.profile_out_dir, use_existent_config=args.use_existent_config)
+    if args.run_small:
+        run_small(out_dir=args.profile_out_dir)
+    else:
+        run_all_models(out_dir=args.profile_out_dir, use_existent_config=args.use_existent_config)

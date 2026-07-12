@@ -74,22 +74,24 @@ def main():
         print("Running:", " ".join(command))
         subprocess.run(command, cwd=PROJECT_DIR, check=True)
 
+    hf_config_dir = os.path.join(results_dir_path, "huggingface", "config")
     shutil.copytree(
         os.path.join(
             PROJECT_DIR,
             "evaluation/section-6-1-bug-detection/intermediate_results/huggingface/config",
         ),
-        os.path.join(results_dir_path, "huggingface", "config"),
+        hf_config_dir,
         dirs_exist_ok=True,
     )
-    shutil.copytree(
-        os.path.join(
-            PROJECT_DIR,
-            "evaluation/section-6-1-bug-detection/intermediate_results/research_paper/config",
-        ),
-        os.path.join(results_dir_path, "papers", "config"),
-        dirs_exist_ok=True,
-    )
+    for name in os.listdir(hf_config_dir):
+        if not name.startswith("mgalkin_"):
+            continue
+
+        path = os.path.join(hf_config_dir, name)
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
 
 
 if __name__ == "__main__":
