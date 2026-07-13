@@ -28,7 +28,7 @@ RUN apt-get update && apt-get -y install g++ \
 
 RUN add-apt-repository universe
 
-RUN apt-get update && apt-get install -y file g++-multilib gcc-multilib libcap-dev libgoogle-perftools-dev libncurses5-dev libsqlite3-dev libtcmalloc-minimal4 unzip graphviz doxygen
+RUN apt-get update && apt-get install -y file git-lfs g++-multilib gcc-multilib libcap-dev libgoogle-perftools-dev libncurses5-dev libsqlite3-dev libtcmalloc-minimal4 unzip graphviz doxygen
 RUN pip3 install lit wllvm
 RUN apt-get install -y python3-tabulate 
 
@@ -67,6 +67,8 @@ RUN apt install -y nano
 
 WORKDIR /home/M2K-Artifact
 COPY . /home/M2K-Artifact
+RUN git lfs pull && \
+    llvm-dis-13 example/fp8_common_combined.bc -o /dev/null
 RUN python3 -m pip install --no-cache-dir --progress-bar on \
     --upgrade pip setuptools wheel packaging psutil
 

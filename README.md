@@ -314,6 +314,8 @@ python3 cuKLEE/compile_cuda.py --cuda-source-dir=evaluation/section-6-1-bug-dete
 python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=HFProbe/results/vllm --compiled-kernel-dir=cuKLEE/compiled/vllm --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
 
+(take ~40mins, mainly for compiling all cuda files, python3 HFProbe/input_generate.py takes one second)
+
 `compile_cuda.py` accepts the following options:
 - `--cuda-source-dir=<dir>` — directory containing the CUDA files (the included header files should be put in this folder or cuKLEE/include).
 - `--compiled-kernel-dir=<dir>` — the output directory, if not set, use the input-dir.
