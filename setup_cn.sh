@@ -5,6 +5,7 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
 DEPS_DIR="${PROJECT_DIR}/.deps"
 VENV_DIR="${PROJECT_DIR}/.venv"
 CUKLEE_BUILD_DIR="${PROJECT_DIR}/cuKLEE/build"
+KLEE_BUILD_DIR="${PROJECT_DIR}/cuKLEE/klee/build"
 LLVM_PROJECT_DIR="${DEPS_DIR}/llvm-project"
 Z3_DIR="${DEPS_DIR}/z3"
 Z3_REF="z3-4.12.2"
@@ -259,6 +260,15 @@ build_cuklee() {
   cmake --build "${CUKLEE_BUILD_DIR}" -j"$(nproc)"
 }
 
+build_klee() {
+  log 'Configuring KLEE'
+  cmake -S "${PROJECT_DIR}/cuKLEE/klee" -B "${KLEE_BUILD_DIR}" \
+    -DLLVM_DIR=/usr/lib/llvm-13/lib/cmake/llvm
+
+  log 'Building KLEE'
+  cmake --build "${KLEE_BUILD_DIR}" -j"$(nproc)"
+}
+
 main() {
   cd "${PROJECT_DIR}"
 
@@ -269,6 +279,7 @@ main() {
   ensure_artifact_lfs
   create_python_venv
   build_cuklee
+  build_klee
 
   log 'Setup complete'
   log 'Run this before using the artifact: source env.sh'
