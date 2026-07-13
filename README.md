@@ -622,20 +622,49 @@ grep -R -E "Violated property|VERIFICATION (FAILED|SUCCESSFUL)" \
 
 ## 7. Rationality of Components (Section 6.3)
 
-**Command:**
+A summary of the results is available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=650464833#gid=650464833).
+The results are organized along each analyzed vLLM kernel. 
+
+
+**(1) Without HFProbe:**
 
 ```bash
 cd evaluation/section-6-3-rationality
 python3 run.py --without=H
+```
+(take ~1d)
+
+The analysis results are stored in the  `XXX` directory.
+
+**(2) Without cuKLEE:**
+
+```bash
+cd evaluation/section-6-3-rationality
 python3 run.py --without=C
+```
+(take ~1d)
+
+The analysis results are stored in the  `XXX` directory.
+
+**(3) Without configuration mutation:**
+
+```bash
+cd evaluation/section-6-3-rationality
 python3 run.py --without=M
+```
+(take ~1d)
+
+The analysis results are stored in the  `XXX` directory.
+
+**(4) Without validation:**
+
+```bash
+cd evaluation/section-6-3-rationality
 python3 run.py --without=V
 ```
-(take ~XXXmin)
+(take ~1d)
 
-**Console output:**
-```bash
-XXX
-```
+The analysis results are stored in the  `XXX` directory.
 
-The analysis results are stored in the  `XXX` directory. We provide the labeled results in the `YYYY` directory. A summary of the results is available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=650464833#gid=650464833).
+
+
