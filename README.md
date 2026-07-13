@@ -13,7 +13,7 @@ This document provides instructions for reproducing the experimental results rep
 - **Disk space:** >=155GB
 - **GPU:** H200 (for the ablation experiment)
 - **CUDA:** 12.1
-- **C/C++ compiler (native compilation):** GCC/G++ 11, including `gcc-11`, `g++-11`, and `libstdc++-11-dev`
+- **C/C++ compiler:** GCC/G++ 11, including `gcc-11`, `g++-11`, and `libstdc++-11-dev`
 - **Python:** 3.10
 
 ## 2. Installation
@@ -318,7 +318,6 @@ python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-o
 
 (take ~40mins, most of which is spent compiling the cuda source files)
 
-> **Native compiler compatibility:** `compile_cuda.py` uses LLVM 13 Clang with CUDA 12.1 and is tested with GCC/G++ 11. On a host where Clang auto-detects GCC 12 or newer C++ headers, compilation can fail with C++ standard-library or `__noinline__` macro errors. Install the GCC 11 packages listed above and use an environment in which Clang selects GCC 11 (a clean Ubuntu 22.04 environment or the provided Docker image). Merely changing the system default `gcc`/`g++` alternatives may not change Clang's auto-detected C++ headers.
 
 `compile_cuda.py` accepts the following options:
 - `--cuda-source-dir=<dir>` — directory containing the CUDA source files, and any required header files should be placed in this directory or in cuKLEE/include.
@@ -332,6 +331,16 @@ python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-o
 - `--vllm` — indicating that the profiling results are generated from vLLM.
 - `--add-memory-max-num-tokens` - add the `num_tokens` limit corresponding to a 288GB GPU memory configuration.
 
+Possible issue:
+```text
+.../include/c++/12/bits/shared_ptr_base.h:196:22: error: expected expression
+/usr/local/cuda/include/crt/host_defines.h:83:33: note: expanded from macro '__noinline__'
+```
+Solution: `compile_cuda.py` uses LLVM 13 Clang with CUDA 12.1 and requires GCC/G++ 11. Install the required packages:
+```bash
+sudo apt-get install -y gcc-11 g++-11 libstdc++-11-dev
+```
+If Clang still auto-detects GCC 12 or newer C++ headers, use a clean Ubuntu 22.04 environment with GCC 11 or the provided Docker environment. Merely changing the system default `gcc`/`g++` alternatives may not change Clang's auto-detected C++ headers.
 
 **Console output:**
 ```
