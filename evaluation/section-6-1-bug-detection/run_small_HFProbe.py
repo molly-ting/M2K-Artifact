@@ -70,6 +70,8 @@ def main():
     pairs = collect_model_config_pairs(dataset)
 
     for model, config in pairs:
+        if "/" not in model:
+            model = model.replace("_", "/", 1)
         command = command_for_pair(model, config)
         print("Running:", " ".join(command))
         subprocess.run(command, cwd=PROJECT_DIR, check=True)

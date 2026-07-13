@@ -72,7 +72,6 @@ def compile_cu_file(cu_file, root_path=None):
         "-std=c++17",
         "-Xclang",
         "-fcuda-allow-variadic-functions",
-        "-D__CUDA_ARCH__=800",
         "-I", f"{CUDA_PATH}/include",
         "-I", TORCH_INCLUDE,
         "-I", TORCH_INCLUDE + "/torch/csrc/api/include",
@@ -83,6 +82,9 @@ def compile_cu_file(cu_file, root_path=None):
         "-I", f"{project_path}/cuKLEE/include",
         "-I", f"{project_path}/cuKLEE/include/cutlass/examples",
     ]
+    
+    if not Path(cu_file).as_posix().endswith("quantization/gptq/q_gemm.cu"):
+        clang_command.append("-D__CUDA_ARCH__=800")
 
     if "cutlass" in cu_file:
         clang_command.append("-DENABLE_SCALED_MM_SM90=1")

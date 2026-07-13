@@ -184,7 +184,8 @@ def runVllm(modelId, framework_config, model_config, op_name):
         pass
     
     if framework_config:
-        os.environ = env_old
+        os.environ.clear()
+        os.environ.update(env_old)
         batch_size_configs = [1, 3, 5]
         seq_lens_configs = [1, 7, 17]
 
@@ -206,6 +207,11 @@ def run_wo_C():
         with open(f"{current_dir}/processed_models.json") as mf:
             processed_models = set(json.load(mf))
 
+    bug_results_path = os.path.join(current_dir, "bug_results.json")
+    if os.path.exists(bug_results_path):
+        with open(bug_results_path) as bf:
+            bug_res = json.load(bf)
+            
     for model_id in structure_model_map:     
         structure = structure_model_map[model_id]
 
@@ -251,7 +257,7 @@ def run_wo_C():
         with open(f"{current_dir}/processed_models.json", "w") as pf:
             json.dump(list(processed_models), pf)
         
-        with open(f"{current_dir}/bug_results.json", "w") as bf:
+        with open(bug_results_path, "w") as bf:
             json.dump(bug_res, bf)
 
 def run_wo_M():
