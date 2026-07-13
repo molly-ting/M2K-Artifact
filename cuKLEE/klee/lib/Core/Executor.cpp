@@ -14047,13 +14047,14 @@ void Executor::checkDataRace(ExecutionState &state, KLoopInfo *loopInfo) {
       const InstructionInfo &ii = *state.prevPC->info;
       if (!ii.file.empty()) {
         std::string sourceLine = lineId.substr(0, lineId.find('-'));
+        sourceLine = sourceLine.substr(0, sourceLine.find('_'));
         klee_message("Bug Detected: %s:%s: data race", ii.file.c_str(), sourceLine.c_str());
       } else {
         std::string assemblyLine = lineId;
         size_t asmPrefix = assemblyLine.find("asm-");
         if (asmPrefix != std::string::npos)
           assemblyLine = assemblyLine.substr(asmPrefix + 4);
-        assemblyLine = assemblyLine.substr(0, assemblyLine.find('-'));
+        assemblyLine = assemblyLine.substr(0, assemblyLine.find('_'));
         klee_message("Bug Detected: assemblyLine %s: data race", assemblyLine.c_str());
       }
     }

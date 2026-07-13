@@ -53,8 +53,8 @@ def run_wo_H():
         "vllm",
         "compiled_files",
     )
-    output_directory = os.path.join(current_dir, "vllm/output")
-    log_directory = os.path.join(current_dir, "vllm/log")
+    output_directory = os.path.join(current_dir, "wo_h", "output")
+    log_directory = os.path.join(current_dir, "wo_h", "log")
     os.makedirs(output_directory, exist_ok=True)
     os.makedirs(log_directory, exist_ok=True)
     input_files = [os.path.join(compiled_kernels_dir, filename) for filename in os.listdir(compiled_kernels_dir) if filename.endswith('_combined.bc')]
@@ -116,7 +116,7 @@ def runVllm(modelId, framework_config, model_config, op_name):
     if model_config:
         if "architectures" in model_config:
             model_config.pop("architectures")
-        if "rope_scaling" in model_config:
+        if "rope_scaling" in model_config and model_config["rope_scaling"]:
             if "rope_type" not in model_config["rope_scaling"] and "type" in model_config["rope_scaling"]:
                 model_config["rope_scaling"]["rope_type"] = model_config["rope_scaling"]["type"]
 

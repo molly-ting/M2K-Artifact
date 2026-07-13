@@ -524,7 +524,8 @@ The output is stored at `${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/pap
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
 export OPENAI_API_KEY=<Openai API Key>
-evaluation/section-6-1-bug-detection/run_benchmark.sh
+cd evaluation/section-6-1-bug-detection
+bash run_benchmark.sh
 ```
 
 The output of cuKLEE is stored at  `${REPO_ROOT}/cuKLEE/results/<vllm/huggingface/papers>/log`. 
@@ -557,7 +558,7 @@ grep -R -E "Bug Detected:" evaluation/section-6-2-coverage/cuKLEE/log-*
 
 ```bash
 cd evaluation/section-6-2-coverage/gklee
-./run.sh
+bash run.sh
 ```
 
 Results are stored in `${REPO_ROOT}/evaluation/section-6-2-coverage/gklee/results/<input>/`:
@@ -583,7 +584,7 @@ grep -R -E "KLEE: ERROR|KLEE: done" \
 
 ```bash
 cd evaluation/section-6-2-coverage/honeycomb
-./run.sh
+bash run.sh
 ```
 
 Each result is stored in
@@ -602,7 +603,7 @@ grep -R -E "Generates [0-9]+ remarks" \
 **(4) run ESBMC:**
 ```bash
 cd evaluation/section-6-2-coverage/esbmc
-./run.sh
+bash run.sh
 ```
 
 Each result is stored in

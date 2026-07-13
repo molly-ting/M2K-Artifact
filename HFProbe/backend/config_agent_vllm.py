@@ -315,7 +315,7 @@ def run_vllm_config(framework_config, model_config, model_id, op_name, out_dir):
     if model_config:
         if "architectures" in model_config:
             model_config.pop("architectures")
-        if "rope_scaling" in model_config:
+        if "rope_scaling" in model_config and model_config["rope_scaling"]:
             if "rope_type" not in model_config["rope_scaling"] and "type" in model_config["rope_scaling"]:
                 model_config["rope_scaling"]["rope_type"] = model_config["rope_scaling"]["type"]
 
@@ -728,7 +728,7 @@ def test_one_with_configs(model_id, structure, out_dir=None):
     with open(final_res_path, "w") as resf:
         json.dump(final_result, resf, indent=4)
 
-def test_model_with_one_config(model_id, config_path, out_dir=None):
+def test_model_with_one_config(model_id, config_path, out_dir=None, print_result=True):
     if not out_dir:
         out_dir = os.path.join(root_dir, f"results/vllm")
     os.makedirs(out_dir, exist_ok=True)
@@ -751,10 +751,11 @@ def test_model_with_one_config(model_id, config_path, out_dir=None):
             model_config = json.load(cf)
         
     triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name, out_dir)
-    if triggered:
-        print(f"Kernel {op_name} is successfully triggered with the provided config.")
-    else:
-        print(f"Kernel {op_name} could not be triggered with the provided config.")
+    if print_result:
+        if triggered:
+            print(f"Kernel {op_name} is successfully triggered with the provided config.")
+        else:
+            print(f"Kernel {op_name} could not be triggered with the provided config.")
 
 def mutate_config_kernel(structure, op_name, seed_config_file, kernel_info_file, out_dir=None):
     global config_out_path
@@ -828,11 +829,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--kernel-name", type=str, required=False, help="kernel name to mutate config for"
     )
+    parser.add_argument(
+        "--print-result", action=argparse.BooleanOptionalAction, default=True, help="whether to print the result state"
+    )
     args = parser.parse_args()
 
     if args.model_id:
         if args.config_file:
-            test_model_with_one_config(args.model_id, args.config_file, args.profile_out_dir)
+            test_model_with_one_config(args.model_id, args.config_file, args.profile_out_dir, args.print_result)
         elif args.mutate and not args.use_existent_config:
             test_one(args.model_id, args.model_architecture, args.kernel_info_file, args.profile_out_dir, args.seed_config_file)
         elif args.mutate and args.use_existent_config:

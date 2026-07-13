@@ -50,6 +50,7 @@ def command_for_pair(model, config):
         "python3",
         "-m",
         "HFProbe.backend.config_agent_vllm",
+        "--no-print-result",
         f"--model-id={model}",
         f"--profile-out-dir={PROFILE_DIR}",
     ]
