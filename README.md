@@ -1,7 +1,7 @@
 # M2K: Source Code, Scripts, and Data for SOSP 2026 Artifact Evaluation
 
 **Version:** 1.0  
-**Last updated:** July 13, 2026  
+**Last updated:** July 13, 2026
 **Paper:** M2K: Making the Model-Kernel Interface Explicit for Reliable CUDA Kernel Verification
 
 This document provides instructions for reproducing the experimental results reported in the M2K paper. We first describe the hardware and software requirements for running the artifact and explain how to install it. We then walk through the example in Figure 2 to demonstrate how the tool works. Finally, we explain how to reproduce the empirical study of kernel memory bugs (Section 2.3), the bug-detection results in the wild (Section 6.1), the coverage and advancement measurements (Section 6.2), and the ablation study on component rationality (Section 6.3).
@@ -13,6 +13,7 @@ This document provides instructions for reproducing the experimental results rep
 - **Disk space:** >=155GB
 - **GPU:** H200 (for the ablation experiment)
 - **CUDA:** 12.1
+- **C/C++ compiler (native compilation):** GCC/G++ 11, including `gcc-11`, `g++-11`, and `libstdc++-11-dev`
 - **Python:** 3.10
 
 ## 2. Installation
@@ -316,6 +317,8 @@ python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-o
 ```
 
 (take ~40mins, most of which is spent compiling the cuda source files)
+
+> **Native compiler compatibility:** `compile_cuda.py` uses LLVM 13 Clang with CUDA 12.1 and is tested with GCC/G++ 11. On a host where Clang auto-detects GCC 12 or newer C++ headers, compilation can fail with C++ standard-library or `__noinline__` macro errors. Install the GCC 11 packages listed above and use an environment in which Clang selects GCC 11 (a clean Ubuntu 22.04 environment or the provided Docker image). Merely changing the system default `gcc`/`g++` alternatives may not change Clang's auto-detected C++ headers.
 
 `compile_cuda.py` accepts the following options:
 - `--cuda-source-dir=<dir>` — directory containing the CUDA source files, and any required header files should be placed in this directory or in cuKLEE/include.
