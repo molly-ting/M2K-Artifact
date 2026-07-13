@@ -86,3 +86,4 @@ WORKDIR /home/M2K-Artifact/cuKLEE/klee/build
 RUN cmake ..
 RUN make -j8
 ENV PATH="/home/M2K-Artifact/cuKLEE/build:/home/M2K-Artifact/cuKLEE/klee/build/bin:$PATH"
+WORKDIR /home/M2K-Artifact
