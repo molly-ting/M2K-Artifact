@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 import subprocess
 import logging
@@ -71,7 +72,7 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
 
 def main(directory, logDir, outputdir, isJson=True, max_processes=5, json_files=None, useDirName=False):
     failed_files = []
-    if not json_files:
+    if json_files is None:
         if isJson:
             json_files = [os.path.join(directory, filename) for filename in os.listdir(directory) if filename.endswith('.json')]
         else:
@@ -86,6 +87,35 @@ def main(directory, logDir, outputdir, isJson=True, max_processes=5, json_files=
                 success = future.result()
             except Exception as e:
                 pass
+
+def run_small(directory, logDir, outputdir, max_processes=5):
+    project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    dataset_path = os.path.join(
+        project_dir,
+        "evaluation",
+        "section-6-1-bug-detection",
+        "small_dataset.json",
+    )
+
+    with open(dataset_path, encoding="utf-8") as dataset_file:
+        small_dataset = json.load(dataset_file)
+
+    selected_names = set(small_dataset)
+    json_files = sorted(
+        os.path.join(directory, filename)
+        for filename in os.listdir(directory)
+        if filename.endswith(".json")
+        and os.path.splitext(filename)[0] in selected_names
+    )
+
+    main(
+        directory,
+        logDir,
+        outputdir,
+        isJson=True,
+        max_processes=max_processes,
+        json_files=json_files,
+    )
 
 
 if __name__ == "__main__":
@@ -108,6 +138,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--threads", type=int, required=False, default=5, help="Number of threads to use"
     )
+    parser.add_argument(
+        "--run-small", action=argparse.BooleanOptionalAction, default=False, help="run the small dataset"
+    )
     args = parser.parse_args()
 
     if args.input_dir:
@@ -120,4 +153,7 @@ if __name__ == "__main__":
         log_directory = args.log_dir or os.path.join(current_dirpath, "vllm_log")
         os.makedirs(output_directory, exist_ok=True)
         threads = args.threads if args.threads is not None else 5
-        main(args.input_dir, log_directory, output_directory, args.is_json, threads) 
+        if args.run_small:
+            run_small(args.input_dir, log_directory, output_directory, threads)
+        else:
+            main(args.input_dir, log_directory, output_directory, args.is_json, threads)

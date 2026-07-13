@@ -197,8 +197,19 @@ ensure_signed_clang() {
   git -C "${LLVM_PROJECT_DIR}" checkout signed
 
   log 'Building signed clang'
-  cmake -S "${LLVM_PROJECT_DIR}/llvm" -B "${LLVM_PROJECT_DIR}/build"
-  cmake --build "${LLVM_PROJECT_DIR}/build" -j"$(nproc)"
+  cmake -S "${LLVM_PROJECT_DIR}/llvm" \
+    -B "${LLVM_PROJECT_DIR}/build" \
+    -DLLVM_ENABLE_PROJECTS=clang \
+    -DCMAKE_BUILD_TYPE=Release
+  cmake --build "${LLVM_PROJECT_DIR}/build" \
+    --target clang \
+    --parallel "$(nproc)"
+
+  if [[ ! -x "${LLVM_PROJECT_DIR}/build/bin/clang++" ]]; then
+    printf 'Signed clang build did not produce %s\n' \
+      "${LLVM_PROJECT_DIR}/build/bin/clang++" >&2
+    exit 1
+  fi
 }
 
 create_python_venv() {

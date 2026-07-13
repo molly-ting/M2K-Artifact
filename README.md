@@ -53,6 +53,8 @@ bash x scan --vllm-model-arch=Qwen2ForCausalLM --kernel-info-out=opout
 **Console output:**
 
 ```text
+Analyzing Qwen2ForCausalLM in vLLM...
+...
 Completed analysis for vllm model architecture Qwen2ForCausalLM!
 Kernel information is stored in opout.
 ```
@@ -79,8 +81,6 @@ The file `opout/Qwen2ForCausalLM.json` contains information about all CUDA kerne
 
 ```bash
 cd ../..
-# apply on https://huggingface.co/settings/tokens
-export HF_TOKEN=<Hugging Face Token>
 # run from the repository root
 python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --profile-out-dir=HFProbe/results/vllm
 # run with model config example/config/dynamic_scaled_fp8_quant.json
@@ -89,7 +89,7 @@ python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct
 # python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct --model-architecture=Qwen2ForCausalLM --profile-out-dir=HFProbe/results/vllm --mutate --use-existent-config
 ```
 
-(take ~XXXmin)
+(take ~20s)
 
 `HFProbe.backend.config_agent_vllm` accepts the following options:
 
@@ -395,7 +395,8 @@ cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_qu
 - `--cuklee-out-dir=<dir>` — directory containing z3 constraints for each bug.
 - `--log-dir=<dir>` — directory containing console output for each input file.
 
-**Expected output:** XXX
+**Expected output:**
+
 console output:
 ```
 running opt-13 -load-pass-plugin libSignednessPropagationPass.so -passes=signedness-prop example/fp8_common_combined.bc > example/fp8_common_combined_modified.bc
@@ -498,6 +499,9 @@ https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9
 
 
 ```bash
+# apply on https://huggingface.co/settings/tokens
+export HF_TOKEN=<Hugging Face Token>
+export OPENAI_API_KEY=<Openai API Key>
 evaluation/section-6-1-bug-detection/run_benchmark.sh
 ```
 
@@ -539,6 +543,8 @@ validation result: evaluation/section-6-1-bug-detection/new_results/<vllm/huggin
 run small dataset: 
 we extract all the models and configs to trigger bug reports.
 ```bash
+# apply on https://huggingface.co/settings/tokens
+export HF_TOKEN=<Hugging Face Token>
 cd evaluation/section-6-1-bug-detection
 ./run_small.sh
 ```

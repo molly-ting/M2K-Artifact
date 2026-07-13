@@ -738,6 +738,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--add-memory-max-num-tokens", action=argparse.BooleanOptionalAction, default=False, help="add num_tokens limit of 288GB GPU memory"
     ) 
+    parser.add_argument(
+        "--add-seq-len-limit", action=argparse.BooleanOptionalAction, default=False, help="add sequence length limit"
+    )
 
     args = parser.parse_args()
     if args.research_paper:
@@ -747,10 +750,10 @@ if __name__ == "__main__":
         cuda_source_dir = args.cuda_source_dir if args.cuda_source_dir else os.path.join(os.path.dirname(current_dir), "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
         if not os.path.exists(kernel_map_path):
             wrapper.find_kernel_rel(cuda_source_dir, kernel_map_path)
-        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, cuda_source_dir, kernel_map_path, True, False)
+        generate_vllm_inputs(args.profile_out_dir, args.compiled_kernel_dir, cuda_source_dir, kernel_map_path, True, args.add_seq_len_limit, args.add_memory_max_num_tokens)
         generate_vllm_input_load(args.profile_out_dir, args.compiled_kernel_dir, cuda_source_dir, kernel_map_path, True)
     elif args.hf_benchmark:
-        generate_all_hf(args.compiled_kernel_dir, args.profile_out_dir, has_seq_con=True)
+        generate_all_hf(args.compiled_kernel_dir, args.profile_out_dir, has_seq_con=True, has_token_con=args.add_memory_max_num_tokens)
     elif args.vllm:
         kernel_map_path = os.path.join(current_dir, "kernel_map", "kernel_map_vllm.json")
         wrapper.find_kernel_rel(args.cuda_source_dir, kernel_map_path)

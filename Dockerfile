@@ -41,11 +41,15 @@ ENV PATH="$LLVM_DIR/bin:$PATH"
 RUN git clone --progress --depth 1 --branch signed \
     https://github.com/molly-ting/llvm-project.git \
     /home/llvm-project
-WORKDIR /home/llvm-project
-RUN mkdir build
-WORKDIR /home/llvm-project/build
-RUN cmake ../llvm
-RUN make -j8
+ARG BUILD_JOBS=8
+RUN cmake -S /home/llvm-project/llvm \
+    -B /home/llvm-project/build \
+    -DLLVM_ENABLE_PROJECTS=clang \
+    -DCMAKE_BUILD_TYPE=Release
+RUN cmake --build /home/llvm-project/build \
+    --target clang \
+    --parallel ${BUILD_JOBS} && \
+    test -x /home/llvm-project/build/bin/clang++
 ENV SIGNED_CLANG_PATH=/home/llvm-project/build/bin
 
 WORKDIR /home
