@@ -12,7 +12,7 @@ Z3_REF="z3-4.12.2"
 
 GITHUB_PROXY="https://ghfast.top/https://github.com"
 PYPI_INDEX_URL="https://mirrors.aliyun.com/pypi/simple/"
-PYTORCH_INDEX_URL="https://mirrors.aliyun.com/pytorch-wheels/cu126"
+PYTORCH_INDEX_URL="https://download.pytorch.org/whl/cu126"
 LLVM_APT_MIRROR="https://mirrors.tuna.tsinghua.edu.cn/llvm-apt"
 
 APT_PACKAGES=(
