@@ -67,7 +67,7 @@ RUN apt install -y nano
 
 WORKDIR /home/M2K-Artifact
 COPY . /home/M2K-Artifact
-RUN git lfs pull
+RUN GIT_LFS_FORCE_PROGRESS=1 git lfs pull
 RUN python3 -m pip install --no-cache-dir --progress-bar on \
     -i https://mirrors.aliyun.com/pypi/simple/ \
     --upgrade pip setuptools wheel packaging psutil
