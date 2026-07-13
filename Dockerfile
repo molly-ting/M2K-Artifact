@@ -80,4 +80,7 @@ RUN python3 -m pip install --no-cache-dir --progress-bar on \
     -r requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j${BUILD_JOBS}
-ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
+RUN cmake -S cuKLEE/klee -B cuKLEE/klee/build
+RUN cmake --build cuKLEE/klee/build -j${BUILD_JOBS}
+ENV PATH="/home/M2K-Artifact/cuKLEE/build:/home/M2K-Artifact/cuKLEE/klee/build/bin:$PATH"
+WORKDIR /home/M2K-Artifact

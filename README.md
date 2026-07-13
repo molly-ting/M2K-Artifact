@@ -25,7 +25,7 @@ source env.sh
 ```
 ### Option-2: Containerized installation 
 ```bash
-docker build --platform=linux/amd64 -t m2k-env .
+docker build --build-arg BUILD_JOBS="$(nproc)" --platform=linux/amd64 -t m2k-env .
 docker run --platform=linux/amd64 -it m2k-env
 ```
 
