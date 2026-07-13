@@ -347,7 +347,7 @@ The input files are stored in the directory: results/vllm/input
 
 **File output:**
 
-The inferred interface constraints for the `dynamic_scaled_fp8_quant` kernel are stored in `results/vllm/input/dynamic_scaled_fp8_quant.json`, as shown below. The first two parameters are two-dimensional tensors. Their first dimension is equal to the batch size multiplied by the sequence length, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a single element.
+The inferred interface constraints for the `dynamic_scaled_fp8_quant` kernel are stored in `<profile-out-dir>/vllm/input/dynamic_scaled_fp8_quant.json`, as shown below. The first two parameters are two-dimensional tensors. Their first dimension is equal to the batch size multiplied by the sequence length, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a single element.
 ```json
 [
     {
@@ -478,7 +478,7 @@ Processed prompts: 100%|█| 64/64 [06:07<00:00,  5.74s/it, est. speed input: 57
 Running model Qwen/Qwen2-0.5B-Instruct with batch_size: 64 seq_len: 32768 config_file: example/config/dynamic_scaled_fp8_quant.json can trigger bug 128_24_18-asm-15242_15133_4337_io.txt for dynamic_scaled_fp8_quant.
 ```
 
-The validation results are stored in the `<XXX>/validation` directory. For example, the following snippet from `<XXX>/validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json` shows that the bug reported at line 19 in Step 5 is validated as a true positive.
+The validation results are stored in the `${REPO_ROOT}/HFProbe/validation` directory. For example, the following snippet from `${REPO_ROOT}/HFProbe/validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json` shows that the bug reported at line 19 in Step 5 is validated as a true positive.
 
 
 ```json
@@ -519,9 +519,9 @@ evaluation/section-6-1-bug-detection/run_benchmark.sh
 
 **Expected output:** 
 
-cuKLEE output: cuKLEE/results/<vllm/huggingface/papers>/log
+cuKLEE output: ${REPO_ROOT}/cuKLEE/results/<vllm/huggingface/papers>/log
 
-validation result: evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json
+validation result: ${REPO_ROOT}/evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json
 
 (the bugs detected in research paper cuda files are not related with batch_size and seq_len, thus not running the validation)
 ```json
@@ -566,9 +566,8 @@ cd evaluation/section-6-1-bug-detection
 ```
 (Estimated time: ~5h)
 
-cuKLEE output: cuKLEE/results-small/<vllm/huggingface/papers>/log
+cuKLEE output: ${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/papers>/log
 
-validation result: evaluation/section-6-1-bug-detection/small_dataset_results/<vllm/huggingface>/benchmark_validation_results.json
 
 ## 6. Coverage and Advancement (Section 6.2)
 raw data of Table 6:
