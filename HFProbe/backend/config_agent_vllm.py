@@ -741,13 +741,14 @@ def test_model_with_one_config(model_id, config_path, out_dir=None):
     if op_name in framework_configs:
         fcon = framework_configs[op_name]
     
-    if not os.path.exists(config_path):
+    if not os.path.exists(config_path) and not fcon:
         print(f"Config file {config_path} does not exist.")
         return
     
     model_config = None
-    with open(config_path) as cf:
-        model_config = json.load(cf)
+    if os.path.exists(config_path):
+        with open(config_path) as cf:
+            model_config = json.load(cf)
         
     triggered, tmp_triggered_ops = run_vllm_config(fcon, model_config, model_id, op_name, out_dir)
     if triggered:
