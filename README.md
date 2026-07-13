@@ -567,7 +567,7 @@ grep -R -E "Bug Detected:" evaluation/section-6-2-coverage/cuKLEE/log-*
 ```
 
 **(2) run GKLEE:**
-
+Run the following commands on your host machine—for example, in your local terminal—not inside a Docker container, because they use docker build and docker run.
 ```bash
 cd evaluation/section-6-2-coverage/gklee
 bash run.sh
@@ -593,7 +593,7 @@ grep -R -E "KLEE: ERROR|KLEE: done" \
 ```
 
 **(3) run Honeycomb:**
-
+Run the following commands on your host machine—for example, in your local terminal—not inside a Docker container, because they use docker build and docker run.
 ```bash
 cd evaluation/section-6-2-coverage/honeycomb
 bash run.sh
@@ -613,6 +613,7 @@ grep -R -E "Generates [0-9]+ remarks" \
 ```
 
 **(4) run ESBMC:**
+Run the following commands on your host machine—for example, in your local terminal—not inside a Docker container, because they use docker build and docker run.
 ```bash
 cd evaluation/section-6-2-coverage/esbmc
 bash run.sh
