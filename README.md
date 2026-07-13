@@ -392,6 +392,8 @@ cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_qu
 # python3 cuKLEE/run.py --input-dir=HFProbe/results/vllm/input --cuklee-out-dir=cuKLEE/results/out --log-dir=cuKLEE/results/log
 ```
 
+(take ~35s)
+
 `cuKLEE/run.py` accepts the following options:
 - `--input-dir=<dir>` — directory containing the input json files.
 - `--cuklee-out-dir=<dir>` — directory containing z3 constraints for each bug.
@@ -509,7 +511,11 @@ evaluation/section-6-1-bug-detection/run_benchmark.sh
 
 **Expected output:** 
 
+cuKLEE output: cuKLEE/results/<vllm/huggingface/papers>/log
+
 validation result: evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json
+
+(the bugs detected in research paper cuda files are not related with batch_size and seq_len, thus not running the validation)
 ```json
 {
     "dynamic_scaled_fp8_quant": {     // cuda kernel name
@@ -550,6 +556,10 @@ export HF_TOKEN=<Hugging Face Token>
 cd evaluation/section-6-1-bug-detection
 ./run_small.sh
 ```
+(Estimated time: ~5h)
+
+cuKLEE output: cuKLEE/results-small/<vllm/huggingface/papers>/log
+
 validation result: evaluation/section-6-1-bug-detection/small_dataset_results/<vllm/huggingface>/benchmark_validation_results.json
 
 ## 6. Coverage and Advancement (Section 6.2)
@@ -561,6 +571,9 @@ https://docs.google.com/spreadsheets/d/1bEBw7nqtAynVWKP8SBGaxUnuvn8sWfEHX1ywD2Vh
 cd evaluation/section-6-2-coverage/cuKLEE
 python3 run_cuKLEE.py
 ```
+
+(take ~2.5h)
+
 #### cuKLEE results
 
 Results are stored in `evaluation/section-6-2-coverage/cuKLEE/`:
