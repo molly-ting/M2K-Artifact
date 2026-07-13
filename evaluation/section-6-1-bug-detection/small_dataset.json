@@ -1,18 +1,14 @@
 {
     "moe_align_block_size": [
         {
-            "model": "allenai_OLMoE-1B-7B-0924-Instruct",
-            "config": "config/OlmoeForCausalLM/awq_dequantize.json"
-        },
-        {
             "model": "openbmb_MiniCPM-2B-sft-bf16",
             "config": "config/MiniCPMForCausalLM/moe_align_block_size.json"
         }
     ],
     "aqlm_dequant": [
         {
-            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
-            "config": "config/ExaoneForCausalLM/aqlm_dequant.json"
+            "model": "facebook_opt-125m",
+            "config": "config/OPTForCausalLM/aqlm_dequant.json"
         }
     ],
     "causal_conv1d_fwd": [
@@ -23,12 +19,8 @@
     ],
     "marlin_gemm": [
         {
-            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
-            "config": "config/ExaoneForCausalLM/marlin_gemm.json"
-        },
-        {
-            "model": "mistralai_Mixtral-8x7B-Instruct-v0.1",
-            "config": "config/MixtralForCausalLM/marlin_gemm.json"
+            "model": "facebook_opt-125m",
+            "config": "config/OPTForCausalLM/marlin_gemm.json"
         }
     ],
     "rms_norm": [
@@ -39,20 +31,24 @@
     ],
     "aqlm_gemm": [
         {
-            "model": "EleutherAI_pythia-70m",
-            "config": "config/GPTNeoXForCausalLM/aqlm_dequant.json"
+            "model": "facebook_opt-125m",
+            "config": "config/OPTForCausalLM/aqlm_dequant.json"
         }
     ],
     "dynamic_scaled_fp8_quant": [
         {
-            "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
-            "config": "config/Qwen2MoeForCausalLM/dynamic_per_token_scaled_fp8_quant.json"
+            "model": "ibm_PowerMoE-3b",
+            "config": "config/GraniteMoeForCausalLM/dynamic_per_token_scaled_fp8_quant.json"
         }
     ],
     "moe_wna16_gemm": [
         {
             "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
             "config": "config/Qwen2MoeForCausalLM/moe_wna16_gemm.json"
+        },
+        {
+            "model": "ibm_PowerMoE-3b",
+            "config": "config/GraniteMoeForCausalLM/moe_wna16_gemm.json"
         }
     ],
     "static_scaled_fp8_quant": [
@@ -75,19 +71,15 @@
     ],
     "gptq_marlin_24_gemm": [
         {
-            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
-            "config": "config/ExaoneForCausalLM/gptq_marlin_24_gemm.json"
+            "model": "facebook_opt-125m",
+            "config": "config/OPTForCausalLM/gptq_marlin_24_gemm.json"
         },
         {
-            "model": "bigcode_starcoder",
-            "config": "config/GPTBigCodeForCausalLM/gptq_marlin_24_gemm.json"
+            "model": "baichuan-inc_Baichuan-7B",
+            "config": "config/BaiChuanForCausalLM/gptq_marlin_24_gemm.json"
         }
     ],
     "marlin_qqq_gemm": [
-        {
-            "model": "openbmb_MiniCPM-2B-sft-bf16",
-            "config": "config/MiniCPMForCausalLM/marlin_qqq_gemm.json"
-        },
         {
             "model": "facebook_opt-125m",
             "config": "config/OPTForCausalLM/marlin_qqq_gemm.json"
@@ -95,8 +87,8 @@
     ],
     "sgl_moe_align_block_size": [
         {
-            "model": "kebeliu_DeepSeek-R1-tiny",
-            "config": null
+            "model": "ibm_PowerMoE-3b",
+            "config": "config/GraniteMoeForCausalLM/sgl_moe_align_block_size.json"
         }
     ],
     "selective_scan_fwd": [
@@ -119,11 +111,15 @@
     ],
     "rotary_embedding": [
         {
-            "model": "LGAI-EXAONE_EXAONE-3.0-7.8B-Instruct",
-            "config": null
+            "model": "EleutherAI_pythia-70m",
+            "config": "config/GPTNeoXForCausalLM/convert_vertical_slash_indexes.json"
         }
     ],
     "moe_wna16_marlin_gemm": [
+        {
+            "model": "Qwen_Qwen3-30B-A3B",
+            "config": "config/Qwen3MoeForCausalLM/gptq_marlin_gemm.json"
+        },
         {
             "model": "Qwen_Qwen1.5-MoE-A2.7B-Chat",
             "config": "config/Qwen2MoeForCausalLM/machete_mm.json"
