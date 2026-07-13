@@ -516,7 +516,7 @@ cd evaluation/section-6-1-bug-detection
 ```
 (take ~5h)
 
-The output is stored at `${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/papers>/log`. The detailed labels for each report are summarized in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=411201267#gid=411201267).
+The output is stored at `${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/papers>/log`. The detailed labels for each report are summarized in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=411201267#gid=411201267). The `S` column in the Google Sheet reports the estimated GPU memory size for each detected bug. Figure 5 is drawn based on this column and the memory size of different GPU models. The value of each data point in the figure is available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=292022127#gid=292022127).
 
 **Execute `run_benchmark.sh`:**
 
