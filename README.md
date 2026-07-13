@@ -263,9 +263,11 @@ GPT response:
     ...
 }
 
-The config file generated from mutation to trigger kernel dynamic_scaled_fp8_quant is stored at `<profile-out-dir>/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json` and shown as follows.
+The config file generated from mutation to trigger kernel dynamic_scaled_fp8_quant is saved at HFProbe/results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json.
 ```
-results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
+
+The content of `<profile-out-dir>/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json` is shown as follows. 
+
 ```json
 {
     "architectures": [
@@ -313,22 +315,22 @@ python3 cuKLEE/compile_cuda.py --cuda-source-dir=evaluation/section-6-1-bug-dete
 python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=HFProbe/results/vllm --compiled-kernel-dir=cuKLEE/compiled/vllm --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
 ```
 
-(take ~40mins, mainly for compiling all cuda files, python3 HFProbe/input_generate.py takes one second)
+(take ~40mins, most of which is spent compiling the cuda source files)
 
 `compile_cuda.py` accepts the following options:
-- `--cuda-source-dir=<dir>` — directory containing the CUDA files (the included header files should be put in this folder or cuKLEE/include).
-- `--compiled-kernel-dir=<dir>` — the output directory, if not set, use the input-dir.
+- `--cuda-source-dir=<dir>` — directory containing the CUDA source files, and any required header files should be placed in this directory or in cuKLEE/include.
+- `--compiled-kernel-dir=<dir>` — directory for the compiled kernel files, and if not specified, the input directory is used. 
 
 `input_generate.py` accepts the following options:
 
-- `--profile-out-dir=<dir>` — the `--out-dir` from the previous step.
+- `--profile-out-dir=<dir>` — the profiling output directory specified in Step 2.
 - `--compiled-kernel-dir=<dir>` — directory containing the compiled CUDA files.
-- `--cuda-source-dir=<dir>` — directory containing the CUDA and C++ files (or the repository directory).
-- `--vllm` — mark for vllm profiling.
-- `--add-memory-max-num-tokens` - add num_tokens limit of 288GB GPU memory.
+- `--cuda-source-dir=<dir>` — directory containing the CUDA and C++ source files, or the root directory of the repository.
+- `--vllm` — indicating that the profiling results are generated from vLLM.
+- `--add-memory-max-num-tokens` - add the `num_tokens` limit corresponding to a 288GB GPU memory configuration.
 
-**Output:**
-console output:
+
+**Console output:**
 ```
 Compiling CUDA files...
 Compiling common.cu...
@@ -342,7 +344,10 @@ Running command: llvm-dis-13 common_combined.bc
 Done!
 The input files are stored in the directory: results/vllm/input
 ```
-results/vllm/input/dynamic_scaled_fp8_quant.json
+
+**File output:**
+
+The inferred input constraints for the `dynamic_scaled_fp8_quant` kernel are stored in `results/vllm/input/dynamic_scaled_fp8_quant.json`, as shown below. The first two parameters are two-dimensional tensors. Their first dimension is equal to the batch size multiplied by the sequence length, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a single element.
 ```json
 [
     {
@@ -383,7 +388,7 @@ results/vllm/input/dynamic_scaled_fp8_quant.json
 ### b. Using cuKLEE to perform symbolic execution on the dynamic_scaled_fp8_quant kernel 
 
 
-**Step 4: run cuKLEE** 
+**Step 5: Executing cuKLEE** 
 ```bash
 mkdir example/out
 cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_quant.json
@@ -417,7 +422,7 @@ cuKLEE: done: partially completed paths = 22
 cuKLEE: done: generated tests = 0
 ```
 
-**Step 5: validate reported bugs** 
+**Step 6: Validating Reported Bugs** 
 ```bash
 # if you haven't run previous HFProbe steps, copy example/dynamic_scaled_fp8_quant.json to HFProbe/results/vllm/input 
 python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/results/vllm --cuklee-out-dir=example/out --kernel-name=dynamic_scaled_fp8_quant --index=0 --model-id=Qwen/Qwen2-0.5B-Instruct --config-file=example/config/dynamic_scaled_fp8_quant.json
