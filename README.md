@@ -498,17 +498,27 @@ The validation results are stored in the `${REPO_ROOT}/HFProbe/validation` direc
 In Section 2.3, we collect 20 CUDA kernel bugs from the vLLM repository and analyze their characteristics. The pull requests and labels for each bug are available in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=0#gid=0). The column names match the `Breakdown` column in Table 1. 
 
 ## 5. Bug Detection in the Wild (Section 6.1)
-raw data of Table 5:
-https://docs.google.com/spreadsheets/d/1C2WeuZRo7ewz1nr3dsw7G8LmE-2AknD0vNDZIXwUWeI/edit?gid=0#gid=0
+We provide two scripts to reproduce this experiment:
 
-raw data of Figure 5:
-https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=292022127#gid=292022127
+1. **`run_small.sh`** analyzes only the model-kernel combinations for which M2K reports at least one potential bug (either a true positive or a false positive). It does not perform bug validation and completes in a few hours.
 
-**Estimated time:** over one month
+2. **`run_benchmark.sh`** reproduces all experiments reported in this section. Running the script with a single process takes more than one month to complete.
 
+We recommend that reviewers use `run_small.sh`, as it reproduces the key results while requiring substantially less time.
 
-**Steps:**
+**Execute `run_small.sh`:**
 
+```bash
+# apply on https://huggingface.co/settings/tokens
+export HF_TOKEN=<Hugging Face Token>
+cd evaluation/section-6-1-bug-detection
+./run_small.sh
+```
+(take ~5h)
+
+The output is stored at `${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/papers>/log`. The detailed labels for each report are summarized in [this Google Sheet](https://docs.google.com/spreadsheets/d/1Q_6QZbl2I0xCotst-8ei2ZysvldA6D2HHegWKmv9y1o/edit?gid=411201267#gid=411201267).
+
+**Execute `run_benchmark.sh`:**
 
 ```bash
 # apply on https://huggingface.co/settings/tokens
@@ -517,56 +527,8 @@ export OPENAI_API_KEY=<Openai API Key>
 evaluation/section-6-1-bug-detection/run_benchmark.sh
 ```
 
-**Expected output:** 
-
-cuKLEE output: ${REPO_ROOT}/cuKLEE/results/<vllm/huggingface/papers>/log
-
-validation result: ${REPO_ROOT}/evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json
-
-(the bugs detected in research paper cuda files are not related with batch_size and seq_len, thus not running the validation)
-```json
-{
-    "dynamic_scaled_fp8_quant": {     // cuda kernel name
-        "py_func": "dynamic_scaled_fp8_quant",  // bound python function
-        "0": {   // index in the input/dynamic_scaled_fp8_quant.json 
-            "Qwen_Qwen2-0.5B-Instruct": {  // modelID
-                "19_18_119-asm-15118_4337_11163_io.txt": { // buggy constraint file, cuKLEE/results/vllm/out/_Z24dynamic_scaled_fp8_quantRN2at6TensorERKS0_S1_/klee-out-jindex-0-0/19_18_119-asm-15118_4337_11163_io.txt
-                    "status": "success", // verify to be TP
-                    "batch_size": 65,    // batch_size to trigger the bug
-                    "seq_len": 32264,    // seq_len to trigger the bug
-                    "buggy_line": 19,    // source code line of the bug
-                    "config": "example/config/dynamic_scaled_fp8_quant.json"  // model config to run the model with
-                },
-            }
-        },
-    },
-    "rms_norm": {
-        "py_func": "rms_norm",
-        "0": {
-            "nvidia_Llama-3_3-Nemotron-Super-49B-v1": {
-                "26_21_154-asm-19295_4239_2774_io.txt": {
-                    "status": "failed",
-                    "reason": "no solution for token limit",  // the num_tokens (batch_size * seq_len) to trigger this bug exceeds the max num_tokens this model can handle on 288GB GPU
-                    "buggy_line": 26,
-                    "config": "evaluation/section-6-1-bug-detection/new_results/vllm/config/DeciLMForCausalLM/cutlass_scaled_mm_supports_fp4.json"
-                }
-            }
-        },
-    }
-}
-```
-
-run small dataset: 
-We extract all the models and configs to trigger bug reports. This script also excludes the validation step as we only run on buugy cuda code and the validation takes quite long time because it may run the model on large prompt as show in step 5.
-```bash
-# apply on https://huggingface.co/settings/tokens
-export HF_TOKEN=<Hugging Face Token>
-cd evaluation/section-6-1-bug-detection
-./run_small.sh
-```
-(Estimated time: ~5h)
-
-cuKLEE output: ${REPO_ROOT}/cuKLEE/results-small/<vllm/huggingface/papers>/log
+The output of cuKLEE is stored at  `${REPO_ROOT}/cuKLEE/results/<vllm/huggingface/papers>/log`. 
+The output of the validation is stored at `${REPO_ROOT}/evaluation/section-6-1-bug-detection/new_results/<vllm/huggingface>/benchmark_validation_results.json`. 
 
 
 ## 6. Coverage and Advancement (Section 6.2)
