@@ -61,6 +61,7 @@ Kernel information is stored in opout.
 ```
 
 **File output:**
+
 The file `opout/Qwen2ForCausalLM.json` contains information about all CUDA kernels invoked by the Qwen2ForCausalLM model. For example, the excerpt below from `opout/Qwen2ForCausalLM.json` shows that the dynamic_scaled_int8_quant kernel is invoked by the model from `vllm/_custom_ops.py`, with the corresponding call site spanning lines 1258--1293.
 
 ``` json
@@ -100,7 +101,7 @@ python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct
 - `--profile-out-dir=<dir>` — the output directory (see the layout below).
 - `--kernel-info-out=<dir>` — the directory containing the kernel innovation information reported by the previous step.
 - `--kernel-info-file=<file>` — the file containing the kernel innovation information reported by the previous step.
-- `--mutate` — mutate the configs and without this flag, the model is only profiled with the default config.
+- `--mutate` — mutate the input configs and without this flag, the model is only profiled with the default config.
 - `--use-existent-config` — reuse previously generated configs.
 - `--config-file=<file>` — the path to the config file to profile and the file name should be the target kernel name.
 - `--kernel-name` — the name of the kernel to trigger.
@@ -108,6 +109,7 @@ python3 -m HFProbe.backend.config_agent_vllm --model-id=Qwen/Qwen2-0.5B-Instruct
 
 
 **Console output:**
+
 ```text
 INFO 07-11 10:53:59 [__init__.py:247] No platform detected, vLLM is running on UnspecifiedPlatform
 patch current platform as cuda platform
@@ -160,13 +162,9 @@ input/          # interface constraints for cuKLEE (in step 4)
 ```
 
 
-`<profile-out-dir>/data/Qwen_Qwen2-0.5B-Instruct.json` contains the profiling results generated using the default model configuration. Below shows the profiling information for the `rms_norm` kernel. The first two parameters are two-dimensional tensors. Their first dimension is the sequence length multiplied by the batch size, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a fixed size of `896`. The fourth parameter is the constant floating-point value `1e-06`.
 
-('_custom_ops.py', 276), ... : the call stack info
+`<profile-out-dir>/data/Qwen_Qwen2-0.5B-Instruct.json` contains the profiling results generated using the default model configuration. The example below shows the profiling information for the `rms_norm` kernel from two executions. In both executions, the batch size is `1`, while the sequence lengths are `1` and `7`, respectively. For each kernel invocation, the profiler records the call stack and the types of all parameters. If a parameter is a tensor, its shape is also recorded.
 
-(1,1): batch_size=1,seq_len=1
-
-(1,7): batch_size=1,seq_len=7
 
 ```json
 {
@@ -265,7 +263,7 @@ GPT response:
     ...
 }
 
-The config file generated from mutation to trigger kernel dynamic_scaled_fp8_quant is saved at HFProbe/results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json.
+The config file generated from mutation to trigger kernel dynamic_scaled_fp8_quant is stored at `<profile-out-dir>/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json` and shown as follows.
 ```
 results/vllm/config/Qwen2ForCausalLM/dynamic_scaled_fp8_quant.json
 ```json
