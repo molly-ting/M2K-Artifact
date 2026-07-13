@@ -439,12 +439,12 @@ python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/resu
 (take ~26min)
 
 `run_vllm_validation.py` accepts the following options:
-- `--profile-out-dir=<dir>` — out-dir of step 2.
-- `--cuklee-out-dir=<dir>` — out-dir of the previous step.
-- `--kernel-name=<name>` — the target kernel name.
+- `--profile-out-dir=<dir>` — the profiling output directory generated in Step 2.
+- `--cuklee-out-dir=<dir>` — the directory containing z3 constraints generated in Step 5. 
+- `--kernel-name=<name>` — the name of the target CUDA kernel.
 - `--index=<int>` — the index in the input json file in the previous step (default value is 0).
-- `--model-id=<modelID>` — the target model ID.
-- `--config-file=<filepath>` — the model config file generated in step 3.
+- `--model-id=<modelID>` — the model ID invoking the target kernel.
+- `--config-file=<filepath>` — the model config file generated in Step 3.
 
 possible issue:
 ```text
@@ -479,7 +479,9 @@ Processed prompts: 100%|█| 64/64 [06:07<00:00,  5.74s/it, est. speed input: 57
 Running model Qwen/Qwen2-0.5B-Instruct with batch_size: 64 seq_len: 32768 config_file: example/config/dynamic_scaled_fp8_quant.json can trigger bug 128_24_18-asm-15242_15133_4337_io.txt for dynamic_scaled_fp8_quant.
 ```
 
-validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json
+The validation results are stored in the `<XXX>/validation` directory. For example, the following snippet from `<XXX>/validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json` shows that the bug reported at line 19 in Step 5 is validated as a true positive.
+
+
 ```json
 {
   "19_18_119-asm-15118_4337_11163_io.txt": {
@@ -489,13 +491,6 @@ validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.
     "buggy_line": 19,
     "config": "example/config/dynamic_scaled_fp8_quant.json"
   },
-  "128_24_18-asm-15242_15133_4337_io.txt": {
-    "status": "success",
-    "batch_size": 64,
-    "seq_len": 32768,
-    "buggy_line": 19,
-    "config": "example/config/dynamic_scaled_fp8_quant.json"
-  }
 }
 ```
 
