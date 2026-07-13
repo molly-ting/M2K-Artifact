@@ -19,9 +19,6 @@ APT_PACKAGES=(
   tzdata
   g++
   gcc
-  g++-11
-  gcc-11
-  libstdc++-11-dev
   make
   cmake
   git

@@ -45,15 +45,6 @@ def _resolve_first_existing_path(paths):
 
 OPENMP_INCLUDE_DIR = _resolve_first_existing_path(OPENMP_INCLUDE_DIRS)
 
-# Compile CUDA sources against the GCC 11 C++ headers used by the Ubuntu 22.04
-# Docker image.  Without explicit paths, Clang selects the newest GCC on the
-# host, which can be incompatible with the CUDA 12.1 headers.
-GCC_11_CXX_INCLUDE_DIRS = [
-    Path("/usr/include/c++/11"),
-    Path("/usr/include/x86_64-linux-gnu/c++/11"),
-    Path("/usr/include/c++/11/backward"),
-]
-
 
 # Utility function to run shell commands
 def run_command(command, cwd=None, print_error=True):
@@ -72,13 +63,6 @@ def compile_cu_file(cu_file, root_path=None):
     print(f"Compiling {cu_file}...")
     if not root_path:
         root_path = os.path.dirname(cu_file)
-    missing_cxx_includes = [path for path in GCC_11_CXX_INCLUDE_DIRS
-                            if not path.exists()]
-    if missing_cxx_includes:
-        raise RuntimeError(
-            "GCC 11 C++ headers are required. Run setup.sh or install "
-            "g++-11 and libstdc++-11-dev. Missing: "
-            + ", ".join(str(path) for path in missing_cxx_includes))
 
     clang_command = [
         signed_clang_path,
@@ -88,9 +72,6 @@ def compile_cu_file(cu_file, root_path=None):
         "-std=c++17",
         "-Xclang",
         "-fcuda-allow-variadic-functions",
-        "-nostdinc++",
-        *(item for path in GCC_11_CXX_INCLUDE_DIRS
-          for item in ("-isystem", str(path))),
         "-I", f"{CUDA_PATH}/include",
         "-I", TORCH_INCLUDE,
         "-I", TORCH_INCLUDE + "/torch/csrc/api/include",
