@@ -97,24 +97,46 @@ ensure_llvm_repo() {
   fi
 
   local codename
+  local llvm_distribution
+  local llvm_release_url
+  local llvm_source_file='/etc/apt/sources.list.d/llvm-toolchain-13.list'
   codename="$(lsb_release -cs)"
+  llvm_distribution="llvm-toolchain-${codename}-13"
+  llvm_release_url="https://apt.llvm.org/${codename}/dists/${llvm_distribution}/Release"
+
+  if ! curl -fsSL -o /dev/null "${llvm_release_url}"; then
+    # Remove a bad source written by an older version of this script so that
+    # subsequent apt-get commands are not left broken.
+    if [[ -f "${llvm_source_file}" ]] \
+      && grep -Fq "apt.llvm.org/${codename}/ ${llvm_distribution}" "${llvm_source_file}"; then
+      log "Removing unavailable LLVM 13 repository for ${codename}"
+      sudo_cmd rm -f "${llvm_source_file}"
+    fi
+
+    printf 'LLVM 13 packages are not published for Ubuntu %s by apt.llvm.org.\n' \
+      "${codename}" >&2
+    printf 'This artifact requires Ubuntu 22.04 (jammy); use the provided Dockerfile or run setup.sh on jammy.\n' >&2
+    exit 1
+  fi
 
   log "Adding apt.llvm.org repository for ${codename}"
   curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key \
     | sudo_cmd tee /usr/share/keyrings/llvm-snapshot.gpg.key >/dev/null
 
-  printf 'deb [signed-by=/usr/share/keyrings/llvm-snapshot.gpg.key] http://apt.llvm.org/%s/ llvm-toolchain-%s-13 main\n' \
-    "${codename}" "${codename}" \
-    | sudo_cmd tee /etc/apt/sources.list.d/llvm-toolchain-13.list >/dev/null
+  printf 'deb [signed-by=/usr/share/keyrings/llvm-snapshot.gpg.key] https://apt.llvm.org/%s/ %s main\n' \
+    "${codename}" "${llvm_distribution}" \
+    | sudo_cmd tee "${llvm_source_file}" >/dev/null
 
   sudo_cmd apt-get update
 }
 
 install_apt_packages() {
   require_ubuntu_apt
+  # Validate the versioned LLVM repository before any apt update. This also
+  # repairs a stale invalid source left by an earlier setup attempt.
+  ensure_llvm_repo
   ensure_universe_repo
   sudo_cmd apt-get update
-  ensure_llvm_repo
 
   local missing=()
   local pkg
