@@ -20,6 +20,7 @@ This document provides instructions for reproducing the experimental results rep
 ### Option-1: Native installation
 ```bash
 bash setup.sh
+source env.sh
 ```
 ### Option-2: Containerized installation 
 ```bash
