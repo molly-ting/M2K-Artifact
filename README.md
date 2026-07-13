@@ -312,7 +312,7 @@ The content of `<profile-out-dir>/config/Qwen2ForCausalLM/dynamic_scaled_fp8_qua
 # running profiling backend will trigger multiple kernels. we have to compile all cuda files in vLLM.
 python3 cuKLEE/compile_cuda.py --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files --compiled-kernel-dir=cuKLEE/compiled/vllm
 # some compiled files are large. you can skip the compilation and use existing compiled files (--compiled-kernel-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files).
-python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=HFProbe/results/vllm --compiled-kernel-dir=cuKLEE/compiled/vllm --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files 
+python3 HFProbe/input_generate.py --vllm --add-memory-max-num-tokens --profile-out-dir=HFProbe/results/vllm --compiled-kernel-dir=cuKLEE/compiled/vllm --cuda-source-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/cuda_files
 ```
 
 (take ~40mins, most of which is spent compiling the cuda source files)
@@ -423,7 +423,6 @@ cuKLEE: Bug Detected: vllm-0.9.0/csrc/quantization/fp8/common.cuh:128: integer o
 cuKLEE: done: total instructions = 13680
 cuKLEE: done: completed paths = 5
 cuKLEE: done: partially completed paths = 22
-cuKLEE: done: generated tests = 0
 ```
 
 The above console output shows that two integer overflow bugs are detected, one is in line 19 and the other is in line 128. 
