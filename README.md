@@ -515,7 +515,7 @@ We recommend that reviewers use `run_small.sh`, as it reproduces the key results
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>
 cd evaluation/section-6-1-bug-detection
-./run_small.sh
+bash run_small.sh
 ```
 (take ~5h)
 
@@ -638,7 +638,7 @@ python3 run.py --without=H
 ```
 (take ~1d)
 
-The analysis results are stored in the  `XXX` directory.
+The analysis results are stored in the  `${REPO_ROOT}/evaluation/section-6-3-rationality/wo_h/log` directory.
 
 **(2) Without cuKLEE:**
 
@@ -648,7 +648,7 @@ python3 run.py --without=C
 ```
 (take ~1d)
 
-The analysis results are stored in the  `XXX` directory.
+The analysis results are stored in the  `${REPO_ROOT}/evaluation/section-6-3-rationality/wo_c_bug_results.json`.
 
 **(3) Without configuration mutation:**
 
@@ -658,7 +658,7 @@ python3 run.py --without=M
 ```
 (take ~1d)
 
-The analysis results are stored in the  `XXX` directory.
+The analysis results are stored in the  `${REPO_ROOT}/evaluation/section-6-3-rationality/wo_m/profile/benchmark_validation_results.json`.
 
 **(4) Without validation:**
 
@@ -666,9 +666,9 @@ The analysis results are stored in the  `XXX` directory.
 cd evaluation/section-6-3-rationality
 python3 run.py --without=V
 ```
-(take ~1d)
+(take ~1 month)
 
-The analysis results are stored in the  `XXX` directory.
+The analysis results are stored in the  `${REPO_ROOT}/evaluation/section-6-3-rationality/wo_v/cuklee/log` directory.
 
 
 

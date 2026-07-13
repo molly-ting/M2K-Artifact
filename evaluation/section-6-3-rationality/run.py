@@ -207,7 +207,7 @@ def run_wo_C():
         with open(f"{current_dir}/processed_models.json") as mf:
             processed_models = set(json.load(mf))
 
-    bug_results_path = os.path.join(current_dir, "bug_results.json")
+    bug_results_path = os.path.join(current_dir, "wo_c_bug_results.json")
     if os.path.exists(bug_results_path):
         with open(bug_results_path) as bf:
             bug_res = json.load(bf)
