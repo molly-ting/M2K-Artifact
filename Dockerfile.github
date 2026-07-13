@@ -73,32 +73,14 @@ RUN python3 -m pip install --no-cache-dir --progress-bar on \
     -i https://mirrors.aliyun.com/pypi/simple/ \
     --upgrade pip setuptools wheel packaging psutil
 
-RUN wget --progress=bar:force:noscroll \
-    -O /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torch-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && python3 -m pip install --no-cache-dir \
-    /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && rm /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+RUN python3 -m pip install --no-cache-dir --progress-bar on \
+    --index-url https://download.pytorch.org/whl/cu126 \
+    torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0
 
-RUN wget --progress=bar:force:noscroll \
-    -O /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && wget --progress=bar:force:noscroll \
-    -O /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && python3 -m pip install --no-cache-dir \
-    /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && rm /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
-
-RUN grep -Ev '^(torch|flash_attn|triton|bitblas|tvm|bitsandbytes|torchao|tensorflow|flashinfer-python)' requirements.txt \
-    > /tmp/requirements.cpu.txt \
-    && python3 -m pip install --no-cache-dir --progress-bar on \
+RUN python3 -m pip install --no-cache-dir --progress-bar on \
     -i https://mirrors.aliyun.com/pypi/simple/ \
     --prefer-binary \
-    -r /tmp/requirements.cpu.txt \
-    && rm /tmp/requirements.cpu.txt
+    -r requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j8
 ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
