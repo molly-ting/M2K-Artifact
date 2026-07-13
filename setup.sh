@@ -28,6 +28,7 @@ APT_PACKAGES=(
   lldb-13
   gdb
   file
+  git-lfs
   g++-multilib
   gcc-multilib
   libcap-dev
@@ -220,20 +221,27 @@ create_python_venv() {
     log 'Python virtual environment already exists'
   fi
 
-  log 'Installing Python requirements'
-  "${VENV_DIR}/bin/python" -m pip install --upgrade pip
-
-  log 'Installing CPU PyTorch packages'
+  log 'Installing Python build tools'
   "${VENV_DIR}/bin/python" -m pip install --no-cache-dir --progress-bar on \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torch-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://mirrors.aliyun.com/pytorch-wheels/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl
+    --upgrade pip setuptools wheel packaging psutil
 
-  "${VENV_DIR}/bin/python" -m pip install \
-    -i https://mirrors.aliyun.com/pypi/simple/ \
+  log 'Installing CUDA PyTorch packages'
+  "${VENV_DIR}/bin/python" -m pip install --no-cache-dir --progress-bar on \
+    --index-url https://download.pytorch.org/whl/cu126 \
+    torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0
+
+  "${VENV_DIR}/bin/python" -m pip install --no-cache-dir --progress-bar on \
     --prefer-binary \
     -r "${PROJECT_DIR}/requirements.txt"
   "${VENV_DIR}/bin/python" -m pip check
+}
+
+ensure_artifact_lfs() {
+  log 'Fetching Git LFS files'
+  git -C "${PROJECT_DIR}" lfs pull
+
+  log 'Validating bundled LLVM bitcode'
+  llvm-dis-13 "${PROJECT_DIR}/example/fp8_common_combined.bc" -o /dev/null
 }
 
 build_cuklee() {
@@ -251,6 +259,7 @@ main() {
   install_global_pip_packages
   ensure_z3
   ensure_signed_clang
+  ensure_artifact_lfs
   create_python_venv
   build_cuklee
 
