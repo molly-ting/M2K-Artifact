@@ -66,24 +66,9 @@ COPY . /home/M2K-Artifact
 RUN python3 -m pip install --no-cache-dir --progress-bar on \
     --upgrade pip setuptools wheel packaging psutil
 
-RUN wget --progress=bar:force:noscroll \
-    -O /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://download.pytorch.org/whl/cpu/torch-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && python3 -m pip install --no-cache-dir \
-    /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && rm /tmp/torch-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
-
-RUN wget --progress=bar:force:noscroll \
-    -O /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://download.pytorch.org/whl/cpu/torchvision-0.22.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && wget --progress=bar:force:noscroll \
-    -O /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    https://download.pytorch.org/whl/cpu/torchaudio-2.7.0%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && python3 -m pip install --no-cache-dir \
-    /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    && rm /tmp/torchvision-0.22.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl \
-    /tmp/torchaudio-2.7.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl
+RUN python3 -m pip install --no-cache-dir --progress-bar on \
+    --index-url https://download.pytorch.org/whl/cu126 \
+    torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0
 
 RUN python3 -m pip install --no-cache-dir --progress-bar on \
     --prefer-binary \
