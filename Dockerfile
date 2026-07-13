@@ -59,7 +59,7 @@ RUN [ ! -d /home/z3 ] && git clone --progress --depth 1 --branch z3-4.12.2 \
 WORKDIR /home/z3
 RUN python3 scripts/mk_make.py
 WORKDIR /home/z3/build
-RUN make -j"$(nproc)"
+RUN make -j${BUILD_JOBS}
 RUN make install
 
 RUN apt install -y wget gnupg2 curl lsb-release
@@ -79,11 +79,5 @@ RUN python3 -m pip install --no-cache-dir --progress-bar on \
     --prefer-binary \
     -r requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
-RUN cmake --build cuKLEE/build -j8
-WORKDIR /home/M2K-Artifact/cuKLEE/klee
-RUN mkdir -p build
-WORKDIR /home/M2K-Artifact/cuKLEE/klee/build
-RUN cmake ..
-RUN make -j8
-ENV PATH="/home/M2K-Artifact/cuKLEE/build:/home/M2K-Artifact/cuKLEE/klee/build/bin:$PATH"
-WORKDIR /home/M2K-Artifact
+RUN cmake --build cuKLEE/build -j${BUILD_JOBS}
+ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
