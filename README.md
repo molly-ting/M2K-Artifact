@@ -250,7 +250,7 @@ python3 -m HFProbe.backend.config_agent_vllm --model-architecture=Qwen2ForCausal
 
 (take ~2min)
 
-**Console Output:**
+**Console output:**
 
 ```text
 prompt: For models using Qwen2ForCausalLM, analyze the python code in vllm. Generate model config to trigger ...
@@ -347,7 +347,7 @@ The input files are stored in the directory: results/vllm/input
 
 **File output:**
 
-The inferred input constraints for the `dynamic_scaled_fp8_quant` kernel are stored in `results/vllm/input/dynamic_scaled_fp8_quant.json`, as shown below. The first two parameters are two-dimensional tensors. Their first dimension is equal to the batch size multiplied by the sequence length, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a single element.
+The inferred interface constraints for the `dynamic_scaled_fp8_quant` kernel are stored in `results/vllm/input/dynamic_scaled_fp8_quant.json`, as shown below. The first two parameters are two-dimensional tensors. Their first dimension is equal to the batch size multiplied by the sequence length, while their second dimension is the model-specific constant `896`. The third parameter is a one-dimensional tensor with a single element.
 ```json
 [
     {
@@ -389,6 +389,9 @@ The inferred input constraints for the `dynamic_scaled_fp8_quant` kernel are sto
 
 
 **Step 5: Executing cuKLEE** 
+
+**Command:**
+
 ```bash
 mkdir example/out
 cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_quant.json
@@ -399,13 +402,14 @@ cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_qu
 (take ~35s)
 
 `cuKLEE/run.py` accepts the following options:
-- `--input-dir=<dir>` — directory containing the input json files.
-- `--cuklee-out-dir=<dir>` — directory containing z3 constraints for each bug.
-- `--log-dir=<dir>` — directory containing console output for each input file.
+- `--input-dir=<dir>` — directory containing the interface constraints generated in Step 4.
+- `--cuklee-out-dir=<dir>` — directory storing z3 constraints for each detected bug.
+- `--log-dir=<dir>` — directory storing console output for each input file.
 
-**Expected output:**
 
-console output:
+
+**Console output:**
+
 ```
 running opt-13 -load-pass-plugin libSignednessPropagationPass.so -passes=signedness-prop example/fp8_common_combined.bc > example/fp8_common_combined_modified.bc
 Pass applied. Modified file: example/fp8_common_combined_modified.bc
@@ -422,7 +426,12 @@ cuKLEE: done: partially completed paths = 22
 cuKLEE: done: generated tests = 0
 ```
 
+The above console output shows that two integer overflow bugs are detected, one is in line 19 and the other is in line 128. 
+
 **Step 6: Validating Reported Bugs** 
+
+**Command:**
+
 ```bash
 # if you haven't run previous HFProbe steps, copy example/dynamic_scaled_fp8_quant.json to HFProbe/results/vllm/input 
 python3 HFProbe/validation/run_vllm_validation.py --profile-out-dir=HFProbe/results/vllm --cuklee-out-dir=example/out --kernel-name=dynamic_scaled_fp8_quant --index=0 --model-id=Qwen/Qwen2-0.5B-Instruct --config-file=example/config/dynamic_scaled_fp8_quant.json
@@ -447,8 +456,8 @@ python3 -m pip uninstall z3
 python3 -m pip install --force-reinstall z3-solver
 ```
 
-**Expected output:** 
-console output
+**Console output:** 
+
 ```text
 INFO 07-11 13:12:01 [__init__.py:247] No platform detected, vLLM is running on UnspecifiedPlatform
 patch current platform as cuda platform
@@ -469,6 +478,7 @@ Adding requests: 100%|███████████████████�
 Processed prompts: 100%|█| 64/64 [06:07<00:00,  5.74s/it, est. speed input: 5704.52 toks/s, output: 0.17]
 Running model Qwen/Qwen2-0.5B-Instruct with batch_size: 64 seq_len: 32768 config_file: example/config/dynamic_scaled_fp8_quant.json can trigger bug 128_24_18-asm-15242_15133_4337_io.txt for dynamic_scaled_fp8_quant.
 ```
+
 validation/Qwen_Qwen2-0.5B-Instruct_dynamic_scaled_fp8_quant_0_validate_results.json
 ```json
 {
