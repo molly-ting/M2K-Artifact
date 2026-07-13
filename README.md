@@ -543,7 +543,7 @@ validation result: evaluation/section-6-1-bug-detection/new_results/<vllm/huggin
 ```
 
 run small dataset: 
-we extract all the models and configs to trigger bug reports.
+We extract all the models and configs to trigger bug reports. This script also excludes the validation step as we only run on buugy cuda code and the validation takes quite long time because it may run the model on large prompt as show in step 5.
 ```bash
 # apply on https://huggingface.co/settings/tokens
 export HF_TOKEN=<Hugging Face Token>

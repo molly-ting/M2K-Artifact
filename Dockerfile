@@ -67,8 +67,7 @@ RUN apt install -y nano
 
 WORKDIR /home/M2K-Artifact
 COPY . /home/M2K-Artifact
-RUN git lfs pull && \
-    llvm-dis-13 example/fp8_common_combined.bc -o /dev/null
+RUN git lfs pull
 RUN python3 -m pip install --no-cache-dir --progress-bar on \
     --upgrade pip setuptools wheel packaging psutil
 
@@ -81,4 +80,9 @@ RUN python3 -m pip install --no-cache-dir --progress-bar on \
     -r requirements.txt
 RUN cmake -S cuKLEE -B cuKLEE/build
 RUN cmake --build cuKLEE/build -j8
-ENV PATH="/home/M2K-Artifact/cuKLEE/build:$PATH"
+WORKDIR /home/M2K-Artifact/cuKLEE/klee
+RUN mkdir -p build
+WORKDIR /home/M2K-Artifact/cuKLEE/klee/build
+RUN cmake ..
+RUN make -j8
+ENV PATH="/home/M2K-Artifact/cuKLEE/build:/home/M2K-Artifact/cuKLEE/klee/build/bin:$PATH"
