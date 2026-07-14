@@ -10,6 +10,10 @@ LLVM_PROJECT_DIR="${DEPS_DIR}/llvm-project"
 Z3_DIR="${DEPS_DIR}/z3"
 Z3_REF="z3-4.12.2"
 
+# Make tools installed by `python3 -m pip install --user` available to the
+# CMake processes started by this script (notably the KLEE `lit` tool).
+export PATH="${HOME}/.local/bin:${PATH}"
+
 APT_PACKAGES=(
   tzdata
   g++

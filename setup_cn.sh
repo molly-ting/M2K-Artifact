@@ -15,6 +15,10 @@ PYPI_INDEX_URL="https://mirrors.aliyun.com/pypi/simple/"
 PYTORCH_INDEX_URL="https://download.pytorch.org/whl/cu126"
 LLVM_APT_MIRROR="https://mirrors.tuna.tsinghua.edu.cn/llvm-apt"
 
+# Make tools installed by `python3 -m pip install --user` available to the
+# CMake processes started by this script (notably the KLEE `lit` tool).
+export PATH="${HOME}/.local/bin:${PATH}"
+
 APT_PACKAGES=(
   tzdata
   g++
@@ -61,7 +65,7 @@ PIP_PACKAGES=(
 )
 
 log() {
-  printf '[setup_cn] %s\n' "$*"
+  printf '[setup] %s\n' "$*"
 }
 
 have_cmd() {
@@ -102,24 +106,46 @@ ensure_llvm_repo() {
   fi
 
   local codename
+  local llvm_distribution
+  local llvm_release_url
+  local llvm_source_file='/etc/apt/sources.list.d/llvm-toolchain-13.list'
   codename="$(lsb_release -cs)"
+  llvm_distribution="llvm-toolchain-${codename}-13"
+  llvm_release_url="${LLVM_APT_MIRROR}/${codename}/dists/${llvm_distribution}/Release"
+
+  if ! curl -fsSL -o /dev/null "${llvm_release_url}"; then
+    # Remove a bad source written by an older version of this script so that
+    # subsequent apt-get commands are not left broken.
+    if [[ -f "${llvm_source_file}" ]] \
+      && grep -Fq "${LLVM_APT_MIRROR}/${codename}/ ${llvm_distribution}" "${llvm_source_file}"; then
+      log "Removing unavailable LLVM 13 repository for ${codename}"
+      sudo_cmd rm -f "${llvm_source_file}"
+    fi
+
+    printf 'LLVM 13 packages are not published for Ubuntu %s by the configured LLVM mirror.\n' \
+      "${codename}" >&2
+    printf 'This artifact requires Ubuntu 22.04 (jammy); use the provided Dockerfile or run setup_cn.sh on jammy.\n' >&2
+    exit 1
+  fi
 
   log "Adding Tsinghua LLVM mirror for ${codename}"
   curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key \
     | sudo_cmd tee /usr/share/keyrings/llvm-snapshot.gpg.key >/dev/null
 
-  printf 'deb [signed-by=/usr/share/keyrings/llvm-snapshot.gpg.key] %s/%s/ llvm-toolchain-%s-13 main\n' \
-    "${LLVM_APT_MIRROR}" "${codename}" "${codename}" \
-    | sudo_cmd tee /etc/apt/sources.list.d/llvm-toolchain-13.list >/dev/null
+  printf 'deb [signed-by=/usr/share/keyrings/llvm-snapshot.gpg.key] %s/%s/ %s main\n' \
+    "${LLVM_APT_MIRROR}" "${codename}" "${llvm_distribution}" \
+    | sudo_cmd tee "${llvm_source_file}" >/dev/null
 
   sudo_cmd apt-get update
 }
 
 install_apt_packages() {
   require_ubuntu_apt
+  # Validate the versioned LLVM repository before any apt update. This also
+  # repairs a stale invalid source left by an earlier setup attempt.
+  ensure_llvm_repo
   ensure_universe_repo
   sudo_cmd apt-get update
-  ensure_llvm_repo
 
   local missing=()
   local pkg
