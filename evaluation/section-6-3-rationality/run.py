@@ -1,8 +1,6 @@
 
 import argparse
 import enum
-
-from vllm import LLM, SamplingParams
 import os, json
 import traceback
 import torch
@@ -25,7 +23,7 @@ def run_klee_on_bc_file(bc_file, logDir, outputdir):
             print(f"Log file {log_file} already exists. Skipping run for {bc_file}.")
             return True         
 
-        outputdir = os.path.join(outputdir, os.path.splitext(os.path.basename(bc_file))[0])
+        # outputdir = os.path.join(outputdir, os.path.splitext(os.path.basename(bc_file))[0])
         os.makedirs(outputdir, exist_ok=True)
         
         print(f"Running cuKLEE on {bc_file}")
@@ -95,6 +93,7 @@ possible_len_keys = [
 ]
 
 def runVllm(modelId, framework_config, model_config, op_name):
+    from vllm import LLM, SamplingParams
     global batch_size_configs
     global seq_lens_configs
     global bug_res

@@ -6778,7 +6778,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     }
 
     if (const llvm::BinaryOperator *binOp = llvm::dyn_cast<llvm::BinaryOperator>(i)) {
-      bool isSigned = isBinaryOpSigned(i);
+      bool isSigned = binOp->hasNoSignedWrap() || isBinaryOpSigned(i);
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         if (isSigned) {
           leftCE->setSigned(true);
@@ -6884,7 +6884,7 @@ void Executor::executeInstruction(ExecutionState &state, KInstruction *ki) {
     }
 
     if (const llvm::BinaryOperator *binOp = llvm::dyn_cast<llvm::BinaryOperator>(i)) {
-      bool isSigned = isBinaryOpSigned(i);
+      bool isSigned = binOp->hasNoSignedWrap() || isBinaryOpSigned(i);
       if (auto leftCE = dyn_cast<ConstantExpr>(left)) {
         if (isSigned) {
           leftCE->setSigned(true);
@@ -11333,7 +11333,7 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
     return;
   }
 
-  if (callable->getName().find("St7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc")!=std::string::npos ||
+  if (callable->getName().find("St7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6append")!=std::string::npos ||
       callable->getName().find("_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLERKS4_")!=std::string::npos ||
       callable->getName().find("_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLEPKc")!=std::string::npos) {
     bindLocal(target, state, arguments[0]);
@@ -13063,6 +13063,18 @@ void Executor::callExternalFunction(ExecutionState &state, KInstruction *target,
       klee_warning("%s", os.str().c_str());
     else
       klee_warning_once(callable->getValue(), "%s", os.str().c_str());
+  }
+
+  const bool isBasicStringInsert =
+      callable->getName().find("NSt7__cxx1112basic_string") !=
+          std::string::npos &&
+      callable->getName().find("IcSt11char_traitsIcESaIcEE6insert") !=
+          std::string::npos;
+  if (isBasicStringInsert) {
+    Type *resultType = target->inst->getType();
+    if (!resultType->isVoidTy())
+      bindLocal(target, state, arguments[0]);
+    return;
   }
 
   bool success = externalDispatcher->executeCall(callable, target->inst, args);
