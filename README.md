@@ -418,7 +418,20 @@ cuKLEE --timeout=3600 --cuklee-out-dir=example/out example/dynamic_scaled_fp8_qu
 - `--cuklee-out-dir=<dir>` — directory storing z3 constraints for each detected bug.
 - `--log-dir=<dir>` — directory storing console output for each input file.
 
+possible issue:
 
+The compiled CUDA files in the `evaluation/section-6-1-bug-detection/benchmarks/<huggingface/vllm/research_papers>/compiled_files` and `example` directories are large and are tracked using Git LFS. If you clone the repository without downloading the Git LFS objects, running cuKLEE may produce an error such as:
+```text
+ERROR: error loading program...
+...: error: expected top-level entity
+```
+
+solution:
+
+Download the Git LFS objects by running:
+```bash
+git lfs pull
+```
 
 **Console output:**
 
