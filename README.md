@@ -651,6 +651,7 @@ python3 run.py --without=H
 The analysis results are stored in the  `${REPO_ROOT}/evaluation/section-6-3-rationality/wo_h/log` directory.
 
 **(2) Without cuKLEE:**
+This needs to be run on the GPU.
 
 ```bash
 cd evaluation/section-6-3-rationality
