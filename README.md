@@ -175,23 +175,23 @@ input/          # interface constraints for cuKLEE (in step 4)
                 [
                 {
                     "shape": [
-                    1,
-                    896
+                        1,
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
                 },
                 {
                     "shape": [
-                    1,
-                    896
+                        1,
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
                 },
                 {
                     "shape": [
-                    896
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
@@ -206,23 +206,23 @@ input/          # interface constraints for cuKLEE (in step 4)
                 [
                 {
                     "shape": [
-                    7,
-                    896
+                        7,
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
                 },
                 {
                     "shape": [
-                    7,
-                    896
+                        7,
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
                 },
                 {
                     "shape": [
-                    896
+                        896
                     ],
                     "dtype": "torch.float16",
                     "type": "torch.Tensor"
