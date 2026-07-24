@@ -165,8 +165,9 @@ def compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True):
 
     os.chdir(original_dir)
 
-def compile_vllm():
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "vllm")
+def compile_vllm(outputDir):
+    if not outputDir:
+        outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "vllm")
     inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "vllm", "cuda_files")
     compileDir(outputDir, inputDir, filter_test=True, contain_dirname=True)
     original_dir = os.getcwd()
@@ -183,9 +184,10 @@ def compile_vllm():
     ])
     os.chdir(original_dir)
 
-def compile_paper():
+def compile_paper(outputDir):
     original_dir = os.getcwd()
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "papers")
+    if not outputDir:
+        outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "papers")
     inputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "research_papers", "cuda_files")
     for dname in os.listdir(inputDir):
         dir_path = os.path.join(inputDir, dname)
@@ -280,9 +282,10 @@ def _sanitize_cuda_source(cu_file, out_dir):
     source_path.write_text(sanitized_text)
     return source_path
 
-def compile_hf():
+def compile_hf(outputDir):
     original_dir = os.getcwd()
-    outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "huggingface")
+    if not outputDir:
+        outputDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "new_compiled_files", "huggingface")
     targetDir = os.path.join(project_path, "evaluation", "section-6-1-bug-detection", "benchmarks", "huggingface", "cuda_files")
     os.makedirs(outputDir, exist_ok=True)
 
@@ -400,11 +403,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.compile_vllm:
-        compile_vllm()
+        compile_vllm(args.compiled_kernel_dir)
     elif args.compile_paper:
-        compile_paper()
+        compile_paper(args.compiled_kernel_dir)
     elif args.compile_hf:
-        compile_hf()
+        compile_hf(args.compiled_kernel_dir)
     elif args.cuda_source_dir:
         if not args.compiled_kernel_dir:
             args.compiled_kernel_dir = args.cuda_source_dir
