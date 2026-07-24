@@ -25,6 +25,28 @@ EXAMPLE_RENAMES = {
     "common_combined.ll": "fp8_common_combined.ll",
 }
 
+BENCHMARK_COMPILE_COMMANDS = [
+    [
+        "python3",
+        "cuKLEE/compile_cuda.py",
+        "--compile-vllm",
+        "--compiled-kernel-dir=evaluation/section-6-1-bug-detection/benchmarks/vllm/compiled_files",
+    ],
+    [
+        "python3",
+        "cuKLEE/compile_cuda.py",
+        "--compile-hf",
+        "--compiled-kernel-dir=evaluation/section-6-1-bug-detection/benchmarks/huggingface/compiled_files",
+    ],
+    [
+        "python3",
+        "cuKLEE/compile_cuda.py",
+        "--compile-paper",
+        "--compiled-kernel-dir=evaluation/section-6-1-bug-detection/benchmarks/research_papers/compiled_files",
+    ],
+]
+
+
 def remove_bitcode_and_ir_files() -> int:
     removed = 0
     for clean_dir in CLEAN_DIRS:
@@ -69,7 +91,10 @@ def main() -> int:
 
     run_command(EXAMPLE_COMPILE_COMMAND)
     renamed = rename_example_outputs()
-    print(f"Renamed {renamed} example outputs to fp8_common names")
+    # print(f"Renamed {renamed} example outputs to fp8_common names")
+
+    for command in BENCHMARK_COMPILE_COMMANDS:
+        run_command(command)
 
     return 0
 
